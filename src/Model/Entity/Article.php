@@ -8,7 +8,7 @@ class Article extends Entity
 {
     protected $_accessible = [
         '*' => true,
-        'id' => false,
+        'ida' => false,
         'published' => false,
     ];
 }
