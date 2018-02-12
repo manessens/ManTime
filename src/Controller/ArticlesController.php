@@ -14,7 +14,7 @@ class ArticlesController extends AppController
 
     public function view($ida = null)
     {
-        $article = $this->Articles->findByPublished($ida)->firstOrFail();
+        $article = $this->Articles->findByIda($ida)->firstOrFail();
         $this->set(compact('article'));
     }
 
