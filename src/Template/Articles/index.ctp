@@ -12,7 +12,7 @@
     <?php foreach ($articles as $article): ?>
     <tr>
         <td>
-            <?= $this->Html->link($article->title, ['action' => 'view', $article->ida]) ?>
+            <?= $this->Html->link($article->title, ['action' => 'view', $article->ref]) ?>
         </td>
         <td>
             <?= $article->created->format(DATE_RFC850) ?>

@@ -12,9 +12,9 @@ class ArticlesController extends AppController
         $this->set(compact('articles'));
     }
 
-    public function view($ida = null)
+    public function view($ref = null)
     {
-        $article = $this->Articles->findByIda($ida)->firstOrFail();
+        $article = $this->Articles->findByRef($ref)->firstOrFail();
         $this->set(compact('article'));
     }
 
