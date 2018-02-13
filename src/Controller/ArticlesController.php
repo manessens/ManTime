@@ -53,11 +53,11 @@ class ArticlesController extends AppController
         $this->set('article', $article);
     }
 
-    public function delete($slug)
+    public function delete($ref)
     {
         $this->request->allowMethod(['post', 'delete']);
 
-        $article = $this->Articles->findBySlug($slug)->firstOrFail();
+        $article = $this->Articles->findByRef($ref)->firstOrFail();
         if ($this->Articles->delete($article)) {
             $this->Flash->success(__('L\'article {0} a été supprimé.', $article->title));
             return $this->redirect(['action' => 'index']);
