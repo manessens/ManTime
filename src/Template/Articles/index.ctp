@@ -1,5 +1,5 @@
 
-<?= $this->set('controller', 'Articles'); ?>
+<?= $this->set('control', 'Articles'); ?>
 <?= $this->element('menuleft') ?>
 <div class="articles view large-9 medium-8 columns content">
     <h1>Articles</h1>
