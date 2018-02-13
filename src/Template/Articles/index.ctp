@@ -8,7 +8,7 @@
             <th>Titre</th>
             <th>Créé le</th>
         </tr>
-<?= $this->set('test', 'toto'); ?>
+<?php $this->set('test', 'toto'); ?>
         <!-- C'est ici que nous bouclons sur notre objet Query $articles pour afficher les informations de chaque article -->
 
         <?php foreach ($articles as $article): ?>
