@@ -18,10 +18,10 @@
             <?= $article->created->format(DATE_RFC850) ?>
         </td>
         <td>
-            <?= $this->Html->link('Modifier', ['action' => 'edit', $article->slug]) ?>
+            <?= $this->Html->link('Modifier', ['action' => 'edit', $article->ref]) ?>
             <?= $this->Form->postLink(
                 'Supprimer',
-                ['action' => 'delete', $article->slug],
+                ['action' => 'delete', $article->ref],
                 ['confirm' => 'Êtes-vous sûr ?'])
             ?>
         </td>
