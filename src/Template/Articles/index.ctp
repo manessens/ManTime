@@ -18,7 +18,12 @@
             <?= $article->created->format(DATE_RFC850) ?>
         </td>
         <td>
-            <?= $this->Html->link('Modifier', ['action' => 'edit', $article->ref]) ?>
+            <?= $this->Html->link('Modifier', ['action' => 'edit', $article->slug]) ?>
+            <?= $this->Form->postLink(
+                'Supprimer',
+                ['action' => 'delete', $article->slug],
+                ['confirm' => 'Êtes-vous sûr ?'])
+            ?>
         </td>
     </tr>
     <?php endforeach; ?>
