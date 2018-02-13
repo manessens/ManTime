@@ -66,4 +66,9 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+    public function redirectArticles()
+    {
+        $this->redirect(['controller' => 'Articles','action' => 'index']);
+    }
 }
