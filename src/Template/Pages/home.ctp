@@ -27,7 +27,7 @@ if (!Configure::read('debug')) :
     );
 endif;
 
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
+$cakeDescription = 'ManTime premier essaies';
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 </head>
 <body class="home">
     <h1>ManTime</h1>
-    <?= $this->Html->link('Voir les Articles', ['action' => 'redirectArticles']) ?>
+    <?= $this->Html->link('Voir les Articles', ['controller' => 'Articles' , 'action' => 'index']) ?>
 
 </body>
 </html>
