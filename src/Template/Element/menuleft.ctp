@@ -5,6 +5,6 @@
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users','action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
             <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New'), ['controller' => $controlToUse, 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New'), ['action' => 'add']) ?></li>
     </ul>
 </nav>

@@ -1,5 +1,4 @@
 
-<?= $this->set('controlToUse', 'Articles'); ?>
 <?= $this->element('menuleft') ?>
 <div class="articles view large-9 medium-8 columns content">
     <h1>Articles</h1>
@@ -9,7 +8,7 @@
             <th>Titre</th>
             <th>Créé le</th>
         </tr>
-
+<?= $this->set('test', 'toto'); ?>
         <!-- C'est ici que nous bouclons sur notre objet Query $articles pour afficher les informations de chaque article -->
 
         <?php foreach ($articles as $article): ?>
