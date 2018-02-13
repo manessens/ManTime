@@ -5,6 +5,9 @@
 /logs/*
 /tmp/*
 /vendor/*
+/webroot/index.php
+/webroot/.htaccess
+.htaccess
 
 # OS generated files #
 ######################
