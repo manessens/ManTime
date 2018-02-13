@@ -9,6 +9,7 @@ class Article extends Entity
     protected $_accessible = [
         '*' => true,
         'ida' => false,
-        'published' => false,
+        'ref' => false,
+        'published' => true,
     ];
 }
