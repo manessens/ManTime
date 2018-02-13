@@ -16,7 +16,7 @@
     </ul>
 </nav>
 <div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->idu) ?></h3>
+    <h3><?= h($user->email) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Prenom') ?></th>
@@ -25,10 +25,6 @@
         <tr>
             <th scope="row"><?= __('Nom') ?></th>
             <td><?= h($user->nom) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Email') ?></th>
-            <td><?= h($user->email) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Mdp') ?></th>
