@@ -18,7 +18,7 @@
             <?= $article->created->format(DATE_RFC850) ?>
         </td>
         <td>
-            <?= $this->Html->link('Modifier', ['action' => 'edit', $article->slug]) ?>
+            <?= $this->Html->link('Modifier', ['action' => 'edit', $article->ref]) ?>
         </td>
     </tr>
     <?php endforeach; ?>
