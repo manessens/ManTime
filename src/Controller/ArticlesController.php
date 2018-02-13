@@ -38,9 +38,19 @@ class ArticlesController extends AppController
 
     }
 
-    public function edit($published = null)
+    public function edit($ref)
     {
+        $article = $this->Articles->findByRef($ref)->firstOrFail();
+        if ($this->request->is(['post', 'put'])) {
+            $this->Articles->patchEntity($article, $this->request->getData());
+            if ($this->Articles->save($article)) {
+                $this->Flash->success(__('Votre article a été mis à jour.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Impossible de mettre à jour l\'article.'));
+        }
 
+        $this->set('article', $article);
     }
 
 }

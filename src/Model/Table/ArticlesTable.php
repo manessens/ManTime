@@ -4,6 +4,7 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\Utility\Text;
+use Cake\Validation\Validator;
 
 class ArticlesTable extends Table
 {
@@ -20,6 +21,18 @@ class ArticlesTable extends Table
             // maximum définie dans notre schéma
             $entity->ref = $ref;
         }
+    }
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->notEmpty('title')
+            ->minLength('title', 10)
+            ->maxLength('title', 255)
+
+            ->notEmpty('body')
+            ->minLength('body', 10);
+
+        return $validator;
     }
 
 }
