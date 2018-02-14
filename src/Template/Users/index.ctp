@@ -16,7 +16,7 @@
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('mdp') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('actif') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prem_connect') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('admin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@
                 <td><?= h($user->email) ?></td>
                 <!-- <td><?= h($user->mdp) ?></td> -->
                 <td><?= $this->Number->format($user->actif) ?></td>
-                <td><?= $this->Number->format($user->prem_connect) ?></td>
+                <td><?= $this->Number->format($user->admin) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $user->idu]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?>

@@ -32,10 +32,11 @@ class User extends Entity
     protected $_accessible = [
         'prenom' => true,
         'nom' => true,
-        'email' => true,
-        'mdp' => true,
+        'email' => false,
+        'mdp' => false,
         'actif' => true,
         'prem_connect' => true,
+        'admin' => true,
         'articles' => true
     ];
 
@@ -43,7 +44,7 @@ class User extends Entity
     {
         if (strlen($value)) {
             $hasher = new DefaultPasswordHasher();
-            
+
             return $hasher->hash($value);
         }
     }

@@ -82,6 +82,10 @@ class UsersTable extends Table
             ->integer('prem_connect')
             ->allowEmpty('prem_connect');
 
+        $validator
+            ->integer('admin')
+            ->allowEmpty('admin');
+
         return $validator;
     }
 
