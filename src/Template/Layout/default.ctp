@@ -49,7 +49,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
-        <?php if( null !== $this->request->session->read('User') ): ?>
+        <?php $session = $this->request->session();
+        if( null !== $session ): ?>
             <?= $this->element('menuleft') ?>
         <?php endif; ?>
         <?= $this->fetch('content') ?>
