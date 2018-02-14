@@ -1,4 +1,3 @@
-<?= $this->element('menuleft') ?>
 
 <div class="users index large-9 medium-8 columns content">
     <h1>Login</h1>
