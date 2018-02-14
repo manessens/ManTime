@@ -49,10 +49,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
-        <?php $session = $this->request->session();
-        if( null !== $session->read('User.email') ): ?>
-            <?= $this->element('menuleft') ?>
-        <?php endif; ?>
+        <?= $this->element('menuleft') ?>
         <?= $this->fetch('content') ?>
     </div>
     <footer>
