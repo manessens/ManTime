@@ -141,7 +141,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['add', 'edit']) && $user->admin === 1 ) {
+        if (in_array($action, ['add', 'edit']) && $user['admin'] === 1 ) {
             return true;
         }
 
