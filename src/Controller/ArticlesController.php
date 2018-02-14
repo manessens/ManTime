@@ -10,6 +10,7 @@ class ArticlesController extends AppController
         $this->loadComponent('Paginator');
         $articles = $this->Paginator->paginate($this->Articles->find());
         $this->set(compact('articles'));
+        $this->set('controller', 'Articles');
     }
 
     public function view($ref = null)
@@ -62,6 +63,27 @@ class ArticlesController extends AppController
             $this->Flash->success(__('L\'article {0} a été supprimé.', $article->title));
             return $this->redirect(['action' => 'index']);
         }
+    }
+
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+        // Les actions 'add' et 'tags' sont toujours autorisés pour les utilisateur
+        // authentifiés sur l'application
+        if (in_array($action, ['add', 'tags']) && $user->admin === 1) {
+            return true;
+        }
+
+        // Toutes les autres actions nécessitent un slug
+        $ref = $this->request->getParam('pass.0');
+        if (!$ref) {
+            return false;
+        }
+
+        // On vérifie que l'article appartient à l'utilisateur connecté
+        $article = $this->Articles->findByRef($ref)->first();
+
+        return $article->user_id === $user['id'];
     }
 
 }
