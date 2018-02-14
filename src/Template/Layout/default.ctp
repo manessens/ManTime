@@ -50,6 +50,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?php $session = $this->request->session();
+        pr($session);exit;
         if( null !== $session ): ?>
             <?= $this->element('menuleft') ?>
         <?php endif; ?>
