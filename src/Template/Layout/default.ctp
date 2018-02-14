@@ -49,7 +49,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
-        <?php if( isset($user) ): ?>
+        <?php if(!$authUser): ?>
             <?= $this->element('menuleft') ?>
         <?php endif; ?>
         <?= $this->fetch('content') ?>
