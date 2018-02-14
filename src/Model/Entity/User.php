@@ -43,7 +43,7 @@ class User extends Entity
     {
         if (strlen($value)) {
             $hasher = new DefaultPasswordHasher();
-
+            
             return $hasher->hash($value);
         }
     }
