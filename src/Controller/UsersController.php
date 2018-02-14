@@ -30,7 +30,7 @@ class UsersController extends AppController
         parent::initialize();
         $this->Auth->allow(['logout']);
     }
-    
+
     public function login()
     {
         if ($this->request->is('post')) {
