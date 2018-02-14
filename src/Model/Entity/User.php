@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property string $mdp
  * @property int $actif
+ * @property int $admin
  * @property int $prem_connect
  *
  * @property \App\Model\Entity\Article[] $articles
