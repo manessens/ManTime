@@ -39,7 +39,7 @@ class UsersController extends AppController
             if ($user) {
                 $this->Auth->setUser($user);
                 // return $this->redirect($this->Auth->redirectUrl());
-                $this->$this->set('login','true');
+                $this->set('login','true');
                 return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
             }
             $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
