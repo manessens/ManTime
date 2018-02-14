@@ -27,7 +27,7 @@
                 <td><?= h($user->prenom) ?></td>
                 <td><?= h($user->nom) ?></td>
                 <td><?= h($user->email) ?></td>
-                <td><?= h($user->mdp) ?></td>
+                <!-- <td><?= h($user->mdp) ?></td> -->
                 <td><?= $this->Number->format($user->actif) ?></td>
                 <td><?= $this->Number->format($user->prem_connect) ?></td>
                 <td class="actions">
