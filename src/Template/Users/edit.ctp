@@ -19,7 +19,9 @@
             echo $this->Form->control('nom');
             // echo $this->Form->control('email');
             // echo $this->Form->control('mdp');
+            echo "<legend> Actif </legend>" ;
             echo $this->Form->checkbox('actif');
+            echo "<legend> Première connection </legend>" ;
             echo $this->Form->checkbox('prem_connect');
         ?>
     </fieldset>
