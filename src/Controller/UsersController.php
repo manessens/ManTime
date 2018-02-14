@@ -37,10 +37,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
-                $this->Auth->setUser($user);
-                // return $this->redirect($this->Auth->redirectUrl());
-                $this->set('login','true');
-                return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
+                if ($user->actif) {
+                    $this->Auth->setUser($user);
+                    // return $this->redirect($this->Auth->redirectUrl());
+                    return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
+                }
             }
             $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
         }
@@ -141,7 +142,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['add', 'edit']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['add', 'edit','delete']) && $user['admin'] === 1 ) {
             return true;
         }
 

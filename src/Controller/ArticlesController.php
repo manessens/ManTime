@@ -75,8 +75,8 @@ class ArticlesController extends AppController
         if (in_array($action, ['index', 'view']) ) {
             return true;
         }
-        
-        if (in_array($action, ['add']) && $user['admin'] === 1 ) {
+
+        if (in_array($action, ['add','delete']) && $user['admin'] === 1 ) {
             return true;
         }
 
