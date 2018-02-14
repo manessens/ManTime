@@ -49,7 +49,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
-        <?php if($this->Session->read('Auth.User')): ?>
+        <?php if($this->request->session->read('Auth.User')): ?>
             <?= $this->element('menuleft') ?>
         <?php endif; ?>
         <?= $this->fetch('content') ?>
