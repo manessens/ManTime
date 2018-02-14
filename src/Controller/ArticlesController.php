@@ -1,6 +1,8 @@
 <?php
 // src/Controller/ArticlesController.php
 
+use Cake\Error\Debugger;
+
 namespace App\Controller;
 
 class ArticlesController extends AppController
