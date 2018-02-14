@@ -33,7 +33,7 @@ class User extends Entity
     protected $_accessible = [
         'prenom' => true,
         'nom' => true,
-        'email' => false,
+        'email' => true,
         'mdp' => true,
         'actif' => true,
         'prem_connect' => true,
