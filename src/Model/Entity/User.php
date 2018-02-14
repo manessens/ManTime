@@ -39,7 +39,7 @@ class User extends Entity
         'articles' => true
     ];
 
-    protected function _setPassword($value)
+    protected function _setMdp($value)
     {
         if (strlen($value)) {
             $hasher = new DefaultPasswordHasher();
