@@ -8,9 +8,7 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New'), ['controller' => $controller, 'action' => 'add']) ?></li>
         <?php endif; ?>
-        <?php if( !isset($login) ): ?>
-            <li class="heading"><?= __('Session') ?></li>
-            <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
-        <?php endif; ?>
+        <li class="heading"><?= __('Session') ?></li>
+        <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
     </ul>
 </nav>

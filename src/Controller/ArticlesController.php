@@ -89,7 +89,7 @@ class ArticlesController extends AppController
         // On vérifie que l'article appartient à l'utilisateur connecté
         $article = $this->Articles->findByRef($ref)->first();
 
-        return $article->user_id === $user['id'];
+        return $article->user_id === $user['idu'];
     }
 
 }
