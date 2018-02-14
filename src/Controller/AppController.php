@@ -51,7 +51,7 @@ class AppController extends Controller
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
 
-        $this->viewBuilder()->layout('frontend');
+        // $this->viewBuilder()->layout('frontend'); //modifier template de base
 
         $this->loadComponent('Auth', [
             'authenticate' => [
