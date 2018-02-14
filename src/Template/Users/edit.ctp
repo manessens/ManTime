@@ -18,7 +18,7 @@
             echo $this->Form->control('prenom');
             echo $this->Form->control('nom');
             // echo $this->Form->control('email');
-            echo $this->Form->control('mdp');
+            // echo $this->Form->control('mdp');
             echo $this->Form->checkbox('actif');
             echo $this->Form->checkbox('prem_connect');
         ?>

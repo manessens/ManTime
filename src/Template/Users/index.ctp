@@ -14,7 +14,7 @@
                 <th scope="col"><?= $this->Paginator->sort('prenom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('mdp') ?></th>
+                <!-- <th scope="col"><?= $this->Paginator->sort('mdp') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('actif') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('prem_connect') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
