@@ -72,7 +72,11 @@ class ArticlesController extends AppController
         $action = $this->request->getParam('action');
         // Les actions 'add' et 'tags' sont toujours autorisés pour les utilisateur
         // authentifiés sur l'application
-        if (in_array($action, ['add', 'tags']) ) {
+        if (in_array($action, ['index', 'view']) ) {
+            return true;
+        }
+
+        if (in_array($action, ['add']) && $user->admin === 1 ) {
             return true;
         }
 
