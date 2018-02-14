@@ -34,7 +34,7 @@ class User extends Entity
         'prenom' => true,
         'nom' => true,
         'email' => false,
-        'mdp' => false,
+        'mdp' => true,
         'actif' => true,
         'prem_connect' => true,
         'admin' => true,
