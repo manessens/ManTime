@@ -19,24 +19,24 @@
         <tr>
             <th scope="row"><?= __('Actif') ?></th>
             <td>
-                <?= $this->set('test', $this->Number->format($user->admin) ) ?>
+                <?php $this->set('test', $this->Number->format($user->admin) ) ?>
             </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Prem Connect') ?></th>
             <td><?php if ( $this->Number->format($user->prem_connect) ): ?>
-                    <div class="btn btn-success btn-sm" >Oui</div>
+                    <div class="badge badge-success" >Oui</div>
                 <?php else: ?>
-                    <div class="btn btn-danger btn-sm" >Non</div>
+                    <div class="badge badge-danger" >Non</div>
                 <?php endif; ?>
             </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Admin') ?></th>
             <td><?php if ( $this->Number->format($user->admin) ): ?>
-                    <div class="btn btn-success btn-sm" >Oui</div>
+                    <div class="badge badge-success" >Oui</div>
                 <?php else: ?>
-                    <div class="btn btn-danger btn-sm" >Non</div>
+                    <div class="badge badge-danger " >Non</div>
                 <?php endif; ?>
             </td>
         </tr>
