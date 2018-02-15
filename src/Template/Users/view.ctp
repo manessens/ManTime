@@ -21,10 +21,6 @@
             <td><?= h($user->mdp) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Idu') ?></th>
-            <td><?= $this->Number->format($user->idu) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Actif') ?></th>
             <td><?= $this->Number->format($user->actif) ?></td>
         </tr>
@@ -32,8 +28,17 @@
             <th scope="row"><?= __('Prem Connect') ?></th>
             <td><?= $this->Number->format($user->prem_connect) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('Admin') ?></th>
+            <td><?php if (?><?= $this->Number->format($user->admin) ?><?php ): ?>
+                    Oui
+                <?php else: ?>
+                    Non
+                <?php endif; ?>
+            </td>
+        </tr>
     </table>
-    <div class="related">
+    <!-- <div class="related">
         <h4><?= __('Related Articles') ?></h4>
         <?php if (!empty($user->articles)): ?>
         <table cellpadding="0" cellspacing="0">
@@ -67,5 +72,5 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
-    </div>
+    </div> -->
 </div>
