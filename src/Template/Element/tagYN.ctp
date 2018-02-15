@@ -1,7 +1,7 @@
 
 <td><?php if ( $test ): ?>
-        <div class="badge badge-success " >Oui</div>
+        <div class="badge back-success " >Oui</div>
     <?php else: ?>
-        <div class="badge badge-danger  " >Non</div>
+        <div class="badge back-danger" >Non</div>
     <?php endif; ?>
 </td>

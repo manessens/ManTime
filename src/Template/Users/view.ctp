@@ -20,24 +20,21 @@
             <th scope="row"><?= __('Actif') ?></th>
             <td>
                 <?php $this->set('test', $this->Number->format($user->admin) ) ?>
+                <?= $this->element('tagYN') ?>
             </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Prem Connect') ?></th>
-            <td><?php if ( $this->Number->format($user->prem_connect) ): ?>
-                    <div class="badge badge-success" >Oui</div>
-                <?php else: ?>
-                    <div class="badge badge-danger" >Non</div>
-                <?php endif; ?>
+            <td>
+                <?php $this->set('test', $this->Number->format($user->prem_connect) ) ?>
+                <?= $this->element('tagYN') ?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Admin') ?></th>
-            <td><?php if ( $this->Number->format($user->admin) ): ?>
-                    <div class="badge badge-success" >Oui</div>
-                <?php else: ?>
-                    <div class="badge badge-danger " >Non</div>
-                <?php endif; ?>
+            <th scope="row" class="text-danger"><?= __('Admin') ?></th>
+            <td>
+                <?php $this->set('test', $this->Number->format($user->admin) ) ?>
+                <?= $this->element('tagYN') ?>
             </td>
         </tr>
     </table>

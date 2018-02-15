@@ -1,3 +1,10 @@
 .btn a{
     color: white !important;
 }
+
+.back-danger{
+    background-color: #d43f3a !important;
+}
+.back-success{
+    background-color: #4cae4c !important;
+}
