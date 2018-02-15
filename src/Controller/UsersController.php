@@ -34,9 +34,7 @@ class UsersController extends AppController
 
     public function password($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
+        $user =$this->Users->get($this->Auth->user('idu'));
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             // $user = $this->Users->patchEntity($user, [
