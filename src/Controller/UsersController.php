@@ -168,7 +168,7 @@ class UsersController extends AppController
         $action = $this->request->getParam('action');
         // Les actions 'add' et 'tags' sont toujours autorisés pour les utilisateur
         // authentifiés sur l'application
-        if (in_array($action, ['index', 'view']) ) {
+        if (in_array($action, ['index', 'view', 'password']) ) {
             return true;
         }
 
