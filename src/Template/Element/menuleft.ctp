@@ -15,5 +15,4 @@
         <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
     </ul>
 </nav>
-    <?php endif; ?>
 <?php endif; ?>
