@@ -1,5 +1,7 @@
 <?php if (isset($nomenu)): ?>
-    <?php if ($nomenu === false): ?>
+    <?php if ($nomenu === true): ?>
+    <?php endif; ?>
+<?php else; ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
             <li class="heading"><?= __('Menu') ?></li>
