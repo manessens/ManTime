@@ -30,9 +30,9 @@
                 <td><?= $this->Number->format($user->admin) ?></td>
                 <td class="actions">
                     <div class="btn-group">
-                        <div class="btn btn-info"><?= $this->Html->link(__('View'), ['action' => 'view', $user->idu]) ?></div>
-                        <div class="btn btn-warining"><?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?></div>
-                        <div class="btn btn-danger"><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->idu],
+                        <div class="btn btn-info"><?= $this->Html->link(__('Voir'), ['action' => 'view', $user->idu]) ?></div>
+                        <div class="btn btn-warning"><?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?></div>
+                        <div class="btn btn-danger"><?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $user->idu],
                                 ['confirm' => __('Êtes vous sûr de supprimer # {0}?', $user->email)]) ?></div>
                     </div>
                 </td>
@@ -42,12 +42,12 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->first('<< ' . __('premier')) ?>
             <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next(__('suivant') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->last(__('dernier') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} de {{pages}}, affiché {{current}} enregistrement(s) sur {{count}} total')]) ?></p>
     </div>
 </div>
