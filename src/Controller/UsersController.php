@@ -39,13 +39,13 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user['prem_connect'] = 0;
             if ($this->Users->save($user)) {
-                $this->Flash->success('The password is successfully changed');
+                $this->Flash->success('Le mot de passe à été modifié avec succées');
                 $this->Auth->setUser($user);
                 return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
             } else {
-                $this->Flash->error('There was an error during the save!');
+                $this->Flash->error("Une erreur c'est produit à la sauvegarde !");
             }
-            $this->Flash->error(__('The mdp could not be saved. Please, try again.'));
+            $this->Flash->error(__("Erreur d'identification."));
         }
         $this->set(compact('user'));
     }
@@ -64,7 +64,7 @@ class UsersController extends AppController
                     }
                     return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
                 }
-                $this->Flash->error("Votre compte n'est pas actif");
+                $this->Flash->error("Votre compte n'est pas actif.");
                 return;
             }
             $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
@@ -104,11 +104,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
     }
@@ -128,11 +128,11 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
     }
@@ -151,7 +151,7 @@ class UsersController extends AppController
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Le consultant ne peut être supprimé. Veuillez retenter ultérieurement.'));
         }
 
         return $this->redirect(['action' => 'index']);
