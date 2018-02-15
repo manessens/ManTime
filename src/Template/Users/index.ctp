@@ -14,8 +14,8 @@
                 <th scope="col"><?= $this->Paginator->sort('nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('mdp') ?></th> -->
-                <th scope="col"><?= $this->Paginator->sort('actif',['class' => 'medium-1']) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('admin',['class' => 'medium-1']) ?></th>
+                <th scope="col medium-1"><?= $this->Paginator->sort('actif') ?></th>
+                <th scope="col medium-1"><?= $this->Paginator->sort('admin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -30,10 +30,10 @@
                 <td><?= $this->Number->format($user->admin) ?></td>
                 <td class="actions">
                     <div class="btn-group">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->idu]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->idu],
-                                ['confirm' => __('Êtes vous sûr de supprimer # {0}?', $user->email)]) ?>
+                        <div class="btn-info"><?= $this->Html->link(__('View'), ['action' => 'view', $user->idu]) ?></div>
+                        <div class="btn-warining"><?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?></div>
+                        <div class="btn-danger"><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->idu],
+                                ['confirm' => __('Êtes vous sûr de supprimer # {0}?', $user->email)]) ?></div>
                     </div>
                 </td>
             </tr>
@@ -43,9 +43,9 @@
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
