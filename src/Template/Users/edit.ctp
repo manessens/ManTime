@@ -4,12 +4,7 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<!--<li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->idu],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->idu)]
-            )
-        ?></li> -->
+
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>

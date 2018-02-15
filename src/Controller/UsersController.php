@@ -32,6 +32,31 @@ class UsersController extends AppController
         $this->Auth->allow(['logout']);
     }
 
+    public function password($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            // $user = $this->Users->patchEntity($user, [
+            //         'mdp'      => $this->request->data['password1'],
+            //         'password1'     => $this->request->data['password1'],
+            //         'password2'     => $this->request->data['password2']
+            //     ],
+            //     ['validate' => 'mdp']
+            // );
+            if ($this->Users->save($user)) {
+                $this->Flash->success('The password is successfully changed');
+                return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
+            } else {
+                $this->Flash->error('There was an error during the save!');
+            }
+            $this->Flash->error(__('The mdp could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+    }
+
     public function login()
     {
         if ($this->request->is('post')) {
@@ -40,6 +65,9 @@ class UsersController extends AppController
                 if ($user['actif']) {
                     $this->Auth->setUser($user);
                     // return $this->redirect($this->Auth->redirectUrl());
+                    if ($user['prem_connect']) {
+                        return $this->redirect(['controller' => 'Users', 'action' => 'password']);
+                    }
                     return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
                 }
                 $this->Flash->error("Votre compte n'est pas actif");

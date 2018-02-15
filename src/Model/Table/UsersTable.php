@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Users Model
@@ -70,7 +71,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('mdp')
-            ->maxLength('mdp', 32)
+            ->lengthBetween('username', [6, 32])
             ->requirePresence('mdp', 'create')
             ->notEmpty('mdp');
 
@@ -85,6 +86,20 @@ class UsersTable extends Table
         $validator
             ->integer('admin')
             ->allowEmpty('admin');
+
+        $validator
+            ->scalar('password2')
+            ->lengthBetween('password2', [6, 32])
+            ->maxLength('password2', 32)
+            ->minLength('password2', 6)
+            ->add('password2',[
+                'match'=>[
+                    'rule'=> ['compareWith','mdp'],
+                    'message'=>'The passwords does not match!',
+                ]
+            ])
+            ->notEmpty('password2');
+
 
         return $validator;
     }
@@ -102,4 +117,5 @@ class UsersTable extends Table
 
         return $rules;
     }
+
 }
