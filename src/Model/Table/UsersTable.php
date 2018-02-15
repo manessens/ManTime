@@ -71,7 +71,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('mdp')
-            ->lengthBetween('username', [6, 32])
+            ->minLength('mdp', 6)
             ->requirePresence('mdp', 'create')
             ->notEmpty('mdp');
 
@@ -89,8 +89,6 @@ class UsersTable extends Table
 
         $validator
             ->scalar('password2')
-            ->lengthBetween('password2', [6, 32])
-            ->maxLength('password2', 32)
             ->minLength('password2', 6)
             ->add('password2',[
                 'match'=>[
