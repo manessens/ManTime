@@ -160,7 +160,10 @@ class UsersController extends AppController
         $action = $this->request->getParam('action');
         // Les actions 'add' et 'tags' sont toujours autorisés pour les utilisateur
         // authentifiés sur l'application
-        if (in_array($action, ['index', 'view', 'password']) ) {
+        if (in_array($action, ['password']) ) {
+            return true;
+        }
+        if (in_array($action, ['index', 'view', 'password']) && $user['prem_connect'] === 0 ) {
             return true;
         }
 

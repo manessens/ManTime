@@ -49,5 +49,14 @@ class User extends Entity
             return $hasher->hash($value);
         }
     }
+    
+    protected function _setPassword2($value)
+    {
+        if (strlen($value)) {
+            $hasher = new DefaultPasswordHasher();
+
+            return $hasher->hash($value);
+        }
+    }
 
 }

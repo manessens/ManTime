@@ -14,7 +14,7 @@
         <?= $this->Form->input('password2',['type' => 'password' , 'label'=>'Repeat password'])?> -->
         <?php
             echo $this->Form->control('mdp');
-            echo $this->Form->input('password2',['type'=>'mdp' ,'label'=>'Repeat password']);
+            echo $this->Form->control('password2');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
