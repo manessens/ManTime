@@ -22,10 +22,7 @@
             echo "<label for='prem_connect'> Première connection </label>" ;
             echo $this->Form->checkbox('prem_connect');
             echo "</div>" ;
-            echo "<div >";
-            echo "<label class='input text-danger' for='admin'> Administrateur </label>" ;
-            echo $this->Form->checkbox('admin');
-            echo "</div>" ;
+            echo $this->Form->control('admin', ['type' => 'checkbox', 'class' => 'text-danger']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
