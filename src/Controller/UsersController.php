@@ -40,6 +40,7 @@ class UsersController extends AppController
             $user['prem_connect'] = 0;
             if ($this->Users->save($user)) {
                 $this->Flash->success('The password is successfully changed');
+                $this->Auth->setUser($user);
                 return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
             } else {
                 $this->Flash->error('There was an error during the save!');
