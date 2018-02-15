@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Admin') ?></th>
-            <td><?php if (?><?= $this->Number->format($user->admin) ?><?php ): ?>
+            <td><?php if ( $this->Number->format($user->admin) ): ?>
                     Oui
                 <?php else: ?>
                     Non
