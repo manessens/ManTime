@@ -8,7 +8,7 @@
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
+        <legend><?= __("Création d'un Consultant") ?></legend>
         <?php
             echo $this->Form->control('prenom');
             echo $this->Form->control('nom');
