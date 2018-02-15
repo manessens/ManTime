@@ -37,13 +37,6 @@ class UsersController extends AppController
         $user =$this->Users->get($this->Auth->user('idu'));
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            // $user = $this->Users->patchEntity($user, [
-            //         'mdp'      => $this->request->data['password1'],
-            //         'password1'     => $this->request->data['password1'],
-            //         'password2'     => $this->request->data['password2']
-            //     ],
-            //     ['validate' => 'mdp']
-            // );
             if ($this->Users->save($user)) {
                 $this->Flash->success('The password is successfully changed');
                 return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
@@ -64,6 +57,7 @@ class UsersController extends AppController
                     $this->Auth->setUser($user);
                     // return $this->redirect($this->Auth->redirectUrl());
                     if ($user['prem_connect']) {
+                        $this->set('nomenu','true');
                         return $this->redirect(['controller' => 'Users', 'action' => 'password']);
                     }
                     return $this->redirect(['controller' => 'Articles', 'action' => 'index']);

@@ -1,4 +1,5 @@
-
+<?php if (isset($nomenu)): ?>
+    <?php if ($nomenu === false): ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
             <li class="heading"><?= __('Menu') ?></li>
@@ -12,3 +13,5 @@
         <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
     </ul>
 </nav>
+    <?php endif; ?>
+<?php endif; ?>
