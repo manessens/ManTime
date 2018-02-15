@@ -17,10 +17,8 @@
             echo $this->Form->control('actif', ['type' => 'checkbox']);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox']);
 
-        ?>
-        <div class="form-check">
-            <?php echo $this->Form->control('admin', ['type' => 'checkbox']); ?>
-        </div>
+            echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
+         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
