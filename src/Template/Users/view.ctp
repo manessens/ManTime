@@ -17,23 +17,26 @@
             <td><?= h($user->nom) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Mdp') ?></th>
-            <td><?= h($user->mdp) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Actif') ?></th>
-            <td><?= $this->Number->format($user->actif) ?></td>
+            <td>
+                <?= $this->set('test', $this->Number->format($user->admin) ) ?>
+            </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Prem Connect') ?></th>
-            <td><?= $this->Number->format($user->prem_connect) ?></td>
+            <td><?php if ( $this->Number->format($user->prem_connect) ): ?>
+                    <div class="btn btn-success btn-sm" >Oui</div>
+                <?php else: ?>
+                    <div class="btn btn-danger btn-sm" >Non</div>
+                <?php endif; ?>
+            </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Admin') ?></th>
             <td><?php if ( $this->Number->format($user->admin) ): ?>
-                    Oui
+                    <div class="btn btn-success btn-sm" >Oui</div>
                 <?php else: ?>
-                    Non
+                    <div class="btn btn-danger btn-sm" >Non</div>
                 <?php endif; ?>
             </td>
         </tr>
