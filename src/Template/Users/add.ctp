@@ -14,18 +14,8 @@
             echo $this->Form->control('nom');
             echo $this->Form->control('email');
             echo $this->Form->control('mdp');
-            echo "<div class='input text'>";
-            echo "<label for='actif'> Actif </label>" ;
-            echo $this->Form->checkbox('actif');
-            echo "</div>" ;
-            echo "<div class='input text'>";
-            echo "<label for='prem_connect'> Première connection </label>" ;
-            echo $this->Form->checkbox('prem_connect');
-            echo "</div>" ;
-            echo "<div class='input text-danger'>";
-            echo "<label for='admin'> Administrateur </label>" ;
-            echo $this->Form->checkbox('admin');
-            echo "</div>" ;
+            echo $this->Form->control('actif', ['type' => 'checkbox']);
+            echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
