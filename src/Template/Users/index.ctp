@@ -6,24 +6,22 @@
 ?>
 
 <div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
+    <h3><?= __('Consultants') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('idu') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('prenom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('mdp') ?></th> -->
-                <th scope="col"><?= $this->Paginator->sort('actif') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('admin') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('actif',['class' => 'medium-1']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('admin',['class' => 'medium-1']) ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($users as $user): ?>
             <tr>
-                <td><?= $this->Number->format($user->idu) ?></td>
                 <td><?= h($user->prenom) ?></td>
                 <td><?= h($user->nom) ?></td>
                 <td><?= h($user->email) ?></td>
