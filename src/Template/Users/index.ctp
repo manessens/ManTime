@@ -29,9 +29,12 @@
                 <td><?= $this->Number->format($user->actif) ?></td>
                 <td><?= $this->Number->format($user->admin) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->idu]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->idu], ['confirm' => __('Are you sure you want to delete # {0}?', $user->idu)]) ?>
+                    <div class="btn-group">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->idu]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->idu],
+                                ['confirm' => __('Êtes vous sûr de supprimer # {0}?', $user->email)]) ?>
+                    </div>
                 </td>
             </tr>
             <?php endforeach; ?>
