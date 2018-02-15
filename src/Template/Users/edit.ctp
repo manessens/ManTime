@@ -16,8 +16,11 @@
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox']);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox']);
-            echo $this->Form->control('admin', ['type' => 'checkbox']);
+
         ?>
+        <div class="form-check">
+            <?php echo $this->Form->control('admin', ['type' => 'checkbox']); ?>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
