@@ -5,7 +5,7 @@
         <li><?= $this->Html->link(__('Liste Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
         <?php if( isset($controller) ): ?>
         <li class="heading"><?= __('Actions') ?></li>
-        <li><div class=" btn btn-primary"><?= $this->Html->link(__('Créer'), ['controller' => $controller, 'action' => 'add', 'class' => 'white' ]) ?></div></li>
+        <li><div class=" btn btn-primary"><?= $this->Html->link(__('Créer'), ['controller' => $controller, 'action' => 'add']) ?></div></li>
         <?php endif; ?>
         <li class="heading"><?= __('Session') ?></li>
         <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>

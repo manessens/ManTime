@@ -1,6 +1,3 @@
 .btn a{
-    color: white;
-}
-.white{
-    color: white;
+    color: white !important;
 }
