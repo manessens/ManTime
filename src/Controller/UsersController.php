@@ -37,6 +37,7 @@ class UsersController extends AppController
         $user =$this->Users->get($this->Auth->user('idu'));
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user['prem_connect'] = 0;
             if ($this->Users->save($user)) {
                 $this->Flash->success('The password is successfully changed');
                 return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
@@ -163,7 +164,11 @@ class UsersController extends AppController
         if (in_array($action, ['password']) ) {
             return true;
         }
-        if (in_array($action, ['index', 'view', 'password']) && $user['prem_connect'] === 0 ) {
+        if ($user['prem_connect'] === 1) {
+            return false;
+        }
+
+        if (in_array($action, ['index', 'view']) ) {
             return true;
         }
 
