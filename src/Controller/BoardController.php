@@ -8,12 +8,19 @@ class BoardController extends AppController
 {
     public function index()
     {
-
         // $user_id = $this->request->session()->read('Auth.User')['idu'];
         $user_id = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id)->firstOrFail();
         $this->set(compact('user'));
+        if ($user->admin) {
+            return $this->redirect(['action' => 'index_admin']);
+        }
+    }
+
+    public function index_admin()
+    {
+        
     }
 
     public function isAuthorized($user)
@@ -26,6 +33,10 @@ class BoardController extends AppController
         }
 
         if (in_array($action, ['index']) ) {
+            return true;
+        }
+
+        if (in_array($action, ['index_admin']) && $user['admin'] === 1 ) {
             return true;
         }
 
