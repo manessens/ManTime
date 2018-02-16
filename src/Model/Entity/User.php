@@ -41,6 +41,11 @@ class User extends Entity
         'articles' => true
     ];
 
+    protected function _getFullname()
+    {
+        return $this->prenom;
+    }
+
     protected function _setMdp($value)
     {
         if (strlen($value)) {
@@ -49,7 +54,7 @@ class User extends Entity
             return $hasher->hash($value);
         }
     }
-    
+
     protected function _setPassword2($value)
     {
         if (strlen($value)) {
