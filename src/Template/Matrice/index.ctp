@@ -4,6 +4,12 @@
  * @var \App\Model\Entity\Matrice[]|\Cake\Collection\CollectionInterface $matrice
  */
 ?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('New Matrice'), ['action' => 'add']) ?></li>
+    </ul>
+</nav>
 <div class="matrice index large-9 medium-8 columns content">
     <h3><?= __('Matrice') ?></h3>
     <table cellpadding="0" cellspacing="0">
@@ -20,7 +26,9 @@
                 <td><?= $this->Number->format($matrice->idm) ?></td>
                 <td><?= h($matrice->nom_matrice) ?></td>
                 <td class="actions">
-                    <?= $this->element( 'controle', ['id' => $matrice->idm, 'entity'=>$matrice->nom_matrice]); ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $matrice->idm]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $matrice->idm]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $matrice->idm], ['confirm' => __('Are you sure you want to delete # {0}?', $matrice->idm)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
