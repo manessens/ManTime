@@ -43,8 +43,8 @@ class User extends Entity
 
     protected function _getFullname()
     {
-        return $this->_properties['prenom'] . '  ' .
-            $this->_properties['nom'];
+        return ucfirst($this->_properties['prenom']) . '  ' .
+            ucfirst($this->_properties['nom']);
     }
 
     protected function _setMdp($value)
