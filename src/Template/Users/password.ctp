@@ -10,8 +10,8 @@
     <fieldset>
         <legend><?= __('Modifier votre Mot de passe');?> <?=  h($user->email); ?></legend>
         <?php
-            echo $this->Form->control('mdp',['value' => '']);
-            echo $this->Form->control('password2');
+            echo $this->Form->control('mdp',['label' => 'Mot de passe', 'value' => '', 'type' => 'password']);
+            echo $this->Form->control('password2', ['label' => 'Confirmation mot de passe', 'type'=>'password']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

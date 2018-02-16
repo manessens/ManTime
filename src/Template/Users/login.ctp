@@ -3,7 +3,7 @@
     <legend>Login</legend>
     <?= $this->Form->create() ?>
     <?= $this->Form->control('email') ?>
-    <?= $this->Form->control('mdp', ['type'=>'password']) ?>
+    <?= $this->Form->control('mdp', ['type'=>'password', 'label'=>'Mot de passe']) ?>
     <?= $this->Form->button('Connexion') ?>
     <?= $this->Form->end() ?>
 </div>
