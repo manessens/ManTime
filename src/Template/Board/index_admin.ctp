@@ -4,13 +4,13 @@
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Consultants', 'content'=>'bskgblk']),
+            ['title' => 'Consultants', 'content'=>'une image un jour']),
             ['controller' => 'Users', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Consultants', 'content'=>'bskgblk']),
-            ['controller' => 'Users', 'action' => 'index'],
+            ['title' => 'Clients', 'content'=>'une autre image un autre jour']),
+            ['controller' => 'Client', 'action' => 'index'],
             ['escape' => false]); ?>
     </div>
 </div>
