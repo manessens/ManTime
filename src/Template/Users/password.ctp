@@ -9,11 +9,8 @@
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Modifier votre Mot de passe');?> <?=  h($user->email); ?></legend>
-        <!-- <?= $this->Form->input('old_password',['type' => 'password' , 'label'=>'Old password'])?>
-        <?= $this->Form->input('password1',['type'=>'password' ,'label'=>'Password']) ?>
-        <?= $this->Form->input('password2',['type' => 'password' , 'label'=>'Repeat password'])?> -->
         <?php
-            echo $this->Form->control('mdp');
+            echo $this->Form->control('mdp',['value' => '']);
             echo $this->Form->control('password2');
         ?>
     </fieldset>
