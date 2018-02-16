@@ -78,6 +78,10 @@ class AppController extends Controller
 
     public function isAuthorized($user)
     {
+        $action = $this->request->getParam('action');
+        if (in_array($action, ['login']) ) {
+            return true;
+        }
         // Par défaut, on refuse l'accès.
         return false;
     }
