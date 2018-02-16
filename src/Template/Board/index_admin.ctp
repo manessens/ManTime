@@ -9,7 +9,7 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Clients', 'content'=>'une autre image un autre jour']),
+            ['title' => 'Matrices', 'content'=>'une autre image un autre jour']),
             ['controller' => 'Matrice', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
