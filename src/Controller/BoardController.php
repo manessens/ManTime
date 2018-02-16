@@ -36,7 +36,7 @@ class BoardController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index_admin']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['indexAdmin']) && $user['admin'] === 1 ) {
             return true;
         }
 
