@@ -5,7 +5,7 @@
         <?php if( !isset($controller) ): ?>
             <li class="heading"><?= __('Contrôle') ?></li>
             <li><?= $this->Html->link(__('Liste'), ['action' => 'index']) ?></li>
-            <?=  $user_ad = $this->request->session()->read('user.admin'); ?>
+            <?php  $user_ad = $this->request->session()->read('user.admin'); ?>
             <?php pr($user_ad);exit; ?>
             <?php if ($user_ad): ?>
                 <li><?= $this->Html->link(__('Ajouter'), ['action' => 'add']) ?></li>
