@@ -14,7 +14,7 @@ class BoardController extends AppController
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id)->firstOrFail();
         // $user = $this->Auth->identify();
-        pr($user->prenom);exit;
+        pr($user->fullname);exit;
         $this->set(compact('user'));
     }
 
