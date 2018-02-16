@@ -41,7 +41,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success('Le mot de passe à été modifié avec succées');
                 $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+                return $this->redirect(['controller'=>'board', 'action' => 'index']);
             } else {
                 $this->Flash->error("Une erreur c'est produit à la sauvegarde !");
             }
@@ -62,14 +62,13 @@ class UsersController extends AppController
                         $this->set('nomenu','true');
                         return $this->redirect(['controller' => 'Users', 'action' => 'password']);
                     }
-                    return $this->redirect($this->Auth->redirectUrl());
+                    return $this->redirect(['controller'=>'board', 'action' => 'index']);
                 }
                 $this->Flash->error("Votre compte n'est pas actif.");
                 return;
             }
             $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
         }
-        $this->request->session()->delete('Flash');
     }
 
     public function logout()
