@@ -19,6 +19,6 @@
     min-width: 150px !important;
 }
 
-.panel.panel-body{
+.panel .panel-body{
     height:150px !important;
 }
