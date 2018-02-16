@@ -13,7 +13,7 @@
             echo $this->Form->control('prenom');
             echo $this->Form->control('nom');
             echo $this->Form->control('email');
-            echo $this->Form->control('mdp', ['value' => 'Welcome1!', 'disabled'=>'true']);
+            echo $this->Form->control('mdp', ['value' => 'Welcome1!']);
             echo $this->Form->control('actif', ['type' => 'checkbox']);
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
         ?>
