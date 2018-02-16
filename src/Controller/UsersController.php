@@ -52,7 +52,6 @@ class UsersController extends AppController
 
     public function login()
     {
-        $this->request->session()->delete('Flash');
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -70,6 +69,7 @@ class UsersController extends AppController
             }
             $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
         }
+        $this->request->session()->delete('Flash');
     }
 
     public function logout()
