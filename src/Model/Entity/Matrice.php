@@ -8,6 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $idm
  * @property string $nom_matrice
+ *
+ * @property \App\Model\Entity\Client[] $client
  */
 class Matrice extends Entity
 {
@@ -22,6 +24,7 @@ class Matrice extends Entity
      * @var array
      */
     protected $_accessible = [
-        'nom_matrice' => true
+        'nom_matrice' => true,
+        'clients' => true
     ];
 }
