@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php $this->request->session->delete('Flash'); ?>
+=======
+
+>>>>>>> parent of 50c12a2... test flas
 <div class="users index large-9 medium-8 columns content">
     <legend>Login</legend>
     <?= $this->Form->create() ?>
