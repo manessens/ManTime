@@ -1,4 +1,4 @@
-<?php $this->Session->delete('Flash'); ?>
+<?php $this->request->session->delete('Flash'); ?>
 <div class="users index large-9 medium-8 columns content">
     <legend>Login</legend>
     <?= $this->Form->create() ?>
