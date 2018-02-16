@@ -26,7 +26,6 @@
 
 
 <?php echo $this->Html->script('ManTime/man.users.js'); ?>
-
 <div class="modal" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -35,7 +34,7 @@
                 <h3 class="modal-title" id="myModalLabel">Réinitialiser le mot de passe</h3>
             </div>
             <div class="modal-body">
-                dfsgdfgsdfg
+                Le mot de passe sera définie à "Welcome1!".
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>

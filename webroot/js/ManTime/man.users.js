@@ -1,6 +1,5 @@
-$( ".reset" ).on( "click", resetPssw );
-
-function resetPssw(){
-    $('#myModal').modal('show');
-    alert( "clicked" );
-}
+$( ".reset" ).click(function (){
+    if ($(this).is(':checked')) {
+        $('#myModal').modal('show');
+    };
+});
