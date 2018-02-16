@@ -13,6 +13,7 @@ class BoardController extends AppController
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id)->firstOrFail();
         $this->set(compact('user'));
+        $this->set('controller', 'Board');
         if ($user->admin) {
             return $this->redirect(['action' => 'index_admin']);
         }
@@ -23,6 +24,7 @@ class BoardController extends AppController
         $user_id = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id)->firstOrFail();
+        $this->set('controller', 'Board');
         $this->set(compact('user'));
 
     }
