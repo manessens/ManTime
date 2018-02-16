@@ -15,7 +15,7 @@
             // echo $this->Form->control('email');
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox']);
-            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset']);
+            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);
 
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
          ?>
