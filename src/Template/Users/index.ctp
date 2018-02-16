@@ -29,12 +29,7 @@
                 <td><?= $this->Number->format($user->actif) ?></td>
                 <td><?= $this->Number->format($user->admin) ?></td>
                 <td class="actions">
-                    <div class="btn-group">
-                        <div class="btn btn-info"><?= $this->Html->link(__('Voir'), ['action' => 'view', $user->idu]) ?></div>
-                        <div class="btn btn-warning"><?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->idu]) ?></div>
-                        <div class="btn btn-danger"><?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $user->idu],
-                                ['confirm' => __('Êtes vous sûr de supprimer # {0}?', $user->email)]) ?></div>
-                    </div>
+                    <?= $this->element( 'controle', ['id' => $user->idu, 'entity'=>$user->email]); ?>
                 </td>
             </tr>
             <?php endforeach; ?>
