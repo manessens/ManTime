@@ -9,6 +9,7 @@ class BoardController extends AppController
     public function index()
     {
         $user = $this->Auth->identify();
+        pr($user);exit;
         $this->set(compact('user'));
     }
 
