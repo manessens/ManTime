@@ -5,7 +5,7 @@
         <?php if( !isset($controller) ): ?>
             <li class="heading"><?= __('Contrôle') ?></li>
             <li><?= $this->Html->link(__('Liste'), ['action' => 'index']) ?></li>
-            <?php $test =  ?><?=  h($user->fullname); ?><?php ; ?>
+            <?php $test =  h($user->fullname);  ?>
             <?php pr($test);exit; ?>
 
             <?php if ($user['admin']): ?>
