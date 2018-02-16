@@ -10,7 +10,7 @@ class BoardController extends AppController
     {
 
         // $user_id = $this->request->session()->read('Auth.User')['idu'];
-        $user_id = $this->Auth->user('idu')
+        $user_id = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id);
         // $user = $this->Auth->identify();
