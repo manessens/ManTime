@@ -52,7 +52,6 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
 
         // $this->viewBuilder()->layout('frontend'); //modifier template de base
-        Router::connect('/', array('controller' => 'Board', 'action' => 'index'));
 
         $this->loadComponent('Auth', [
             'authorize'=> 'Controller',
