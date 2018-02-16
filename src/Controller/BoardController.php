@@ -4,7 +4,7 @@ use Cake\Error\Debugger;
 
 namespace App\Controller;
 
-class ArticlesController extends AppController
+class BoardController extends AppController
 {
     public function index()
     {
