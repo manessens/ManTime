@@ -5,7 +5,9 @@
         <?php if( !isset($controller) ): ?>
             <li class="heading"><?= __('Contrôle') ?></li>
             <li><?= $this->Html->link(__('Liste'), ['action' => 'index']) ?></li>
-            <?php pr($user);exit; ?>
+            <?php $test =  ?><?=  h($user->fullname); ?><?php ; ?>
+            <?php pr($test);exit; ?>
+
             <?php if ($user['admin']): ?>
                 <li><?= $this->Html->link(__('Ajouter'), ['action' => 'add']) ?></li>
             <?php endif; ?>
