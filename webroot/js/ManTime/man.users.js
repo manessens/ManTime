@@ -1,6 +1,7 @@
 $( ".reset" ).on( "click", resetPssw );
 
 function resetPssw(){
+    alert( "clicked" );
     BootstrapDialog.show({
         message: "Le mot de passe sera redéfinie par 'Welcome1!'.",
         buttons: [{
