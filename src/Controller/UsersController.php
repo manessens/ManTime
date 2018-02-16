@@ -162,8 +162,7 @@ class UsersController extends AppController
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
-        // Les actions 'add' et 'tags' sont toujours autorisés pour les utilisateur
-        // authentifiés sur l'application
+        
         if (in_array($action, ['password']) ) {
             return true;
         }
@@ -171,11 +170,7 @@ class UsersController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'view']) ) {
-            return true;
-        }
-
-        if (in_array($action, ['add', 'edit','delete']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
             return true;
         }
 
