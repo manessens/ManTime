@@ -18,9 +18,9 @@ class BoardController extends AppController
         }
     }
 
-    public function index_admin()
+    public function indexAdmin()
     {
-        
+
     }
 
     public function isAuthorized($user)
