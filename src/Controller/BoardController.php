@@ -8,7 +8,11 @@ class BoardController extends AppController
 {
     public function index()
     {
-        $user = $this->request->session()->read('Auth.User');
+
+        // $user_id = $this->request->session()->read('Auth.User')['idu'];
+        $user_id = $this->Auth->user('idu')
+        $this->loadModel('Users');
+        $user = $this->Users->findByIdu($user_id);
         // $user = $this->Auth->identify();
         pr($user);exit;
         $this->set(compact('user'));
