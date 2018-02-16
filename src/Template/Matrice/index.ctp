@@ -26,7 +26,9 @@
                 <td><?= $this->Number->format($matrice->idm) ?></td>
                 <td><?= h($matrice->nom_matrice) ?></td>
                 <td class="actions">
-                    <?= $this->element( 'controle', ['id' =>$matrice->idm, 'entity'=>$matrice->nom_matrice]); ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $matrice->idm]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $matrice->idm]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $matrice->idm], ['confirm' => __('Are you sure you want to delete # {0}?', $matrice->idm)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

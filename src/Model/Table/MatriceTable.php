@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Matrice Model
  *
- * @property \App\Model\Table\ClientTable|\Cake\ORM\Association\HasMany $clients
- *
  * @method \App\Model\Entity\Matrice get($primaryKey, $options = [])
  * @method \App\Model\Entity\Matrice newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Matrice[] newEntities(array $data, array $options = [])
@@ -35,10 +33,6 @@ class MatriceTable extends Table
         $this->setTable('matrice');
         $this->setDisplayField('idm');
         $this->setPrimaryKey('idm');
-
-        $this->hasMany('Client', [
-            'foreignKey' => 'idm'
-        ]);
     }
 
     /**
