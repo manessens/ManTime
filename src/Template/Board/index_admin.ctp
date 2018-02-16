@@ -7,5 +7,10 @@
             ['title' => 'Consultants', 'content'=>'bskgblk']),
             ['controller' => 'Users', 'action' => 'index'],
             ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
+            ['title' => 'Consultants', 'content'=>'bskgblk']),
+            ['controller' => 'Users', 'action' => 'index'],
+            ['escape' => false]); ?>
     </div>
 </div>

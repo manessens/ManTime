@@ -12,3 +12,13 @@
 .text-danger{
     color: #a94442 !important;
 }
+
+.panel{
+    padding:0 !important;
+    text-align: center !important;
+    min-width: 150px !important;
+}
+
+.panel.panel-body{
+    height:150px !important;
+}
