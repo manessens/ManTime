@@ -51,6 +51,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     // $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/', ['controller' => 'Board', 'action' => 'index', 'home']);
+    $routes->connect('/index.php', ['controller' => 'Board', 'action' => 'index', 'home']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
