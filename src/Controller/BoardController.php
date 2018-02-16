@@ -20,6 +20,10 @@ class BoardController extends AppController
 
     public function indexAdmin()
     {
+        $user_id = $this->Auth->user('idu');
+        $this->loadModel('Users');
+        $user = $this->Users->findByIdu($user_id)->firstOrFail();
+        $this->set(compact('user'));
 
     }
 
