@@ -15,7 +15,7 @@
             // echo $this->Form->control('email');
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox']);
-            echo $this->Form->control('prem_connect', ['type' => 'checkbox']);
+            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset']);
 
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
          ?>
@@ -23,3 +23,6 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+
+<?php echo $this->Html->script('ManTime/man.users.js'); ?>
