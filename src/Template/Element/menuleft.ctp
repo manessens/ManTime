@@ -2,8 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Menu') ?></li>
         <li><?= $this->Html->link(__('Dashboard'), ['controller' => 'Board','action' => 'index']) ?></li>
-        <?php pr($this->request->session()->read('Auth.User.prenom'));exit; ?>
-        <?php if( !isset($controller) ): ?>
+        <?php if( $this->request->session()->read('Auth.User.admin')) ): ?>
             <li class="heading"><?= __('Contrôle') ?></li>
             <li><?= $this->Html->link(__('Liste'), ['action' => 'index']) ?></li>
             <li><?= $this->Html->link(__('Ajouter'), ['action' => 'add']) ?></li>
