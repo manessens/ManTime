@@ -18,11 +18,11 @@
             </thead>
             <tbody>
                 <?php if (!empty($matrice->lign_mat)): ?>
-                    <?php foreach ($matrice->lign_mat as $ligne): ?>
+                    <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
                     <tr>
                         <td><?= h($ligne->profil->nom_profil) ?></td>
-                        <td><?php echo $this->Form->control('nom_matrice.'.$ligne->id_ligne.'.heur'); ?></td>
-                        <td><?php echo $this->Form->control('nom_matrice.'.$ligne->id_ligne.'.jour'); ?></td>
+                        <td><?php echo $this->Form->control('nom_matrice.'.$k.'.heur'); ?></td>
+                        <td><?php echo $this->Form->control('nom_matrice.'.$k.'.jour'); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
