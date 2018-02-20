@@ -19,23 +19,23 @@
             <tbody>
                 <tr>
                     <td><?= h('Technique ABAP') ?> <?php echo $this->Form->hidden('lign_mat.0.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.0.heur'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.0.jour'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.0.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.0.jour', ['label' => false]); ?></td>
                 </tr>
                 <tr>
                     <td><?= h('Technicien ABAP Expert') ?> <?php echo $this->Form->hidden('lign_mat.1.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.1.heur'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.1.jour'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.1.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.1.jour', ['label' => false]); ?></td>
                 </tr>
                 <tr>
                     <td><?= h('Fonctionnel BI/BC') ?> <?php echo $this->Form->hidden('lign_mat.2.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.2.heur'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.2.jour'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.2.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.2.jour', ['label' => false]); ?></td>
                 </tr>
                 <tr>
                     <td><?= h('Expert / CP / Référent') ?> <?php echo $this->Form->hidden('lign_mat.3.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.3.heur'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.3.jour'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.3.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.3.jour', ['label' => false]); ?></td>
                 </tr>
             </tbody>
         </table>
