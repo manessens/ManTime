@@ -17,16 +17,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php pr(empty($matrice->lign_mat));exit; ?>
-                <?php if (!empty($matrice->lign_mat)): ?>
-                    <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
-                    <tr>
-                        <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
-                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
-                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                <?php pr($matrice['lign_mat']);exit; ?>
+                <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
+                <tr>
+                    <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
+                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </fieldset>
