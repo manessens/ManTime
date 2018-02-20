@@ -20,9 +20,9 @@
                 <?php if (!empty($matrice->lign_mat)): ?>
                     <?php foreach ($matrice->lign_mat as $ligne): ?>
                     <tr>
-                        <td><?php echo $this->Form->control('lign_mat.0.nom_profil') ?></td>
-                        <td><?= h($ligne->heur) ?></td>
-                        <td><?= h($ligne->jour) ?></td>
+                        <td><?= h($ligne->profil->nom_profil) ?></td>
+                        <td><?php echo $this->Form->control('nom_matrice.'.$ligne->id_ligne.'.heur'); ?></td>
+                        <td><?php echo $this->Form->control('nom_matrice.'.$ligne->id_ligne.'.jour'); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
