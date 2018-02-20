@@ -79,8 +79,6 @@ class MatriceController extends AppController
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
                 'associated' => ['LignMat']
             ]);
-            // $ligneTable = TableRegistry::get('LignMat');
-            pr($matrice, true);
             if ($this->Matrice->save($matrice)) {
                 $this->Flash->success(__('Matrice sauvegardé avec succés.'));
 
