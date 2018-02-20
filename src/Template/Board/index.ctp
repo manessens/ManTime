@@ -1,6 +1,6 @@
 
 <div class="users index large-9 medium-8 columns content">
-    <legend><?= __('Dashboard de ') ?><span class="text-primary"><?=  h($user->fullname); ?></span></legend>
+    <legend><?= __('Tableau de bord de ') ?><span class="text-primary"><?=  h($user->fullname); ?></span></legend>
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
