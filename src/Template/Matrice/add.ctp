@@ -18,15 +18,28 @@
             </thead>
             <tbody>
                 <?php pr($matrice);
-                pr($matrice->lign_mat);
+                pr($matrice->lign_mat[0]);
                 exit; ?>
-                <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
                 <tr>
                     <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
                 </tr>
-                <?php endforeach; ?>
+                <tr>
+                    <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
+                </tr>
+                <tr>
+                    <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
+                </tr>
+                <tr>
+                    <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
+                </tr>
             </tbody>
         </table>
     </fieldset>
