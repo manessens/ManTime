@@ -70,8 +70,8 @@ class MatriceController extends AppController
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
                 'associated' => ['LignMat']
             ]);
-            pr($matrice);exit;
             if ($this->Matrice->save($matrice)) {
+                pr($matrice);exit;
                 $this->Flash->success(__('La matrice a été créée.'));
 
                 return $this->redirect(['action' => 'index']);
