@@ -76,7 +76,7 @@ class MatriceController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
-                'associated' => ['LignMat']
+                'associated' => ['LignMat', 'LignMat' => ['Profil']]
             ]);
             if ($this->Matrice->save($matrice)) {
                 $this->Flash->success(__('The matrice has been saved.'));
