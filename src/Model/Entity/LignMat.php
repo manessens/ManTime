@@ -8,10 +8,11 @@ use Cake\ORM\Entity;
  *
  * @property int $id_ligne
  * @property int $idm
+ * @property int $id_profil
  * @property float $heur
  * @property float $jour
  *
- * @property \App\Model\Entity\Profil[] $id_profil
+ * @property \App\Model\Entity\Profil[] $profil
  */
 class LignMat extends Entity
 {
@@ -29,6 +30,7 @@ class LignMat extends Entity
         'idm' => true,
         'id_profil' => true,
         'heur' => true,
-        'jour' => true
+        'jour' => true,
+        'profil' => true
     ];
 }
