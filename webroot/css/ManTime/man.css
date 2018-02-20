@@ -12,6 +12,9 @@
 .text-danger{
     color: #a94442 !important;
 }
+.text-success{
+    color: #4cae4c !important;
+}
 
 .panel{
     padding:0 !important;

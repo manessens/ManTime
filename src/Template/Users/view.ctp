@@ -6,7 +6,7 @@
 ?>
 
 <div class="users view large-9 medium-8 columns content">
-    <legend><?= h($user->email) ?></legend>
+    <legend class="text-danger"><?= h($user->email) ?></legend>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Prenom') ?></th>
