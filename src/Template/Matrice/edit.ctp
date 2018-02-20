@@ -12,8 +12,8 @@
             <thead>
                 <tr>
                     <th scope="col"><?php echo $this->Form->control('nom_matrice'); ?></th>
-                    <th class="col-xs-2" scope="col"><?= __('UO / Heure') ?></th>
-                    <th class="col-xs-2" scope="col"><?= __('UO / Jour') ?></th>
+                    <th class="col-xs-3" scope="col"><?= __('UO / Heure') ?></th>
+                    <th class="col-xs-3" scope="col"><?= __('UO / Jour') ?></th>
                 </tr>
             </thead>
             <tbody>
