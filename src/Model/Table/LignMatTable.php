@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * LignMat Model
  *
+ * @property \App\Model\Table\ProfilTable|\Cake\ORM\Association\belongsTo $Profil
+ *
  * @method \App\Model\Entity\LignMat get($primaryKey, $options = [])
  * @method \App\Model\Entity\LignMat newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\LignMat[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class LignMatTable extends Table
         $this->setTable('lign_mat');
         $this->setDisplayField('id_ligne');
         $this->setPrimaryKey('id_ligne');
+
+        $this->belongsTo('Profil', [
+            'foreignKey' => 'id_profil'
+        ]);
     }
 
     /**
