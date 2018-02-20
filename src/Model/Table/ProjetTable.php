@@ -1,0 +1,67 @@
+<?php
+namespace App\Model\Table;
+
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
+
+/**
+ * Projet Model
+ *
+ * @method \App\Model\Entity\Projet get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Projet newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Projet[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Projet|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Projet patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Projet[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Projet findOrCreate($search, callable $callback = null, $options = [])
+ */
+class ProjetTable extends Table
+{
+
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->setTable('projet');
+        $this->setDisplayField('idp');
+        $this->setPrimaryKey('idp');
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('idp')
+            ->allowEmpty('idp', 'create');
+
+        $validator
+            ->integer('idc')
+            ->requirePresence('idc', 'create')
+            ->notEmpty('idc');
+
+        $validator
+            ->dateTime('date_debut')
+            ->requirePresence('date_debut', 'create')
+            ->notEmpty('date_debut');
+
+        $validator
+            ->dateTime('date_fin')
+            ->requirePresence('date_fin', 'create')
+            ->notEmpty('date_fin');
+
+        return $validator;
+    }
+}
