@@ -71,10 +71,12 @@ class MatriceController extends AppController
     public function edit($id = null)
     {
         $matrice = $this->Matrice->get($id, [
-            'contain' => []
+            'contain' => ['LignMat' => ['Profil'] ]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData());
+            $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
+                'associated' => ['LignMat', 'LignMat.profil']);
+                pr($matrice);exit;
             if ($this->Matrice->save($matrice)) {
                 $this->Flash->success(__('The matrice has been saved.'));
 
