@@ -71,7 +71,6 @@ class MatriceController extends AppController
                 'associated' => ['LignMat']
             ]);
             if ($this->Matrice->save($matrice)) {
-                pr($matrice);exit;
                 $this->Flash->success(__('La matrice a été créée.'));
 
                 return $this->redirect(['action' => 'index']);
