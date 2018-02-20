@@ -80,13 +80,13 @@ class MatriceController extends AppController
                 'associated' => ['LignMat']
             ]);
             // $ligneTable = TableRegistry::get('LignMat');
-            pr($matrice, true);exit;
+            pr($matrice, true);
             if ($this->Matrice->save($matrice)) {
-                $this->Flash->success(__('The matrice has been saved.'));
+                $this->Flash->success(__('Matrice sauvegardé avec succés.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The matrice could not be saved. Please, try again.'));
+            $this->Flash->error(__("La matrice n'a pus être sauvegardé. merci de réessayer ultérieurement."));
         }
         $this->set(compact('matrice'));
     }
