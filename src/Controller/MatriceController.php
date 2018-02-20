@@ -76,13 +76,14 @@ class MatriceController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $ligneTable = TableRegistry::get('LignMat');
-            $lignes = $ligneTable->newEntities($this->request->getData(),['associated' => ['Profil'] ]);
-            pr($lignes);exit;
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
-                'associated' => ['LignMat', 'LignMat.Profil']
+                'associated' => ['LignMat']
             ]);
-            pr($matrice);exit;
+            $ligneTable = TableRegistry::get('LignMat');
+            $ligne = $ligneTable->get($matrice->idm);
+            $lignes->patchEntity($ligne, $this->request->getData(), ['associated' => ['Profil'] ]);
+            pr($lignes, true);exit;
+            pr($matrice, true);exit;
             if ($this->Matrice->save($matrice)) {
                 $this->Flash->success(__('The matrice has been saved.'));
 
