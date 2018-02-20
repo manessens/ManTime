@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <?php if (!empty($matrice->lign_mat)): ?>
-                <?php foreach ($matrice->lignes as $ligne): ?>
+                <?php foreach ($matrice->lign_mat as $ligne): ?>
                 <tr>
                     <td><?= h($ligne->profil) ?></td>
                     <td><?= h($ligne->heur) ?></td>
