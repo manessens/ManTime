@@ -54,16 +54,16 @@ class MatriceController extends AppController
         $matrice = $this->Matrice->newEntity();
         $ligne1 = $this->Matrice->LignMat->newEntity();
         $ligne1->id_profil = 1;
-        $ligne1->profil = $ProfilTable->findByIdProfil(1);
+        $ligne1->profil = $ProfilTable->findByIdProfil(1)->firstOrFail();
         $ligne2 = $this->Matrice->LignMat->newEntity();
         $ligne2->id_profil = 2;
-        $ligne2->profil = $ProfilTable->findByIdProfil(2);
+        $ligne2->profil = $ProfilTable->findByIdProfil(2)->firstOrFail();
         $ligne3 = $this->Matrice->LignMat->newEntity();
         $ligne3->id_profil = 3;
-        $ligne3->profil = $ProfilTable->findByIdProfil(3);
+        $ligne3->profil = $ProfilTable->findByIdProfil(3)->firstOrFail();
         $ligne4 = $this->Matrice->LignMat->newEntity();
         $ligne4->id_profil = 4;
-        $ligne4->profil = $ProfilTable->findByIdProfil(4);
+        $ligne4->profil = $ProfilTable->findByIdProfil(4)->firstOrFail();
         $matrice->LignMat = [$ligne1, $ligne2 ,$ligne3 ,$ligne4];
         pr($matrice);exit;
         if ($this->request->is('post')) {
