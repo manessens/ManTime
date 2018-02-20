@@ -105,18 +105,4 @@ class LignMatController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function isAuthorized($user)
-    {
-        $action = $this->request->getParam('action');
-
-        if ($user['prem_connect'] === 1) {
-            return false;
-        }
-
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
-            return true;
-        }
-
-        return false;
-    }
 }

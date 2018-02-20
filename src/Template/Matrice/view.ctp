@@ -15,10 +15,11 @@
             </tr>
         </thead>
         <tbody>
+            <?php pr($matrice);exit; ?>
             <?php if (!empty($matrice->lign_mat)): ?>
                 <?php foreach ($matrice->lign_mat as $ligne): ?>
                 <tr>
-                    <td><?= h($ligne->profil->nom_profil) ?></td>
+                    <td><?= h($ligne->profil) ?></td>
                     <td><?= h($ligne->heur) ?></td>
                     <td><?= h($ligne->jour) ?></td>
                 </tr>
