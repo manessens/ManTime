@@ -56,15 +56,19 @@ class MatriceController extends AppController
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
                 'associated' => ['LignMat']
             ]);
-            $matrice->lign_mat[0]->id_profil = 1;
-            $matrice->lign_mat[1]->id_profil = 2;
-            $matrice->lign_mat[2]->id_profil = 3;
-            $matrice->lign_mat[3]->id_profil = 4;
-            pr($matrice);exit;
-            if ($this->Matrice->save($matrice, ['associated' => ['LignMat']])) {
-                $this->Flash->success(__('La matrice a été créée.'));
+            $lignMats = $matrice->lign_mat;
+            $matrice->lign_mat = [];
+            if ($this->Matrice->save($matrice)) {
+                if ($this->Matrice->save($matrice, ['associated' => ['LignMat']])) {
+                    $matrice->lign_mat = $lignMats;
+                    $matrice->lign_mat[0]->id_profil = 1;
+                    $matrice->lign_mat[1]->id_profil = 2;
+                    $matrice->lign_mat[2]->id_profil = 3;
+                    $matrice->lign_mat[3]->id_profil = 4;
+                    $this->Flash->success(__('La matrice a été créée.'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
             }
             $this->Flash->error(__("La matrice n'a pus être créée. Merci de retenter ultérieurement."));
         }
