@@ -17,7 +17,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php pr($matrice['Lign_Mat']);exit; ?>
+                <?php pr($matrice);
+                pr($matrice->lign_mat);
+                exit; ?>
                 <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
                 <tr>
                     <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
