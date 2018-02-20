@@ -23,6 +23,8 @@ class MatriceTable extends Table
     /**
      * Initialize method
      *
+     * @property \App\Model\Table\LignMatTable|\Cake\ORM\Association\HasMany $Lignes
+     *
      * @param array $config The configuration for the Table.
      * @return void
      */
@@ -33,6 +35,9 @@ class MatriceTable extends Table
         $this->setTable('matrice');
         $this->setDisplayField('idm');
         $this->setPrimaryKey('idm');
+        $this->hasMany('Lignes', [
+            'foreignKey' => 'idm'
+        ]);
     }
 
     /**
@@ -54,5 +59,18 @@ class MatriceTable extends Table
             ->notEmpty('nom_matrice');
 
         return $validator;
+    }
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['nom_matrice']));
+
+        return $rules;
     }
 }

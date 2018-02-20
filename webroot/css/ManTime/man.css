@@ -8,12 +8,30 @@
 .back-success{
     background-color: #4cae4c !important;
 }
+.back-warning{
+    background-color: #f0ad4e !important;
+}
+.back-info{
+    background-color: #5bc0de !important;
+}
+.back-info{
+    background-color: #337ab7 !important;
+}
 
 .text-danger{
     color: #a94442 !important;
 }
 .text-success{
     color: #4cae4c !important;
+}
+.text-primary{
+    color: #337ab7 !important;
+}
+.text-info{
+    color: #5bc0de !important;
+}
+.text-warning{
+    color: #f0ad4e !important;
 }
 
 .panel{

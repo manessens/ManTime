@@ -35,7 +35,7 @@ class MatriceController extends AppController
     public function view($id = null)
     {
         $matrice = $this->Matrice->get($id, [
-            'contain' => []
+            'contain' => ['Lignes']
         ]);
 
         $this->set('matrice', $matrice);
@@ -108,7 +108,7 @@ class MatriceController extends AppController
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
-        
+
         if ($user['prem_connect'] === 1) {
             return false;
         }
