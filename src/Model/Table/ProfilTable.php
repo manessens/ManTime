@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Profil Model
  *
+ * @property \App\Model\Table\LignMatTable|\Cake\ORM\Association\HasMany $LignMat
+ *
  * @method \App\Model\Entity\Profil get($primaryKey, $options = [])
  * @method \App\Model\Entity\Profil newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Profil[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class ProfilTable extends Table
         $this->setTable('profil');
         $this->setDisplayField('id_profil');
         $this->setPrimaryKey('id_profil');
+
+        $this->hasMany('LignMat', [
+            'foreignKey' => 'id_profil'
+        ]);
     }
 
     /**

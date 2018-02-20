@@ -35,7 +35,7 @@ class ProfilController extends AppController
     public function view($id = null)
     {
         $profil = $this->Profil->get($id, [
-            'contain' => []
+            'contain' => ['LignMat']
         ]);
 
         $this->set('profil', $profil);
