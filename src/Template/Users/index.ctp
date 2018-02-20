@@ -14,8 +14,8 @@
                 <th scope="col"><?= $this->Paginator->sort('nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('mdp') ?></th> -->
-                <th scope="col medium-1"><?= $this->Paginator->sort('actif') ?></th>
-                <th scope="col medium-1"><?= $this->Paginator->sort('admin') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('actif') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -26,8 +26,12 @@
                 <td><?= h($user->nom) ?></td>
                 <td><?= h($user->email) ?></td>
                 <!-- <td><?= h($user->mdp) ?></td> -->
-                <td><?= $this->Number->format($user->actif) ?></td>
-                <td><?= $this->Number->format($user->admin) ?></td>
+                <td>
+                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->actif)]) ?>
+                </td>
+                <td>
+                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->admin)]) ?>
+                </td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' => $user->idu, 'entity'=>$user->email]); ?>
                 </td>

@@ -22,3 +22,8 @@
 .panel .panel-body{
     height:150px !important;
 }
+
+.col .tag{
+    max-width: 100px !important;
+    width: 60px !important;
+}

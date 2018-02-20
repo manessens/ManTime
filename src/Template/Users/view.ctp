@@ -26,15 +26,13 @@
         <tr>
             <th scope="row"><?= __('Prem Connect') ?></th>
             <td>
-                <?php $this->set('test', $this->Number->format($user->prem_connect) ) ?>
-                <?= $this->element('tagYN') ?>
+                <?= $this->element('tagYN', ['test' => $this->Number->format($user->prem_connect)]) ?>
             </td>
         </tr>
         <tr>
             <th scope="row" class="text-danger"><?= __('Admin') ?></th>
             <td>
-                <?php $this->set('test', $this->Number->format($user->admin) ) ?>
-                <?= $this->element('tagYN') ?>
+                <?= $this->element('tagYN', ['test' => $this->Number->format($user->admin)]) ?>
             </td>
         </tr>
     </table>
