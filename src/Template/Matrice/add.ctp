@@ -4,19 +4,30 @@
  * @var \App\Model\Entity\Matrice $matrice
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Matrice'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
 <div class="matrice form large-9 medium-8 columns content">
     <?= $this->Form->create($matrice) ?>
     <fieldset>
-        <legend><?= __('Add Matrice') ?></legend>
-        <?php
-            echo $this->Form->control('nom_matrice');
-        ?>
+        <legend><?= __('Edition de  Matrice') ?></legend>
+        <table class="col-xs-4 vertical-table">
+            <thead>
+                <tr>
+                    <th scope="col"><?php echo $this->Form->control('nom_matrice'); ?></th>
+                    <th class="col-xs-3" scope="col"><?= __('UO / Heure') ?></th>
+                    <th class="col-xs-3" scope="col"><?= __('UO / Jour') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($matrice->lign_mat)): ?>
+                    <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
+                    <tr>
+                        <td> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
+                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
+                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

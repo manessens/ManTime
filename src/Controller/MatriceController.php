@@ -50,8 +50,19 @@ class MatriceController extends AppController
     public function add()
     {
         $matrice = $this->Matrice->newEntity();
+        $ligne1 = $this->Matrice->LignMat->newEntity();
+        $ligne1->id_profil = 1;
+        $ligne2 = $this->Matrice->LignMat->newEntity();
+        $ligne2->id_profil = 2;
+        $ligne3 = $this->Matrice->LignMat->newEntity();
+        $ligne3->id_profil = 3;
+        $ligne4 = $this->Matrice->LignMat->newEntity();
+        $ligne4->id_profil = 4;
+        $matrice->LignMat = [$ligne1, $ligne2 ,$ligne3 ,$ligne4]
         if ($this->request->is('post')) {
-            $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData());
+            $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
+                'associated' => ['LignMat']
+            ]);
             if ($this->Matrice->save($matrice)) {
                 $this->Flash->success(__('The matrice has been saved.'));
 
