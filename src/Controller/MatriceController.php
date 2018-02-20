@@ -59,6 +59,7 @@ class MatriceController extends AppController
         $ligne4 = $this->Matrice->LignMat->newEntity();
         $ligne4->id_profil = 4;
         $matrice->LignMat = [$ligne1, $ligne2 ,$ligne3 ,$ligne4];
+        pr($matrice);exit;
         if ($this->request->is('post')) {
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
                 'associated' => ['LignMat']
