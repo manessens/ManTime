@@ -15,8 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php pr($matrice);exit; ?>
-            <?php if (!empty($matrice->lignes)): ?>
+            <?php if (!empty($matrice->lign_mat)): ?>
                 <?php foreach ($matrice->lignes as $ligne): ?>
                 <tr>
                     <td><?= h($ligne->profil) ?></td>
