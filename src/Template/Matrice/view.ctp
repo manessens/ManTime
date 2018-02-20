@@ -27,6 +27,10 @@
         </tbody>
     </table>
     <div class="col-xs-6 left">
-        <div class="btn btn-danger"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $matrice->idm]) ?></div>
+        <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $matrice->idm]) ?></div>
     </div>
+</div>
+<div class="col-xs-6">
+    <div class="col-xs-10 btn btn-danger"><?= $this->Html->link(__('Suppression'), ['action' => 'delete', $matrice->idm],
+            ['confirm' => __('Êtes-vous sûr de vouloir supprimer la matrice {0}?', $matrice->nom_matrice)]) ?></div>
 </div>
