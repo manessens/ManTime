@@ -36,6 +36,9 @@
             </td>
         </tr>
     </table>
+    <div class="right">
+        <div class="btn btn-danger"><?= $this->Form->postLink(__('Edition'), ['action' => 'edit', $user->id]) ?></div>
+    </div>
     <!-- <div class="related">
         <h4><?= __('Related Articles') ?></h4>
         <?php if (!empty($user->articles)): ?>
