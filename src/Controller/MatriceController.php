@@ -35,7 +35,7 @@ class MatriceController extends AppController
     public function view($id = null)
     {
         $matrice = $this->Matrice->get($id, [
-            'contain' => ['LignMat', 'Profil']
+            'contain' => ['LignMat']
         ]);
 
         $this->set('matrice', $matrice);
