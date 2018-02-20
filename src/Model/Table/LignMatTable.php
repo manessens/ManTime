@@ -57,11 +57,11 @@ class LignMatTable extends Table
             ->integer('idm')
             ->requirePresence('idm', 'create')
             ->notEmpty('idm');
-
-        $validator
-            ->integer('id_profil')
-            ->requirePresence('id_profil', 'create')
-            ->notEmpty('id_profil');
+        //
+        // $validator
+        //     ->integer('id_profil')
+        //     ->requirePresence('id_profil', 'create')
+        //     ->notEmpty('id_profil');
 
         $validator
             ->decimal('heur')
