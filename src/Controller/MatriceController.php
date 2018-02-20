@@ -49,15 +49,21 @@ class MatriceController extends AppController
      */
     public function add()
     {
+        $ProfilTable = TableRegistry::get('Profil');
+
         $matrice = $this->Matrice->newEntity();
         $ligne1 = $this->Matrice->LignMat->newEntity();
         $ligne1->id_profil = 1;
+        $ligne1->profil = $ProfilTable->findByIdProfil(1);
         $ligne2 = $this->Matrice->LignMat->newEntity();
         $ligne2->id_profil = 2;
+        $ligne2->profil = $ProfilTable->findByIdProfil(2);
         $ligne3 = $this->Matrice->LignMat->newEntity();
         $ligne3->id_profil = 3;
+        $ligne3->profil = $ProfilTable->findByIdProfil(3);
         $ligne4 = $this->Matrice->LignMat->newEntity();
         $ligne4->id_profil = 4;
+        $ligne4->profil = $ProfilTable->findByIdProfil(4);
         $matrice->LignMat = [$ligne1, $ligne2 ,$ligne3 ,$ligne4];
         pr($matrice);exit;
         if ($this->request->is('post')) {
@@ -65,11 +71,11 @@ class MatriceController extends AppController
                 'associated' => ['LignMat']
             ]);
             if ($this->Matrice->save($matrice)) {
-                $this->Flash->success(__('The matrice has been saved.'));
+                $this->Flash->success(__('La matrice a été créée.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The matrice could not be saved. Please, try again.'));
+            $this->Flash->error(__("La matrice n'a pus être créée. Merci de retenter ultérieurement."));
         }
         $this->set(compact('matrice'));
     }
