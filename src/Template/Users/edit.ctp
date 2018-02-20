@@ -10,9 +10,9 @@
     <fieldset>
         <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend>
         <?php
+            echo $this->Form->control('email');
             echo $this->Form->control('prenom');
             echo $this->Form->control('nom');
-            // echo $this->Form->control('email');
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox']);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);
