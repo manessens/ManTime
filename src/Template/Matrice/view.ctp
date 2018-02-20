@@ -15,7 +15,6 @@
             </tr>
         </thead>
         <tbody>
-            <?php pr($matrice);exit; ?>
             <?php if (!empty($matrice->lign_mat)): ?>
                 <?php foreach ($matrice->lign_mat as $ligne): ?>
                 <tr>
