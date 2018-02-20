@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property float $heur
  * @property float $jour
  *
- * @property \App\Model\Entity\Profil[] $profil
+ * @property \App\Model\Entity\Profil $profil
  */
 class LignMat extends Entity
 {

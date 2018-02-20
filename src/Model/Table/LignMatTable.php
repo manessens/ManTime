@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * LignMat Model
  *
- * @property \App\Model\Table\ProfilTable|\Cake\ORM\Association\belongsTo $Profil
+ * @property \App\Model\Table\ProfilTable|\Cake\ORM\Association\BelongsTo $Profil
  *
  * @method \App\Model\Entity\LignMat get($primaryKey, $options = [])
  * @method \App\Model\Entity\LignMat newEntity($data = null, array $options = [])
@@ -57,7 +57,7 @@ class LignMatTable extends Table
             ->integer('idm')
             ->requirePresence('idm', 'create')
             ->notEmpty('idm');
-        
+
         $validator
             ->integer('id_profil')
             ->requirePresence('id_profil', 'create')
