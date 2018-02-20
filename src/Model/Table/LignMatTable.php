@@ -35,11 +35,10 @@ class LignMatTable extends Table
         $this->setTable('lign_mat');
         $this->setDisplayField('id_ligne');
         $this->setPrimaryKey('id_ligne');
-        
+
         $this->belongsTo('Profil', [
-                'foreignKey' => 'id_profil',
-                'joinType' => 'LEFT'
-            ]);
+            'foreignKey' => 'id_profil'
+        ]);
     }
 
     /**

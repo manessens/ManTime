@@ -35,7 +35,7 @@ class LignMatController extends AppController
     public function view($id = null)
     {
         $lignMat = $this->LignMat->get($id, [
-            'contain' => []
+            'contain' => ['Profil']
         ]);
 
         $this->set('lignMat', $lignMat);

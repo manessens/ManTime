@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\LignMat $lignMat
  */
 ?>
+<?php pr($lignMat);exit; ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
