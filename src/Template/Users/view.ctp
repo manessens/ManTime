@@ -37,10 +37,10 @@
         </tr>
     </table>
     <div class="right">
-        <div class="btn btn-danger"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $user->idu]) ?></div>
+        <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $user->idu]) ?></div>
     </div>
     <div class="related col-xs-6">
-        <div class="col-xs-10 btn btn-danger"><?= $this->Html->link(__('Suppression'), ['action' => 'delete', $user->idu],
+        <div class="col-xs-10 btn btn-danger"><?= $this->Form->postLink(__('Suppression'), ['action' => 'delete', $user->idu],
                 ['confirm' => __('Êtes-vous sûr de vouloir supprimer la matrice {0}?', $user->email)]) ?></div>
     </div>
     <!-- <div class="related">
