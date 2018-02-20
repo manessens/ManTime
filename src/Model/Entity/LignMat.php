@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id_ligne
  * @property int $idm
+ * @property int $id_profil
  * @property float $heur
  * @property float $jour
  *
@@ -27,8 +28,8 @@ class LignMat extends Entity
      */
     protected $_accessible = [
         'idm' => true,
+        'id_profil' => true,
         'heur' => true,
-        'jour' => true,
-        'profil' => true
+        'jour' => true
     ];
 }
