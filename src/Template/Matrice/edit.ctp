@@ -21,8 +21,8 @@
                     <?php foreach ($matrice->lign_mat as $k => $ligne): ?>
                     <tr>
                         <td><?= h($ligne->profil->nom_profil) ?> <?php echo $this->Form->hidden('lign_mat.'.$k.'.id_ligne'); ?></td>
-                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur'); ?></td>
-                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour'); ?></td>
+                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.heur', ['label' => false]); ?></td>
+                        <td><?php echo $this->Form->control('lign_mat.'.$k.'.jour', ['label' => false]); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
