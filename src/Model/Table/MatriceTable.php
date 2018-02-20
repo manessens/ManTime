@@ -35,7 +35,7 @@ class MatriceTable extends Table
         $this->setTable('matrice');
         $this->setDisplayField('idm');
         $this->setPrimaryKey('idm');
-        $this->hasMany('Lignes', [
+        $this->hasMany('LignMat', [
             'foreignKey' => 'idm'
         ]);
     }

@@ -8,6 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $idm
  * @property string $nom_matrice
+ *
+ * @property \App\Model\Entity\LignMat[] $lignes
  */
 class Matrice extends Entity
 {
@@ -23,6 +25,6 @@ class Matrice extends Entity
      */
     protected $_accessible = [
         'nom_matrice' => true,
-        'lignes' => true
+        'lign_mat' => true
     ];
 }
