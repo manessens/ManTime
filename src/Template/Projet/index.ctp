@@ -20,7 +20,7 @@
             <?php foreach ($projet as $projet): ?>
             <tr>
                 <td><?= h($projet->nom_projet) ?></td>
-                <td><?= h($projet->matrice->nom_matrice) ?></td>
+                <td><?= h($projet->client->nom_client) ?></td>
                 <td><?= h($projet->date_debut) ?></td>
                 <td><?= h($projet->date_fin) ?></td>
                 <td class="actions">
