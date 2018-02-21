@@ -74,6 +74,16 @@ class ProjetTable extends Table
             ->requirePresence('date_fin', 'create')
             ->notEmpty('date_fin');
 
+        $validator->add('date_fin', [
+            'supToDebut' => [
+                'rule' => function ($value, $context) {
+                    pr($value > $context['data']['date_debut']);exit;
+                    return $value > $context['data']['date_debut'];
+                },
+                'message' => __("Date de fin inférieur à celle de début.")
+            ]
+        ])
+
         return $validator;
     }
 }
