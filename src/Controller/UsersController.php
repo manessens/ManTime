@@ -117,8 +117,8 @@ class UsersController extends AppController
     {
         $userAuth = $this->Auth->identify();
         $email = new Email('default');
-        $email->from([$userAuth['email'] => 'My Site'])
-            ->to($userAuth['email'])
+        $email->from([ 'matthias.vincent@manessens.com' => 'My Site'])
+            ->to('matthias.vincent@manessens.com')
             ->subject('About')
             ->send('My message');
         // $email = new Email();
