@@ -11,7 +11,7 @@
         <?php
             echo $this->Form->control('nom_client');
             echo $this->Form->control('prix');
-            echo $this->Form->control('idm');
+            echo $this->Form->select('idm', $matricesOption, ['value' => $client->idm ];
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>

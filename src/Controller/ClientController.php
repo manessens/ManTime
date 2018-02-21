@@ -82,6 +82,14 @@ class ClientController extends AppController
      */
     public function edit($id = null)
     {
+        $matriceTable = TableRegistry::get('Matrice');
+        $query = $matriceTable->find('all');
+        $matrices = $query->toArray();
+        $matricesOption = [];
+        foreach ($matrices as $matrice) {
+            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
+        }
+
         $client = $this->Client->get($id, [
             'contain' => ['Matrice']
         ]);
@@ -95,6 +103,7 @@ class ClientController extends AppController
             $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
         $this->set(compact('client'));
+        $this->set(compact('matricesOption'));
     }
 
     /**
