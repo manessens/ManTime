@@ -63,11 +63,11 @@ class ClientController extends AppController
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('Le client a bien été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__("Le client n'a pus être sauvegardé. Merci de réessayer ultérieurement."));
         }
         $this->set(compact('client'));
         $this->set(compact('matricesOption'));
@@ -96,11 +96,11 @@ class ClientController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('Le client a bien été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__("Le client n'a pus être sauvegardé. Merci de réessayer ultérieurement."));
         }
         $this->set(compact('client'));
         $this->set(compact('matricesOption'));
@@ -118,9 +118,9 @@ class ClientController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $client = $this->Client->get($id);
         if ($this->Client->delete($client)) {
-            $this->Flash->success(__('The client has been deleted.'));
+            $this->Flash->success(__('Le client a été supprimé avec succés.'));
         } else {
-            $this->Flash->error(__('The client could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Le client n'a pus être supprimé. Merci de retenter ultérieurement."));
         }
 
         return $this->redirect(['action' => 'index']);
