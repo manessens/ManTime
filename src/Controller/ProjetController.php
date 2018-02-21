@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\FrozenTime;
 
 /**
  * Projet Controller
@@ -60,8 +61,11 @@ class ProjetController extends AppController
         }
         $projet = $this->Projet->newEntity();
         if ($this->request->is('post')) {
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+            $now = FrozenTime::parse($this->request->getData()['date_debut']);
+            pr($now);exit;
+            // $this->request->getData()['date_debut'] =
             pr($this->request->getData());exit;
+            $projet = $this->Projet->patchEntity($projet, $this->request->getData());
             if ($this->Projet->save($projet)) {
                 $this->Flash->success(__('The projet has been saved.'));
 
