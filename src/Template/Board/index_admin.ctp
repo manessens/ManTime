@@ -17,5 +17,15 @@
             ['title' => 'Clients', 'content'=>'une autre image un autre jour']),
             ['controller' => 'Client', 'action' => 'index'],
             ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
+            ['title' => 'Projets', 'content'=>'une autre image un jour certain']),
+            ['controller' => 'Projet', 'action' => 'index'],
+            ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
+            ['title' => 'Activités', 'content'=>'une autre image un jour certain']),
+            ['controller' => 'Activitie', 'action' => 'index'],
+            ['escape' => false]); ?>
     </div>
 </div>
