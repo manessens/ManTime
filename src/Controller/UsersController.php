@@ -104,17 +104,17 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $userAuth = $this->Auth->identify();
-                $email = new Email();
-                $email->transport('default')
-                      ->template('default', 'default')
-                      ->emailFormat('both')
-                      ->to($user->email)
-                      ->subject('bienvenu sur ManTime !')
-                      ->from($userAuth['email']);
-                $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
-
-                $email->send();
+                // $userAuth = $this->Auth->identify();
+                // $email = new Email();
+                // $email->transport('default')
+                //       ->template('default', 'default')
+                //       ->emailFormat('both')
+                //       ->to($user->email)
+                //       ->subject('bienvenu sur ManTime !')
+                //       ->from($userAuth['email']);
+                // $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
+                //
+                // $email->send();
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
