@@ -70,7 +70,6 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $this->set('groups', $this->Projet->Client->find('list'));
     }
 
     /**

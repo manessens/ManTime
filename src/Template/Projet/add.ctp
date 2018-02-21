@@ -10,7 +10,7 @@
         <legend><?= __('Ajouter un projet') ?></legend>
         <?php
             echo $this->Form->control('nom_projet');
-            echo $this->Form->select('idc', $groups, ['label' => 'Client']);
+            echo $this->Form->select('idc', $clientOption, ['label' => 'Client']);
             echo $this->Form->control('date_debut', ['label' => 'Date de début']);
             echo $this->Form->control('date_fin', ['label' => 'Date de fin']);
         ?>
