@@ -8,7 +8,7 @@
     <?= $this->Form->create($matrice) ?>
     <fieldset>
         <legend><?= __('Edition de  Matrice') ?></legend>
-        <table class="col-xs-4 vertical-table">
+        <table class="col-xs-5 vertical-table">
             <thead>
                 <tr>
                     <th scope="col"><?php echo $this->Form->control('nom_matrice'); ?></th>

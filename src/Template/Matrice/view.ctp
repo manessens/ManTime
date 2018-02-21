@@ -6,7 +6,7 @@
 ?>
 <div class="matrice view large-9 medium-8 columns content">
     <h3><?= h($matrice->nom_matrice) ?></h3>
-    <table class="col-xs-4 vertical-table">
+    <table class="col-xs-5 vertical-table">
         <thead>
             <tr>
                 <th scope="col"><?= __($matrice->nom_matrice) ?></th>
