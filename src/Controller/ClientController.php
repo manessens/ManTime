@@ -134,7 +134,8 @@ class ClientController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
+        // if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit']) && $user['admin'] === 1 ) {
             return true;
         }
 
