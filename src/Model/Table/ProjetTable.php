@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Projet Model
  *
+ * @property \App\Model\Entity\Client|\Cake\ORM\Association\BelongsTo $Client
+ *
  * @method \App\Model\Entity\Projet get($primaryKey, $options = [])
  * @method \App\Model\Entity\Projet newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Projet[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class ProjetTable extends Table
         $this->setTable('projet');
         $this->setDisplayField('idp');
         $this->setPrimaryKey('idp');
+
+        $this->belongsTo('Client', [
+            'foreignKey' => 'idc'
+        ]);
     }
 
     /**

@@ -11,6 +11,8 @@ use Cake\ORM\Entity;
  * @property int $idc
  * @property \Cake\I18n\FrozenTime $date_debut
  * @property \Cake\I18n\FrozenTime $date_fin
+ *
+ * @property \App\Model\Entity\Client $client
  */
 class Projet extends Entity
 {
@@ -28,6 +30,7 @@ class Projet extends Entity
         'nom_projet' => true,
         'idc' => true,
         'date_debut' => true,
-        'date_fin' => true
+        'date_fin' => true,
+        'client' => true
     ];
 }
