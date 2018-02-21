@@ -77,7 +77,10 @@ class ProjetTable extends Table
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {
-                    pr($value > $context['data']['date_debut']);exit;
+                    pr($value);
+                    pr($context['data']['date_debut']);
+                    pr($value > $context['data']['date_debut']);
+                    exit;
                     return $value > $context['data']['date_debut'];
                 },
                 'message' => __("Date de fin inférieur à celle de début.")
