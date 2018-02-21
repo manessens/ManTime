@@ -186,9 +186,9 @@ class UsersController extends AppController
         if (in_array($action, ['password']) ) {
             return true;
         }
-        if (in_array($action, ['test']) ) {
-            return true;
-        }
+        // if (in_array($action, ['test']) ) {
+        //     return true;
+        // }
         if ($user['prem_connect'] === 1) {
             return false;
         }
