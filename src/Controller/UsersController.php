@@ -104,17 +104,6 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $userAuth = $this->Auth->identify();
-                $email = new Email();
-                $email->transport('default')
-                      ->template('default', 'default')
-                      ->emailFormat('both')
-                      ->to($user->email)
-                      ->subject('bienvenu sur ManTime !')
-                      ->from($userAuth['email']);
-                $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
-
-                $email->send();
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -122,6 +111,25 @@ class UsersController extends AppController
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
+    }
+
+    public function test()
+    {
+        $userAuth = $this->Auth->identify();
+        $email = new Email('default');
+        $email->from([$userAuth['email'] => 'My Site'])
+            ->to($userAuth['email'])
+            ->subject('About')
+            ->send('My message');
+        // $email = new Email();
+        // $email->transport('default')
+        //       ->template('test')
+        //       ->emailFormat('both')
+        //       ->to($user->email)
+        //       ->subject('bienvenu sur ManTime !')
+        //       ->from($userAuth['email']);
+        // $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
+        // $email->send();
     }
 
     /**
@@ -176,6 +184,9 @@ class UsersController extends AppController
         $action = $this->request->getParam('action');
 
         if (in_array($action, ['password']) ) {
+            return true;
+        }
+        if (in_array($action, ['test']) ) {
             return true;
         }
         if ($user['prem_connect'] === 1) {
