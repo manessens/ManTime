@@ -25,6 +25,7 @@ class ProjetFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'idp' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'nom_projet' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'utf8_unicode_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'idc' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'date_debut' => ['type' => 'timestamp', 'length' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '', 'precision' => null],
         'date_fin' => ['type' => 'timestamp', 'length' => null, 'null' => false, 'default' => '0000-00-00 00:00:00', 'comment' => '', 'precision' => null],
@@ -50,9 +51,10 @@ class ProjetFixture extends TestFixture
     public $records = [
         [
             'idp' => 1,
+            'nom_projet' => 'Lorem ipsum dolor sit amet',
             'idc' => 1,
-            'date_debut' => 1519120623,
-            'date_fin' => 1519120623
+            'date_debut' => 1519221440,
+            'date_fin' => 1519221440
         ],
     ];
 }
