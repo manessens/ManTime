@@ -10,8 +10,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('nom_client') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prix UO (€)') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Matrice') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('prix','prix UO (€)') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('idm','Matrice') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
