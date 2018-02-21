@@ -18,6 +18,7 @@
         <tbody>
             <?php foreach ($client as $client): ?>
             <tr>
+                <?php pr($client);exit; ?>
                 <td><?= h($client->nom_client) ?></td>
                 <td><?= $this->Number->format($client->prix) ?></td>
                 <td><?= $this->Number->format($client->idm) ?></td>

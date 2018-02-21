@@ -20,4 +20,11 @@
             <td><?= h($client->matrice->nom_matrice) ?></td>
         </tr>
     </table>
+    <div class="right">
+        <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $client->idc]) ?></div>
+    </div>
+    <div class="related col-xs-6">
+        <div class="col-xs-10 btn btn-danger"><?= $this->Form->postLink(__('Suppression'), ['action' => 'delete', $client->idc],
+                ['confirm' => __('Êtes-vous sûr de vouloir supprimer le client {0}?', $client->nom_client)]) ?></div>
+    </div>
 </div>
