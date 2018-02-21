@@ -21,15 +21,11 @@
         ?>
         </div>
         <div class="input text required">
-            <?php
-                echo $this->Form->label('Date_de_début');
-            ?>
+            <label for="date_debut">Date de début</label>
             <input type="date" name="date_debut">
         </div>
         <div class="input text required">
-            <?php
-                echo $this->Form->label('Date_de_fin');
-            ?>
+            <label for="date_fin">Date de fin</label>
             <input type="date" name="date_fin">
         </div>
         <!-- <?php
