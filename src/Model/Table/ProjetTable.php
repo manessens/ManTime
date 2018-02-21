@@ -79,7 +79,7 @@ class ProjetTable extends Table
                 'rule' => function ($value, $context) {
                     pr($value);
                     pr($context['data']['date_debut']);
-                    pr($value > $context['data']['date_debut']);
+                    pr($value < $context['data']['date_debut']);
                     exit;
                     return $value > $context['data']['date_debut'];
                 },
