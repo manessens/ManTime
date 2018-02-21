@@ -4,17 +4,12 @@
  * @var \App\Model\Entity\Projet $projet
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Projet'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
 <div class="projet form large-9 medium-8 columns content">
     <?= $this->Form->create($projet) ?>
     <fieldset>
         <legend><?= __('Ajouter un projet') ?></legend>
         <?php
+            echo $this->Form->control('nom_projet');
             echo $this->Form->select('idc', $clientOption);
             echo $this->Form->control('date_debut');
             echo $this->Form->control('date_fin');
