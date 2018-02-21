@@ -61,6 +61,7 @@ class ProjetController extends AppController
         $projet = $this->Projet->newEntity();
         if ($this->request->is('post')) {
             $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+            pr($projet);exit;
             if ($this->Projet->save($projet)) {
                 $this->Flash->success(__('The projet has been saved.'));
 
