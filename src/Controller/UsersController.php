@@ -111,12 +111,8 @@ class UsersController extends AppController
                       ->emailFormat('both')
                       ->to($user->email)
                       ->subject('bienvenu sur ManTime !');
-                      // ->from($userAuth->email);
+                      ->from($userAuth['email']);
                 $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
-                pr($email);
-                pr($user->email);
-                pr($userAuth['email']);
-                exit;
 
                 $email->send();
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
