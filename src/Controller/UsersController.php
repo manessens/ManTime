@@ -110,11 +110,12 @@ class UsersController extends AppController
                       ->template('default', 'default')
                       ->emailFormat('both')
                       ->to($user->email);
+                      ->subject('bienvenu sur ManTime !')
                       // ->from($userAuth->email);
                 $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
                 pr($email);
                 pr($user->email);
-                pr($userAuth->email);
+                pr($userAuth['email']);
                 exit;
 
                 $email->send();
