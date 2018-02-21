@@ -20,18 +20,18 @@
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
-        <!-- <div class="input text required">
+        <div class="input text required">
             <label for="date_debut">Date de début</label>
             <input type="date" name="date_debut">
         </div>
         <div class="input text required">
             <label for="date_fin">Date de fin</label>
             <input type="date" name="date_fin">
-        </div> -->
-        <?php
+        </div>
+        <!-- <?php
             echo $this->Form->input('date_debut', ['type'=>'date', 'label' => 'Date de début']);
             echo $this->Form->input('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
-        ?>
+        ?> -->
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>
