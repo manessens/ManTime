@@ -54,7 +54,11 @@ class ClientController extends AppController
         $matriceTable = TableRegistry::get('Matrice');
         $query = $matriceTable->find('all');
         $matrices = $query->toArray();
-        
+        $matricesOption = [];
+        foreach ($matrices as $matrice) {
+            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
+        }
+
         $client = $this->Client->newEntity();
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
@@ -66,7 +70,7 @@ class ClientController extends AppController
             $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
         $this->set(compact('client'));
-        $this->set(compact('matrices'));
+        $this->set(compact('matricesOption'));
     }
 
     /**

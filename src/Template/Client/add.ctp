@@ -8,7 +8,7 @@
     <?= $this->Form->create($client) ?>
     <fieldset>
         <legend><?= __('Add Client') ?></legend>
-        <?php pr($matrices);exit; ?>
+        <?php pr($matricesOption);exit; ?>
         <?php
             echo $this->Form->control('nom_client');
             echo $this->Form->control('prix');
