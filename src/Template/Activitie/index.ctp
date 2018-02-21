@@ -4,18 +4,11 @@
  * @var \App\Model\Entity\Activitie[]|\Cake\Collection\CollectionInterface $activitie
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Activitie'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="activitie index large-9 medium-8 columns content">
     <h3><?= __('Activitie') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('ida') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('nom_activit') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -23,12 +16,9 @@
         <tbody>
             <?php foreach ($activitie as $activitie): ?>
             <tr>
-                <td><?= $this->Number->format($activitie->ida) ?></td>
                 <td><?= h($activitie->nom_activit) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $activitie->ida]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $activitie->ida]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $activitie->ida], ['confirm' => __('Are you sure you want to delete # {0}?', $activitie->ida)]) ?>
+                    <?= $this->element( 'controle', ['id' =>$activitie->ida, 'entity'=>$activitie->nom_activit]); ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -36,11 +26,11 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('premier')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
+            <?= $this->Paginator->last(__('dernier') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>

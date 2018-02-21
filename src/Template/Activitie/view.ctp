@@ -4,25 +4,19 @@
  * @var \App\Model\Entity\Activitie $activitie
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Activitie'), ['action' => 'edit', $activitie->ida]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Activitie'), ['action' => 'delete', $activitie->ida], ['confirm' => __('Are you sure you want to delete # {0}?', $activitie->ida)]) ?> </li>
-        <li><?= $this->Html->link(__('List Activitie'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Activitie'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
 <div class="activitie view large-9 medium-8 columns content">
-    <h3><?= h($activitie->ida) ?></h3>
+    <h3><?= h($activitie->nom_activit) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Nom Activit') ?></th>
+            <th scope="row"><?= __('Activité') ?></th>
             <td><?= h($activitie->nom_activit) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Ida') ?></th>
-            <td><?= $this->Number->format($activitie->ida) ?></td>
-        </tr>
     </table>
+    <div class="right">
+        <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $activitie->ida]) ?></div>
+    </div>
+    <div class="related col-xs-6">
+        <div class="col-xs-10 btn btn-danger"><?= $this->Form->postLink(__('Suppression'), ['action' => 'delete', $client->idc],
+                ['confirm' => __("Êtes-vous sûr de vouloir supprimer l'activité {0}?", $activitie->nom_activit)]) ?></div>
+    </div>
 </div>
