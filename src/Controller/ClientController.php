@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Client Controller
@@ -50,6 +51,10 @@ class ClientController extends AppController
      */
     public function add()
     {
+        $matriceTable = TableRegistry::get('Matrice');
+        $query = $matriceTable->find('all');
+        $matrices = $query->toArray();
+        
         $client = $this->Client->newEntity();
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
@@ -61,6 +66,7 @@ class ClientController extends AppController
             $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
         $this->set(compact('client'));
+        $this->set(compact('matrices'));
     }
 
     /**
@@ -73,7 +79,7 @@ class ClientController extends AppController
     public function edit($id = null)
     {
         $client = $this->Client->get($id, [
-            'contain' => []
+            'contain' => ['Matrice']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
