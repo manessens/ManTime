@@ -21,8 +21,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Matrice') ?></th>
-            <?php pr($client);exit; ?>
-            <td><?= $this->Number->format($client->matrice->nom_matrice) ?></td>
+            <td><?= h($client->matrice->nom_matrice) ?></td>
         </tr>
     </table>
 </div>
