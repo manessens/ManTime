@@ -24,10 +24,6 @@ class ClientController extends AppController
             'contain'   => ['Matrice']
         ];
         $this->set('client', $this->paginate($this->Client));
-        // $this->set('_serialize', ['matrice']);
-
-        // $client = $this->paginate($this->Client);
-
         $this->set(compact('client'));
     }
 
