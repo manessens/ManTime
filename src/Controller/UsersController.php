@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
 
 /**
  * Users Controller
@@ -103,6 +104,13 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
+                $email = new Email();
+                $email->setTemplate('default', 'default')
+                    ->emailFormat('both')
+                    ->setTo($user->email)
+                    ->setFrom('manessens@manessens.com');
+                $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
+                $email->send();
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -162,7 +170,7 @@ class UsersController extends AppController
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
-        
+
         if (in_array($action, ['password']) ) {
             return true;
         }
