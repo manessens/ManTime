@@ -8,11 +8,10 @@
     <?= $this->Form->create($client) ?>
     <fieldset>
         <legend><?= __('Add Client') ?></legend>
-        <?php pr($matricesOption);exit; ?>
         <?php
             echo $this->Form->control('nom_client');
             echo $this->Form->control('prix');
-            echo $this->Form->control('idm');
+            echo $this->Form->select('idm', $matricesOption);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
