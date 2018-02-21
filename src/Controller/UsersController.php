@@ -109,8 +109,8 @@ class UsersController extends AppController
                 $email->transport('default')
                       ->template('default', 'default')
                       ->emailFormat('both')
-                      ->to($user->email);
-                      ->subject('bienvenu sur ManTime !')
+                      ->to($user->email)
+                      ->subject('bienvenu sur ManTime !');
                       // ->from($userAuth->email);
                 $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
                 pr($email);
