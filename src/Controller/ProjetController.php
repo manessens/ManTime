@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Projet Controller
@@ -20,8 +21,10 @@ class ProjetController extends AppController
      */
     public function index()
     {
-        $projet = $this->paginate($this->Projet);
-
+        $this->paginate =[
+            'contain'   => ['Client']
+        ];
+        $this->set('projet', $this->paginate($this->Client));
         $this->set(compact('projet'));
     }
 
@@ -35,7 +38,7 @@ class ProjetController extends AppController
     public function view($id = null)
     {
         $projet = $this->Projet->get($id, [
-            'contain' => []
+            'contain' => ['Client']
         ]);
 
         $this->set('projet', $projet);
@@ -48,6 +51,13 @@ class ProjetController extends AppController
      */
     public function add()
     {
+        $clientTable = TableRegistry::get('Client');
+        $query = $clientTable->find('all');
+        $clients = $query->toArray();
+        $clientOption = [];
+        foreach ($clients as $client) {
+            $clientOption[$client->idc] = $client->nom_client;
+        }
         $projet = $this->Projet->newEntity();
         if ($this->request->is('post')) {
             $projet = $this->Projet->patchEntity($projet, $this->request->getData());
@@ -59,6 +69,7 @@ class ProjetController extends AppController
             $this->Flash->error(__('The projet could not be saved. Please, try again.'));
         }
         $this->set(compact('projet'));
+        $this->set(compact('clientOption'));
     }
 
     /**
@@ -70,8 +81,15 @@ class ProjetController extends AppController
      */
     public function edit($id = null)
     {
+        $clientTable = TableRegistry::get('Client');
+        $query = $clientTable->find('all');
+        $clients = $query->toArray();
+        $clientOption = [];
+        foreach ($clients as $client) {
+            $clientOption[$client->idc] = $client->nom_client;
+        }
         $projet = $this->Projet->get($id, [
-            'contain' => []
+            'contain' => ['Client']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $projet = $this->Projet->patchEntity($projet, $this->request->getData());
@@ -83,6 +101,7 @@ class ProjetController extends AppController
             $this->Flash->error(__('The projet could not be saved. Please, try again.'));
         }
         $this->set(compact('projet'));
+        $this->set(compact('clientOption'));
     }
 
     /**
