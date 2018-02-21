@@ -22,20 +22,20 @@
         </div>
         <div class="input text required">
             <?php
-                echo $this->Form->label('Date de début');
+                echo $this->Form->label('Date_de_début');
             ?>
             <input type="date" name="date_debut">
         </div>
         <div class="input text required">
             <?php
-                echo $this->Form->label('Date de fin');
+                echo $this->Form->label('Date_de_fin');
             ?>
             <input type="date" name="date_fin">
         </div>
-        <?php
-            echo $this->Form->input('date_debut', ['type'=>'date', 'label' => 'Date de début']);
-            echo $this->Form->input('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
-        ?>
+        <!-- <?php
+            // echo $this->Form->input('date_debut', ['type'=>'date', 'label' => 'Date de début']);
+            // echo $this->Form->input('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
+        ?> -->
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>
