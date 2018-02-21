@@ -10,9 +10,16 @@
         <legend><?= __('Ajouter un projet') ?></legend>
         <?php
             echo $this->Form->control('nom_projet');
-            echo $this->Form->select('idc', $clientOption, ['label' => 'Client']);
-            echo $this->Form->control('date_debut', ['type'=>'date', 'label' => 'Date de début']);
-            echo $this->Form->control('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
+        ?>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('Client');
+            echo $this->Form->select('idc', $clientOption);
+        ?>
+        </div>
+        <?php
+            echo $this->Form->input('date_debut', ['type'=>'date', 'label' => 'Date de début']);
+            echo $this->Form->input('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
