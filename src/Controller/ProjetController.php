@@ -61,9 +61,8 @@ class ProjetController extends AppController
         }
         $projet = $this->Projet->newEntity();
         if ($this->request->is('post')) {
-            $now = FrozenTime::parse($this->request->getData()['date_debut']);
-            pr($now);exit;
-            // $this->request->getData()['date_debut'] =
+            $this->request->getData()['date_debut'] = FrozenTime::parse($this->request->getData()['date_debut']);
+            $this->request->getData()['date_fin'] = FrozenTime::parse($this->request->getData()['date_fin']);
             pr($this->request->getData());exit;
             $projet = $this->Projet->patchEntity($projet, $this->request->getData());
             if ($this->Projet->save($projet)) {
