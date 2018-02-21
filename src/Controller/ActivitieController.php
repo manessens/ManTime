@@ -52,11 +52,11 @@ class ActivitieController extends AppController
         if ($this->request->is('post')) {
             $activitie = $this->Activitie->patchEntity($activitie, $this->request->getData());
             if ($this->Activitie->save($activitie)) {
-                $this->Flash->success(__('The activitie has been saved.'));
+                $this->Flash->success(__("L'activité a bien été sauvegardée."));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The activitie could not be saved. Please, try again.'));
+            $this->Flash->error(__("L'activité n'a pus être sauvegardée. Merci de rententer ultérieurement."));
         }
         $this->set(compact('activitie'));
     }
@@ -76,11 +76,11 @@ class ActivitieController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $activitie = $this->Activitie->patchEntity($activitie, $this->request->getData());
             if ($this->Activitie->save($activitie)) {
-                $this->Flash->success(__('The activitie has been saved.'));
+                $this->Flash->success(__("L'activité a bien été sauvegardée."));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The activitie could not be saved. Please, try again.'));
+            $this->Flash->error(__("L'activité n'a pus être sauvegardée. Merci de rententer ultérieurement."));
         }
         $this->set(compact('activitie'));
     }
@@ -97,14 +97,14 @@ class ActivitieController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $activitie = $this->Activitie->get($id);
         if ($this->Activitie->delete($activitie)) {
-            $this->Flash->success(__('The activitie has been deleted.'));
+            $this->Flash->success(__("L'activité a bien été supprimée."));
         } else {
-            $this->Flash->error(__('The activitie could not be deleted. Please, try again.'));
+            $this->Flash->error(__("L'activité n'a pus être supprimée. Merci de rententer ultérieurement."));
         }
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
