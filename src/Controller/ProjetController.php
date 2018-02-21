@@ -21,10 +21,10 @@ class ProjetController extends AppController
      */
     public function index()
     {
-        $this->paginate =[
+        $this->paginate = [
             'contain'   => ['Client']
         ];
-        $this->set('projet', $this->paginate($this->Client));
+        $this->set('projet', $this->paginate($this->Projet));
         $this->set(compact('projet'));
     }
 
