@@ -29,8 +29,8 @@
             <td><?= $this->Number->format($client->prix) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Idm') ?></th>
-            <td><?= $this->Number->format($client->idm) ?></td>
+            <th scope="row"><?= __('Matrice') ?></th>
+            <td><?= $this->Number->format($client->matrice->nom_matrice) ?></td>
         </tr>
     </table>
 </div>

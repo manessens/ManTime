@@ -10,6 +10,8 @@ use Cake\ORM\Entity;
  * @property string $nom_client
  * @property float $prix
  * @property int $idm
+ *
+ * @property \App\Model\Entity\Matrice $matrice
  */
 class Client extends Entity
 {
@@ -26,6 +28,7 @@ class Client extends Entity
     protected $_accessible = [
         'nom_client' => true,
         'prix' => true,
-        'idm' => true
+        'idm' => true,
+        'matrice' => true
     ];
 }

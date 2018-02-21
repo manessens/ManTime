@@ -35,7 +35,7 @@ class ClientController extends AppController
     public function view($id = null)
     {
         $client = $this->Client->get($id, [
-            'contain' => []
+            'contain' => ['Matrice']
         ]);
 
         $this->set('client', $client);

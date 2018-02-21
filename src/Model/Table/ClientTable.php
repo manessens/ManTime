@@ -9,6 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Client Model
  *
+ * @property \App\Model\Entity\Matrice|\Cake\ORM\Association\BelongsTo $Matrice
+ *
+ *
  * @method \App\Model\Entity\Client get($primaryKey, $options = [])
  * @method \App\Model\Entity\Client newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Client[] newEntities(array $data, array $options = [])
@@ -33,6 +36,10 @@ class ClientTable extends Table
         $this->setTable('client');
         $this->setDisplayField('idc');
         $this->setPrimaryKey('idc');
+
+        $this->belongsTo('Matrice', [
+            'foreignKey' => 'idm'
+        ]);
     }
 
     /**
