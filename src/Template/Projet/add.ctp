@@ -11,8 +11,8 @@
         <?php
             echo $this->Form->control('nom_projet');
             echo $this->Form->select('idc', $clientOption, ['label' => 'Client']);
-            echo $this->Form->control('date_debut', ['label' => 'Date de début']);
-            echo $this->Form->control('date_fin', ['label' => 'Date de fin']);
+            echo $this->Form->control('date_debut', ['type'=>'date', 'label' => 'Date de début']);
+            echo $this->Form->control('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
