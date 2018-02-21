@@ -10,12 +10,11 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('prenom') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('nom') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('mdp') ?></th> -->
-                <th class="medium-1" scope="col"><?= $this->Paginator->sort('actif') ?></th>
-                <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('prenom','Prénom') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('nom','Nom') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('email','Adresse email') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('actif','Actif') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
                 <td><?= h($user->prenom) ?></td>
                 <td><?= h($user->nom) ?></td>
                 <td><?= h($user->email) ?></td>
-                <!-- <td><?= h($user->mdp) ?></td> -->
                 <td>
                     <?= $this->element('tagYN', ['test' => $this->Number->format($user->actif)]) ?>
                 </td>

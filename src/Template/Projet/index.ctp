@@ -4,35 +4,27 @@
  * @var \App\Model\Entity\Projet[]|\Cake\Collection\CollectionInterface $projet
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Projet'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="projet index large-9 medium-8 columns content">
-    <h3><?= __('Projet') ?></h3>
+    <h3><?= __('Projets') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('idp') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('idc') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date_debut') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date_fin') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('nom_projet','Projet') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('idc','Client') ?></th>
+                <th class="date" scope="col"><?= $this->Paginator->sort('date_debut','Date de début') ?></th>
+                <th class="date" scope="col"><?= $this->Paginator->sort('date_fin','Date de fin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($projet as $projet): ?>
             <tr>
-                <td><?= $this->Number->format($projet->idp) ?></td>
-                <td><?= $this->Number->format($projet->idc) ?></td>
+                <td><?= h($projet->nom_projet) ?></td>
+                <td><?= h($projet->matrice->nom_matrice) ?></td>
                 <td><?= h($projet->date_debut) ?></td>
                 <td><?= h($projet->date_fin) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $projet->idp]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $projet->idp]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $projet->idp], ['confirm' => __('Are you sure you want to delete # {0}?', $projet->idp)]) ?>
+                    <?= $this->element( 'controle', ['id' =>$projet->idp, 'entity'=>$projet->nom_projet]); ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -40,12 +32,12 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('premier')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
+            <?= $this->Paginator->last(__('dernier') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} de {{pages}}, affiché {{current}} enregistrement(s) sur {{count}} total')]) ?></p>
     </div>
 </div>

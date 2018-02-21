@@ -9,7 +9,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('nom_client') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('prix','prix UO (€)') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('idm','Matrice') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>

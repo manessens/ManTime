@@ -9,15 +9,13 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <!-- <th scope="col"><?= $this->Paginator->sort('idm') ?></th> -->
-                <th scope="col"><?= $this->Paginator->sort('nom_matrice') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('nom_matrice','Matrice') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($matrice as $matrice): ?>
             <tr>
-                <!-- <td><?= $this->Number->format($matrice->idm) ?></td> -->
                 <td><?= h($matrice->nom_matrice) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$matrice->idm, 'entity'=>$matrice->nom_matrice]); ?>
