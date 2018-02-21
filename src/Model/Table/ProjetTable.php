@@ -74,15 +74,6 @@ class ProjetTable extends Table
             ->requirePresence('date_fin', 'create')
             ->notEmpty('date_fin');
 
-        $validator
-            ->add('date_fin', [
-                'rule' => function ($value, $context) {
-                    pr($context);exit;
-                    return true;
-                },
-                'message' => 'The title is not valid'
-        ]);
-
         return $validator;
     }
 }

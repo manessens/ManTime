@@ -22,7 +22,7 @@
                 <td><?= h($projet->nom_projet) ?></td>
                 <td><?= h($projet->client->nom_client) ?></td>
                 <td><?= h($projet->date_debut->i18nFormat('dd-MM-yyyy')) ?></td>
-                <td><?= h($projet->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
+                <td><?= h($projet->date_fin) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$projet->idp, 'entity'=>$projet->nom_projet]); ?>
                 </td>
