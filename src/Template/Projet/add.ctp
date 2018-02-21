@@ -15,7 +15,7 @@
     <fieldset>
         <legend><?= __('Ajouter un projet') ?></legend>
         <?php
-            echo $this->Form->control('idc');
+            echo $this->Form->select('idc', $clientOption);
             echo $this->Form->control('date_debut');
             echo $this->Form->control('date_fin');
         ?>
