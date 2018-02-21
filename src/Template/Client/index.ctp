@@ -20,7 +20,7 @@
             <tr>
                 <td><?= h($client->nom_client) ?></td>
                 <td><?= $this->Number->format($client->prix) ?></td>
-                <td><?= $this->Number->format($client->matrice->nom_matrice) ?></td>
+                <td><?= h($client->matrice->nom_matrice) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$client->idc, 'entity'=>$client->nom_client]); ?>
                 </td>
