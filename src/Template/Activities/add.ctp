@@ -13,7 +13,7 @@
 <div class="activities form large-9 medium-8 columns content">
     <?= $this->Form->create($activity) ?>
     <fieldset>
-        <legend><?= __('Add Activity') ?></legend>
+        <legend><?= __('Ajouter Activity') ?></legend>
         <?php
         ?>
     </fieldset>

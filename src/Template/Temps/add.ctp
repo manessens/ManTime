@@ -13,7 +13,7 @@
 <div class="temps form large-9 medium-8 columns content">
     <?= $this->Form->create($temp) ?>
     <fieldset>
-        <legend><?= __('Add Temp') ?></legend>
+        <legend><?= __('Ajouter Temp') ?></legend>
         <?php
             echo $this->Form->control('date');
             echo $this->Form->control('time');
