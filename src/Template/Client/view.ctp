@@ -5,19 +5,15 @@
  */
 ?>
 <div class="client view large-9 medium-8 columns content">
-    <h3><?= h($client->idc) ?></h3>
+    <h3><?= h($client->nom_client) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Nom Client') ?></th>
             <td><?= h($client->nom_client) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Idc') ?></th>
-            <td><?= $this->Number->format($client->idc) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Prix') ?></th>
-            <td><?= $this->Number->format($client->prix) ?></td>
+            <th scope="row"><?= __('Prix UO') ?></th>
+            <td><?= $this->Number->format($client->prix) ?>€</td>
         </tr>
         <tr>
             <th scope="row"><?= __('Matrice') ?></th>
