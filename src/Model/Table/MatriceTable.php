@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Matrice Model
  *
+ * @property \App\Model\Table\LignMatTable|\Cake\ORM\Association\HasMany $LignMat
+ *
  * @method \App\Model\Entity\Matrice get($primaryKey, $options = [])
  * @method \App\Model\Entity\Matrice newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Matrice[] newEntities(array $data, array $options = [])

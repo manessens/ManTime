@@ -9,6 +9,7 @@
     <fieldset>
         <legend><?= __('Ajouter un projet') ?></legend>
         <?php
+            pr($projet);exit;
             echo $this->Form->control('nom_projet');
         ?>
         <div class="input text required">

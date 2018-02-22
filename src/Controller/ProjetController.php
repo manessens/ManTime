@@ -39,7 +39,7 @@ class ProjetController extends AppController
     public function view($id = null)
     {
         $projet = $this->Projet->get($id, [
-            'contain' => ['Client']
+            'contain' => ['Client', 'Activity', 'Participant']
         ]);
 
         $this->set('projet', $projet);
@@ -63,7 +63,9 @@ class ProjetController extends AppController
         if ($this->request->is('post')) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+            $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
+                'associated' => ['Activity', 'Participant']
+            ]);
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
@@ -98,12 +100,14 @@ class ProjetController extends AppController
             $clientOption[$client->idc] = $client->nom_client;
         }
         $projet = $this->Projet->get($id, [
-            'contain' => ['Client']
+            'contain' => ['Client', 'Activity', 'Participant']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+            $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
+                'associated' => ['Activity', 'Participant']
+            ]);
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
