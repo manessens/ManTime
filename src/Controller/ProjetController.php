@@ -123,6 +123,7 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
+        $this->set('particpants', $this->Projet->Participant->find('list'));
     }
 
     /**

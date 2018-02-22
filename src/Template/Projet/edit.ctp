@@ -20,7 +20,6 @@
         ?>
         <div class="input text required">
         <?php
-            $this->set('particpants', $this->particpant->find('list'));
             pr($particpants);exit;
             echo $this->Form->label('Participants');
             echo $this->Form->select('participant', $clientOption, ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
