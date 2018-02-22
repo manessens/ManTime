@@ -10,7 +10,7 @@
         <legend><?= __('Edit Projet') ?></legend>
         <div class="input text required">
         <?php
-            echo $this->Form->label('Client');
+            echo $this->Form->label('idc','Client');
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
@@ -20,7 +20,7 @@
         ?>
         <div class="input text required">
         <?php
-            echo $this->Form->label('Participants');
+            echo $this->Form->label('participant','Participants');
             echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants ]);
         ?>
         </div>

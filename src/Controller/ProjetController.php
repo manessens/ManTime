@@ -112,8 +112,8 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $participantOption = $this->getParticipantsOption($projet->idp);
-        $this->set('particpants', $participantOption['data']);
-        $this->set('myParticpants',$participantOption['my']);
+        $this->set('particpants', $this->getClientOption());
+        $this->set('myParticpants',$participantOption);
         $this->set('activits', $this->Projet->Activities->find('list'));
     }
 
@@ -129,16 +129,28 @@ class ProjetController extends AppController
         return $clientOption;
     }
 
-    private function getParticipantsOption($idp = null)
+    private function getUserOption($idp = null)
+    {
+        $userTable = TableRegistry::get('Users');
+        $query = $userTable->find('all')->where(['Users.actif =' => 1]);
+        $users = $query->toArray();
+        $userOption = [];
+        foreach ($users as $user) {
+            $userOption[$user->idu.';'.$idp] = $user->fullname;
+        }
+        return $userOption;
+    }
+
+    private function getMyParticipantsOption($idp = null)
     {
         $participantTable = TableRegistry::get('Participant');
-        $query = $participantTable->find('all')->contain(['Users', 'Projet']);
+        $query = $participantTable->findByIdp($idp)->contain(['Users', 'Projet']);
         $participants = $query->toArray();
-        $participantOption = array('data'=>array(), 'my' => array());
+        pr($participants);exit;
+        $participantOption = array();
         foreach ($participants as $participant) {
-            $participantOption['data'][$participant->idu.';'.$participant->idp] = $participant->user->fullname;
             if ($participant->idp === $idp) {
-                $participantOption['my'] = $participant->idu.';'.$participant->idp;
+                $participantOption = $participant->idu.';'.$participant->idp;
             }
         }
         return $participantOption;
