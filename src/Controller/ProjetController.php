@@ -93,13 +93,13 @@ class ProjetController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
+                pr($this->request->getData());exit;
             $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
                 'associated' => ['Activities' => ['Activitie'], 'Participant' => ['Users']]
             ]);
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
-                pr($projet);exit;
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
