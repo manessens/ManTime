@@ -111,9 +111,8 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $participantOption = $this->getParticipantsOption($projet->idp);
         $this->set('particpants', $this->getClientOption());
-        $this->set('myParticpants',$participantOption);
+        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activits', $this->Projet->Activities->find('list'));
     }
 
