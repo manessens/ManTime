@@ -7,17 +7,16 @@ $(function() {
     });
 });
 
-$('.multiple option').mousedown(function(e) {
-    e.preventDefault();
-    $(this).prop('selected', !$(this).prop('selected'));
-    return false;
-});
-
-
 $( ".multiple option" ).mousedown(function() {
     var str = "";
     $( ".multiple option:selected" ).each(function() {
       str += $( this ).text() + ", ";
     });
     $( ".multiple option" ).parent().prev().prev('div.selected').text(str);
-}).trigger( "mousedown" );
+});
+
+$('.multiple option').mousedown(function(e) {
+    e.preventDefault();
+    $(this).prop('selected', !$(this).prop('selected'));
+    return false;
+});
