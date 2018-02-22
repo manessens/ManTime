@@ -133,9 +133,9 @@ class ProjetController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $projet = $this->Projet->get($id);
         if ($this->Projet->delete($projet)) {
-            $this->Flash->success(__('The projet has been deleted.'));
+            $this->Flash->success(__('Le projet à été supprimé avec succés'));
         } else {
-            $this->Flash->error(__('The projet could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Le projet n'a pus être supprimé. Merci de retenter ultérieurment."));
         }
 
         return $this->redirect(['action' => 'index']);

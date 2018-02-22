@@ -4,33 +4,31 @@
  * @var \App\Model\Entity\Projet $projet
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Projet'), ['action' => 'edit', $projet->idp]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Projet'), ['action' => 'delete', $projet->idp], ['confirm' => __('Are you sure you want to delete # {0}?', $projet->idp)]) ?> </li>
-        <li><?= $this->Html->link(__('List Projet'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Projet'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
 <div class="projet view large-9 medium-8 columns content">
-    <h3><?= h($projet->idp) ?></h3>
+    <h3><?= h($projet->nom_projet) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Idp') ?></th>
-            <td><?= $this->Number->format($projet->idp) ?></td>
+            <th scope="row"><?= __('Nom_projet') ?></th>
+            <td><?= h($projet->nom_projet) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Idc') ?></th>
-            <td><?= $this->Number->format($projet->idc) ?></td>
+            <th scope="row"><?= __('Matrice') ?></th>
+            <td><?= h($projet->matrice->nom_matrice) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Date Debut') ?></th>
-            <td><?= h($projet->date_debut) ?></td>
+            <th scope="row"><?= __('Date de debut') ?></th>
+            <td><?=  h($projet->date_debut->i18nFormat('dd-MM-yyyy')) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Date Fin') ?></th>
-            <td><?= h($projet->date_fin) ?></td>
+            <th scope="row"><?= __('Date de fin') ?></th>
+            <td><?=  h($projet->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
         </tr>
     </table>
+    <div class="right">
+        <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $projet->idp]) ?></div>
+    </div>
+    <div class="related col-xs-6">
+        <div class="col-xs-10 btn btn-danger"><?= $this->Form->postLink(__('Suppression'), ['action' => 'delete', $projet->idp],
+                ['confirm' => __('Êtes-vous sûr de vouloir supprimer le projet {0}?', $projet->nom_projet)]) ?></div>
+    </div>
 </div>
