@@ -18,6 +18,15 @@
             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
+        <div class="input text required">
+        <?php
+            $this->set('particpants', $this->particpant->find('list'));
+            pr($particpants);exit;
+            echo $this->Form->label('Participants');
+            echo $this->Form->select('participant', $clientOption, ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
+            echo $this->Form->select('idc', $clientOption);
+        ?>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>
