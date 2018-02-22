@@ -23,15 +23,15 @@
         <?php
             echo $this->Form->control('idc');
             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
-            // echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
+            echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
         ?>
-        <div class="input text required">
+        <!-- <div class="input text required">
             <label for="date_fin">Date de fin</label>
             <input type="date" name="date_fin"  value="<?= $projet->date_fin->i18nFormat('yyyy-MM-dd') ?>">
-        </div>
+        </div> -->
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>
 </div>
 
-<?php echo $this->Html->script('ManTime/man.projet.js'); ?>
+<!-- <?php echo $this->Html->script('ManTime/man.projet.js'); ?> -->
