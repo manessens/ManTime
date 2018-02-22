@@ -21,12 +21,12 @@
         ?>
         </div>
         <div class="input text required">
-            <label for="date_debut" value="<?= $projet->date_debut->i18nFormat('dd/MM/yyyy') ?>">Date de début</label>
+            <label for="date_debut">Date de début</label>
             <input type="date" name="date_debut">
         </div>
         <div class="input text required">
             <label for="date_fin">Date de fin</label>
-            <input type="date" name="date_fin" value="<?= $projet->date_fin->i18nFormat('dd/MM/yyyy') ?>">
+            <input type="date" name="date_fin">
         </div>
         <!-- <?php
             echo $this->Form->input('date_debut', ['type'=>'date', 'label' => 'Date de début']);

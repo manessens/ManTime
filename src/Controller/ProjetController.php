@@ -63,10 +63,10 @@ class ProjetController extends AppController
         if ($this->request->is('post')) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData());
-            $projet->date_debut = $debut;
-            $projet->date_fin = $fin;
             if ($fin > $debut) {
+                $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+                $projet->date_debut = $debut;
+                $projet->date_fin = $fin;
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
