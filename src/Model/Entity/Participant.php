@@ -1,4 +1,7 @@
-<?php
+
+*
+* @property \App\Model\Entity\Activity $activities
+* @property \App\Model\Entity\Projet $projet<?php
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -8,6 +11,9 @@ use Cake\ORM\Entity;
  *
  * @property int $idu
  * @property int $idp
+ *
+ * @property \App\Model\Entity\User $users
+ * @property \App\Model\Entity\Projet $projet
  */
 class Participant extends Entity
 {
@@ -24,6 +30,8 @@ class Participant extends Entity
     protected $_accessible = [
         '*' => true,
         'idu' => false,
-        'idp' => false
+        'idp' => false,
+        'users' => true,
+        'projet' => true
     ];
 }

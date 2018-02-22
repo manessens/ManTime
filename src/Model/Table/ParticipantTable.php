@@ -9,6 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Participant Model
  *
+ * @property \App\Model\Entity\User|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Entity\Projet|\Cake\ORM\Association\BelongsTo $Projet
+ *
+ *
  * @method \App\Model\Entity\Participant get($primaryKey, $options = [])
  * @method \App\Model\Entity\Participant newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Participant[] newEntities(array $data, array $options = [])
@@ -33,6 +37,13 @@ class ParticipantTable extends Table
         $this->setTable('participant');
         $this->setDisplayField('idu');
         $this->setPrimaryKey(['idu', 'idp']);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'idu'
+        ]);
+        $this->belongsTo('Projet', [
+            'foreignKey' => 'idp'
+        ]);
     }
 
     /**

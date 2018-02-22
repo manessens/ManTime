@@ -8,6 +8,9 @@ use Cake\ORM\Entity;
  *
  * @property int $ida
  * @property int $idp
+ *
+ * @property \App\Model\Entity\Activitie $activitie
+ * @property \App\Model\Entity\Projet $projet
  */
 class Activity extends Entity
 {
@@ -24,6 +27,8 @@ class Activity extends Entity
     protected $_accessible = [
         '*' => true,
         'ida' => false,
-        'idp' => false
+        'idp' => false,
+        'activitie' => true,
+        'projet' => true
     ];
 }

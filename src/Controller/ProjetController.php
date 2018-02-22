@@ -39,7 +39,7 @@ class ProjetController extends AppController
     public function view($id = null)
     {
         $projet = $this->Projet->get($id, [
-            'contain' => ['Client', 'Activities', 'Participant']
+            'contain' => ['Client', 'Activities' => ['Activitie'], 'Participant' => ['Users']]
         ]);
 
         $this->set('projet', $projet);
@@ -64,7 +64,7 @@ class ProjetController extends AppController
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
             $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
-                'associated' => ['Activities', 'Participant']
+                'associated' => ['Activities' => ['Activitie'], 'Participant' => ['Users']]
             ]);
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
@@ -100,13 +100,13 @@ class ProjetController extends AppController
             $clientOption[$client->idc] = $client->nom_client;
         }
         $projet = $this->Projet->get($id, [
-            'contain' => ['Client', 'Activities', 'Participant']
+            'contain' => ['Activities' => ['Activitie'], 'Participant' => ['Users']]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
             $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
-                'associated' => ['Activity', 'Participant']
+                'associated' => ['Activities' => ['Activitie'], 'Participant' => ['Users']]
             ]);
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
@@ -136,6 +136,7 @@ class ProjetController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $projet = $this->Projet->get($id);
+        //DELETION ACTIVTIES / PARTICIPANT
         if ($this->Projet->delete($projet)) {
             $this->Flash->success(__('Le projet à été supprimé avec succés'));
         } else {
