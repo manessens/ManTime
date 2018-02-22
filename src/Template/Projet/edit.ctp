@@ -21,7 +21,7 @@
         <div class="input text required">
         <?php
             echo $this->Form->label('Participants');
-            echo $this->Form->select('participant', $particpants, ['multiple' => true]);
+            echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants ]);
         ?>
         </div>
     </fieldset>
