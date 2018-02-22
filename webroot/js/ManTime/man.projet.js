@@ -1,0 +1,1 @@
+$( ".datepicker" ).attr('type', 'date');

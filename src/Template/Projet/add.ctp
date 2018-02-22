@@ -20,10 +20,11 @@
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
-        <div class="input text required">
-            <label for="date_debut">Date de début</label>
-            <input type="date" name="date_debut">
-        </div>
+        <!-- <div class="input text required"> -->
+            <!-- <label for="date_debut">Date de début</label> -->
+            <?php echo $this->Form->input('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
+            <!-- <input type="date" name="date_debut"> -->
+        <!-- </div> -->
         <div class="input text required">
             <label for="date_fin">Date de fin</label>
             <input type="date" name="date_fin">
@@ -36,3 +37,5 @@
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<?php echo $this->Html->script('ManTime/man.projet.js'); ?>
