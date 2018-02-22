@@ -132,7 +132,7 @@ class ProjetController extends AppController
     private function getParticipantsOption($idp = null)
     {
         $participantTable = TableRegistry::get('Participant');
-        $query = $participantTable->find('all');
+        $query = $participantTable->find('all')->contain(['Users', 'Projet']);
         $participants = $query->toArray();
         $participantOption = array('data'=>array(), 'my' => array());
         foreach ($participants as $participant) {
