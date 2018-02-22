@@ -148,7 +148,7 @@ class ProjetController extends AppController
         $participantOption = array();
         foreach ($participants as $participant) {
             if ($participant->idp === $idp) {
-                $participantOption = $participant->idu.';'.$participant->idp;
+                $participantOption[] = $participant->idu.';'.$participant->idp;
             }
         }
         return $participantOption;
