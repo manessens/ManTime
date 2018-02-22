@@ -138,6 +138,7 @@ class ProjetController extends AppController
         foreach ($users as $user) {
             $userOption[$user->idu.';'.$idp] = $user->fullname;
         }
+        sort($userOption);
         return $userOption;
     }
 
@@ -151,6 +152,7 @@ class ProjetController extends AppController
         foreach ($activities as $activitie) {
             $activitieOption[$activitie->ida.';'.$idp] = $activitie->nom_activit;
         }
+        sort($activitieOption);
         return $activitieOption;
     }
 
