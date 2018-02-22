@@ -22,8 +22,7 @@
         <?php
             pr($particpants);exit;
             echo $this->Form->label('Participants');
-            echo $this->Form->select('participant', $clientOption, ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
-            echo $this->Form->select('idc', $clientOption);
+            echo $this->Form->select('participant', $particpants, ['multiple' => true]);
         ?>
         </div>
     </fieldset>
