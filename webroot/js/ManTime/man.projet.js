@@ -7,15 +7,6 @@ $(function() {
     });
 });
 
-$( ".multiple option" ).mousedown(function() {
-    var str = "<p>";
-    $( ".multiple option:selected" ).each(function() {
-      str += $( this ).text() + "</p><p> ";
-    });
-    str += "</p>";
-    $( ".multiple option" ).parent().prev().prev('div.selected').text(str);
-}).trigger( "mousedown" );
-
 $('.multiple option').mousedown(function(e) {
     e.preventDefault();
     $(this).prop('selected', !$(this).prop('selected'));
