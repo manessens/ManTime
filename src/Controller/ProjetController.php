@@ -86,7 +86,7 @@ class ProjetController extends AppController
      */
     public function edit($id = null)
     {
-        $clientOption = getClientOption();
+        $clientOption = $this->getClientOption();
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities' => ['Activitie'], 'Participant' => ['Users']]
         ]);
@@ -111,7 +111,7 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $participantOption = getParticipantsOption($projet->idp);
+        $participantOption = $this->getParticipantsOption($projet->idp);
         $this->set('particpants', $participantOption['data']);
         $this->set('myParticpants',$participantOption['my']);
         $this->set('activits', $this->Projet->Activities->find('list'));
