@@ -12,11 +12,3 @@ $('.multiple option').mousedown(function(e) {
     $(this).prop('selected', !$(this).prop('selected'));
     return false;
 });
-
-$( ".multiple" ).change(function() {
-    var str = "";
-    $( ".multiple option:selected" ).each(function() {
-      str += $( this ).text() + ", ";
-    });
-    console.log($( this ).prev());
-}).trigger( "change" );
