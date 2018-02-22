@@ -63,10 +63,10 @@ class ProjetController extends AppController
         if ($this->request->is('post')) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
+            $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+            $projet->date_debut = $debut;
+            $projet->date_fin = $fin;
             if ($fin > $debut) {
-                $projet = $this->Projet->patchEntity($projet, $this->request->getData());
-                $projet->date_debut = $debut;
-                $projet->date_fin = $fin;
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
@@ -106,12 +106,16 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $this->request->getData());
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
-            if ($this->Projet->save($projet)) {
-                $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
+            if ($fin > $debut) {
+                if ($this->Projet->save($projet)) {
+                    $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
+            }else{
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
             }
-            $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
