@@ -22,7 +22,7 @@
         <?php
             echo $this->Form->label('participant','Participants');
         ?>
-            <input type="text" disabled="disabled" >
+            <div class="selected"></div>
         <?php
             echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple']);
         ?>
