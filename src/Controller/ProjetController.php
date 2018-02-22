@@ -143,9 +143,8 @@ class ProjetController extends AppController
     private function getMyParticipantsOption($idp = null)
     {
         $participantTable = TableRegistry::get('Participant');
-        $query = $participantTable->findByIdp($idp)->contain(['Users', 'Projet']);
+        $query = $participantTable->findByIdp($idp);
         $participants = $query->toArray();
-        pr($participants);exit;
         $participantOption = array();
         foreach ($participants as $participant) {
             if ($participant->idp === $idp) {
