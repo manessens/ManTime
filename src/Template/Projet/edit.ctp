@@ -22,10 +22,12 @@
         <legend><?= __('Edit Projet') ?></legend>
         <?php
             echo $this->Form->control('idc');
-            echo $this->Form->control('date_debut');
-            echo $this->Form->control('date_fin');
+            echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
+            echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<?php echo $this->Html->script('ManTime/man.projet.js'); ?>

@@ -10,9 +10,6 @@
         <legend><?= __('Ajouter un projet') ?></legend>
         <?php
             echo $this->Form->control('nom_projet');
-            if ($this->Form->isFieldError('nom_projet')) {
-                echo $this->Form->error('nom_projet', 'Erreur personalisé');
-            }
         ?>
         <div class="input text required">
         <?php
