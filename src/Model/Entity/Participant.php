@@ -1,7 +1,5 @@
 
-*
-* @property \App\Model\Entity\Activity $activities
-* @property \App\Model\Entity\Projet $projet<?php
+<?php
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
