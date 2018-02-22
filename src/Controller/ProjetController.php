@@ -99,6 +99,7 @@ class ProjetController extends AppController
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
+                pr($projet);exit;
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
