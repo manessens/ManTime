@@ -135,10 +135,10 @@ class ProjetController extends AppController
         $query = $userTable->find('all')->where(['Users.actif =' => 1]);
         $users = $query->toArray();
         $userOption = [];
-        sort($users);
         foreach ($users as $user) {
             $userOption[$user->idu.';'.$idp] = $user->fullname;
         }
+        asort($userOption);
         return $userOption;
     }
 
@@ -149,10 +149,10 @@ class ProjetController extends AppController
         $query = $activitieTable->find('all');
         $activities = $query->toArray();
         $activitieOption = [];
-        sort($activities);
         foreach ($activities as $activitie) {
             $activitieOption[$activitie->ida.';'.$idp] = $activitie->nom_activit;
         }
+        asort($activitieOption);
         return $activitieOption;
     }
 
