@@ -20,7 +20,6 @@
         ?>
         <div class="input text required">
         <?php
-            pr($particpants);exit;
             echo $this->Form->label('Participants');
             echo $this->Form->select('participant', $particpants, ['multiple' => true]);
         ?>
