@@ -28,7 +28,7 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
 
     <?php echo $this->Html->css('Bootstrap/bootstrap.css'); ?>
     <?php echo $this->Html->css('ManTime/man.css'); ?>
-    <?php echo $this->Html->script(['jquery-3.3.1.min.js', 'Bootstrap/bootstrap.js']); ?>
+    <?php echo $this->Html->script(['jquery-3.3.1.min.js', 'Bootstrap/bootstrap.js', 'moment.js']); ?>
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
