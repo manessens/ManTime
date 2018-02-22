@@ -75,6 +75,10 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
+        $this->set('particpants', $this->getUserOption());
+        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
+        $this->set('activities', $this->getActivitiesOption());
+        $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
     /**
@@ -96,10 +100,12 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
+
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
                 pr($projet);exit;
+    // @TODO:Sauvegarde manuel de particpants && activities
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 

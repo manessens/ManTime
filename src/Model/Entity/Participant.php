@@ -26,8 +26,8 @@ class Participant extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'idu' => false,
-        'idp' => false,
+        'idu' => true,
+        'idp' => true,
         'users' => true,
         'projet' => true
     ];

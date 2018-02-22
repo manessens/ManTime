@@ -26,8 +26,8 @@ class Activity extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'ida' => false,
-        'idp' => false,
+        'ida' => true,
+        'idp' => true,
         'activitie' => true,
         'projet' => true
     ];
