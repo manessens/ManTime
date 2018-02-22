@@ -52,13 +52,7 @@ class ProjetController extends AppController
      */
     public function add()
     {
-        $clientTable = TableRegistry::get('Client');
-        $query = $clientTable->find('all');
-        $clients = $query->toArray();
-        $clientOption = [];
-        foreach ($clients as $client) {
-            $clientOption[$client->idc] = $client->nom_client;
-        }
+        $clientOption = getClientOption();
         $projet = $this->Projet->newEntity();
         if ($this->request->is('post')) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
@@ -92,13 +86,7 @@ class ProjetController extends AppController
      */
     public function edit($id = null)
     {
-        $clientTable = TableRegistry::get('Client');
-        $query = $clientTable->find('all');
-        $clients = $query->toArray();
-        $clientOption = [];
-        foreach ($clients as $client) {
-            $clientOption[$client->idc] = $client->nom_client;
-        }
+        $clientOption = getClientOption();
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities' => ['Activitie'], 'Participant' => ['Users']]
         ]);
@@ -123,9 +111,38 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $this->set('particpants', $this->Projet->Participant->find('list'));
-        $this->set('myParticpants',['1;2', '6;2']);
+        $participantOption = getParticipantsOption($projet->idp);
+        $this->set('particpants', $participantOption['data']);
+        $this->set('myParticpants',$participantOption['my']);
         $this->set('activits', $this->Projet->Activities->find('list'));
+    }
+
+    private function getClientOption()
+    {
+        $clientTable = TableRegistry::get('Client');
+        $query = $clientTable->find('all');
+        $clients = $query->toArray();
+        $clientOption = [];
+        foreach ($clients as $client) {
+            $clientOption[$client->idc] = $client->nom_client;
+        }
+        return $clientOption;
+    }
+
+    private function getParticipantsOption($idp = null)
+    {
+        $participantTable = TableRegistry::get('Participant');
+        $query = $participantTable->find('all');
+        $participants = $query->toArray();
+        pr($participants);exit;
+        $participantOption = [][];
+        foreach ($participants as $participant) {
+            $participantOption['data'][$participant->idu.';'.$participant->idp] = $participant->users->fullname;
+            if ($participant->idp === $idp) {
+                $participantOption['my'] = $participant->idu.';'.$participant->idp;
+            }
+        }
+        return $participantOption;
     }
 
     /**
