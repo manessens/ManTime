@@ -12,8 +12,8 @@
             <td><?= h($projet->nom_projet) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Matrice') ?></th>
-            <td><?= h($projet->matrice->nom_matrice) ?></td>
+            <th scope="row"><?= __('Client') ?></th>
+            <td><?= h($projet->client->nom_client) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Date de debut') ?></th>
