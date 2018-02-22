@@ -63,7 +63,7 @@ class ProjetController extends AppController
         if ($this->request->is('post')) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            // if ($fin > $debut) {
+            if ($fin > $debut) {
                 $projet = $this->Projet->patchEntity($projet, $this->request->getData());
                 $projet->date_debut = $debut;
                 $projet->date_fin = $fin;
@@ -72,10 +72,10 @@ class ProjetController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
-                $this->Flash->error(__('The projet could not be saved. Please, try again.'));
-            // }else{
-            //     $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
-            // }
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
+            }else{
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
+            }
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
@@ -101,13 +101,17 @@ class ProjetController extends AppController
             'contain' => ['Client']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $debut = FrozenTime::parse($this->request->getData()['date_debut']);
+            $fin = FrozenTime::parse($this->request->getData()['date_fin']);
             $projet = $this->Projet->patchEntity($projet, $this->request->getData());
+            $projet->date_debut = $debut;
+            $projet->date_fin = $fin;
             if ($this->Projet->save($projet)) {
-                $this->Flash->success(__('The projet has been saved.'));
+                $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The projet could not be saved. Please, try again.'));
+            $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
