@@ -18,13 +18,16 @@
             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
-        <div class="input text required">
+        <div class="input text required col-xs-6">
         <?php
             echo $this->Form->label('participant','Participants');
-        ?>
-            <div class="selected"></div>
-        <?php
             echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple']);
+        ?>
+        </div>
+        <div class="input text required col-xs-6">
+        <?php
+            echo $this->Form->label('activities','Activités');
+            echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple']);
         ?>
         </div>
     </fieldset>

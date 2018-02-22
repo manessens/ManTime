@@ -113,7 +113,8 @@ class ProjetController extends AppController
         $this->set(compact('clientOption'));
         $this->set('particpants', $this->getUserOption($projet->idp));
         $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
-        $this->set('activits', $this->Projet->Activities->find('list'));
+        $this->set('activities', $this->getActivitiesOption($projet->idp));
+        $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
     private function getClientOption()
@@ -140,6 +141,19 @@ class ProjetController extends AppController
         return $userOption;
     }
 
+
+    private function getActivitiesOption($idp = null)
+    {
+        $activitieTable = TableRegistry::get('Activitie');
+        $query = $activitieTable->find('all');
+        $activities = $query->toArray();
+        $activitieOption = [];
+        foreach ($activities as $activitie) {
+            $activitieOption[$activitie->ida.';'.$idp] = $activitie->nom_activit;
+        }
+        return $activitieOption;
+    }
+
     private function getMyParticipantsOption($idp = null)
     {
         $participantTable = TableRegistry::get('Participant');
@@ -152,6 +166,20 @@ class ProjetController extends AppController
             }
         }
         return $participantOption;
+    }
+
+    private function getMyActivitiesOption($idp = null)
+    {
+        $activitieTable = TableRegistry::get('Activities');
+        $query = $activitieTable->findByIdp($idp);
+        $activities = $query->toArray();
+        $activitiesOption = array();
+        foreach ($activities as $activitie) {
+            if ($activitie->idp === $idp) {
+                $activitiesOption[] = $activitie->ida.';'.$participant->idp;
+            }
+        }
+        return $activitiesOption;
     }
 
     /**
