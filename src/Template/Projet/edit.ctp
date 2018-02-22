@@ -27,7 +27,7 @@
         ?>
         <div class="input text required">
             <label for="date_fin">Date de fin</label>
-            <input type="date" name="date_fin"  value="<?= $projet->date_fin->i18nFormat('dd/MM/yyyy') ?>">
+            <input type="date" name="date_fin"  value="<?= $projet->date_fin->i18nFormat('yyyy-MM-dd') ?>">
         </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
