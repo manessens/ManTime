@@ -10,6 +10,7 @@
         <legend><?= __('Edit Projet') ?></legend>
         <div class="input text required">
         <?php
+            pr($projet);exit;
             echo $this->Form->label('Client');
             echo $this->Form->select('idc', $clientOption);
         ?>
