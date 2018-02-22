@@ -18,5 +18,5 @@ $( ".multiple" ).change(function() {
     $( ".multiple option:selected" ).each(function() {
       str += $( this ).text() + ", ";
     });
-    $( this ).prev.text( str );
+    console.log($( this ).prev());
 }).trigger( "change" );
