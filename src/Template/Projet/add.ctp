@@ -20,19 +20,8 @@
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
-        <!-- <div class="input text required"> -->
-            <!-- <label for="date_debut">Date de début</label> -->
-            <?php echo $this->Form->input('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
-            <!-- <input type="date" name="date_debut"> -->
-        <!-- </div> -->
-        <div class="input text required">
-            <label for="date_fin">Date de fin</label>
-            <input type="date" name="date_fin">
-        </div>
-        <!-- <?php
-            echo $this->Form->input('date_debut', ['type'=>'date', 'label' => 'Date de début']);
-            echo $this->Form->input('date_fin', ['type'=>'date', 'label' => 'Date de fin']);
-        ?> -->
+        <?php echo $this->Form->input('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
+        <?php echo $this->Form->input('date_fin', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer')) ?>
     <?= $this->Form->end() ?>

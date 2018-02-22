@@ -63,7 +63,7 @@ class ProjetController extends AppController
         if ($this->request->is('post')) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            if ($fin > $debut) {
+            // if ($fin > $debut) {
                 $projet = $this->Projet->patchEntity($projet, $this->request->getData());
                 $projet->date_debut = $debut;
                 $projet->date_fin = $fin;
@@ -73,9 +73,9 @@ class ProjetController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('The projet could not be saved. Please, try again.'));
-            }else{
-                $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
-            }
+            // }else{
+            //     $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
+            // }
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
