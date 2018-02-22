@@ -21,6 +21,9 @@
         <div class="input text required">
         <?php
             echo $this->Form->label('participant','Participants');
+        ?>
+            <input type="text" disabled="disabled" >
+        <?php
             echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple']);
         ?>
         </div>
