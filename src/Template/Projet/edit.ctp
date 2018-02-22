@@ -8,8 +8,13 @@
     <?= $this->Form->create($projet) ?>
     <fieldset>
         <legend><?= __('Edit Projet') ?></legend>
+        <div class="input text required">
         <?php
-            echo $this->Form->control('idc');
+            echo $this->Form->label('Client');
+            echo $this->Form->select('idc', $clientOption);
+        ?>
+        </div>
+        <?php
             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
