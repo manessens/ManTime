@@ -136,6 +136,7 @@ class ProjetController extends AppController
         $participants = $query->toArray();
         $participantOption = array('data'=>array(), 'my' => array());
         foreach ($participants as $participant) {
+            pr($participant);exit;
             $participantOption['data'][$participant->idu.';'.$participant->idp] = $participant->users->fullname;
             if ($participant->idp === $idp) {
                 $participantOption['my'] = $participant->idu.';'.$participant->idp;
