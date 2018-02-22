@@ -134,7 +134,6 @@ class ProjetController extends AppController
         $participantTable = TableRegistry::get('Participant');
         $query = $participantTable->find('all');
         $participants = $query->toArray();
-        pr($participants);exit;
         $participantOption = array('data'=>array(), 'my' => array());
         foreach ($participants as $participant) {
             $participantOption['data'][$participant->idu.';'.$participant->idp] = $participant->users->fullname;
