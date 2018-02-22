@@ -112,9 +112,9 @@ class ProjetController extends AppController
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $this->set('particpants', $this->getUserOption($projet->idp));
+        $this->set('particpants', $this->getUserOption());
         $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
-        $this->set('activities', $this->getActivitiesOption($projet->idp));
+        $this->set('activities', $this->getActivitiesOption());
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
@@ -130,28 +130,28 @@ class ProjetController extends AppController
         return $clientOption;
     }
 
-    private function getUserOption($idp = null)
+    private function getUserOption()
     {
         $userTable = TableRegistry::get('Users');
         $query = $userTable->find('all')->where(['Users.actif =' => 1]);
         $users = $query->toArray();
         $userOption = [];
         foreach ($users as $user) {
-            $userOption[$user->idu.';'.$idp] = $user->fullname;
+            $userOption[$user->idu] = $user->fullname;
         }
         asort($userOption);
         return $userOption;
     }
 
 
-    private function getActivitiesOption($idp = null)
+    private function getActivitiesOption()
     {
         $activitieTable = TableRegistry::get('Activitie');
         $query = $activitieTable->find('all');
         $activities = $query->toArray();
         $activitieOption = [];
         foreach ($activities as $activitie) {
-            $activitieOption[$activitie->ida.';'.$idp] = $activitie->nom_activit;
+            $activitieOption[$activitie->ida] = $activitie->nom_activit;
         }
         asort($activitieOption);
         return $activitieOption;
@@ -165,7 +165,7 @@ class ProjetController extends AppController
         $participantOption = array();
         foreach ($participants as $participant) {
             if ($participant->idp === $idp) {
-                $participantOption[] = $participant->idu.';'.$participant->idp;
+                $participantOption[] = $participant->idu;
             }
         }
         return $participantOption;
@@ -179,7 +179,7 @@ class ProjetController extends AppController
         $activitiesOption = array();
         foreach ($activities as $activitie) {
             if ($activitie->idp === $idp) {
-                $activitiesOption[] = $activitie->ida.';'.$activitie->idp;
+                $activitiesOption[] = $activitie->ida;
             }
         }
         return $activitiesOption;
