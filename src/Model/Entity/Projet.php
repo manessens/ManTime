@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $date_fin
  *
  * @property \App\Model\Entity\Client $client
- * @property \App\Model\Entity\Activity[] $activity
+ * @property \App\Model\Entity\Activity[] $activities
  * @property \App\Model\Entity\Participant[] $participant
  */
 class Projet extends Entity
@@ -34,7 +34,7 @@ class Projet extends Entity
         'date_debut' => true,
         'date_fin' => true,
         'client' => true,
-        'activity' => true,
+        'activities' => true,
         'participant' => true
     ];
 }

@@ -10,8 +10,8 @@ use Cake\Validation\Validator;
  * Projet Model
  *
  * @property \App\Model\Entity\Client|\Cake\ORM\Association\BelongsTo $Client
- * @property \App\Model\Table\Activity|\Cake\ORM\Association\HasMany $Activity
- * @property \App\Model\Table\Participant|\Cake\ORM\Association\HasMany $Participant
+ * @property \App\Model\Table\ActivitiesTable|\Cake\ORM\Association\HasMany $Activity
+ * @property \App\Model\Table\ParticipantTable|\Cake\ORM\Association\HasMany $Participant
  *
  *
  * @method \App\Model\Entity\Projet get($primaryKey, $options = [])
@@ -42,8 +42,8 @@ class ProjetTable extends Table
         $this->belongsTo('Client', [
             'foreignKey' => 'idc'
         ]);
-        
-        $this->hasMany('Activity', [
+
+        $this->hasMany('Activities', [
             'foreignKey' => 'idp'
         ]);
         $this->hasMany('Participant', [
