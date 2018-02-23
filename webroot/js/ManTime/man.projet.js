@@ -16,8 +16,8 @@ $('.multiple option').mousedown(function(e) {
 $( "form" ).submit(function( event ) {
     $( ".datepicker" ).each(function() {
         $( this ).attr('type', 'text');
-        if ($( this ).attr('value').length = 10) {
-            $( this ).attr('value', moment($( this ).attr('value'), "YYYY-MM-DD").format("DD/MM/YYYY hh:mm"));
+        if ($( this ).val().length = 10) {
+            $( this ).val( moment($( this ).val(), "YYYY-MM-DD").format("DD/MM/YYYY hh:mm"));
         }
     });
   event.preventDefault();
