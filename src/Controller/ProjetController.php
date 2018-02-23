@@ -95,17 +95,23 @@ class ProjetController extends AppController
             'contain' => ['Activities', 'Participant' ]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+<<<<<<< HEAD
             // $data = $this->request->getData();
             // $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             // $data['date_fin'] = FrozenTime::parse($data['date_fin']);
             $projet = $this->Projet->patchEntity($this->request->getData(),[
+=======
+            $debut = FrozenTime::parse($this->request->getData()['date_debut']);
+            $fin = FrozenTime::parse($this->request->getData()['date_fin']);
+            $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
+>>>>>>> parent of 88ca7e8... adding test for auto-control
                 'associated' => ['Activities', 'Participant']
             ]);
 
-            // $projet->date_debut = $debut;
-            // $projet->date_fin = $fin;
-            // if ($fin > $debut) {
-                // pr($projet);exit;
+            $projet->date_debut = $debut;
+            $projet->date_fin = $fin;
+            if ($fin > $debut) {
+                pr($projet);exit;
     // @TODO:Sauvegarde manuel de particpants && activities
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
@@ -113,9 +119,9 @@ class ProjetController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
-            // }else{
-            //     $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
-            // }
+            }else{
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
+            }
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));

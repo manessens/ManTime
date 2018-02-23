@@ -47,7 +47,7 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
         <div class="top-bar-section">
             <ul class="right">
                 <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <!-- <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li> -->
+                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
             </ul>
         </div>
     </nav>
