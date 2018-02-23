@@ -97,14 +97,12 @@ class ProjetController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $debut = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
+            $projet = $this->Projet->patchEntity($this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
-
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
-                pr($projet);exit;
     // @TODO:Sauvegarde manuel de particpants && activities
                 $this->updateParticipant($projet, $myOldParticipant);
                 if ($this->Projet->save($projet)) {
