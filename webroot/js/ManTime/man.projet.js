@@ -12,3 +12,13 @@ $('.multiple option').mousedown(function(e) {
     $(this).prop('selected', !$(this).prop('selected'));
     return false;
 });
+
+$( "form" ).submit(function( event ) {
+    $( this ).attr('type', 'text');
+    $( ".datepicker" ).each(function() {
+        if ($( this ).attr('value').length = 10) {
+            $( this ).attr('value', moment($( this ).attr('value'), "YYYY-MM-DD").format("DD/MM/YYYY hh:mm"));
+        }
+    });
+  event.preventDefault();
+});

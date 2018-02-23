@@ -95,10 +95,10 @@ class ProjetController extends AppController
             'contain' => ['Activities', 'Participant' ]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $data = $this->request->getData();
-            $data['date_debut'] = FrozenTime::parse($data['date_debut']);
-            $data['date_fin'] = FrozenTime::parse($data['date_fin']);
-            $projet = $this->Projet->patchEntity($data,[
+            // $data = $this->request->getData();
+            // $data['date_debut'] = FrozenTime::parse($data['date_debut']);
+            // $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $projet = $this->Projet->patchEntity($this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
 
