@@ -19,6 +19,18 @@
         </div>
         <?php echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
         <?php echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
+        <div class="input text col-xs-6">
+        <?php
+            echo $this->Form->label('participant','Participants');
+            echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple form-control']);
+        ?>
+        </div>
+        <div class="input text col-xs-6">
+        <?php
+            echo $this->Form->label('activities','Activités');
+            echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple form-control']);
+        ?>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
