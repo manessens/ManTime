@@ -21,4 +21,5 @@ $( "form" ).submit(function( event ) {
         }
     });
   event.preventDefault();
+  return true;
 });
