@@ -14,6 +14,6 @@
             echo $this->Form->control('password2', ['label' => 'Confirmation mot de passe', 'type'=>'password']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer')) ?>
+    <?= $this->Form->button('Enregistrer', ['class' => 'btn btn-primary']) ?>
     <?= $this->Form->end() ?>
 </div>
