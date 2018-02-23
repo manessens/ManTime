@@ -28,9 +28,9 @@
         <legend class="header"><?= __('Participant') ?></legend>
         <ul class="list-group">
         <?php
-            $participants = $projet->participant
+            $participants = $projet->participant;
             asort($participants);
-            $activities = $projet->activities
+            $activities = $projet->activities;
             asort($activities);
         ?>
         <?php foreach ($participants as $participant): ?>
