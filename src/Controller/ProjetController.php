@@ -102,6 +102,7 @@ class ProjetController extends AppController
                 'associated' => ['Activities', 'Participant']
             ]);
 
+            pr($projet);exit;
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
