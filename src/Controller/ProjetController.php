@@ -104,7 +104,7 @@ class ProjetController extends AppController
                 'associated' => ['Activities', 'Participant']
             ]);
             $this->updateParticipant($projet, $data, $myOldParticipant);
-            pr($projet);exit;
+            // pr($projet);exit;
 
     // @TODO:Sauvegarde manuel de particpants && activities
                 if ($this->Projet->save($projet)) {
