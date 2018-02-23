@@ -12,6 +12,6 @@
             echo $this->Form->control('nom_activit', ['label' => "activité"]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer')) ?>
+    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>

@@ -18,6 +18,6 @@
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer')) ?>
+    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>

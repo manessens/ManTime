@@ -29,7 +29,7 @@
             </tbody>
         </table>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer'), ['confirm'=>__("La matrice est peut-être déjà utilisé par d'autres clients.
+    <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning', 'confirm'=>__("La matrice est peut-être déjà utilisé par d'autres clients.
     Êtes vous sûr de vouloir effectuer des modifications sur {0} ?", $matrice->nom_matrice)]) ?>
     <?= $this->Form->end() ?>
 </div>

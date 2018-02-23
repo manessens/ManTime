@@ -40,6 +40,6 @@
             </tbody>
         </table>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer')) ?>
+    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>

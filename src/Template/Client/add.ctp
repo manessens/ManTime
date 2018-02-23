@@ -14,6 +14,6 @@
             echo $this->Form->select('idm', $matricesOption);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer')) ?>
+    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>
