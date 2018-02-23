@@ -94,19 +94,15 @@ class ProjetController extends AppController
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities', 'Participant' ]
         ]);
-        $myOldParticipant = $this->getMyParticipantsOption($projet->idp);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $debut['date_debut'] = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin['date_fin'] = FrozenTime::parse($this->request->getData()['date_fin']);
-                        // pr($this->request->getData());exit;
             $projet = $this->Projet->patchEntity($this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
-
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
-
     // @TODO:Sauvegarde manuel de particpants && activities
                 $this->updateParticipant($projet, $myOldParticipant);
                 if ($this->Projet->save($projet)) {
@@ -122,16 +118,9 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set('particpants', $this->getUserOption());
-        $this->set('myParticpants', $myOldParticipant);
+        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activities', $this->getActivitiesOption());
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
-    }
-
-    private function updateParticipant($projet = null, $myOldParticipant = array() )
-    {
-        $participantTable = TableRegistry::get('Participant');
-        pr($projet);exit;
-
     }
 
     private function getClientOption()
