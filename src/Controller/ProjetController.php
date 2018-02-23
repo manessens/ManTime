@@ -131,7 +131,7 @@ class ProjetController extends AppController
         $projet->participant = $participants;
 
         //DELETION
-        $query = $participantTable->find('all')->where(['Particpant.idp =' => $projet->idp, 'Particpant.idu NOT IN' => $data['participant'] ]);
+        $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $data['participant'] ]);
         $listDeletion = $query->toArray();
         pr($listDeletion);exit;
 
