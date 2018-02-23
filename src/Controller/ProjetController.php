@@ -104,13 +104,12 @@ class ProjetController extends AppController
                 'associated' => ['Activities', 'Participant']
             ]);
             $this->updateParticipant($projet, $data, $myOldParticipant);
+            if ($this->Projet->save($projet)) {
+                $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
-                if ($this->Projet->save($projet)) {
-                    $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
-
-                    return $this->redirect(['action' => 'index']);
-                }
-                $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
@@ -124,17 +123,17 @@ class ProjetController extends AppController
     {
         $participantTable = TableRegistry::get('Participant');
         $participants = array();
-        foreach ($data['participant'] as $value) {
-            $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'idu' => $value]);
+        if ( !empty($data['participant']) ) {
+            foreach ($data['participant'] as $value) {
+                $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'idu' => $value]);
+            }
         }
         $projet->participant = $participants;
 
-        // @TODO: add DELETION
-        $present = (new Collection($participants))->extract('idp')->filter()->toArray();
-        $participantTable->deleteAll([
-            'idp' => $projet->idp,
-            'idp NOT IN' => $present
-        ]);
+        //DELETION
+        $query = $participantTable->find('all')->where(['Particpant.idp =' => $projet->idp, 'Particpant.idu NOT IN' => $data['participant'] ]);
+        $listDeletion = $query->toArray();
+        pr($listDeletion);exit;
 
         return $projet;
     }
