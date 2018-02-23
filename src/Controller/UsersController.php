@@ -39,7 +39,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user['prem_connect'] = 0;
             if ($this->Users->save($user)) {
-                $this->Flash->success('Le mot de passe à été modifié avec succées');
+                $this->Flash->success('Le mot de passe à été modifié avec succés');
                 $this->Auth->setUser($user);
                 return $this->redirect(['controller'=>'board', 'action' => 'index']);
             } else {

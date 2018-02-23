@@ -64,7 +64,7 @@ class ProjetController extends AppController
             $projet->date_fin = $fin;
             if ($fin > $debut) {
                 if ($this->Projet->save($projet)) {
-                    $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
+                    $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
 
                     return $this->redirect(['action' => 'index']);
                 }
@@ -94,7 +94,7 @@ class ProjetController extends AppController
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities', 'Participant' ]
         ]);
-        $myOldParticipant = $this->getMyParticipantsOption($projet->idp);
+        // Si envoie du formulaire : update table
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
@@ -103,10 +103,13 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
-            $this->updateParticipant($projet, $data, $myOldParticipant);
-            if ($this->Projet->save($projet)) {
-                $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
-
+            // mise à jour des relation hasMany
+            if ($this->Projet->save($projet)
+                && $this->updateParticipant($projet, $data['participant'])
+                && $this->updateActivities($projet, $data['activities'])
+            ) {
+                $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
+                //retour à la liste en cas de succés
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
@@ -114,23 +117,54 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set('particpants', $this->getUserOption());
-        $this->set('myParticpants', $myOldParticipant);
+        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activities', $this->getActivitiesOption());
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
-    private function updateParticipant( $projet, $data = array(), $myParticpants = array())
+    private function updateActivities( $projet, $activities = array())
+    {
+        $activitiesTable = TableRegistry::get('Activities');
+        $activitiesObject = array();
+        if ( !empty($activities) ) {
+            foreach ($activities as $value) {
+                $activitiesObject[] = $activitiesTable->newEntity(['idp' => $projet->idp, 'ida' => $value]);
+            }
+            //Prepare query for deletion
+            $query = $activitiesTable->find('all')->where(['idp =' => $projet->idp, 'ida NOT IN' => $activities ]);
+        }else{
+            //Prepare query for deletion in case of empty array
+            $query = $activitiesTable->find('all')->where(['idp =' => $projet->idp ]);
+        }
+        // Update liste of activities to create associated entity in tab
+        $projet->activities = $activitiesObject;
+
+        //DELETION
+        $listDeletion = $query->toArray();
+        foreach ($listDeletion as  $entity) {
+            $result = $activitiesTable->delete($entity);
+            if ( !$result ) {
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé. Erreur à l'enregistrement des activités."));
+                return false;
+            };
+        }
+        return true;
+    }
+    private function updateParticipant( $projet, $participant = array())
     {
         $participantTable = TableRegistry::get('Participant');
         $participants = array();
-        if ( !empty($data['participant']) ) {
-            foreach ($data['participant'] as $value) {
+        if ( !empty($participant) ) {
+            foreach ($participant as $value) {
                 $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'idu' => $value]);
             }
-            $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $data['participant'] ]);
+            //Prepare query for deletion
+            $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $participant ]);
         }else{
+            //Prepare query for deletion in case of empty array
             $query = $participantTable->find('all')->where(['idp =' => $projet->idp ]);
         }
+        // Update liste of participant to create associated entity in tab
         $projet->participant = $participants;
 
         //DELETION
@@ -138,11 +172,11 @@ class ProjetController extends AppController
         foreach ($listDeletion as  $entity) {
             $result = $participantTable->delete($entity);
             if ( !$result ) {
-                $this->Flash->error(__("Le projet n'a pus être sauvegardé. Erreur à l'enregistrement des particpants."));
+                $this->Flash->error(__("Le projet n'a pus être sauvegardé. Erreur à l'enregistrement des participants."));
+                return false;
             };
         }
-
-        return $projet;
+        return true;
     }
 
     private function getClientOption()
@@ -169,7 +203,6 @@ class ProjetController extends AppController
         asort($userOption);
         return $userOption;
     }
-
 
     private function getActivitiesOption()
     {
@@ -224,6 +257,24 @@ class ProjetController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $projet = $this->Projet->get($id);
         //DELETION ACTIVTIES / PARTICIPANT
+        $activitiesTable = TableRegistry::get('Activities');
+        $query = $activitiesTable->find('all')->where(['idp =' => $projet->idp ]);
+        $listDeletionA = $query->toArray();
+        $participantTable = TableRegistry::get('Participant');
+        $query = $participantTable->find('all')->where(['idp =' => $projet->idp ]);
+        $listDeletionP = $query->toArray();
+        foreach ($listDeletionA as  $entity) {
+            if ( !$activitiesTable->delete($entity) ) {
+                $this->Flash->error(__("Le projet n'a pus être supprimé. Erreur à la désaffectation des activités."));
+                return $this->redirect(['action' => 'index']);
+            };
+        }
+        foreach ($listDeletionP as  $entity) {
+            if ( !$participantTable->delete($entity) ) {
+                $this->Flash->error(__("Le projet n'a pus être supprimé. Erreur à la désaffectation des participants."));
+                return $this->redirect(['action' => 'index']);
+            };
+        }
         if ($this->Projet->delete($projet)) {
             $this->Flash->success(__('Le projet à été supprimé avec succés'));
         } else {
