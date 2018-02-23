@@ -94,34 +94,41 @@ class ProjetController extends AppController
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities', 'Participant' ]
         ]);
+        $myOldParticipant = $this->getMyParticipantsOption($projet->idp);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $this->updateParticipant($data, $myOldParticipant);
+
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
-            // $projet->date_debut = $debut;
-            // $projet->date_fin = $fin;
-            // if ($fin > $debut) {
+            pr($projet);exit;
     // @TODO:Sauvegarde manuel de particpants && activities
-                // $this->updateParticipant($projet, $myOldParticipant);
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
-            // }else{
-            //     $this->Flash->error(__("Le projet n'a pus être sauvegardé, date de fin inférieur à celle de début."));
-            // }
         }
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set('particpants', $this->getUserOption());
-        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
+        $this->set('myParticpants', $myOldParticipant);
         $this->set('activities', $this->getActivitiesOption());
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
+    }
+
+    private function updateParticipant($data = array() $myParticpants = array())
+    {
+        $participantTable = TableRegistry::get('Participant');
+        $participants = array();
+        foreach ($data['participant'] as $value) {
+            $participants[] = $participantTable->newEntity(['idp' => $data['idp'], 'ida' => $value]);
+        }
+        $data['participant']=$participants;
     }
 
     private function getClientOption()
