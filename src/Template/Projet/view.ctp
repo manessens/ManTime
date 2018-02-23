@@ -27,8 +27,7 @@
     <div class="col-xs-6">
         <ul class="list-group">
         <?php foreach ($projet->participant as $participant): ?>
-            <?php pr($participant);exit; ?>
-            <li class="list-group-item">'<?= $participant->users->fullname ?></li>
+            <li class="list-group-item">'<?= $participant->user->fullname ?></li>
         <?php endforeach; ?>
         </ul>
     </div>
