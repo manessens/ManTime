@@ -24,6 +24,20 @@
             <td><?=  h($projet->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
         </tr>
     </table>
+    <div class="col-xs-6">
+        <ul class="list-group">
+        <?php foreach ($projet->participant as $participant): ?>
+            <li class="list-group-item">'<?= $participant->users->fullname ?></li>';
+        <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="col-xs-6">
+        <ul class="list-group">
+        <?php foreach ($projet->activities as $activity): ?>
+            <li class="list-group-item">'<?= $activity->activitie->nom_activit ?></li>';
+        <?php endforeach; ?>
+        </ul>
+    </div>
     <div class="right">
         <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $projet->idp]) ?></div>
     </div>
