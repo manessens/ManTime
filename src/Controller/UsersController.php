@@ -185,6 +185,8 @@ class UsersController extends AppController
             $this->Flash->error(__('Votre profil ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
+        $this->set('controller','User');
+
     }
 
     /**
