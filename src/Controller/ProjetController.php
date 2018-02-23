@@ -54,18 +54,24 @@ class ProjetController extends AppController
     {
         $clientOption = $this->getClientOption();
         $projet = $this->Projet->newEntity();
+        $myParticpants = array();
+        $myActivities = array();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $myParticpants = $data['participant'];
+            $myActivities = $data['activities'];
 
             $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
-            pr($projet);exit;
-            if ($this->updateParticipant($projet, $data['participant'])
-            && $this->updateActivities($projet, $data['activities']) ){
-                if ($this->Projet->save($projet)) {
+            //sauvegarde initial
+            if ($this->Projet->save($projet)) {
+                if ($this->updateParticipant($projet, $data['participant'])
+                && $this->updateActivities($projet, $data['activities']) ){
+                    //sauvegarde après mise ç jour des listes
+                    $this->Projet->save($projet)
                     $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
 
                     return $this->redirect(['action' => 'index']);
@@ -76,9 +82,9 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set('particpants', $this->getUserOption());
-        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
+        $this->set('myParticpants', $myParticpants);
         $this->set('activities', $this->getActivitiesOption());
-        $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
+        $this->set('myActivities', $myActivities);
     }
 
     /**
