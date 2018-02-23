@@ -27,6 +27,10 @@
     <div class="col-xs-6">
         <legend class="header"><?= __('Participant') ?></legend>
         <ul class="list-group">
+        <?php
+            asort($projet->participant);
+            asort($projet->activities);
+        ?>
         <?php foreach ($projet->participant as $participant): ?>
             <li class="list-group-item"><?= $participant->user->fullname ?></li>
         <?php endforeach; ?>
