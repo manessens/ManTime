@@ -96,9 +96,8 @@ class ProjetController extends AppController
         ]);
         $myOldParticipant = $this->getMyParticipantsOption($projet->idp);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $data = $this->request->getData();
-            $data['date_debut'] = FrozenTime::parse($data['date_debut']);
-            $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $debut['date_debut'] = FrozenTime::parse($this->request->getData()['date_debut']);
+            $fin['date_fin'] = FrozenTime::parse($this->request->getData()['date_fin']);
             $projet = $this->Projet->patchEntity($this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
