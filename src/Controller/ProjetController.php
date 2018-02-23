@@ -121,7 +121,7 @@ class ProjetController extends AppController
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
-    private function updateParticipant($data = array() $myParticpants = array())
+    private function updateParticipant($data = array(), $myParticpants = array())
     {
         $participantTable = TableRegistry::get('Participant');
         $participants = array();
