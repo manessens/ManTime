@@ -100,6 +100,7 @@ class ProjetController extends AppController
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             $data['date_fin'] = FrozenTime::parse($data['date_fin']);
             $this->updateParticipant($data, $myOldParticipant);
+            pr($data);exit;
 
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
