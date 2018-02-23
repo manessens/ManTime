@@ -105,7 +105,7 @@ class ProjetController extends AppController
             // $projet->date_fin = $fin;
             // if ($fin > $debut) {
     // @TODO:Sauvegarde manuel de particpants && activities
-                $this->updateParticipant($projet, $myOldParticipant);
+                // $this->updateParticipant($projet, $myOldParticipant);
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
