@@ -168,7 +168,7 @@ class UsersController extends AppController
      */
     public function profil()
     {
-        $userAuth = $this->Auth->get('User');
+        $userAuth = $this->Auth->user('idu');
         pr($userAuth);exit;
         $user = $this->Users->get($id, [
             'contain' => []
