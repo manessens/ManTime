@@ -20,7 +20,5 @@ $( "form" ).submit(function( event ) {
             $( this ).val( moment($( this ).val(), "YYYY-MM-DD").format("DD/MM/YYYY hh:mm"));
         }
     });
-  event.preventDefault();
-  $( 'form' ).submit();
-  return true;
+    event.preventDefault();
 });
