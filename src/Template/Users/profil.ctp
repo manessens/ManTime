@@ -26,7 +26,11 @@
             </tr>
         </table>
         <?php
-            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);
+            if ($user->prem_connect) {
+                echo "<div class='header'>Le mot de passe à été réinitialiser, veuillez vous reconnecter pour choisir un nouveau mot de passe.</div>";
+            }else{
+                echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);
+            }
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
