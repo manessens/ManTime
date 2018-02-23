@@ -133,8 +133,9 @@ class ProjetController extends AppController
         //DELETION
         $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $data['participant'] ]);
         $listDeletion = $query->toArray();
-        pr($listDeletion);exit;
+        // pr($listDeletion);
         foreach ($listDeletion as  $entity) {
+            pr($entity);exit;
             $result = $this->Participant->delete($entity);
             if ( !$result ) {
                 $this->Flash->error(__("Le projet n'a pus être sauvegardé. Erreur à l'enregistrement des particpants."));
