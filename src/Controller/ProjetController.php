@@ -104,13 +104,13 @@ class ProjetController extends AppController
                 'associated' => ['Activities', 'Participant']
             ]);
             // mise à jour des relation hasMany
-            if ($this->Projet->save($projet)
-                && $this->updateParticipant($projet, $data['participant'])
-                && $this->updateActivities($projet, $data['activities'])
-            ) {
-                $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
-                //retour à la liste en cas de succés
-                return $this->redirect(['action' => 'index']);
+            if ($this->updateParticipant($projet, $data['participant'])
+            && $this->updateActivities($projet, $data['activities']) ){
+                if ( $this->Projet->save($projet) ) {
+                    $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
+                    //retour à la liste en cas de succés
+                    return $this->redirect(['action' => 'index']);
+                }
             }
             $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
         }
@@ -138,7 +138,6 @@ class ProjetController extends AppController
         }
         // Update liste of activities to create associated entity in tab
         $projet->activities = $activitiesObject;
-        pr($projet);exit;
         //DELETION
         $listDeletion = $query->toArray();
         foreach ($listDeletion as  $entity) {
