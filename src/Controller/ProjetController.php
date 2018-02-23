@@ -127,11 +127,13 @@ class ProjetController extends AppController
             foreach ($data['participant'] as $value) {
                 $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'idu' => $value]);
             }
+            $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $data['participant'] ]);
+        }else{
+            $query = $participantTable->find('all')->where(['idp =' => $projet->idp ]);
         }
         $projet->participant = $participants;
 
         //DELETION
-        $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $data['participant'] ]);
         $listDeletion = $query->toArray();
         foreach ($listDeletion as  $entity) {
             $result = $participantTable->delete($entity);
