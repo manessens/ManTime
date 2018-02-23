@@ -43,8 +43,9 @@
     padding:0 !important;
     text-align: center !important;
     min-width: 150px !important;
+    height:200px !important;
 }
 
 .panel .panel-body{
-    height:150px !important;
+    height:100% !important;
 }
