@@ -14,8 +14,8 @@ $('.multiple option').mousedown(function(e) {
 });
 
 $( "form" ).submit(function( event ) {
-    $( this ).attr('type', 'text');
     $( ".datepicker" ).each(function() {
+        $( this ).attr('type', 'text');
         if ($( this ).attr('value').length = 10) {
             $( this ).attr('value', moment($( this ).attr('value'), "YYYY-MM-DD").format("DD/MM/YYYY hh:mm"));
         }
