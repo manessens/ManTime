@@ -104,9 +104,7 @@ class ProjetController extends AppController
                 'associated' => ['Activities', 'Participant']
             ]);
             $this->updateParticipant($projet, $data, $myOldParticipant);
-            // pr($projet);exit;
 
-    // @TODO:Sauvegarde manuel de particpants && activities
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
@@ -130,6 +128,15 @@ class ProjetController extends AppController
             $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'idu' => $value]);
         }
         $projet->participant = $participants;
+
+        // @TODO: add DELETION
+        // $comments = TableRegistry::get('Comments');
+        // $present = (new Collection($entity->comments))->extract('id')->filter()->toArray();
+        // $comments->deleteAll([
+        //     'article_id' => $article->id,
+        //     'id NOT IN' => $present
+        // ]);
+        
         return $projet;
     }
 
