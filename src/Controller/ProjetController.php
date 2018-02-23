@@ -71,7 +71,7 @@ class ProjetController extends AppController
                 if ($this->updateParticipant($projet, $data['participant'])
                 && $this->updateActivities($projet, $data['activities']) ){
                     //sauvegarde après mise ç jour des listes
-                    $this->Projet->save($projet)
+                    $this->Projet->save($projet);
                     $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
 
                     return $this->redirect(['action' => 'index']);
