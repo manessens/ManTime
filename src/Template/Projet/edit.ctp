@@ -21,13 +21,13 @@
         <div class="input text col-xs-6">
         <?php
             echo $this->Form->label('participant','Participants');
-            echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple']);
+            echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple form-control']);
         ?>
         </div>
         <div class="input text col-xs-6">
         <?php
             echo $this->Form->label('activities','Activités');
-            echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple']);
+            echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple form-control']);
         ?>
         </div>
     </fieldset>
