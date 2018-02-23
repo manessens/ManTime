@@ -21,5 +21,6 @@ $( "form" ).submit(function( event ) {
         }
     });
   event.preventDefault();
+  $( 'form' ).submit();
   return true;
 });
