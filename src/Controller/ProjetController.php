@@ -103,9 +103,9 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
+            $this->updateParticipant($projet, $data, $myOldParticipant);
             pr($projet);exit;
 
-            $this->updateParticipant($projet, $data, $myOldParticipant);
     // @TODO:Sauvegarde manuel de particpants && activities
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
@@ -130,6 +130,7 @@ class ProjetController extends AppController
             $participants[] = $participantTable->newEntity(['idp' => $data['idp'], 'ida' => $value]);
         }
         $projet->participant = $participants;
+        return $projet;
     }
 
     private function getClientOption()
