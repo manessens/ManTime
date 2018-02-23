@@ -168,9 +168,8 @@ class UsersController extends AppController
      */
     public function profil()
     {
-        $userAuth = $this->Auth->user('idu');
-        pr($userAuth);exit;
-        $user = $this->Users->get($id, [
+        $idUserAuth = $this->Auth->user('idu');
+        $user = $this->Users->get($idUserAuth, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
