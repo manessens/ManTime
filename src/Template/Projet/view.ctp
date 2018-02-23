@@ -4,6 +4,21 @@
  * @var \App\Model\Entity\Projet $projet
  */
 ?>
+<?php
+    function cmpu($a, $b) {
+        if ($a->user->fullname == $b->user->fullname) {
+            return 0;
+        }
+        return ($a->user->fullname < $b->user->fullname) ? -1 : 1;
+    }
+    function cmpa($a, $b) {
+        if ($a->activitie->nom_activit == $b->activitie->nom_activit) {
+            return 0;
+        }
+        return ($a->activitie->nom_activit < $b->activitie->nom_activit) ? -1 : 1;
+    }
+?>
+
 <div class="projet view large-9 medium-8 columns content">
     <h3><?= h($projet->nom_projet) ?></h3>
     <table class="vertical-table">
@@ -29,9 +44,9 @@
         <ul class="list-group">
         <?php
             $participants = $projet->participant;
-            asort($participants);
+            uasort($participants, 'cmpu');
             $activities = $projet->activities;
-            asort($activities);
+            uasort($activities, 'cmpa');
         ?>
         <?php foreach ($participants as $participant): ?>
             <li class="list-group-item"><?= $participant->user->fullname ?></li>
