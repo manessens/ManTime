@@ -2,6 +2,11 @@
     color: white !important;
 }
 
+.header{
+    font-size: 0.875rem !important;
+    font-weight: bold !important;
+}
+
 .back-danger{
     background-color: #d43f3a !important;
 }
