@@ -7,7 +7,7 @@
 <div class="client form large-9 medium-8 columns content">
     <?= $this->Form->create($client) ?>
     <fieldset>
-        <legend><?= __('Edit Client') ?></legend>
+        <legend><?= __('Edition du client') ?><span class="text-danger"><?= h($client->nom_client) ?></span></legend>
         <?php
             echo $this->Form->control('nom_client');
             echo $this->Form->control('prix');
