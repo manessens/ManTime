@@ -99,13 +99,13 @@ class ProjetController extends AppController
             $data = $this->request->getData();
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             $data['date_fin'] = FrozenTime::parse($data['date_fin']);
-            $this->updateParticipant($data, $myOldParticipant);
-            pr($data);exit;
 
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
             pr($projet);exit;
+
+            $this->updateParticipant($projet, $data, $myOldParticipant);
     // @TODO:Sauvegarde manuel de particpants && activities
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
@@ -122,14 +122,14 @@ class ProjetController extends AppController
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
-    private function updateParticipant($data = array(), $myParticpants = array())
+    private function updateParticipant( $projet, $data = array(), $myParticpants = array())
     {
         $participantTable = TableRegistry::get('Participant');
         $participants = array();
         foreach ($data['participant'] as $value) {
             $participants[] = $participantTable->newEntity(['idp' => $data['idp'], 'ida' => $value]);
         }
-        $data['participant']=$participants;
+        $projet->participant = $participants;
     }
 
     private function getClientOption()
