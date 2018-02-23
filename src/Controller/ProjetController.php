@@ -52,7 +52,7 @@ class ProjetController extends AppController
      */
     public function add()
     {
-        $clientOption = getClientOption();
+        $clientOption = $this->getClientOption();
         $projet = $this->Projet->newEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
