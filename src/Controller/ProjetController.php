@@ -63,7 +63,7 @@ class ProjetController extends AppController
             $myParticpants = $data['participant'];
             $myActivities = $data['activities'];
 
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
+            $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
             //sauvegarde initial
