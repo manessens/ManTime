@@ -98,7 +98,7 @@ class ProjetController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $debut['date_debut'] = FrozenTime::parse($this->request->getData()['date_debut']);
             $fin['date_fin'] = FrozenTime::parse($this->request->getData()['date_fin']);
-                        pr($this->request->getData());exit;
+                        // pr($this->request->getData());exit;
             $projet = $this->Projet->patchEntity($this->request->getData(),[
                 'associated' => ['Activities', 'Participant']
             ]);
