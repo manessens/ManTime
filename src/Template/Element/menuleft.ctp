@@ -8,6 +8,7 @@
             <li><?= $this->Html->link(__('Ajouter'), ['action' => 'add']) ?></li>
         <?php endif; ?>
         <li class="heading"><?= __('Session') ?></li>
+        <li><?= $this->Html->link(__('Profil'), ['controller' => 'Users', 'action' => 'profil']) ?></li>
         <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
     </ul>
 </nav>

@@ -160,6 +160,35 @@ class UsersController extends AppController
     }
 
     /**
+     * Edit method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function profil()
+    {
+        $userAuth = $this->Auth->identify();
+        pr($userAuth);exit;
+        $user = $this->Users->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($user['prem_connect']) {
+                $user['mdp'] = 'Welcome1!';
+            }
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Votre profil à été sauvegardé.'));
+
+                return $this->redirect(['controller' => 'Board','action' => 'index']);
+            }
+            $this->Flash->error(__('Votre profil ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    /**
      * Delete method
      *
      * @param string|null $id User id.
@@ -183,7 +212,7 @@ class UsersController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['password']) ) {
+        if (in_array($action, ['password']) && $user['prem_connect']) {
             return true;
         }
         // if (in_array($action, ['test']) ) {
@@ -191,6 +220,10 @@ class UsersController extends AppController
         // }
         if ($user['prem_connect'] === 1) {
             return false;
+        }
+
+        if ( in_array($action, ['profil']) ) {
+            return true;
         }
 
         if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {

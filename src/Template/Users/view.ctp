@@ -24,7 +24,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Prem Connect') ?></th>
+            <th scope="row"><?= __('Première connection') ?></th>
             <td>
                 <?= $this->element('tagYN', ['test' => $this->Number->format($user->prem_connect)]) ?>
             </td>
@@ -43,5 +43,5 @@
         <div class="col-xs-10 btn btn-danger"><?= $this->Form->postLink(__('Suppression'), ['action' => 'delete', $user->idu],
                 ['confirm' => __('Êtes-vous sûr de vouloir supprimer le consultant {0}?', $user->email)]) ?></div>
     </div>
-    
+
 </div>
