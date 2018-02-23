@@ -28,10 +28,12 @@
         <legend class="header"><?= __('Participant') ?></legend>
         <ul class="list-group">
         <?php
-            asort($projet->participant);
-            asort($projet->activities);
+            $participants = $projet->participant
+            asort($participants);
+            $activities = $projet->activities
+            asort($activities);
         ?>
-        <?php foreach ($projet->participant as $participant): ?>
+        <?php foreach ($participants as $participant): ?>
             <li class="list-group-item"><?= $participant->user->fullname ?></li>
         <?php endforeach; ?>
         </ul>
@@ -39,7 +41,7 @@
     <div class="col-xs-6">
         <legend class="header"><?= __('Activités') ?></legend>
         <ul class="list-group">
-        <?php foreach ($projet->activities as $activity): ?>
+        <?php foreach ($activities as $activity): ?>
             <li class="list-group-item"><?= $activity->activitie->nom_activit ?></li>
         <?php endforeach; ?>
         </ul>
