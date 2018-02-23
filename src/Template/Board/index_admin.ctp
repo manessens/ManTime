@@ -4,6 +4,16 @@
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
+            ['title' => 'Validation semaine', 'content'=>'une image de calendrier']),
+            ['controller' => 'Time', 'action' => 'index-admin'],
+            ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
+            ['title' => 'Export', 'content'=>'une image de fichier']),
+            ['controller' => 'Export', 'action' => 'index'],
+            ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
             ['title' => 'Consultants', 'content'=>'une image un jour']),
             ['controller' => 'Users', 'action' => 'index'],
             ['escape' => false]); ?>
