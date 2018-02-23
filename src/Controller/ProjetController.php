@@ -94,25 +94,20 @@ class ProjetController extends AppController
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities', 'Participant' ]
         ]);
+        $myOldParticipant = $this->getMyParticipantsOption($projet->idp);
         if ($this->request->is(['patch', 'post', 'put'])) {
-<<<<<<< HEAD
-            // $data = $this->request->getData();
-            // $data['date_debut'] = FrozenTime::parse($data['date_debut']);
-            // $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $data = $this->request->getData();
+            $data['date_debut'] = FrozenTime::parse($data['date_debut']);
+            $data['date_fin'] = FrozenTime::parse($data['date_fin']);
             $projet = $this->Projet->patchEntity($this->request->getData(),[
-=======
-            $debut = FrozenTime::parse($this->request->getData()['date_debut']);
-            $fin = FrozenTime::parse($this->request->getData()['date_fin']);
-            $projet = $this->Projet->patchEntity($projet, $this->request->getData(),[
->>>>>>> parent of 88ca7e8... adding test for auto-control
                 'associated' => ['Activities', 'Participant']
             ]);
 
             $projet->date_debut = $debut;
             $projet->date_fin = $fin;
             if ($fin > $debut) {
-                pr($projet);exit;
     // @TODO:Sauvegarde manuel de particpants && activities
+                $this->updateParticipant($projet, $myOldParticipant);
                 if ($this->Projet->save($projet)) {
                     $this->Flash->success(__('Le projet à été sauegardé avec succées.'));
 
@@ -126,9 +121,16 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set('particpants', $this->getUserOption());
-        $this->set('myParticpants', $this->getMyParticipantsOption($projet->idp));
+        $this->set('myParticpants', $myOldParticipant);
         $this->set('activities', $this->getActivitiesOption());
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
+    }
+
+    private function updateParticipant($projet = null, $myOldParticipant = array() )
+    {
+        $participantTable = TableRegistry::get('Participant');
+        pr($projet);exit;
+
     }
 
     private function getClientOption()
