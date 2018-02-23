@@ -127,7 +127,7 @@ class ProjetController extends AppController
         $participantTable = TableRegistry::get('Participant');
         $participants = array();
         foreach ($data['participant'] as $value) {
-            $participants[] = $participantTable->newEntity(['idp' => $data['idp'], 'ida' => $value]);
+            $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'ida' => $value]);
         }
         $projet->participant = $participants;
         return $projet;
