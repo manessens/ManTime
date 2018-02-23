@@ -130,13 +130,12 @@ class ProjetController extends AppController
         $projet->participant = $participants;
 
         // @TODO: add DELETION
-        // $comments = TableRegistry::get('Comments');
-        // $present = (new Collection($entity->comments))->extract('id')->filter()->toArray();
-        // $comments->deleteAll([
-        //     'article_id' => $article->id,
-        //     'id NOT IN' => $present
-        // ]);
-        
+        $present = (new Collection($participants))->extract('idp')->filter()->toArray();
+        $participantTable->deleteAll([
+            'idp' => $projet->idp,
+            'idp NOT IN' => $present
+        ]);
+
         return $projet;
     }
 
