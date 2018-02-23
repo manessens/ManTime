@@ -138,7 +138,7 @@ class ProjetController extends AppController
         }
         // Update liste of activities to create associated entity in tab
         $projet->activities = $activitiesObject;
-
+        pr($projet);exit;
         //DELETION
         $listDeletion = $query->toArray();
         foreach ($listDeletion as  $entity) {
