@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="users index large-9 medium-8 columns content">
+<div class="users index large-10 medium-8 columns content">
     <legend><?= __('Consultants') ?></legend>
     <table cellpadding="0" cellspacing="0">
         <thead>

@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Matrice[]|\Cake\Collection\CollectionInterface $matrice
  */
 ?>
-<div class="matrice index large-9 medium-8 columns content">
+<div class="matrice index large-10 medium-8 columns content">
     <h3><?= __('Matrice') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
