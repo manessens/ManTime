@@ -8,11 +8,11 @@
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
     <?php else: ?>
-        <h3><?= __('Saisie de la semaine #') ?><?= $semaine ?></h3>
+        <legend><?= __('Saisie de la semaine #') ?><?= $semaine ?></legend>
     <?php endif; ?>
     <?= $this->Form->create() ?>
         <div class="block">
-            <div class="left"><?= h($fullNameUserAuth) ?></div>
+            <div class="left badge back-primary"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>
