@@ -82,10 +82,12 @@ class TempsController extends AppController
             $arrayProjects[$projet->idp] = $projet;
             $projects[$projet->idp] = $projet->nom_projet;
         }
+        $arrayClients = array();
         foreach ($arrayProjects as $projet) {
+            $arrayClients[$projet->idp . '.' . $projet->idc] = $projet->client;
             $clients[$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
         }
-        foreach ($clients as $client) {
+        foreach ($arrayClients as $client) {
             foreach ($client->matrice->lign_mat as $ligne) {
                 $profilMatrices[$client->idc . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
             }
