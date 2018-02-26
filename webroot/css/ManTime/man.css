@@ -53,6 +53,8 @@
 .semaine{
     background-color: #337ab7 !important;
     width: 75px !important;
+    color: white;
+    text-align: center;
 }
 
 .supp{

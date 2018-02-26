@@ -43,6 +43,7 @@ class TempsController extends AppController
             pr($this->request->getData());exit;
 
         }
+        $projects = getProjects($user->idu);
         // $lundi->i18nFormat('dd/MM');
         // $lundiDernier = clone $lundi;
         // $lundiDernier->modify('-7 days');
@@ -64,6 +65,13 @@ class TempsController extends AppController
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('fullNameUserAuth'));
+    }
+
+    private function getProjects($idu)
+    {
+        $projetTable = TableRegistry::get('Projet');
+        $projects = $projetTable->findByIdu($idu)->all();
+        pr($projects);exit;
     }
 
     /**
