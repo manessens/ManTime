@@ -45,7 +45,7 @@ class TempsController extends AppController
         $weekLine = array();
         for ($i=0; $i < 7; $i++) {
             $day = $this->Temps->newEntity();
-            $day->date = $lundi
+            $day->date = $lundi;
             $weekLine[] = $day;
             $lundi->modify('+1 days');
         }
