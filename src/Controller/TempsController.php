@@ -93,7 +93,7 @@ class TempsController extends AppController
 
             $activities = $activitiesTable->findByIdp($projet->idp)->contain(['Activitie'])->all();
             foreach ($activities as $activity) {
-                $arrayRetour['activities'][$projet->idp . '.' . $activity->ida] = $activity->nom_activit;
+                $arrayRetour['activities'][$projet->idp . '.' . $activity->ida] = $activity->activity->nom_activit;
             }
         }
         foreach ($arrayClients as $client) {
