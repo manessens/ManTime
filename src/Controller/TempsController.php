@@ -44,12 +44,12 @@ class TempsController extends AppController
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
 
         $arrayTemps = $this->Temps->find('all')
-                ->where(['idu =' => $user->idu])
+                ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <=' => $dimanche]);
 
         pr($arrayTemps);exit;
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
             pr($this->request->getData());exit;
@@ -88,7 +88,7 @@ class TempsController extends AppController
         $arrayProjects = array();
         $arrayRetour = array('projects'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
-            ->where('idu =' => $idu)
+            ->where(['idu =' => $idu])
             ->andWhere(['date >=' => $lundi])
             ->andWhere(['date <=' => $dimanche])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
