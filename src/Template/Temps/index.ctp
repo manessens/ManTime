@@ -48,15 +48,22 @@
                 </tr>
             </thead>
             <tbody>
+                <?php
+                    $this->set('iterator', 0);
+                ?>
                 <?php foreach ($week as $line): ?>
-                <tr id="">
+                <tr id="<?php echo $iterator ?>">
                     <td scope="col" class="actions"><button type="button" class="btn btn-danger">-</button></th>
-                    <td scope="col"><?= h('Client') ?></td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet[0]', $projects);
+                            echo $this->form->select('client['$iterator']', $clients);
                          ?>
-                     </td>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->select('projet['$iterator']', $projects);
+                         ?>
+                    </td>
                     <td scope="col"><?= h('Profil') ?></td>
                     <td scope="col"><?= h('Activité') ?></td>
                     <td scope="col"><?= h('Lu') ?></td>
@@ -67,6 +74,9 @@
                     <td scope="col"><?= h('Sa') ?></td>
                     <td scope="col"><?= h('Di') ?></td>
                 </tr>
+                <?php
+                    $iterator += 1;
+                ?>
                 <?php endforeach; ?>
                 <tr id="">
                     <td scope="col" class="actions"><button type="button" class="btn btn-success">+</button></th>

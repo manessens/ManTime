@@ -43,7 +43,8 @@ class TempsController extends AppController
             pr($this->request->getData());exit;
 
         }
-        $projects = $this->getProjects($user->idu);
+        $projects = $clients = $matrices = array();
+        $projects = $this->getProjects($user->idu, $projects, $clients, $idMatrices);
         // $lundi->i18nFormat('dd/MM');
         // $lundiDernier = clone $lundi;
         // $lundiDernier->modify('-7 days');
@@ -67,9 +68,25 @@ class TempsController extends AppController
         $this->set(compact('current'));
         $this->set(compact('fullNameUserAuth'));
         $this->set(compact('projects'));
+        $this->set(compact('clients'));
     }
 
-    private function getProjects($idu)
+    private function getProjects($idu, $projects=array(), $clients=array(), $idMatrices=array())
+    {
+        $participantTable = TableRegistry::get('Participant');
+
+        $particpations = $participantTable->findByIdu($idu)->contain(['Projet' => ['Client', 'Matrice']])->all();
+        foreach ($particpations as $participant) {
+            $projet = $participant->projet;
+            $projects[$projet->idp] = $projet->nom_projet;
+        }
+        foreach ($projects as $projet) {
+            $clients[$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
+            $matrices[$projet->idp . '.' . $projet->idm] = $projet->matrice->nom_matrice;
+        }
+    }
+
+    private function getClients($projects)
     {
         $participantTable = TableRegistry::get('Participant');
 
