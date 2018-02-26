@@ -32,13 +32,13 @@ class TempsController extends AppController
         $lundi = new FrozenTime('now');
         $lundi->setISOdate($annee, $semaine);
 
-        $idUserAuth = $this->Auth->user('idu');
+        $usersTable = TableRegistry::get('Users');
+        $idUserAuth = $usersTable->findByIdu('idu')->firstOrFail();
         $user = $this->Users->get($idUserAuth, [
             'contain' => []
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $activitiesTable = TableRegistry::get('Users');
             pr($user);
             pr($this->request->getData());exit;
 
