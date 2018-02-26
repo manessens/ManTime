@@ -46,8 +46,8 @@ class TempsController extends AppController
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')]);
-                // ->all();
+                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')])
+                ->all();
 
         pr($arrayTemps);exit;
 
