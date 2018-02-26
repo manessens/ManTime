@@ -92,7 +92,7 @@ class TempsController extends AppController
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
             ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-            ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')]);
+            ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
