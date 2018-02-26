@@ -33,7 +33,7 @@ class TempsController extends AppController
         $lundi->setISOdate($annee, $semaine);
         pr($lundi->i18nFormat('dd/MM'));
         $lundiDernier = clone $lundi;
-        $lundiDernier->modify('-1 week');
+        $lundiDernier->modify('-7 days');
         pr( date("W", strtotime($lundi->i18nFormat('YYYY/MM/dd'))) );exit;
 
         // $this->set(compact('temps'));
