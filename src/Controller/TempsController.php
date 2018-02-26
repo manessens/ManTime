@@ -33,10 +33,10 @@ class TempsController extends AppController
         $lundi->setISOdate($annee, $semaine);
 
         $usersTable = TableRegistry::get('Users');
-        $idUserAuth = $usersTable->findByIdu('idu')->firstOrFail();
-        $user = $this->Users->get($idUserAuth, [
+        $idUserAuth = $this->Auth->user('idu');
+        $user = $usersTable->findByIdu($idUserAuth, [
             'contain' => []
-        ]);
+        ])->firstOrFail();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
