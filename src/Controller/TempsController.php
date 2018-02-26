@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\I18n\DateTime;
+use Cake\I18n\Time;
 
 /**
  * Temps Controller
@@ -28,7 +28,7 @@ class TempsController extends AppController
             $annee = date('yyyy');
         }
         pr($semaine);
-        $lundi = new DateTime('now');
+        $lundi = new Time('now');
         $lundi->setISOdate($annee, $semaine);
         pr($lundi);exit;
 
