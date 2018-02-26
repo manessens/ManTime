@@ -5,7 +5,7 @@
         <?= $this->Html->link($this->element(
             'block',
             ['title' => 'Validation semaine', 'content'=>'une image de calendrier']),
-            ['controller' => 'Time', 'action' => 'index-admin'],
+            ['controller' => 'Temps', 'action' => 'index-admin'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',

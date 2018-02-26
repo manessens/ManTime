@@ -5,7 +5,7 @@
         <?= $this->Html->link($this->element(
             'block',
             ['title' => 'Saisie de la semaine', 'content'=>'une image de calendrier']),
-            ['controller' => 'Time', 'action' => 'index'],
+            ['controller' => 'Temps', 'action' => 'index'],
             ['escape' => false]); ?>
     </div>
 </div>
