@@ -86,7 +86,7 @@ class TempsController extends AppController
         $participantTable = TableRegistry::get('Participant');
         $activitiesTable = TableRegistry::get('Activities');
         $arrayProjects = array();
-        $arrayRetour = array('projects'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
+        $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
             ->andWhere(['date_debut >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
