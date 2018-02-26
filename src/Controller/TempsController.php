@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\I18n\FrozenTime;
+use Cake\ORM\TableRegistry;
 
 /**
  * Temps Controller
@@ -21,7 +22,7 @@ class TempsController extends AppController
      */
     public function index($semaine = null, $annee = null)
     {
-        $current = date('W');
+        $current = (int)date('W');
         if ($semaine === null) {
             $semaine = $current;
         }
@@ -30,13 +31,23 @@ class TempsController extends AppController
         }
         $lundi = new FrozenTime('now');
         $lundi->setISOdate($annee, $semaine);
+
+        $idUserAuth = $this->Auth->user('idu');
+        $user = $this->Users->get($idUserAuth, [
+            'contain' => []
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $activitiesTable = TableRegistry::get('Users');
+            pr($user)
+            pr($this->request->getData());exit;
+
+        }
         // $lundi->i18nFormat('dd/MM');
         // $lundiDernier = clone $lundi;
         // $lundiDernier->modify('-7 days');
         // date("W", strtotime($lundiDernier->i18nFormat('YYYY/MM/dd')));
-        $nameUserAuth = $this->Auth->user('nom');
-        $fornameUserAuth = $this->Auth->user('prenom');
-        $fullNameUserAuth = $fornameUserAuth . ' ' . $nameUserAuth;
+        $fullNameUserAuth = $user->fullname;
 
         $week = array();
         $weekLine = array();
