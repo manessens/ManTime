@@ -7,7 +7,7 @@
 <div class="temps index large-9 medium-8 columns content">
     <?php if ($current): ?>
         <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
-    <?php else; ?>
+    <?php else: ?>
         <h3><?= __('Saisie de la semaine #') ?><?= $semaine ?></h3>
     <?php endif; ?>
     <?= $this->Form->create() ?>
@@ -17,13 +17,13 @@
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>
                         <?= $this->Html->link(__('>'), ['action' => 'index', 52, $annee-1]) ?>
-                    <?php else; ?>
+                    <?php else: ?>
                         <?= $this->Html->link(__('>'), ['action' => 'index', $semaine-1, $annee]) ?>
                     <?php endif; ?>
                     <?= h("Semaine du au") ?>
                     <?php if ($semaine+1 > 52 ): ?>
                         <?= $this->Html->link(__('>'), ['action' => 'index', 1, $annee+1]) ?>
-                    <?php else; ?>
+                    <?php else: ?>
                         <?= $this->Html->link(__('>'), ['action' => 'index', $semaine+1, $annee]) ?>
                     <?php endif; ?>
                 </div>
