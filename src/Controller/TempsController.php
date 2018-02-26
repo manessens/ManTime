@@ -74,6 +74,8 @@ class TempsController extends AppController
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
         $this->set(compact('current'));
+        $this->set(compact('lundi'));
+        $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
