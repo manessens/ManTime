@@ -79,7 +79,6 @@ class TempsController extends AppController
             $projet = $participant->projet;
             $projects[$projet->idp] = $projet->nom_projet;
         }
-        pr($projects);exit;
     }
 
     /**
