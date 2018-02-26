@@ -18,9 +18,9 @@
                 <td><?= h($user->nom) ?></td>
             </tr>
             <tr>
-                <th scope="row"><?= __('Actif') ?></th>
+                <th scope="row"><?= __('Admin') ?></th>
                 <td>
-                    <?php $this->set('test', $this->Number->format($user->actif) ) ?>
+                    <?php $this->set('test', $this->Number->format($user->admin) ) ?>
                     <?= $this->element('tagYN') ?>
                 </td>
             </tr>
