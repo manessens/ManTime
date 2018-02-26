@@ -35,7 +35,11 @@
                 <tr>
                     <th scope="col" class="supp"></th>
                     <th scope="col"><?= h('Client') ?></th>
-                    <th scope="col"><?= h('Projet') ?></th>
+                    <th scope="col">
+                        <?php
+                            echo $this->form->select('projet[0]', $projects);
+                         ?>
+                    </th>
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th class="semaine" scope="col"><?= h('Lu') ?></th>

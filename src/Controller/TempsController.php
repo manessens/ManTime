@@ -50,7 +50,8 @@ class TempsController extends AppController
         // date("W", strtotime($lundiDernier->i18nFormat('YYYY/MM/dd')));
         $fullNameUserAuth = $user->fullname;
 
-        $week = array();
+        // $week = array();
+        $week = [1 => 1, 2=> 1];
         $weekLine = array();
         for ($i=0; $i < 7; $i++) {
             $day = $this->Temps->newEntity();
@@ -65,6 +66,7 @@ class TempsController extends AppController
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('fullNameUserAuth'));
+        $this->set(compact('$projects'));
     }
 
     private function getProjects($idu)
@@ -75,7 +77,7 @@ class TempsController extends AppController
         $projects=array();
         foreach ($particpations as $participant) {
             $projet = $projetTable->findByIdp($participant->idp)-firstOrFail();
-            $projects[$participant->idp] = $projet
+            $projects[$projet->idp] = $projet;
         }
         pr($projects);exit;
     }
