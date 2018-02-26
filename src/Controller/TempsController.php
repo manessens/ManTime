@@ -75,11 +75,12 @@ class TempsController extends AppController
         $projetTable = TableRegistry::get('Projet');
         $particpations = $participantTable->findByIdu($idu)->all();
         $projects=array();
+        pr($particpations);exit;
         foreach ($particpations as $participant) {
             $projet = $projetTable->findByIdp($participant->idp)->firstOrFail();
             $projects[$projet->idp] = $projet;
         }
-        // pr($projects);exit;
+        pr($projects);exit;
     }
 
     /**
