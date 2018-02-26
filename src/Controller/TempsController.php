@@ -70,11 +70,13 @@ class TempsController extends AppController
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
+        $this->set('activities', $arrayRetour['activities']);
     }
 
     private function getProjects($idu)
     {
         $participantTable = TableRegistry::get('Participant');
+        $activitiesTable = TableRegistry::get('Activieties');
         $arrayProjects = array();
         $particpations = $participantTable->findByIdu($idu)->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
@@ -86,12 +88,20 @@ class TempsController extends AppController
         foreach ($arrayProjects as $projet) {
             $arrayClients[$projet->idp . '.' . $projet->idc] = $projet->client;
             $arrayRetour['clients'][$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
+
+
+            $activities = $activitiesTable->findByIdu($projet->idp)->contain(['Activitie'])->all();
+            foreach ($activities as $activity) {
+                $arrayRetour['activities'][$projet->idp . '.' . $activity->ida] = $activity->nom_activit;
+            }
         }
         foreach ($arrayClients as $client) {
             foreach ($client->matrice->lign_mat as $ligne) {
                 $arrayRetour['profiles'][$client->idc . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
             }
         }
+
+
         return $arrayRetour;
     }
 

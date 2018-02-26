@@ -69,7 +69,11 @@
                             echo $this->form->select('profil['.$iterator.']', $profiles);
                          ?>
                     </td>
-                    <td scope="col"><?= h('Activité') ?></td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->select('profil['.$iterator.']', $activities);
+                         ?>
+                    </td>
                     <td scope="col"><?= h('Lu') ?></td>
                     <td scope="col"><?= h('Ma') ?></td>
                     <td scope="col"><?= h('Me') ?></td>
