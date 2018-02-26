@@ -49,7 +49,7 @@
             </thead>
             <tbody>
                 <?php
-                    $this->set('iterator', 0);
+                    $iterator = 0;
                 ?>
                 <?php foreach ($week as $line): ?>
                 <tr id="<?php echo $iterator ?>">
