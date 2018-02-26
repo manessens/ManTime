@@ -32,7 +32,7 @@ class TempsController extends AppController
         $lundi = new Time('now');
         $lundi->setISOdate($annee, $semaine);
         pr($lundi->i18nFormat('dd/MM'));
-        pr($lundi->i18nFormat('W'));exit;
+        pr(date('W', $lundi));exit;
 
         $this->set(compact('temps'));
     }
