@@ -21,12 +21,9 @@ class TempsController extends AppController
      */
     public function index($semaine = null, $annee = null)
     {
-        $current = false;
-        if ($annee === null && $semaine === null) {
-            $current = true;
-        }
+        $current = date('W');
         if ($semaine === null) {
-            $semaine = date('W');
+            $semaine = $current;
         }
         if ($annee === null) {
             $annee = date('Y');
