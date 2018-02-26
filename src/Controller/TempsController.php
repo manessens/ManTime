@@ -18,27 +18,11 @@ class TempsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function index($date = null)
     {
-        $temps = $this->paginate($this->Temps);
+        pr($date);exit;
 
         $this->set(compact('temps'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Temp id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $temp = $this->Temps->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('temp', $temp);
     }
 
     /**
@@ -103,5 +87,24 @@ class TempsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+
+        if ($user['prem_connect'] === 1) {
+            return false;
+        }
+
+        if (in_array($action, ['index']) ) {
+            return true;
+        }
+
+        if (in_array($action, ['index-admin']) && $user['admin'] === 1 ) {
+            return true;
+        }
+
+        return false;
     }
 }
