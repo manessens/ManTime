@@ -11,7 +11,7 @@
         <legend><?= __('Saisie de la semaine #') ?><?= $semaine ?></legend>
     <?php endif; ?>
     <?= $this->Form->create() ?>
-        <div class="block">
+        <div class="block col-xs-12">
             <div class="left badge back-primary"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
                 <div>
@@ -29,10 +29,11 @@
                 </div>
             </div>
         </div>
+        <div class="blank col-xs-12"></div>
         <table cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col" class="actions"><?= __('+/-') ?></th>
+                    <th scope="col" class="supp"></th>
                     <th scope="col"><?= h('Client') ?></th>
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>

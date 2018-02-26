@@ -52,4 +52,13 @@
 
 .semaine{
     background-color: #337ab7 !important;
+    width: 75px !important;
+}
+
+.supp{
+    width: 40px !important;
+}
+
+.blank{
+    height: 10px;
 }
