@@ -20,7 +20,7 @@
                     <?php else: ?>
                         <?= $this->Html->link(__('<'), ['action' => 'index', $semaine-1, $annee], ['class' => 'btn btn-success']) ?>
                     <?php endif; ?>
-                    <?= h("Semaine du ") $lundi->i18nFormat('dd/MM') __(' au ') $dimanche->i18nFormat('dd/MM') ?>
+                    <?php echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM')); ?>
                     <?php if ($semaine+1 > 52 ): ?>
                         <?= $this->Html->link(__('>'), ['action' => 'index', 1, $annee+1], ['class' => 'btn btn-success']) ?>
                     <?php else: ?>
