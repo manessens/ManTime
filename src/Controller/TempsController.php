@@ -29,7 +29,7 @@ class TempsController extends AppController
         if ($annee === null) {
             $annee = date('Y');
         }
-        $lundi = new FrozenTime('now');
+        $lundi = new Time('now');
         $lundi->setISOdate($annee, $semaine);
 
         $usersTable = TableRegistry::get('Users');
