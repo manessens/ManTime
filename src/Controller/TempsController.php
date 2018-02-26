@@ -82,7 +82,7 @@ class TempsController extends AppController
             $arrayProjects[$projet->idp] = $projet;
             $projects[$projet->idp] = $projet->nom_projet;
         }
-        foreach ($projects as $projet) {
+        foreach ($arrayProjects as $projet) {
             $clients[$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
         }
         foreach ($clients as $client) {
