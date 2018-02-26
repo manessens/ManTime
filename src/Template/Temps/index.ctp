@@ -56,17 +56,17 @@
                     <td scope="col" class="actions"><button type="button" class="btn btn-danger">-</button></th>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('client['$iterator']', $clients);
+                            echo $this->form->select('client['.$iterator.']', $clients);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['$iterator']', $projects);
+                            echo $this->form->select('projet['.$iterator.']', $projects);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['$iterator']', $profilMatrices);
+                            echo $this->form->select('projet['.$iterator.']', $profilMatrices);
                          ?>
                     </td>
                     <td scope="col"><?= h('Activité') ?></td>
