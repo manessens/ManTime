@@ -40,7 +40,7 @@ class TempsController extends AppController
 
         $lundi->i18nFormat('dd/MM');
         $dimanche = clone $lundi;
-        $dimanche->modify('+7 days');
+        $dimanche->addDays(7);
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
 
         $arrayTemps = $this->Temps->find('all')
