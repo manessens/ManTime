@@ -76,10 +76,10 @@ class TempsController extends AppController
         $particpations = $participantTable->findByIdu($idu)->all();
         $projects=array();
         foreach ($particpations as $participant) {
-            $projet = $projetTable->findByIdp($participant->idp)-firstOrFail();
+            $projet = $projetTable->findByIdp($participant->idp)->firstOrFail();
             $projects[$projet->idp] = $projet;
         }
-        pr($projects);exit;
+        // pr($projects);exit;
     }
 
     /**
