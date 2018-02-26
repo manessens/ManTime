@@ -26,7 +26,7 @@ class TempsController extends AppController
         if ($annee === null) {
             $annee = date('yyyy');
         }
-        pr($date->);exit;
+        pr($date);exit;
         $lundi = new DateTime();
         $lundi->setISOdate($annee, $semaine);
         pr($lundi->);exit;
