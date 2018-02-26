@@ -66,7 +66,7 @@
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['.$iterator.']', $profiles);
+                            echo $this->form->select('profil['.$iterator.']', $profiles);
                          ?>
                     </td>
                     <td scope="col"><?= h('Activité') ?></td>
@@ -98,6 +98,6 @@
                 </tr>
             </tbody>
         </table>
-        <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning']) ?>
+        <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>
