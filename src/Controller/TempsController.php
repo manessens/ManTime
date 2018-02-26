@@ -38,17 +38,25 @@ class TempsController extends AppController
             'contain' => []
         ])->firstOrFail();
 
+        $lundi->i18nFormat('dd/MM');
+        $dimanche = clone $lundi;
+        $dimanche->modify('+6 days');
+        // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
+
+        $arrayTemps = $this->Temps->find('all')
+                ->where(['idu =' => $user->idu])
+                ->andWhere(['date >=' => $lundi])
+                ->andWhere(['date <=' => $dimanche]);
+
+        pr($arrayTemps);exit;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
             pr($this->request->getData());exit;
 
         }
         $arrayRetour = $projects = $clients = $profilMatrices = array();
-        $arrayRetour = $this->getProjects($user->idu, $projects, $clients, $profilMatrices);
-        // $lundi->i18nFormat('dd/MM');
-        // $lundiDernier = clone $lundi;
-        // $lundiDernier->modify('-7 days');
-        // date("W", strtotime($lundiDernier->i18nFormat('YYYY/MM/dd')));
+        $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         $fullNameUserAuth = $user->fullname;
 
         // $week = array();
@@ -73,13 +81,17 @@ class TempsController extends AppController
         $this->set('activities', $arrayRetour['activities']);
     }
 
-    private function getProjects($idu)
+    private function getProjects($idu, $lundi, $dimanche)
     {
         $participantTable = TableRegistry::get('Participant');
         $activitiesTable = TableRegistry::get('Activities');
         $arrayProjects = array();
         $arrayRetour = array('projects'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
-        $particpations = $participantTable->findByIdu($idu)->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
+        $particpations = $participantTable->find('all')
+            ->where('idu =' => $idu)
+            ->andWhere(['date >=' => $lundi])
+            ->andWhere(['date <=' => $dimanche])
+            ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$projet->idp] = $projet;
