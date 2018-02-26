@@ -31,7 +31,8 @@ class TempsController extends AppController
         pr($annee);
         $lundi = new Time('now');
         $lundi->setISOdate($annee, $semaine);
-        pr($lundi->i18nFormat('dd/MM'));exit;
+        pr($lundi->i18nFormat('dd/MM'));
+        pr($lundi->i18nFormat('W'));exit;
 
         $this->set(compact('temps'));
     }
@@ -112,7 +113,7 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index-admin']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['index-admin', 'export']) && $user['admin'] === 1 ) {
             return true;
         }
 

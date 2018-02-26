@@ -10,7 +10,7 @@
         <?= $this->Html->link($this->element(
             'block',
             ['title' => 'Export', 'content'=>'une image de fichier']),
-            ['controller' => 'Export', 'action' => 'index'],
+            ['controller' => 'Temps', 'action' => 'export'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
