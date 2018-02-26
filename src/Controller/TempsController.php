@@ -43,8 +43,8 @@ class TempsController extends AppController
             pr($this->request->getData());exit;
 
         }
-        $projects = $clients = $profilMatrices = array();
-        $projects = $this->getProjects($user->idu, $projects, $clients, $profilMatrices);
+        $arrayRetour = $projects = $clients = $profilMatrices = array();
+        $arrayRetour = $this->getProjects($user->idu, $projects, $clients, $profilMatrices);
         // $lundi->i18nFormat('dd/MM');
         // $lundiDernier = clone $lundi;
         // $lundiDernier->modify('-7 days');
@@ -67,12 +67,12 @@ class TempsController extends AppController
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('fullNameUserAuth'));
-        $this->set(compact('projects'));
-        $this->set(compact('clients'));
-        $this->set(compact('profilMatrices'));
+        $this->set(compact($arrayRetour['projets']));
+        $this->set(compact($arrayRetour['clients']));
+        $this->set(compact($arrayRetour['profiles']));
     }
 
-    private function getProjects($idu, $projects=array(), $clients=array(), $profilMatrices=array())
+    private function getProjects($idu)
     {
         $participantTable = TableRegistry::get('Participant');
         $arrayProjects = array();
@@ -80,18 +80,19 @@ class TempsController extends AppController
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$projet->idp] = $projet;
-            $projects[$projet->idp] = $projet->nom_projet;
+            $arrayRetour['projets'][$projet->idp] = $projet->nom_projet;
         }
         $arrayClients = array();
         foreach ($arrayProjects as $projet) {
             $arrayClients[$projet->idp . '.' . $projet->idc] = $projet->client;
-            $clients[$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
+            $arrayRetour['clients'][$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
         }
         foreach ($arrayClients as $client) {
             foreach ($client->matrice->lign_mat as $ligne) {
-                $profilMatrices[$client->idc . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
+                $arrayRetour['profiles'][$client->idc . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
             }
         }
+        return $arrayRetour;
     }
 
     private function getClients($projects)
