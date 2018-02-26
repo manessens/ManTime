@@ -43,7 +43,7 @@ class TempsController extends AppController
             pr($this->request->getData());exit;
 
         }
-        $projects = getProjects($user->idu);
+        $projects = $this->getProjects($user->idu);
         // $lundi->i18nFormat('dd/MM');
         // $lundiDernier = clone $lundi;
         // $lundiDernier->modify('-7 days');
