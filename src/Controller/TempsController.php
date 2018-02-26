@@ -67,9 +67,9 @@ class TempsController extends AppController
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('fullNameUserAuth'));
-        $this->set(compact($arrayRetour['projets']));
-        $this->set(compact($arrayRetour['clients']));
-        $this->set(compact($arrayRetour['profiles']));
+        $this->set('projects', $arrayRetour['projets']);
+        $this->set('clients', $arrayRetour['clients']);
+        $this->set('profiles', $arrayRetour['profiles']);
     }
 
     private function getProjects($idu)

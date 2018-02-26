@@ -66,7 +66,7 @@
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['.$iterator.']', $profilMatrices);
+                            echo $this->form->select('projet['.$iterator.']', $profiles);
                          ?>
                     </td>
                     <td scope="col"><?= h('Activité') ?></td>
