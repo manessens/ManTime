@@ -42,8 +42,6 @@ class TempsController extends AppController
         // $lundi->i18nFormat('dd/MM');
         $dimanche = clone $lundi;
         $dimanche->modify('+7 days');
-        pr($lundi);
-        pr($dimanche);exit;
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
 
         $arrayTemps = $this->Temps->find('all')
@@ -93,8 +91,8 @@ class TempsController extends AppController
         $arrayRetour = array('projects'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
-            ->andWhere(['date >=' => $lundi])
-            ->andWhere(['date <=' => $dimanche])
+            ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
+            ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')]);
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
