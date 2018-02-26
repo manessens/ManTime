@@ -40,13 +40,13 @@ class TempsController extends AppController
 
         $lundi->i18nFormat('dd/MM');
         $dimanche = clone $lundi;
-        $dimanche->modify('+6 days');
+        $dimanche->modify('+7 days');
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
 
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
-                ->andWhere(['date >=' => new FrozenTime($lundi->i18nFormat('YYYY-MM-dd 00:00'))])
-                ->andWhere(['date <=' => new FrozenTime($dimanche->i18nFormat('YYYY-MM-dd 00:00'))]);
+                ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
+                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')]);
                 // ->all();
 
         pr($arrayTemps);exit;
