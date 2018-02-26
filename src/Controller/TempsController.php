@@ -20,13 +20,13 @@ class TempsController extends AppController
      */
     public function index($semaine = null, $annee = null)
     {
-        if ($date === null) {
-            $date = date('W');
+        if ($semaine === null) {
+            $semaine = date('W');
         }
         if ($annee === null) {
             $annee = date('yyyy');
         }
-        pr($date);exit;
+        pr($semaine);exit;
         $lundi = new DateTime();
         $lundi->setISOdate($annee, $semaine);
         pr($lundi);exit;
