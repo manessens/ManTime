@@ -5,14 +5,14 @@
  */
 ?>
 <div class="temps index large-9 medium-8 columns content">
-    <?php if ($current === $semaine): ?>
+    <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
     <?php else: ?>
         <h3><?= __('Saisie de la semaine #') ?><?= $semaine ?></h3>
     <?php endif; ?>
     <?= $this->Form->create() ?>
         <div class="block">
-            <div><?= h($fullNameUserAuth) ?></div>
+            <div class="left"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>
