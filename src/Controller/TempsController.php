@@ -41,13 +41,13 @@ class TempsController extends AppController
 
         // $lundi->i18nFormat('dd/MM');
         $dimanche = clone $lundi;
-        $dimanche->modify('+7 days');
+        $dimanche->modify('+6 days');
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
 
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')])
+                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
                 ->all();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -66,7 +66,7 @@ class TempsController extends AppController
             $day = $this->Temps->newEntity();
             $day->date = $lundi;
             $weekLine[] = $day;
-            $lundi->modify('+1 days');
+            // $lundi->modify('+1 days');
         }
 
         // $this->set(compact('temps'));
