@@ -38,9 +38,11 @@ class TempsController extends AppController
             'contain' => []
         ])->firstOrFail();
 
-        $lundi->i18nFormat('dd/MM');
+        // $lundi->i18nFormat('dd/MM');
         $dimanche = clone $lundi;
         $dimanche->addDays(7);
+        pr($lundi);
+        pr($dimanche);exit;
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
 
         $arrayTemps = $this->Temps->find('all')
