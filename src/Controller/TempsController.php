@@ -66,7 +66,7 @@ class TempsController extends AppController
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('fullNameUserAuth'));
-        $this->set(compact('$projects'));
+        $this->set(compact('projects'));
     }
 
     private function getProjects($idu)

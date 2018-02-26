@@ -35,11 +35,7 @@
                 <tr>
                     <th scope="col" class="supp"></th>
                     <th scope="col"><?= h('Client') ?></th>
-                    <th scope="col">
-                        <?php
-                            echo $this->form->select('projet[0]', $projects);
-                         ?>
-                    </th>
+                    <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th class="semaine" scope="col"><?= h('Lu') ?></th>
@@ -57,7 +53,11 @@
                     <td class="actions"> </td>
                     <td scope="col" class="actions"><?= __('+/-') ?></th>
                     <td scope="col"><?= h('Client') ?></td>
-                    <td scope="col"><?= h('Projet') ?></td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->select('projet[0]', $projects);
+                         ?>
+                     </td>
                     <td scope="col"><?= h('Profil') ?></td>
                     <td scope="col"><?= h('Activité') ?></td>
                     <td scope="col"><?= h('Lu') ?></td>
