@@ -28,9 +28,10 @@ class TempsController extends AppController
             $annee = date('yyyy');
         }
         pr($semaine);
+        pr($annee);
         $lundi = new Time('now');
         $lundi->setISOdate($annee, $semaine);
-        pr($lundi);exit;
+        pr($lundi->i18nFormat('dd/MM'););exit;
 
         $this->set(compact('temps'));
     }
