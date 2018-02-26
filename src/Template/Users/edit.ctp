@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="users form large-9 medium-8 columns content">
+<div class="users form large-10 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend>

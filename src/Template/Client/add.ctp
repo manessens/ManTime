@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Client $client
  */
 ?>
-<div class="client form large-9 medium-8 columns content">
+<div class="client form large-10 medium-8 columns content">
     <?= $this->Form->create($client) ?>
     <fieldset>
         <legend><?= __('Ajouter un client') ?></legend>

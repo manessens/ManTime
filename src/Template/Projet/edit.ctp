@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Projet $projet
  */
 ?>
-<div class="projet form large-9 medium-8 columns content">
+<div class="projet form large-10 medium-8 columns content">
     <?= $this->Form->create($projet) ?>
     <fieldset>
         <legend><?= __('Edit Projet') ?></legend>

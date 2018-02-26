@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Matrice $matrice
  */
 ?>
-<div class="matrice form large-9 medium-8 columns content">
+<div class="matrice form large-10 medium-8 columns content">
     <?= $this->Form->create($matrice) ?>
     <fieldset>
         <legend><?= __('Edition de  Matrice') ?></legend>

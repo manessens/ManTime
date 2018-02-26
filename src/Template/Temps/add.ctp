@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('List Temps'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="temps form large-9 medium-8 columns content">
+<div class="temps form large-10 medium-8 columns content">
     <?= $this->Form->create($temp) ?>
     <fieldset>
         <legend><?= __('Ajouter Temp') ?></legend>

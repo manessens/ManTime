@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Activitie $activitie
  */
 ?>
-<div class="activitie form large-9 medium-8 columns content">
+<div class="activitie form large-10 medium-8 columns content">
     <?= $this->Form->create($activitie) ?>
     <fieldset>
         <legend><?= __('Ajouter une activité') ?></legend>

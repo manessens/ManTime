@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('List Activities'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="activities form large-9 medium-8 columns content">
+<div class="activities form large-10 medium-8 columns content">
     <?= $this->Form->create($activity) ?>
     <fieldset>
         <legend><?= __('Ajouter Activity') ?></legend>
