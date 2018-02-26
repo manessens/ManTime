@@ -50,8 +50,6 @@ class TempsController extends AppController
                 ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 00:00:00')])
                 ->all();
 
-        pr($arrayTemps);exit;
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
             pr($this->request->getData());exit;
