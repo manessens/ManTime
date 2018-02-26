@@ -18,9 +18,18 @@ class TempsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index($date = null)
+    public function index($semaine = null, $annee = null)
     {
-        pr($date);exit;
+        if ($date === null) {
+            $date = date('W');
+        }
+        if ($annee === null) {
+            $annee = date('yyyy');
+        }
+        pr($date->);exit;
+        $lundi = new DateTime();
+        $lundi->setISOdate($annee, $semaine);
+        pr($lundi->);exit;
 
         $this->set(compact('temps'));
     }
