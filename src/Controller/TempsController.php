@@ -78,6 +78,7 @@ class TempsController extends AppController
         $participantTable = TableRegistry::get('Participant');
         $activitiesTable = TableRegistry::get('Activities');
         $arrayProjects = array();
+        $arrayRetour = array('projects'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->findByIdu($idu)->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
