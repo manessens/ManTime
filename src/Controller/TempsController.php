@@ -72,12 +72,12 @@ class TempsController extends AppController
     private function getProjects($idu)
     {
         $participantTable = TableRegistry::get('Participant');
-        $projetTable = TableRegistry::get('Projet');
-        $particpations = $participantTable->findByIdu($idu)->all();
+
+        $particpations = $participantTable->findByIdu($idu)->contain(['Projet'])->all();
         $projects=array();
         foreach ($particpations as $participant) {
-            $projet = $projetTable->findByIdp($participant->idp)->firstOrFail();
-            $projects[$projet->idp] = $projet;
+            $projet = $participant->projet;
+            $projects[$projet->idp] = $projet->nom_projet;
         }
         pr($projects);exit;
     }
