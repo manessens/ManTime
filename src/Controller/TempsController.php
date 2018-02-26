@@ -75,10 +75,11 @@ class TempsController extends AppController
     private function getProjects($idu, $projects=array(), $clients=array(), $profilMatrices=array())
     {
         $participantTable = TableRegistry::get('Participant');
-
+        $arrayProjects = array();
         $particpations = $participantTable->findByIdu($idu)->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
+            $arrayProjects[$projet->idp] = $projet;
             $projects[$projet->idp] = $projet->nom_projet;
         }
         foreach ($projects as $projet) {
