@@ -20,7 +20,7 @@
             <tr>
                 <th scope="row"><?= __('Actif') ?></th>
                 <td>
-                    <?php $this->set('test', $this->Number->format($user->admin) ) ?>
+                    <?php $this->set('test', $this->Number->format($user->actif) ) ?>
                     <?= $this->element('tagYN') ?>
                 </td>
             </tr>
