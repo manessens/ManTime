@@ -50,8 +50,7 @@
             <tbody>
                 <?php foreach ($week as $line): ?>
                 <tr id="">
-                    <td class="actions"> </td>
-                    <td scope="col" class="actions"><?= __('+/-') ?></th>
+                    <td scope="col" class="actions"><button type="button" class="btn btn-danger">-</button></th>
                     <td scope="col"><?= h('Client') ?></td>
                     <td scope="col">
                         <?php
@@ -69,6 +68,20 @@
                     <td scope="col"><?= h('Di') ?></td>
                 </tr>
                 <?php endforeach; ?>
+                <tr id="">
+                    <td scope="col" class="actions"><button type="button" class="btn btn-success">+</button></th>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                </tr>
             </tbody>
         </table>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning']) ?>
