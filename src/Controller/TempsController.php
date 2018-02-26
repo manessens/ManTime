@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 
 /**
  * Temps Controller
@@ -21,22 +21,41 @@ class TempsController extends AppController
      */
     public function index($semaine = null, $annee = null)
     {
+        $current = false;
+        if ($annee === null && $semaine === null) {
+            $current = true;
+        }
         if ($semaine === null) {
             $semaine = date('W');
         }
         if ($annee === null) {
             $annee = date('Y');
         }
-        pr($semaine);
-        pr($annee);
-        $lundi = new Time('now');
+        $lundi = new FrozenTime('now');
         $lundi->setISOdate($annee, $semaine);
-        pr($lundi->i18nFormat('dd/MM'));
-        $lundiDernier = clone $lundi;
-        $lundiDernier->modify('-7 days');
-        pr( date("W", strtotime($lundiDernier->i18nFormat('YYYY/MM/dd'))) );exit;
+        // $lundi->i18nFormat('dd/MM');
+        // $lundiDernier = clone $lundi;
+        // $lundiDernier->modify('-7 days');
+        // date("W", strtotime($lundiDernier->i18nFormat('YYYY/MM/dd')));
+        $nameUserAuth = $this->Auth->user('nom');
+        $fornameUserAuth = $this->Auth->user('prenom');
+        $fullNameUserAuth = $fornameUserAuth . ' ' . $nameUserAuth;
+
+        $week = array();
+        $weekLine = array();
+        for ($i=0; $i < 7; $i++) {
+            $day = $this->Temps->newEntity();
+            $day->date = $lundi
+            $weekLine[] = $day;
+            $lundi->modify('+1 days');
+        }
 
         // $this->set(compact('temps'));
+        $this->set(compact('week'));
+        $this->set(compact('semaine'));
+        $this->set(compact('annee'));
+        $this->set(compact('current'));
+        $this->set(compact('fullNameUserAuth'));
     }
 
     /**
