@@ -25,7 +25,7 @@ class TempsController extends AppController
             $semaine = date('W');
         }
         if ($annee === null) {
-            $annee = date('yyyy');
+            $annee = date('YYYY');
         }
         pr($semaine);
         pr($annee);
