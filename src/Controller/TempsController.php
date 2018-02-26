@@ -39,7 +39,7 @@ class TempsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $activitiesTable = TableRegistry::get('Users');
-            pr($user)
+            pr($user);
             pr($this->request->getData());exit;
 
         }
