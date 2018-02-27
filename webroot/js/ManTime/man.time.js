@@ -13,7 +13,7 @@ $( ".client" ).change(function (e) {
             if ($( select ).find('option[selected=selected]:visible').length ){
                 $( select ).val($( select ).find('option[selected=selected]:visible').val());
             }else{
-                $( select ).val(optionProjects[idp][0]);
+                $( select ).val(optionProjects[idc][0]);
             }
         }else{
             $( this ).hide();
@@ -26,7 +26,7 @@ $( ".client" ).change(function (e) {
             if ($( select ).find('option[selected=selected]:visible').length ){
                 $( select ).val($( select ).find('option[selected=selected]:visible').val());
             }else{
-                $( select ).val(optionProfils[idp][0]);
+                $( select ).val(optionProfils[idc][0]);
             }
         }else{
             $( this ).hide();
