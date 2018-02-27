@@ -73,37 +73,37 @@
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->control('day['.$k.']["Lu"].time');
+                            echo $this->form->control('day['.$k.']["Lu"]', ['label' => false , 'value' => $line['Lu']->time]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Ma"]', $line['Lu']->time);
+                            // echo $this->form->control('day['.$k.']["Ma"]', $line['Ma']->time);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Me"]', $line['Lu']->time);
+                            // echo $this->form->control('day['.$k.']["Me"]', $line['Me']->time);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Je"]', $line['Lu']->time);
+                            // echo $this->form->control('day['.$k.']["Je"]', $line['Je']->time);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Ve"]', $line['Lu']->time);
+                            // echo $this->form->control('day['.$k.']["Ve"]', $line['Ve']->time);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Sa"]', $line['Lu']->time);
+                            // echo $this->form->control('day['.$k.']["Sa"]', $line['Sa']->time);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Di"]', $line['Lu']->time);
+                            // echo $this->form->control('day['.$k.']["Di"]', $line['Di']->time);
                          ?>
                     </td>
                 </tr>
