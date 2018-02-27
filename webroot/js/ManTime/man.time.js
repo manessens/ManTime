@@ -18,6 +18,8 @@ $( ".client" ).change(function (e) {
         console.log($( select ).find('option[selected=selected]:visible').val());
     }else{
         $( select ).val(optionProjects[idc][0]);
+        console.log(idc);
+        console.log(optionProjects[idc][0]);
         console.log('prout');
     }
     $( ".project" ).change();
