@@ -73,5 +73,19 @@ $( "#add" ).click(function(){
 });
 
 function addLine(that) {
-    alert(that);
+    var id = $('#semainier>tbody tr:last').prev().attr('id');
+    if (id == undefined) {
+        id = -1;
+    }
+    var tr = $('<tr>', {
+        id: id+1
+    });
+    var td = $('<td>');
+    tr.append(td);
+    if (id >= 0) {
+        tr.insertAfter('#'+id);
+    }else{
+        tr.insertBefore('#total');
+    }
+    console.log(tr);
 }
