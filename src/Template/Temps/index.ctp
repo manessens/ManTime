@@ -43,48 +43,70 @@
                     <th class="semaine" scope="col"><?= h('Me') ?></th>
                     <th class="semaine" scope="col"><?= h('Je') ?></th>
                     <th class="semaine" scope="col"><?= h('Ve') ?></th>
-                    <th class="semaine" scope="col"><?= h('Sa') ?></th>
-                    <th class="semaine" scope="col"><?= h('Di') ?></th>
+                    <th class="weekend" scope="col"><?= h('Sa') ?></th>
+                    <th class="weekend" scope="col"><?= h('Di') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                    $iterator = 0;
-                ?>
-                <?php foreach ($week as $line): ?>
-                <tr id="<?php echo $iterator ?>">
+                <?php foreach ($week as $k => $line): ?>
+                <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions"><button type="button" class="btn btn-danger">-</button></th>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('client['.$iterator.']', $clients);
+                            echo $this->form->select('client['.$k.']', $clients);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['.$iterator.']', $projects);
+                            echo $this->form->select('projet['.$k.']', $projects, $line['idp']);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('profil['.$iterator.']', $profiles);
+                            echo $this->form->select('profil['.$k.']', $profiles, $line['id_profil']);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('profil['.$iterator.']', $activities);
+                            echo $this->form->select('activities['.$k.']', $activities, $line['ida']);
                          ?>
                     </td>
-                    <td scope="col"><?= h('Lu') ?></td>
-                    <td scope="col"><?= h('Ma') ?></td>
-                    <td scope="col"><?= h('Me') ?></td>
-                    <td scope="col"><?= h('Je') ?></td>
-                    <td scope="col"><?= h('Ve') ?></td>
-                    <td scope="col"><?= h('Sa') ?></td>
-                    <td scope="col"><?= h('Di') ?></td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Lu"]', $line['Lu']->time);
+                         ?>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Ma"]', $line['Lu']->time);
+                         ?>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Me"]', $line['Lu']->time);
+                         ?>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Je"]', $line['Lu']->time);
+                         ?>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Ve"]', $line['Lu']->time);
+                         ?>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Sa"]', $line['Lu']->time);
+                         ?>
+                    </td>
+                    <td scope="col">
+                        <?php
+                            echo $this->form->control('day['.$k.']["Di"]', $line['Lu']->time);
+                         ?>
+                    </td>
                 </tr>
-                <?php
-                    $iterator += 1;
-                ?>
                 <?php endforeach; ?>
                 <tr id="">
                     <td scope="col" class="actions"><button type="button" class="btn btn-success">+</button></th>

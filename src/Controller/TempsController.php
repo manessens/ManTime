@@ -53,7 +53,6 @@ class TempsController extends AppController
         }
 
         $week = $this->getDaysInWeek($buff, $lundi, $dimanche);
-        pr($week);exit;
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
@@ -63,16 +62,6 @@ class TempsController extends AppController
         $arrayRetour = $projects = $clients = $profilMatrices = array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         $fullNameUserAuth = $user->fullname;
-
-        // $week = array();
-        $week = [1 => 1, 2=> 1];
-        $weekLine = array();
-        for ($i=0; $i < 7; $i++) {
-            $day = $this->Temps->newEntity();
-            $day->date = $lundi;
-            $weekLine[] = $day;
-            // $lundi->modify('+1 days');
-        }
 
         // $this->set(compact('temps'));
         $this->set(compact('week'));
@@ -101,10 +90,16 @@ class TempsController extends AppController
         $vendredi->modify('+4 days');
         $samedi = clone $lundi;
         $samedi->modify('+5 days');
-
+        $lock = false;
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
+                $week[$key]['idp'] = $day->idp;
+                $week[$key]['id_profil'] = $day->id_profil;
+                $week[$key]['ida'] = $day->ida;
+                if (!$lock) {
+                    $lock=$day->lock;
+                }
                 if ($day->date >=  $lundi
                 && $day->date <  $mardi) {
                     $week[$key]['Lu'] = $day;

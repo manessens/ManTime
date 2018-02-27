@@ -57,6 +57,13 @@
     text-align: center;
 }
 
+.weekend{
+    background-color: #e0e0e0 !important;
+    width: 75px !important;
+    color: white;
+    text-align: center;
+}
+
 .supp{
     width: 40px !important;
 }
