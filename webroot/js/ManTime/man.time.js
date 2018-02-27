@@ -2,12 +2,14 @@ $(function() {
     $( ".client" ).change();
 });
 
-$( ".client" ).change(modifyClient(e));
+$( ".client" ).change(function(){
+    modifyClient(this);
+});
 
-function modifyClient (e) {
-    var val = $(this).val();
+function modifyClient (that) {
+    var val = $(that).val();
     var idc = val;
-    var select = $(this).parent().parent().find('td.cel_projet').children();
+    var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
             $( this ).show();
@@ -21,7 +23,7 @@ function modifyClient (e) {
         $( select ).val(optionProjects[idc][0]);
     }
     $( ".project" ).change();
-    var select2 = $( this ).parent().parent().find('td.cel_profil').children();
+    var select2 = $( that ).parent().parent().find('td.cel_profil').children();
     $( select2 ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProfils[idc]) != -1 ) {
             $( this ).show();
@@ -36,12 +38,14 @@ function modifyClient (e) {
     }
 }
 
-$( ".project" ).change(modifyProject(e));
+$( ".project" ).change(function(){
+    modifyProject(this);
+});
 
-function modifyProject(e) {
-    var val = $(this).val();
+function modifyProject(that) {
+    var val = $(that).val();
     var idp = val.split('.')[1];
-    var select = $( this ).parent().parent().find('td.cel_activit').children();
+    var select = $( that ).parent().parent().find('td.cel_activit').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
             $( this ).show();
