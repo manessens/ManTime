@@ -56,6 +56,8 @@ class TempsController extends AppController
         }
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
+            pr($lundi);
+            pr($day->date);
                 if ($day->date >=  $lundi->i18nFormat('YYYY-MM-dd 00:00:00')
                 && $day->date <=  $lundi->i18nFormat('YYYY-MM-dd 23:59:59')) {
                     $week[$key]['Lu'] = $day;
