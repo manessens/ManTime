@@ -66,5 +66,5 @@ $( ".remove" ).click(function(){
 });
 
 function delLine(that) {
-    $(this).parent().parent().remove();
+    $(that).parent().parent().remove();
 }
