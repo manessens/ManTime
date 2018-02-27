@@ -9,12 +9,13 @@ use Cake\ORM\Entity;
  * @property int $idt
  * @property \Cake\I18n\FrozenTime $date
  * @property float $time
+ * @property int $n_ligne
  * @property int $idu
  * @property int $idp
  * @property int $id_profil
  * @property int $ida
  *
- * @property \App\Model\Entity\User $users
+ * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Projet $projet
  * @property \App\Model\Entity\Profil $profil
  * @property \App\Model\Entity\Activitie $activitie
@@ -34,11 +35,12 @@ class Temp extends Entity
     protected $_accessible = [
         'date' => true,
         'time' => true,
+        'n_ligne' => true,
         'idu' => true,
         'idp' => true,
         'id_profil' => true,
         'ida' => true,
-        'users' => true,
+        'user' => true,
         'projet' => true,
         'profil' => true,
         'activitie' => true

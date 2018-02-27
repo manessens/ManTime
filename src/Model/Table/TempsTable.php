@@ -9,11 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Temps Model
  *
- * @property \App\Model\Entity\User|\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Entity\Projet|\Cake\ORM\Association\BelongsTo $Projet
- * @property \App\Model\Entity\Profil|\Cake\ORM\Association\BelongsTo $Profil
- * @property \App\Model\Entity\Activitie|\Cake\ORM\Association\BelongsTo $Activitie
- *
  * @method \App\Model\Entity\Temp get($primaryKey, $options = [])
  * @method \App\Model\Entity\Temp newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Temp[] newEntities(array $data, array $options = [])
@@ -38,19 +33,6 @@ class TempsTable extends Table
         $this->setTable('temps');
         $this->setDisplayField('idt');
         $this->setPrimaryKey('idt');
-
-        $this->belongsTo('Users', [
-            'foreignKey' => 'idu'
-        ]);
-        $this->belongsTo('Projet', [
-            'foreignKey' => 'idp'
-        ]);
-        $this->belongsTo('Profil', [
-            'foreignKey' => 'id_profil'
-        ]);
-        $this->belongsTo('Activitie', [
-            'foreignKey' => 'ida'
-        ]);
     }
 
     /**
@@ -73,6 +55,11 @@ class TempsTable extends Table
         $validator
             ->decimal('time')
             ->allowEmpty('time');
+
+        $validator
+            ->integer('n_ligne')
+            ->requirePresence('n_ligne', 'create')
+            ->notEmpty('n_ligne');
 
         $validator
             ->integer('idu')
