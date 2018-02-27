@@ -6,10 +6,20 @@
 ?>
 <script  type="text/javascript">
 
+    var optionClients = [];
     var optionProjects = [];
     var optionProfils  = [];
     var optionActivits = [];
     $(function() {
+    <?php foreach ($clients as $key => $value): ?>
+        var arrayTemp = '<?php echo $key; ?>'.split('.');
+        if (optionClients.hasOwnProperty(arrayTemp[0])) {
+            optionClients[arrayTemp[0]].push({0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>'});
+        }else{
+            optionClients[arrayTemp[0]]=[];
+            optionClients[arrayTemp[0]].push({0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>'});
+        }
+    <?php endforeach; ?>
     <?php foreach ($projects as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionProjects.hasOwnProperty(arrayTemp[0])) {

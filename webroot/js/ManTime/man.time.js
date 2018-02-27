@@ -77,16 +77,42 @@ function addLine(that) {
     if (id == undefined) {
         id = -1;
     }
-    id = Number(id);
+    id = Number(id)+1;
     var tr = $('<tr>', {
-        id: (id+1)
+        id: id
     });
-    var td = $('<td>');
-    tr.append(td);
-    if (id >= 0) {
-        tr.insertAfter('#'+id);
-    }else{
+    var tdButton = $('<td>',{
+        class:'action',
+        scope:'col'
+    });
+    var button = $('<button>',{
+        type:'button',
+        class: "btn btn-danger remove",
+        text: '-'
+    })
+    button.click(function(){
+        delLine(this);
+    });
+    tdButton.append(button);
+    tr.append(tdButton);
+
+    var tdClient = $('<td>',{
+        class:'cel_client',
+        scope:'col'
+    });
+    var selectClient = $('<select>',{
+        class:'client',
+        name:'client['+id+']'
+    })
+    optionClients.forEach(function(val) {
+       console.log(val);
+    });
+    tdClient.append(selectClient);
+    tr.append(tdClient);
+
+    if (id == 0) {
         tr.insertBefore('#total');
+    }else{
+        tr.insertAfter('#'+(id-1));
     }
-    console.log(tr);
 }
