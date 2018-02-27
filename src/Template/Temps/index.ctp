@@ -50,7 +50,7 @@
             <tbody>
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
-                    <td scope="col" class="actions"><button type="button" class="btn btn-danger">-</button></th>
+                    <td scope="col" class="actions"><button id="remove" ligne='<?php echo $k ?>' type="button" class="btn btn-danger">-</button></th>
                     <td scope="col">
                         <?php
                             echo $this->form->select('client['.$k.']', $clients);
@@ -78,38 +78,38 @@
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Ma"]', $line['Ma']->time);
+                            echo $this->form->control("day.$k.Ma", ['label' => false , 'value' => $line['Ma']->time]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Me"]', $line['Me']->time);
+                            echo $this->form->control("day.$k.Me", ['label' => false , 'value' => $line['Me']->time]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Je"]', $line['Je']->time);
+                            echo $this->form->control("day.$k.Je", ['label' => false , 'value' => $line['Je']->time]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Ve"]', $line['Ve']->time);
+                            echo $this->form->control("day.$k.Ve", ['label' => false , 'value' => $line['Ve']->time]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Sa"]', $line['Sa']->time);
+                            echo $this->form->control("day.$k.Sa", ['label' => false , 'value' => $line['Sa']->time]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            // echo $this->form->control('day['.$k.']["Di"]', $line['Di']->time);
+                            echo $this->form->control("day.$k.Di", ['label' => false , 'value' => $line['Di']->time]);
                          ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
-                <tr id="">
-                    <td scope="col" class="actions"><button type="button" class="btn btn-success">+</button></th>
+                <tr id="total">
+                    <td scope="col" class="actions"><button id="add" type="button" class="btn btn-success">+</button></th>
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
