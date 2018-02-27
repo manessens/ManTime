@@ -88,22 +88,22 @@
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions"><button id="remove" ligne='<?php echo $k ?>' type="button" class="btn btn-danger">-</button></th>
-                    <td scope="col">
+                    <td scope="col" class="cel_client">
                         <?php
                             echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
                          ?>
                     </td>
-                    <td scope="col">
+                    <td scope="col" class="cel_projet">
                         <?php
                             echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
                          ?>
                     </td>
-                    <td scope="col">
+                    <td scope="col" class="cel_profil">
                         <?php
                             echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
                          ?>
                     </td>
-                    <td scope="col">
+                    <td scope="col" class="cel_activit">
                         <?php
                             echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
                          ?>
