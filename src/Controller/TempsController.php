@@ -148,7 +148,7 @@ class TempsController extends AppController
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
-            $arrayProjects[$projet->idp] = $projet;
+            $arrayProjects[$projet->idc . '.' . $projet->idp] = $projet;
             $arrayRetour['projets'][$projet->idc . '.' . $projet->idp] = $projet->nom_projet;
         }
         $arrayClients = array();
