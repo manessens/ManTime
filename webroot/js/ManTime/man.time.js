@@ -2,7 +2,7 @@ $(function() {
     $( ".client" ).change();
 });
 
-$( "td" ).on('change','select.client',function(){
+$( ".client" ).change(function(){
     modifyClient(this);
 });
 
@@ -38,7 +38,7 @@ function modifyClient (that) {
     }
 }
 
-$( "td" ).on('change','select.project',function(){
+$( ".project" ).change(function(){
     modifyProject(this);
 });
 
@@ -60,7 +60,7 @@ function modifyProject(that) {
     }
 }
 
-$( "td" ).on('click','button.remove',function(){
+$( ".remove" ).click(function(){
     delLine(this);
 });
 
@@ -68,10 +68,10 @@ function delLine(that) {
     $(that).parent().parent().remove();
 }
 
-$( "td" ).on('click','button#add',function(){
+$( "#add" ).click(function(){
     addLine(this);
 });
 
 function addLine(that) {
-    alert('add');
+    alert(that);
 }
