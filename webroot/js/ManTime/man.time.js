@@ -173,6 +173,9 @@ function addLine(that) {
     }
     tdActivit.append(selectActivit);
     tr.append(tdActivit);
+    // Days
+    // @TODO: les jours
+
 
     if (id == 0) {
         tr.insertBefore('#total');
