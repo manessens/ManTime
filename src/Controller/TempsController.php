@@ -95,8 +95,8 @@ class TempsController extends AppController
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
-                $week[$key]['idc'] = $day->idp.'.'.$day->projet->idc;
-                $week[$key]['idp'] = $day->idp;
+                $week[$key]['idc'] = $day->projet->idc;
+                $week[$key]['idp'] = $day->projet->idc.'.'.$day->idp;
                 $week[$key]['id_profil'] = $day->projet->idc.'.'.$day->id_profil;
                 $week[$key]['ida'] = $day->idp.'.'.$day->ida;
                 if (!$lock) {
