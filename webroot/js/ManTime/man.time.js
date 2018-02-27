@@ -9,29 +9,29 @@ $( ".client" ).change(function (e) {
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
             $( this ).show();
-            if ($( select ).find('option[selected=selected]:visible').length ){
-                $( select ).val($( select ).find('option[selected=selected]:visible').val());
-            }else{
-                $( select ).val(optionProjects[idc][0]);
-            }
         }else{
             $( this ).hide();
         }
     });
+    if ($( select ).find('option[selected=selected]:visible').length ){
+        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    }else{
+        $( select ).val(optionProjects[idc][0]);
+    }
     $( ".project" ).change();
     var select2 = $( this ).parent().parent().find('td.cel_profil').children();
     $( select2 ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProfils[idc]) != -1 ) {
             $( this ).show();
-            if ($( select ).find('option[selected=selected]:visible').length ){
-                $( select ).val($( select ).find('option[selected=selected]:visible').val());
-            }else{
-                $( select ).val(optionProfils[idc][0]);
-            }
         }else{
             $( this ).hide();
         }
     });
+    if ($( select ).find('option[selected=selected]:visible').length ){
+        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    }else{
+        $( select ).val(optionProfils[idc][0]);
+    }
 })
 
 $( ".project" ).change(function (e) {
@@ -41,13 +41,13 @@ $( ".project" ).change(function (e) {
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
             $( this ).show();
-            if ($( select ).find('option[selected=selected]:visible').length ){
-                $( select ).val($( select ).find('option[selected=selected]:visible').val());
-            }else{
-                $( select ).val(optionActivits[idp][0]);
-            }
         }else{
             $( this ).hide();
         }
     });
+    if ($( select ).find('option[selected=selected]:visible').length ){
+        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    }else{
+        $( select ).val(optionActivits[idp][0]);
+    }
 })
