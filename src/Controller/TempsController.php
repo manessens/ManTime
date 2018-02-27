@@ -45,6 +45,7 @@ class TempsController extends AppController
                 ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
                 ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
+                ->contain(['Projet' => ['Client']])
                 ->all();
 
         $buff = array();
@@ -94,9 +95,10 @@ class TempsController extends AppController
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
+                $week[$key]['idc'] = $day->idp.'.'.$day->projet->idc;
                 $week[$key]['idp'] = $day->idp;
-                $week[$key]['id_profil'] = $day->id_profil;
-                $week[$key]['ida'] = $day->ida;
+                $week[$key]['id_profil'] = $day->projet->idc.'.'.$day->id_profil;
+                $week[$key]['ida'] = $day->idp.'.'.$day->ida;
                 if (!$lock) {
                     $lock=$day->lock;
                 }

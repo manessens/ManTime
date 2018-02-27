@@ -53,7 +53,7 @@
                     <td scope="col" class="actions"><button id="remove" ligne='<?php echo $k ?>' type="button" class="btn btn-danger">-</button></th>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('client['.$k.']', $clients, ['class' => 'client']);
+                            echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
                          ?>
                     </td>
                     <td scope="col">
