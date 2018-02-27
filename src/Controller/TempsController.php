@@ -64,19 +64,8 @@ class TempsController extends AppController
         foreach ($arrayTemps as $temps) {
             $buff[$temps->n_ligne][] = $temps;
         }
-        foreach ($buff as $key => $arrayDays) {
-            foreach ($arrayDays as $day) {
-            pr($lundi);
-            pr($day->date);
-                if ($day->date >=  $lundi
-                && $day->date <  $mardi) {
-                    $week[$key]['Lu'] = $day;
-                }else {
-                    $week[$key]['Di'] = $day;
-                }
-            }
-        }
-        pr($week);exit;
+
+        $week = $this->getDaysInWeek($buff);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
@@ -109,6 +98,45 @@ class TempsController extends AppController
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
         $this->set('activities', $arrayRetour['activities']);
+    }
+
+    private function getDaysInWeek($buff)
+    {
+        $week = array()
+        $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
+        foreach ($buff as $key => $arrayDays) {
+            foreach ($arrayDays as $day) {
+                if ($day->date >=  $lundi
+                && $day->date <  $mardi) {
+                    $week[$key]['Lu'] = $day;
+                }elseif($day->date >=  $mardi
+                && $day->date <  $mercredi) {
+                    $week[$key]['Ma'] = $day;
+                }elseif($day->date >=  $mercredi
+                && $day->date <  $jeudi) {
+                    $week[$key]['Me'] = $day;
+                }elseif($day->date >=  $jeudi
+                && $day->date <  $vendredi) {
+                    $week[$key]['Je'] = $day;
+                }elseif($day->date >=  $vendredi
+                && $day->date <  $samedi) {
+                    $week[$key]['Ve'] = $day;
+                }elseif($day->date >=  $samedi
+                && $day->date <  $dimanche) {
+                    $week[$key]['Sa'] = $day;
+                }else {
+                    $week[$key]['Di'] = $day;
+                }
+            }
+        }
+        foreach ($week as $key => $arrayDays) {
+            foreach ($modelWeek as $idDay) {
+                if (!array_key_exists($idDay, $week[$key]) ) {
+                    $week[$key][$idDay] = $this->Temps->newEntity();
+                }
+            }
+        }
+        return $week;
     }
 
     private function getProjects($idu, $lundi, $dimanche)
