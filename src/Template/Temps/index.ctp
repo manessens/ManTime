@@ -87,7 +87,7 @@
             <tbody>
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
-                    <td scope="col" class="actions"><button id="remove" ligne='<?php echo $k ?>' type="button" class="btn btn-danger">-</button></th>
+                    <td scope="col" class="actions"><button type="button" class="btn btn-danger remove">-</button></th>
                     <td scope="col" class="cel_client">
                         <?php
                             echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);

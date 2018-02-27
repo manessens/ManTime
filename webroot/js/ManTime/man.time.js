@@ -59,3 +59,12 @@ function modifyProject(that) {
         $( select ).val(optionActivits[idp][0]);
     }
 }
+
+
+$( ".remove" ).click(function(){
+    delLine(this);
+});
+
+function delLine(that) {
+    $(this).parent().parent().remove();
+}
