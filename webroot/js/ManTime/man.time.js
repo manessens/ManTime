@@ -3,7 +3,7 @@ $(function() {
     // var node = $('#'+(id-1)).clone();
     // node = node.html().replace(id-1, id);
     // $('#semainier>tbody:last').append(node);
-
+    $( ".client" ).change();
 
 });
 // $( ".project" ).change(function () {
@@ -14,7 +14,7 @@ $(function() {
 //     $(this).parent().next().children().find('option[value='+idp+']').show();
 // }).change();
 
-$( ".client" ).change(function () {
+$( ".client" ).change(function (e) {
     var val = $(this).val();
     var idc = val;
     var select = $(this).parent().parent().find('td.cel_projet').children();
@@ -26,9 +26,9 @@ $( ".client" ).change(function () {
             $( this ).hide();
         }
     });
-}).change();
+})
 
-$( ".client" ).change(function () {
+$( ".client" ).change(function (e) {
     var val = $(this).val();
     var idc = val;
     var select = $( ".client" ).parent().parent().find('td.cel_profil').children();
@@ -40,4 +40,4 @@ $( ".client" ).change(function () {
             $( this ).hide();
         }
     });
-}).change();
+})
