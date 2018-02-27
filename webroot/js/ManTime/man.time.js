@@ -95,7 +95,7 @@ function addLine(that) {
     });
     tdButton.append(button);
     tr.append(tdButton);
-
+    // Client
     var tdClient = $('<td>',{
         class:'cel_client',
         scope:'col'
@@ -111,9 +111,12 @@ function addLine(that) {
         })
         selectClient.append(option);
     }
+    tdClient.change(function(){
+        modifyClient(this);
+    });
     tdClient.append(selectClient);
     tr.append(tdClient);
-
+    // Projet
     var tdProjet = $('<td>',{
         class:'cel_projet',
         scope:'col'
@@ -129,12 +132,53 @@ function addLine(that) {
         })
         selectProjet.append(option);
     }
+    tdProjet.change(function(){
+        modifyProject(this);
+    });
     tdProjet.append(selectProjet);
     tr.append(tdProjet);
+    // Profil
+    var tdProfil = $('<td>',{
+        class:'cel_profil',
+        scope:'col'
+    });
+    var selectProfil = $('<select>',{
+        class:'profil',
+        name:'profil['+id+']'
+    })
+    for(var key in valueProfils){
+        var option = $('<option>',{
+            value:key,
+            text:valueProfils[key]
+        })
+        selectProfil.append(option);
+    }
+    tdProjet.append(selectProfil);
+    tr.append(tdProfil);
+    // Activité
+    var tdActivit = $('<td>',{
+        class:'cel_activit',
+        scope:'col'
+    });
+    var selectActivit = $('<select>',{
+        class:'profil',
+        name:'profil['+id+']'
+    })
+    for(var key in valueActivits){
+        var option = $('<option>',{
+            value:key,
+            text:valueActivits[key]
+        })
+        selectActivit.append(option);
+    }
+    tdProjet.append(selectActivit);
+    tr.append(tdActivit);
 
     if (id == 0) {
         tr.insertBefore('#total');
     }else{
         tr.insertAfter('#'+(id-1));
     }
+
+    $( ".client" ).change();
 }
