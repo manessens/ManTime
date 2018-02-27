@@ -4,6 +4,16 @@
  * @var \App\Model\Entity\Temp[]|\Cake\Collection\CollectionInterface $temps
  */
 ?>
+<script  type="text/javascript">
+
+    var optionClients = [][];
+    <?php foreach ($clients as $key => $clientName): ?>
+        var arrayTemp = $key.split('.');
+        optionClients[arrayTemp[0]].push(arrayTemp[1]);
+    <?php endforeach; ?>
+
+</script>
+
 <div class="temps index large-10 medium-8 columns content">
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
