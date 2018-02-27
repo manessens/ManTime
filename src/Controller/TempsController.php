@@ -32,6 +32,8 @@ class TempsController extends AppController
         }
         $lundi = new Date('now');
         $lundi->setISOdate($annee, $semaine);
+        $dimanche = clone $lundi;
+        $dimanche->modify('+6 days');
 
         $usersTable = TableRegistry::get('Users');
         $idUserAuth = $this->Auth->user('idu');
@@ -50,7 +52,7 @@ class TempsController extends AppController
             $buff[$temps->n_ligne][] = $temps;
         }
 
-        $week = $this->getDaysInWeek($buff, $lundi);
+        $week = $this->getDaysInWeek($buff, $lundi, $dimanche);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
@@ -85,7 +87,7 @@ class TempsController extends AppController
         $this->set('activities', $arrayRetour['activities']);
     }
 
-    private function getDaysInWeek($buff, $lundi)
+    private function getDaysInWeek($buff, $lundi, $dimanche)
     {
         $week = array();
         $mardi = clone $lundi;
@@ -98,8 +100,7 @@ class TempsController extends AppController
         $vendredi->modify('+4 days');
         $samedi = clone $lundi;
         $samedi->modify('+5 days');
-        $dimanche = clone $lundi;
-        $dimanche->modify('+6 days');
+        
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
