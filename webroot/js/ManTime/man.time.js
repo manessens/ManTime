@@ -2,7 +2,7 @@ $(function() {
     $( ".client" ).change();
 });
 
-$( "select" ).on('.client','change',(function(){
+$( "select" ).on('.client','change',function(){
     modifyClient(this);
 });
 
@@ -38,7 +38,7 @@ function modifyClient (that) {
     }
 }
 
-$( "select" ).on('.project','change',(function(){
+$( "select" ).on('.project','change',function(){
     modifyProject(this);
 });
 
