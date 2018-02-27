@@ -6,11 +6,16 @@
 ?>
 <script  type="text/javascript">
 
-    var optionClients = [][];
+    var optionClients = [];
     $(function() {
     <?php foreach ($clients as $key => $clientName): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
-        optionClients[arrayTemp[0]].push(arrayTemp[1]);
+        if (optionClients.hasOwnProperty(arrayTemp[0])) {
+            optionClients[arrayTemp[0]].push(arrayTemp[1]);
+        }else{
+            optionClients[arrayTemp[0]]=[];
+            optionClients[arrayTemp[0]].push(arrayTemp[1]);
+        }
     <?php endforeach; ?>
     });
 
