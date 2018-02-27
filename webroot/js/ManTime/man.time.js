@@ -105,10 +105,32 @@ function addLine(that) {
         name:'client['+id+']'
     })
     optionClients.forEach(function(val) {
-       console.log(val);
+        var option = $('<option>',{
+            value:val[0][0],
+            text:val[0][1]
+        })
+        selectClient.append(option);
     });
     tdClient.append(selectClient);
     tr.append(tdClient);
+
+    var tdProjet = $('<td>',{
+        class:'cel_projet',
+        scope:'col'
+    });
+    var selectProjet = $('<select>',{
+        class:'project',
+        name:'projet['+id+']'
+    })
+    optionProjects.forEach(function(val) {
+        var option = $('<option>',{
+            value:val[0][0],
+            text:val[0][1]
+        })
+        selectProjet.append(option);
+    });
+    tdProjet.append(selectProjet);
+    tr.append(tdProjet);
 
     if (id == 0) {
         tr.insertBefore('#total');
