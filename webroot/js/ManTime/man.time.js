@@ -9,6 +9,8 @@ $( ".client" ).change(function(){
 function modifyClient (that) {
     var val = $(that).val();
     var idc = val;
+    console.log(that);
+    console.log(idp);
     var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
@@ -45,6 +47,8 @@ $( ".project" ).change(function(){
 function modifyProject(that) {
     var val = $(that).val();
     var idp = val.split('.')[1];
+    console.log(that);
+    console.log(idp);
     var select = $( that ).parent().parent().find('td.cel_activit').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
