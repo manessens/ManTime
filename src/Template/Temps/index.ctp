@@ -8,9 +8,10 @@
 
     var optionClients = [][];
     <?php foreach ($clients as $key => $clientName): ?>
-        var arrayTemp = $key.split('.');
+        var arrayTemp = '<?php $key ?>'.split('.');
         optionClients[arrayTemp[0]].push(arrayTemp[1]);
     <?php endforeach; ?>
+    alert(optionClients); 
 
 </script>
 
