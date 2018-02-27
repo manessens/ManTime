@@ -58,17 +58,17 @@
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['.$k.']', $projects, $line['idp']);
+                            echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp']]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('profil['.$k.']', $profiles, $line['id_profil']);
+                            echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil']]);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('activities['.$k.']', $activities, $line['ida']);
+                            echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida']]);
                          ?>
                     </td>
                     <td scope="col">
