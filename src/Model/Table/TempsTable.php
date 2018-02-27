@@ -33,6 +33,19 @@ class TempsTable extends Table
         $this->setTable('temps');
         $this->setDisplayField('idt');
         $this->setPrimaryKey('idt');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'idu'
+        ]);
+        $this->belongsTo('Projet', [
+            'foreignKey' => 'idp'
+        ]);
+        $this->belongsTo('Profil', [
+            'foreignKey' => 'id_profil'
+        ]);
+        $this->belongsTo('Activitie', [
+            'foreignKey' => 'ida'
+        ]);
     }
 
     /**
@@ -60,6 +73,10 @@ class TempsTable extends Table
             ->integer('n_ligne')
             ->requirePresence('n_ligne', 'create')
             ->notEmpty('n_ligne');
+
+        $validator
+            ->integer('lock')
+            ->allowEmpty('lock');
 
         $validator
             ->integer('idu')
