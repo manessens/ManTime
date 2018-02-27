@@ -102,7 +102,7 @@ class TempsController extends AppController
 
     private function getDaysInWeek($buff)
     {
-        $week = array()
+        $week = array();
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
