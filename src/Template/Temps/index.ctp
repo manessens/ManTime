@@ -73,7 +73,7 @@
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->control("day['.$k.'][Lu]", ['label' => false , 'value' => $line['Lu']->time]);
+                            echo $this->form->control("day[.$k.][Lu]", ['label' => false , 'value' => $line['Lu']->time]);
                          ?>
                     </td>
                     <td scope="col">
