@@ -77,8 +77,9 @@ function addLine(that) {
     if (id == undefined) {
         id = -1;
     }
+    id = Number(id);
     var tr = $('<tr>', {
-        id: id+1
+        id: (id+1)
     });
     var td = $('<td>');
     tr.append(td);
