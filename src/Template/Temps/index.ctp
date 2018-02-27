@@ -13,10 +13,10 @@
     <?php foreach ($projects as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionProjects.hasOwnProperty(arrayTemp[0])) {
-            optionProjects[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionProjects[arrayTemp[0]].push([0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>']);
         }else{
             optionProjects[arrayTemp[0]]=[];
-            optionProjects[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionProjects[arrayTemp[0]].push([0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>']);
         }
     <?php endforeach; ?>
     <?php foreach ($profiles as $key => $value): ?>

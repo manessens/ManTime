@@ -20,7 +20,7 @@ function modifyClient (that) {
     if ($( select ).find('option[selected=selected]:visible').length ){
         $( select ).val($( select ).find('option[selected=selected]:visible').val());
     }else{
-        $( select ).val(optionProjects[idc][0]);
+        $( select ).val(optionProjects[idc][0][0]);
     }
     $( ".project" ).change();
     var select2 = $( that ).parent().parent().find('td.cel_profil').children();
