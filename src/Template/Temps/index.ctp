@@ -13,28 +13,28 @@
     <?php foreach ($projects as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionProjects.hasOwnProperty(arrayTemp[0])) {
-            optionProjects[arrayTemp[0]].push(arrayTemp[1]);
+            optionProjects[arrayTemp[0]].push('<?php echo $key; ?>');
         }else{
             optionProjects[arrayTemp[0]]=[];
-            optionProjects[arrayTemp[0]].push(arrayTemp[1]);
+            optionProjects[arrayTemp[0]].push('<?php echo $key; ?>');
         }
     <?php endforeach; ?>
     <?php foreach ($profiles as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionProfils.hasOwnProperty(arrayTemp[0])) {
-            optionProfils[arrayTemp[0]].push(arrayTemp[1]);
+            optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
         }else{
             optionProfils[arrayTemp[0]]=[];
-            optionProfils[arrayTemp[0]].push(arrayTemp[1]);
+            optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
         }
     <?php endforeach; ?>
     <?php foreach ($activities as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionActivits.hasOwnProperty(arrayTemp[0])) {
-            optionActivits[arrayTemp[0]].push(arrayTemp[1]);
+            optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
         }else{
             optionActivits[arrayTemp[0]]=[];
-            optionActivits[arrayTemp[0]].push(arrayTemp[1]);
+            optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
         }
     <?php endforeach; ?>
     });
