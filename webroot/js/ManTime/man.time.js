@@ -104,13 +104,13 @@ function addLine(that) {
         class:'client',
         name:'client['+id+']'
     })
-    valueClients.forEach(function(val) {
+    for(var key in valueClients){
         var option = $('<option>',{
-            value:val,
-            text:valueClients[val]
+            value:key,
+            text:valueClients[key]
         })
         selectClient.append(option);
-    });
+    }
     tdClient.append(selectClient);
     tr.append(tdClient);
 
@@ -122,13 +122,13 @@ function addLine(that) {
         class:'project',
         name:'projet['+id+']'
     })
-    valueProjects.forEach(function(val) {
+    for(var key in valueProjects){
         var option = $('<option>',{
-            value:val,
-            text:valueProjects[val]
+            value:key,
+            text:valueProjects[key]
         })
         selectProjet.append(option);
-    });
+    }
     tdProjet.append(selectProjet);
     tr.append(tdProjet);
 
