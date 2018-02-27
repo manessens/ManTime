@@ -10,15 +10,11 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $date
  * @property float $time
  * @property int $n_ligne
+ * @property int $lock
  * @property int $idu
  * @property int $idp
  * @property int $id_profil
  * @property int $ida
- *
- * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\Projet $projet
- * @property \App\Model\Entity\Profil $profil
- * @property \App\Model\Entity\Activitie $activitie
  */
 class Temp extends Entity
 {
@@ -36,13 +32,10 @@ class Temp extends Entity
         'date' => true,
         'time' => true,
         'n_ligne' => true,
+        'lock' => true,
         'idu' => true,
         'idp' => true,
         'id_profil' => true,
-        'ida' => true,
-        'user' => true,
-        'projet' => true,
-        'profil' => true,
-        'activitie' => true
+        'ida' => true
     ];
 }

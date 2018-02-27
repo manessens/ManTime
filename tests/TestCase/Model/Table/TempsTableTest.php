@@ -24,17 +24,7 @@ class TempsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.temps',
-        'app.users',
-        'app.articles',
-        'app.projet',
-        'app.client',
-        'app.matrice',
-        'app.lign_mat',
-        'app.profil',
-        'app.activities',
-        'app.activitie',
-        'app.participant'
+        'app.temps'
     ];
 
     /**
