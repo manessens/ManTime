@@ -24,7 +24,7 @@
             optionClients[arrayTemp[0]]=[];
             optionClients[arrayTemp[0]].push('<?php echo $key; ?>');
         }
-        valueClients['<?php echo $key; ?>'] = <?php echo $value; ?>;
+        valueClients['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
     <?php foreach ($projects as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
@@ -34,7 +34,7 @@
             optionProjects[arrayTemp[0]]=[];
             optionProjects[arrayTemp[0]].push('<?php echo $key; ?>');
         }
-        valueProjects['<?php echo $key; ?>'] = <?php echo $value; ?>;
+        valueProjects['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
     <?php foreach ($profiles as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
@@ -44,7 +44,7 @@
             optionProfils[arrayTemp[0]]=[];
             optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
         }
-        valueProfils['<?php echo $key; ?>'] = <?php echo $value; ?>;
+        valueProfils['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
     <?php foreach ($activities as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
@@ -54,7 +54,7 @@
             optionActivits[arrayTemp[0]]=[];
             optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
         }
-        valueActivits['<?php echo $key; ?>'] = <?php echo $value; ?>;
+        valueActivits['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
     });
 
