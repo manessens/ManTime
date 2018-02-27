@@ -2,7 +2,7 @@ $(function() {
     $( ".client" ).change();
 });
 
-$( ".client" ).change(function(){
+$( "select" ).on('.client','change',(function(){
     modifyClient(this);
 });
 
@@ -34,11 +34,11 @@ function modifyClient (that) {
     if ($( select2 ).find('option[selected=selected]:visible').length ){
         $( select2 ).val($( select2 ).find('option[selected=selected]:visible').val());
     }else{
-        $( select2 ).val(optionProfils[idc][0]);
+        $( select2 ).val(optionProfils[idc][0][0]);
     }
 }
 
-$( ".project" ).change(function(){
+$( "select" ).on('.project','change',(function(){
     modifyProject(this);
 });
 
@@ -56,15 +56,22 @@ function modifyProject(that) {
     if ($( select ).find('option[selected=selected]:visible').length ){
         $( select ).val($( select ).find('option[selected=selected]:visible').val());
     }else{
-        $( select ).val(optionActivits[idp][0]);
+        $( select ).val(optionActivits[idp][0][0]);
     }
 }
 
-
-$( ".remove" ).click(function(){
+$( "button" ).on('.remove','click',function(){
     delLine(this);
 });
 
 function delLine(that) {
     $(that).parent().parent().remove();
+}
+
+$( "button" ).on('#add','click',function(){
+    addLine(this);
+});
+
+function addLine(that) {
+    alert('add');
 }

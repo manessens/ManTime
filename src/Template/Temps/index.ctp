@@ -22,19 +22,19 @@
     <?php foreach ($profiles as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionProfils.hasOwnProperty(arrayTemp[0])) {
-            optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionProfils[arrayTemp[0]].push({0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>'});
         }else{
             optionProfils[arrayTemp[0]]=[];
-            optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionProfils[arrayTemp[0]].push({0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>'});
         }
     <?php endforeach; ?>
     <?php foreach ($activities as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionActivits.hasOwnProperty(arrayTemp[0])) {
-            optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionActivits[arrayTemp[0]].push({0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>'});
         }else{
             optionActivits[arrayTemp[0]]=[];
-            optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionActivits[arrayTemp[0]].push({0:'<?php echo $key; ?>', 1:'<?php echo $value; ?>'});
         }
     <?php endforeach; ?>
     });
