@@ -149,12 +149,12 @@ class TempsController extends AppController
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$projet->idp] = $projet;
-            $arrayRetour['projets'][$projet->idp] = $projet->nom_projet;
+            $arrayRetour['projets'][$projet->idc . '.' . $projet->idp] = $projet->nom_projet;
         }
         $arrayClients = array();
         foreach ($arrayProjects as $projet) {
-            $arrayClients[$projet->idp . '.' . $projet->idc] = $projet->client;
-            $arrayRetour['clients'][$projet->idp . '.' . $projet->idc] = $projet->client->nom_client;
+            $arrayClients[$projet->idc] = $projet->client;
+            $arrayRetour['clients'][$projet->idc] = $projet->client->nom_client;
 
 
             $activities = $activitiesTable->findByIdp($projet->idp)->contain(['Activitie'])->all();
