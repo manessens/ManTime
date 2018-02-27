@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\I18n\FrozenTime;
-use Cake\I18n\Time;
+use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -30,7 +30,7 @@ class TempsController extends AppController
         if ($annee === null) {
             $annee = date('Y');
         }
-        $lundi = new Time('now');
+        $lundi = new Date('now');
         $lundi->setISOdate($annee, $semaine);
 
         $usersTable = TableRegistry::get('Users');
@@ -40,6 +40,16 @@ class TempsController extends AppController
         ])->firstOrFail();
 
         // $lundi->i18nFormat('dd/MM');
+        $mardi = clone $lundi;
+        $mardi->modify('+1 days');
+        $mercredi = clone $lundi;
+        $mercredi->modify('+2 days');
+        $jeudi = clone $lundi;
+        $jeudi->modify('+3 days');
+        $vendredi = clone $lundi;
+        $vendredi->modify('+4 days');
+        $samedi = clone $lundi;
+        $samedi->modify('+5 days');
         $dimanche = clone $lundi;
         $dimanche->modify('+6 days');
         // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
@@ -58,8 +68,8 @@ class TempsController extends AppController
             foreach ($arrayDays as $day) {
             pr($lundi);
             pr($day->date);
-                if ($day->date >=  $lundi->i18nFormat('YYYY-MM-dd 00:00:00')
-                && $day->date <=  $lundi->i18nFormat('YYYY-MM-dd 23:59:59')) {
+                if ($day->date >=  $lundi
+                && $day->date <  $mardi) {
                     $week[$key]['Lu'] = $day;
                 }else {
                     $week[$key]['Di'] = $day;
