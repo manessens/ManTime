@@ -53,6 +53,7 @@ class TempsController extends AppController
         }
 
         $week = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        pr($week);exit;
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
@@ -100,7 +101,7 @@ class TempsController extends AppController
         $vendredi->modify('+4 days');
         $samedi = clone $lundi;
         $samedi->modify('+5 days');
-        
+
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
