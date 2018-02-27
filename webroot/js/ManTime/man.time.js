@@ -22,7 +22,7 @@ $( ".client" ).change(function (e) {
         console.log(optionProjects[idc][0]);
         console.log('prout');
     }
-    $( ".project" ).change();
+    // $( ".project" ).change();
     var select2 = $( this ).parent().parent().find('td.cel_profil').children();
     $( select2 ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProfils[idc]) != -1 ) {
