@@ -2,7 +2,9 @@ $(function() {
     $( ".client" ).change();
 });
 
-$( ".client" ).change(function (e) {
+$( ".client" ).change(modifyClient(e));
+
+function modifyClient (e) {
     var val = $(this).val();
     var idc = val;
     var select = $(this).parent().parent().find('td.cel_projet').children();
@@ -32,9 +34,11 @@ $( ".client" ).change(function (e) {
     }else{
         $( select2 ).val(optionProfils[idc][0]);
     }
-})
+}
 
-$( ".project" ).change(function (e) {
+$( ".project" ).change(modifyProject(e));
+
+function modifyProject(e) {
     var val = $(this).val();
     var idp = val.split('.')[1];
     var select = $( this ).parent().parent().find('td.cel_activit').children();
@@ -50,4 +54,4 @@ $( ".project" ).change(function (e) {
     }else{
         $( select ).val(optionActivits[idp][0]);
     }
-})
+}
