@@ -153,7 +153,7 @@ function addLine(that) {
         })
         selectProfil.append(option);
     }
-    tdProjet.append(selectProfil);
+    tdProfil.append(selectProfil);
     tr.append(tdProfil);
     // Activité
     var tdActivit = $('<td>',{
@@ -171,7 +171,7 @@ function addLine(that) {
         })
         selectActivit.append(option);
     }
-    tdProjet.append(selectActivit);
+    tdActivit.append(selectActivit);
     tr.append(tdActivit);
 
     if (id == 0) {
