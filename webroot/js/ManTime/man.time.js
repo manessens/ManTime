@@ -20,7 +20,7 @@ function modifyClient (that) {
     if ($( select ).find('option[selected=selected]:visible').length ){
         $( select ).val($( select ).find('option[selected=selected]:visible').val());
     }else{
-        $( select ).val(optionProjects[idc][0][0]);
+        $( select ).val(optionProjects[idc][0]);
     }
     $( ".project" ).change();
     var select2 = $( that ).parent().parent().find('td.cel_profil').children();
@@ -34,7 +34,7 @@ function modifyClient (that) {
     if ($( select2 ).find('option[selected=selected]:visible').length ){
         $( select2 ).val($( select2 ).find('option[selected=selected]:visible').val());
     }else{
-        $( select2 ).val(optionProfils[idc][0][0]);
+        $( select2 ).val(optionProfils[idc][0]);
     }
 }
 
@@ -56,7 +56,7 @@ function modifyProject(that) {
     if ($( select ).find('option[selected=selected]:visible').length ){
         $( select ).val($( select ).find('option[selected=selected]:visible').val());
     }else{
-        $( select ).val(optionActivits[idp][0][0]);
+        $( select ).val(optionActivits[idp][0]);
     }
 }
 
