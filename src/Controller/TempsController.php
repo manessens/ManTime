@@ -39,21 +39,6 @@ class TempsController extends AppController
             'contain' => []
         ])->firstOrFail();
 
-        // $lundi->i18nFormat('dd/MM');
-        $mardi = clone $lundi;
-        $mardi->modify('+1 days');
-        $mercredi = clone $lundi;
-        $mercredi->modify('+2 days');
-        $jeudi = clone $lundi;
-        $jeudi->modify('+3 days');
-        $vendredi = clone $lundi;
-        $vendredi->modify('+4 days');
-        $samedi = clone $lundi;
-        $samedi->modify('+5 days');
-        $dimanche = clone $lundi;
-        $dimanche->modify('+6 days');
-        // date("W", strtotime($dimanche->i18nFormat('YYYY-MM-/dd')));
-
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
@@ -65,7 +50,7 @@ class TempsController extends AppController
             $buff[$temps->n_ligne][] = $temps;
         }
 
-        $week = $this->getDaysInWeek($buff);
+        $week = $this->getDaysInWeek($buff, $lundi);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
@@ -100,9 +85,21 @@ class TempsController extends AppController
         $this->set('activities', $arrayRetour['activities']);
     }
 
-    private function getDaysInWeek($buff)
+    private function getDaysInWeek($buff, $lundi)
     {
         $week = array();
+        $mardi = clone $lundi;
+        $mardi->modify('+1 days');
+        $mercredi = clone $lundi;
+        $mercredi->modify('+2 days');
+        $jeudi = clone $lundi;
+        $jeudi->modify('+3 days');
+        $vendredi = clone $lundi;
+        $vendredi->modify('+4 days');
+        $samedi = clone $lundi;
+        $samedi->modify('+5 days');
+        $dimanche = clone $lundi;
+        $dimanche->modify('+6 days');
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
