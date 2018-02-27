@@ -10,7 +10,7 @@ function modifyClient (that) {
     var val = $(that).val();
     var idc = val;
     console.log(that);
-    console.log(idp);
+    console.log(idc);
     var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
