@@ -12,8 +12,7 @@
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         optionClients[arrayTemp[0]].push(arrayTemp[1]);
     <?php endforeach; ?>
-    alert(optionClients);
-    }
+    });
 
 </script>
 
