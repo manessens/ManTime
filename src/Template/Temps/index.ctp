@@ -53,22 +53,22 @@
                     <td scope="col" class="actions"><button id="remove" ligne='<?php echo $k ?>' type="button" class="btn btn-danger">-</button></th>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('client['.$k.']', $clients);
+                            echo $this->form->select('client['.$k.']', $clients, ['class' => 'client']);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp']]);
+                            echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil']]);
+                            echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
                          ?>
                     </td>
                     <td scope="col">
                         <?php
-                            echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida']]);
+                            echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
                          ?>
                     </td>
                     <td scope="col">
@@ -127,3 +127,5 @@
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<?php echo $this->Html->script('ManTime/man.time.js'); ?>
