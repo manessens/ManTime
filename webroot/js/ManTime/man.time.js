@@ -48,6 +48,10 @@ $( "form" ).on('submit',function (e){
     }
 });
 
+$( "#lock" ).click(function(){
+    alertVerouillage = $('#lock').prop('checked');
+});
+
 $( ".client" ).change(function(){
     modifyClient(this);
 });
