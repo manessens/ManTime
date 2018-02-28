@@ -205,9 +205,5 @@ $('input').on('input', function() {
 function numericer(that) {
     var regex = /([0-9][, .]*)*/g;
     var arrayString = $(that).val().match(regex);
-    var value = parseFloat(arrayString.join(''));
-    if (value > 1 ) {
-        value = 1;
-    }
-    $(that).val(value);
+    $(that).val(arrayString.join(''));
 }

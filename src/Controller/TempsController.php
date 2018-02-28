@@ -58,6 +58,7 @@ class TempsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
             pr($this->request->getData());exit;
+            // @TODO : controle sur time > 1
 
         }
         $arrayRetour = $projects = $clients = $profilMatrices = array();
