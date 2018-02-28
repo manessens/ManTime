@@ -182,7 +182,9 @@ function addLine(that) {
             name: 'day['+id+']['+idDay+']',
             type: 'text'
         });
-
+        inputDay.change(function(){
+            numericer(this);
+        });
         tdDay.append(inputDay);
         tr.append(tdDay);
     });
@@ -194,4 +196,14 @@ function addLine(that) {
     }
 
     $( ".client" ).change();
+}
+
+$( ".input" ).change(function(){
+    numericer(this);
+});
+
+function numericer(that) {
+    var regex = /([0-9][, .]*)*/g;
+    var arrayString = $(that).val().match(regex);
+    $(that).val(arrayString.join(''));
 }
