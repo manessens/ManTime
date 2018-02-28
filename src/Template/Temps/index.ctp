@@ -89,9 +89,7 @@
         <table id='semainier' cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <?php if ($lock): ?>
-                        <th scope="col" class="supp"></th>
-                    <?php endif; ?>
+                    <th scope="col" class="supp"></th>
                     <th scope="col"><?= h('Client') ?></th>
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
@@ -108,7 +106,11 @@
             <tbody>
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
-                    <td scope="col" class="actions"><button type="button" class="btn btn-danger remove">-</button></th>
+                    <td scope="col" class="actions">
+                        <?php if ($lock): ?>
+                            <button type="button" class="btn btn-danger remove">-</button>
+                        <?php endif; ?>
+                    </th>
                     <td scope="col" class="cel_client">
                         <?php if ($lock): ?>
                         <?php $clients[$line['idc']]; ?>
@@ -211,9 +213,11 @@
                 </tr>
                 <?php endforeach; ?>
                 <tr id="total">
+                    <td scope="col" class="actions">
                     <?php if ($lock): ?>
-                        <td scope="col" class="actions"><button id="add" type="button" class="btn btn-success">+</button></th>
+                        <button id="add" type="button" class="btn btn-success">+</button>
                     <?php endif; ?>
+                    </th>
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
