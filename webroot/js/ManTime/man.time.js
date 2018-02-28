@@ -177,6 +177,7 @@ function addLine(that) {
     var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
+        var divDay = $('<td>',{ class:'input text' });
         var inputDay = $('<input>',{
             id:'day-'+id+'-'+idDay,
             name: 'day['+id+']['+idDay+']',
@@ -185,7 +186,8 @@ function addLine(that) {
         inputDay.on('input', function() {
             numericer(this);
         });
-        tdDay.append(inputDay);
+        divDay.append(inputDay);
+        tdDay.append(divDay);
         tr.append(tdDay);
     });
 
@@ -200,10 +202,20 @@ function addLine(that) {
 
 $('input').on('input', function() {
     numericer(this);
+    updateTotal();
 });
 
 function numericer(that) {
     var regex = /([0-9][, .]*)*/g;
     var arrayString = $(that).val().match(regex);
     $(that).val(arrayString.join(''));
+}
+function updateTotal() {
+    var arrayColLu = $('#semainier > tbody > tr > td:nth-child(6)');
+    var totalLu = 0;
+    for (var i = 0; i < arrayColLu.length-1; i++) {
+        console.log($(arrayColLu[i]).children().children().val());
+        // totalLu += $(arrayColLu[i]).children().children().val();
+    }
+    console.log(totalLu);
 }

@@ -170,13 +170,13 @@
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
+                    <td scope="col"><div id="tLu"></div></td>
+                    <td scope="col"><div id="tMa"></div></td>
+                    <td scope="col"><div id="tMe"></div></td>
+                    <td scope="col"><div id="tJe"></div></td>
+                    <td scope="col"><div id="tVe"></div></td>
+                    <td scope="col"><div id="tSa"></div></td>
+                    <td scope="col"><div id="tDi"></div></td>
                 </tr>
             </tbody>
         </table>
