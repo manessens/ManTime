@@ -1,6 +1,8 @@
 $(function() {
     $( ".client" ).change();
+    alert = false;
 });
+var alert;
 
 $( ".client" ).change(function(){
     modifyClient(this);
@@ -214,6 +216,7 @@ function numericer(that) {
 function updateTotal() {
     var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     var nb = 6;
+    var noalert = true;
     arrayDays.forEach(function(idDay){
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
         var totalLu = 0;
@@ -224,9 +227,16 @@ function updateTotal() {
         $(identifier).text(totalLu);
         if (totalLu>1) {
             $(identifier).css({"color": "red"});
+            alertPot = false;
         }else{
             $(identifier).css({"color": "black"});
+            alertPot = alertPot && true;
         }
         nb+=1;
     });
+    if (!noalert) {
+        alert = true;
+    }else{
+        alert = false;
+    }
 }
