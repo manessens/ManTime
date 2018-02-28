@@ -174,8 +174,20 @@ function addLine(that) {
     tdActivit.append(selectActivit);
     tr.append(tdActivit);
     // Days
+    var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     // @TODO: les jours
+    arrayDays.forEach(function(idDay){
+        var tdDay = $('<td>',{ scope:'col' });
+        var inputDay = $('<input>',{
+            id:'day-'+id+'-'+idDay,
+            name: 'day['+id+']['+idDay+']',
+            type: 'text',
+            class: 'nonumber'
+        });
 
+        tdDay.append(inputDay);
+        tr.append(tdDay);
+    });
 
     if (id == 0) {
         tr.insertBefore('#total');

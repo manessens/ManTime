@@ -64,6 +64,25 @@
     text-align: center;
 }
 
+/* Firefox */
+.nonumber{
+    -moz-appearance: textfield;
+}
+
+/* Chrome */
+.nonumber::-webkit-inner-spin-button,
+.nonumber::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin:0;
+}
+
+/* Opéra*/
+.nonumber::-o-inner-spin-button,
+.nonumber::-o-outer-spin-button {
+	-o-appearance: none;
+	margin:0
+}
+
 .supp{
     width: 40px !important;
 }
