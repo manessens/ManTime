@@ -227,10 +227,10 @@ function updateTotal() {
         $(identifier).text(totalLu);
         if (totalLu>1) {
             $(identifier).css({"color": "red"});
-            alertPot = false;
+            noalert = false;
         }else{
             $(identifier).css({"color": "black"});
-            alertPot = alertPot && true;
+            noalert = noalert && true;
         }
         nb+=1;
     });
