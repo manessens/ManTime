@@ -19,7 +19,7 @@ $( "form" ).on('submit',function (e){
                 if (result === 'false') {
                     $('#lock').prop('checked', false);
                 }else{
-                    check = false;
+                    return true;
                 }
             },
             Center: true,
