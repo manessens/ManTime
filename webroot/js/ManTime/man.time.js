@@ -5,6 +5,26 @@ $(function() {
 });
 var alert;
 
+$( "form" ).submit(function (){
+    if (alert) {
+        var modal = new ModalWindow({
+            Title: "Changes Made",
+            Message: "Leaving this page will discard any changes you've made. Do you want to continue?",
+            Buttons: [["btn-primary admin", 'No', 'false'], ["btn-danger admin", 'Yes', 'true']],
+            CallBack: function(result, event, formData, ExtraData, rootDiv) {
+                if (result === 'true') { // this is the value of the "Yes" button
+                    alert("Clicked save!");
+                }
+            },
+            Center: true,
+            AllowClickAway: false
+        });
+        
+        modal.Show();
+    };
+});
+
+
 $( ".client" ).change(function(){
     modifyClient(this);
 });

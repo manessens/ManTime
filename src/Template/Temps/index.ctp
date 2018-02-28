@@ -195,4 +195,41 @@
     <?= $this->Form->end() ?>
 </div>
 
+<?php echo $this->Html->script('ManTime/man.modal.js'); ?>
 <?php echo $this->Html->script('ManTime/man.time.js'); ?>
+
+<div class="modal" id="myModalDay" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Attention, journée dépassé</h3>
+            </div>
+            <div class="modal-body">
+                Attention, vous avez saisie un total qui dépasse une journée pleine, êtes vous sûr de vouloir continuer ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModalValid" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Validation semine</h3>
+            </div>
+            <div class="modal-body">
+                Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
