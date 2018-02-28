@@ -39,7 +39,7 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if (alert or alertVerouillage) {
+    if (alert || alertVerouillage) {
         e.preventDefault();
     }else{
         return;
