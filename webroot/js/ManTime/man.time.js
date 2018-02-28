@@ -161,8 +161,8 @@ function addLine(that) {
         scope:'col'
     });
     var selectActivit = $('<select>',{
-        class:'profil',
-        name:'profil['+id+']'
+        class:'activit',
+        name:'activities['+id+']'
     })
     for(var key in valueActivits){
         var option = $('<option>',{
