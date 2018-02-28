@@ -180,7 +180,16 @@
                 </tr>
             </tbody>
         </table>
+        <div class='right col-xs-12'>
+        <?php
+            if ($lock) {
+                echo "<div class='header'>La semaine à déjà été validé. Modification impossible.</div>";
+            }else{
+                echo $this->Form->control('lock', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Valider la saisie (vérouille la saisie)']);
+            }
+        ?>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
+        </div>
     <?= $this->Form->end() ?>
 </div>
 

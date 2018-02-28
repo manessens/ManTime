@@ -73,6 +73,7 @@ class TempsController extends AppController
         $this->set(compact('lundi'));
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
+        $this->set('lock', $arrayRetour['lock']);
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
@@ -133,6 +134,7 @@ class TempsController extends AppController
                 }
             }
         }
+        $week['lock'] = $lock;
         return $week;
     }
 

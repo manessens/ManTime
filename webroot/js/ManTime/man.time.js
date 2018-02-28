@@ -1,6 +1,7 @@
 $(function() {
     $( ".client" ).change();
     alert = false;
+    updateTotal();
 });
 var alert;
 
