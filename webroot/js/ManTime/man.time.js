@@ -177,7 +177,7 @@ function addLine(that) {
     var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
-        var divDay = $('<td>',{ class:'input text' });
+        var divDay = $('<div>',{ class:'input text' });
         var inputDay = $('<input>',{
             id:'day-'+id+'-'+idDay,
             name: 'day['+id+']['+idDay+']',
