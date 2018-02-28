@@ -31,7 +31,6 @@ $( "form" ).on('submit',function (e){
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
                     $('#lock').prop('checked', false);
-                    return;
                 }
             },
             Center: true,
