@@ -1,28 +1,49 @@
 $(function() {
     $( ".client" ).change();
     alert = false;
+    alertVerouillage = false;
     updateTotal();
 });
 var alert;
+var alertVerouillage;
 
-$( "form" ).submit(function (e){
+$( "form" ).on('submit',function (e){
     if (alert) {
         var modal = new ModalWindow({
-            Title: "Changes Made",
-            Message: "Leaving this page will discard any changes you've made. Do you want to continue?",
-            Buttons: [["btn-primary admin", 'No', 'false'], ["btn-danger admin", 'Yes', 'true']],
+            Title: "Attention saisie journée",
+            Message: "Attention, vous avez saisie un total qui dépasse une journée pleine, êtes vous sûr de vouloir continuer ?",
+            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
-                if (result === 'true') { // this is the value of the "Yes" button
-                    alert("Clicked save!");
+                if (result === 'true') {
+                    alert = false;
                 }
             },
             Center: true,
             AllowClickAway: false
         });
-
         modal.Show();
     };
-    e.preventDefault();
+    if (alertVerouillage) {
+        var modal = new ModalWindow({
+            Title: "Validation semine",
+            Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
+            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
+            CallBack: function(result, event, formData, ExtraData, rootDiv) {
+                if (result === 'true') {
+                    alertVerouillage = false;
+                    return;
+                }
+            },
+            Center: true,
+            AllowClickAway: false
+        });
+        modal.Show();
+    };
+    if (alert or alertVerouillage) {
+        e.preventDefault();
+    }else{
+        return;
+    }
 });
 
 
