@@ -89,7 +89,9 @@
         <table id='semainier' cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col" class="supp"></th>
+                    <?php if ($lock): ?>
+                        <th scope="col" class="supp"></th>
+                    <?php endif; ?>
                     <th scope="col"><?= h('Client') ?></th>
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
@@ -108,64 +110,110 @@
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions"><button type="button" class="btn btn-danger remove">-</button></th>
                     <td scope="col" class="cel_client">
+                        <?php if ($lock): ?>
+                        <?php $clients[$line['idc']]); ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col" class="cel_projet">
+                        <?php if ($lock): ?>
+                        <?php $projects[$line['idp']]); ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col" class="cel_profil">
+                        <?php if ($lock): ?>
+                        <?php $profiles[$line['id_profil']]); ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col" class="cel_activit">
+                        <?php if ($lock): ?>
+                        <?php $activities[$line['ida']]); ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Lu']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Lu", ['label' => false , 'value' => $line['Lu']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Ma']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Ma", ['label' => false , 'value' => $line['Ma']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Me']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Me", ['label' => false , 'value' => $line['Me']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Je']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Je", ['label' => false , 'value' => $line['Je']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Ve']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Ve", ['label' => false , 'value' => $line['Ve']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Sa']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Sa", ['label' => false , 'value' => $line['Sa']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                     <td scope="col">
+                        <?php if ($lock): ?>
+                            <?php $line['Di']->time ?>
+                        <?php else: ?>
                         <?php
                             echo $this->form->control("day.$k.Di", ['label' => false , 'value' => $line['Di']->time]);
                          ?>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
                 <tr id="total">
-                    <td scope="col" class="actions"><button id="add" type="button" class="btn btn-success">+</button></th>
+                    <?php if ($lock): ?>
+                        <td scope="col" class="actions"><button id="add" type="button" class="btn btn-success">+</button></th>
+                    <?php endif; ?>
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>

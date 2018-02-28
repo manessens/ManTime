@@ -80,10 +80,6 @@ class TempsController extends AppController
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
         $this->set('activities', $arrayRetour['activities']);
-
-        if ($lock) {
-            $this->redirect(['action' => 'index-lock']);
-        }
     }
 
     private function getDaysInWeek($buff, $lundi, $dimanche)
