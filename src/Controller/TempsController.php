@@ -325,11 +325,11 @@ class TempsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index']) ) {
+        if (in_array($action, ['index-admin', 'export']) && $user['admin'] === 1 ) {
             return true;
         }
 
-        if (in_array($action, ['index-admin', 'export']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['index']) ) {
             return true;
         }
 
