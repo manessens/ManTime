@@ -23,14 +23,14 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if ($( "#lock" ).prop( "checked" )) {
+    if ($('#lock').prop('checked')) {
         var modal = new ModalWindow({
-            Title: "Validation semine",
+            Title: "Validation semaine",
             Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
-                    $( "#lock" ).prop( "checked", false );
+                    $('#lock').prop('checked', false);
                     return;
                 }
             },
@@ -39,7 +39,7 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if (alert || $( "#lock" ).prop( "checked" )) {
+    if (alert || $('#lock').prop('checked')) {
         e.preventDefault();
     }else{
         return;
