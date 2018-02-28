@@ -107,7 +107,7 @@
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions">
-                        <?php if ($lock): ?>
+                        <?php if (!$lock): ?>
                             <button type="button" class="btn btn-danger remove">-</button>
                         <?php endif; ?>
                     </th>
@@ -214,7 +214,7 @@
                 <?php endforeach; ?>
                 <tr id="total">
                     <td scope="col" class="actions">
-                    <?php if ($lock): ?>
+                    <?php if (!$lock): ?>
                         <button id="add" type="button" class="btn btn-success">+</button>
                     <?php endif; ?>
                     </th>
