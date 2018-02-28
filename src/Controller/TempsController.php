@@ -53,7 +53,9 @@ class TempsController extends AppController
             $buff[$temps->n_ligne][] = $temps;
         }
 
-        $week = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        $week = $retour[0];
+        $lock = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($user);
@@ -73,7 +75,7 @@ class TempsController extends AppController
         $this->set(compact('lundi'));
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
-        $this->set('lock', $arrayRetour['lock']);
+        $this->set(compact('lock'));
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
@@ -134,8 +136,7 @@ class TempsController extends AppController
                 }
             }
         }
-        $week['lock'] = $lock;
-        return $week;
+        return [$week, $lock];
     }
 
     private function getProjects($idu, $lundi, $dimanche)
