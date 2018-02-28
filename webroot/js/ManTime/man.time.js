@@ -19,7 +19,8 @@ $( "form" ).on('submit',function (e){
                 if (result === 'false') {
                     $('#lock').prop('checked', false);
                 }else{
-                    return true;
+                    check = false;
+                    $( "form" ).submit();
                 }
             },
             Center: true,
@@ -35,6 +36,7 @@ $( "form" ).on('submit',function (e){
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
                     alert = false;
+                    $( "form" ).submit();
                 }
             },
             Center: true,
@@ -44,8 +46,6 @@ $( "form" ).on('submit',function (e){
     };
     if (alert || check) {
         e.preventDefault();
-    }else{
-        return;
     }
 });
 
