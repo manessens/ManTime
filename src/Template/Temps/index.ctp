@@ -186,7 +186,7 @@
                 if ($lock) {
                     echo "<div class='header'>La semaine à déjà été validé. Modification impossible.</div>";
                 }else{
-                    echo $this->Form->control('lock', ['type' => 'checkbox', 'id'=>'lock', 'label'=>'Valider la saisie (vérouille la saisie)']);
+                    echo $this->Form->control('lock', ['type' => 'checkbox', 'label'=>'Valider la saisie (vérouille la saisie)']);
                 }
             ?>
             </div>
