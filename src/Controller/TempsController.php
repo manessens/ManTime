@@ -141,6 +141,7 @@ class TempsController extends AppController
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
         $this->set(compact('lock'));
+        $this->set('controller','lock');
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
