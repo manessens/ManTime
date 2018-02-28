@@ -8,9 +8,7 @@ var alert;
 var alertVerouillage;
 
 $( "form" ).on('submit',function (e){
-    var check = false;
     if ($('#lock').prop('checked')) {
-        check = true;
         var modal = new ModalWindow({
             Title: "Validation semaine",
             Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
@@ -18,8 +16,9 @@ $( "form" ).on('submit',function (e){
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'false') {
                     $('#lock').prop('checked', false);
+                    alertVerouillage = true;
                 }else{
-                    check = false;
+                    alertVerouillage = false;
                     $( "form" ).submit();
                 }
             },
@@ -44,7 +43,7 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if (alert || check) {
+    if (alert || alertVerouillage) {
         e.preventDefault();
     }
 });
