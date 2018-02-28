@@ -222,7 +222,11 @@ function updateTotal() {
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
         var totalLu = 0;
         for (var i = 0; i < arrayColLu.length-1; i++) {
-            totalLu += parseFloat($(arrayColLu[i]).children().children().val());
+            var value = $(arrayColLu[i]).children().children().val();
+            if (value == "") {
+                value = 0;
+            }
+            totalLu += parseFloat(value);
         }
         var identifier = '#t'+idDay;
         $(identifier).text(totalLu);
