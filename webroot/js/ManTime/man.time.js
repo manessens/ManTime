@@ -23,14 +23,14 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if (alertVerouillage) {
+    if ($( "#lock" ).prop( "checked" )) {
         var modal = new ModalWindow({
             Title: "Validation semine",
             Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
-                    alertVerouillage = false;
+                    $( "#lock" ).prop( "checked", false );
                     return;
                 }
             },
@@ -39,13 +39,12 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if (alert || alertVerouillage) {
+    if (alert || $( "#lock" ).prop( "checked" )) {
         e.preventDefault();
     }else{
         return;
     }
 });
-
 
 $( ".client" ).change(function(){
     modifyClient(this);
