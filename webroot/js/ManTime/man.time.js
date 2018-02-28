@@ -198,7 +198,7 @@ function addLine(that) {
     $( ".client" ).change();
 }
 
-$( ".input" ).change(function(){
+$( "input" ).change(function(){
     numericer(this);
 });
 
