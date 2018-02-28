@@ -111,7 +111,7 @@
                     <td scope="col" class="actions"><button type="button" class="btn btn-danger remove">-</button></th>
                     <td scope="col" class="cel_client">
                         <?php if ($lock): ?>
-                        <?php $clients[$line['idc']]); ?>
+                        <?php $clients[$line['idc']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
@@ -120,7 +120,7 @@
                     </td>
                     <td scope="col" class="cel_projet">
                         <?php if ($lock): ?>
-                        <?php $projects[$line['idp']]); ?>
+                        <?php $projects[$line['idp']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
@@ -129,7 +129,7 @@
                     </td>
                     <td scope="col" class="cel_profil">
                         <?php if ($lock): ?>
-                        <?php $profiles[$line['id_profil']]); ?>
+                        <?php $profiles[$line['id_profil']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
@@ -138,7 +138,7 @@
                     </td>
                     <td scope="col" class="cel_activit">
                         <?php if ($lock): ?>
-                        <?php $activities[$line['ida']]); ?>
+                        <?php $activities[$line['ida']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
