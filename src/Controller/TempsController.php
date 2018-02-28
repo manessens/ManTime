@@ -81,6 +81,71 @@ class TempsController extends AppController
         $this->set('profiles', $arrayRetour['profiles']);
         $this->set('activities', $arrayRetour['activities']);
     }
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|void
+     */
+    public function indexAdmin($semaine = null, $annee = null)
+    {
+        $current = (int)date('W');
+        if ($semaine === null) {
+            $semaine = $current;
+        }
+        if ($annee === null) {
+            $annee = date('Y');
+        }
+        $lundi = new Date('now');
+        $lundi->setISOdate($annee, $semaine);
+        $dimanche = clone $lundi;
+        $dimanche->modify('+6 days');
+
+        $usersTable = TableRegistry::get('Users');
+        $idUserAuth = $this->Auth->user('idu');
+        $user = $usersTable->findByIdu($idUserAuth, [
+            'contain' => []
+        ])->firstOrFail();
+
+        $arrayTemps = $this->Temps->find('all')
+                ->where(['idu =' => $idUserAuth])
+                ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
+                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
+                ->contain(['Projet' => ['Client']])
+                ->all();
+
+        $buff = array();
+        foreach ($arrayTemps as $temps) {
+            $buff[$temps->n_ligne][] = $temps;
+        }
+
+        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        $week = $retour[0];
+        $lock = $retour[1];
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            pr($user);
+            pr($this->request->getData());exit;
+            // @TODO : controle sur time > 1
+
+        }
+        $arrayRetour = $projects = $clients = $profilMatrices = array();
+        $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
+        $fullNameUserAuth = $user->fullname;
+
+        // $this->set(compact('temps'));
+        $this->set(compact('week'));
+        $this->set(compact('semaine'));
+        $this->set(compact('annee'));
+        $this->set(compact('current'));
+        $this->set(compact('lundi'));
+        $this->set(compact('dimanche'));
+        $this->set(compact('fullNameUserAuth'));
+        $this->set(compact('lock'));
+        $this->set('projects', $arrayRetour['projets']);
+        $this->set('clients', $arrayRetour['clients']);
+        $this->set('profiles', $arrayRetour['profiles']);
+        $this->set('activities', $arrayRetour['activities']);
+    }
 
     private function getDaysInWeek($buff, $lundi, $dimanche)
     {
