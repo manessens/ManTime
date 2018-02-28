@@ -5,7 +5,7 @@ $(function() {
 });
 var alert;
 
-$( "form" ).submit(function (){
+$( "form" ).submit(function (e){
     if (alert) {
         var modal = new ModalWindow({
             Title: "Changes Made",
@@ -19,9 +19,10 @@ $( "form" ).submit(function (){
             Center: true,
             AllowClickAway: false
         });
-        
+
         modal.Show();
     };
+    e.preventDefault();
 });
 
 
