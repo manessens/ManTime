@@ -8,6 +8,23 @@ var alert;
 var alertVerouillage;
 
 $( "form" ).on('submit',function (e){
+    if ($('#lock').prop('checked')) {
+        var modal = new ModalWindow({
+            Title: "Validation semaine",
+            Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
+            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
+            CallBack: function(result, event, formData, ExtraData, rootDiv) {
+                if (result === 'false') {
+                    $('#lock').prop('checked', false);
+                }else{
+                    return;
+                }
+            },
+            Center: true,
+            AllowClickAway: false
+        });
+        modal.Show();
+    };
     if (alert) {
         var modal = new ModalWindow({
             Title: "Attention saisie journée",
@@ -16,21 +33,6 @@ $( "form" ).on('submit',function (e){
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
                     alert = false;
-                }
-            },
-            Center: true,
-            AllowClickAway: false
-        });
-        modal.Show();
-    };
-    if ($('#lock').prop('checked')) {
-        var modal = new ModalWindow({
-            Title: "Validation semaine",
-            Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
-            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
-            CallBack: function(result, event, formData, ExtraData, rootDiv) {
-                if (result === 'true') {
-                    $('#lock').prop('checked', false);
                 }
             },
             Center: true,
