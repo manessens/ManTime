@@ -185,6 +185,7 @@ function addLine(that) {
         });
         inputDay.on('input', function() {
             numericer(this);
+            updateTotal();
         });
         divDay.append(inputDay);
         tdDay.append(divDay);
@@ -218,8 +219,8 @@ function updateTotal() {
     }
     $('#tLu').text(totalLu);
     if (totalLu>1) {
-        $('#tLu').css('color:red;')
+        $('#tLu').css({"color": "red"});
     }else{
-        $('#tLu').css('color:black;')
+        $('#tLu').css({"color": "black"});
     }
 }
