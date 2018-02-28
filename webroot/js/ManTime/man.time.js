@@ -212,15 +212,21 @@ function numericer(that) {
     $(that).val(arrayString.join(''));
 }
 function updateTotal() {
-    var arrayColLu = $('#semainier > tbody > tr > td:nth-child(6)');
-    var totalLu = 0;
-    for (var i = 0; i < arrayColLu.length-1; i++) {
-        totalLu += parseFloat($(arrayColLu[i]).children().children().val());
-    }
-    $('#tLu').text(totalLu);
-    if (totalLu>1) {
-        $('#tLu').css({"color": "red"});
-    }else{
-        $('#tLu').css({"color": "black"});
-    }
+    var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
+    var nb = 6;
+    arrayDays.forEach(function(idDay){
+        var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
+        var totalLu = 0;
+        for (var i = 0; i < arrayColLu.length-1; i++) {
+            totalLu += parseFloat($(arrayColLu[i]).children().children().val());
+        }
+        var identifier = '#t'+idDay;
+        $(identifier).text(totalLu);
+        if (totalLu>1) {
+            $(identifier).css({"color": "red"});
+        }else{
+            $(identifier).css({"color": "black"});
+        }
+        nb+=1;
+    });
 }
