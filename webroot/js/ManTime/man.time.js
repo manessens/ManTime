@@ -214,8 +214,12 @@ function updateTotal() {
     var arrayColLu = $('#semainier > tbody > tr > td:nth-child(6)');
     var totalLu = 0;
     for (var i = 0; i < arrayColLu.length-1; i++) {
-        console.log($(arrayColLu[i]).children().children().val());
-        // totalLu += $(arrayColLu[i]).children().children().val();
+        totalLu += parseFloat($(arrayColLu[i]).children().children().val());
     }
-    console.log(totalLu);
+    $('#tLu').text(totalLu);
+    if (totalLu>1) {
+        $('#tLu').css('color:red;')
+    }else{
+        $('#tLu').css('color:black;')
+    }
 }
