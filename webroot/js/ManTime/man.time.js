@@ -182,7 +182,7 @@ function addLine(that) {
             name: 'day['+id+']['+idDay+']',
             type: 'text'
         });
-        inputDay.change(function(){
+        inputDay.on('input', function() {
             numericer(this);
         });
         tdDay.append(inputDay);
@@ -198,12 +198,13 @@ function addLine(that) {
     $( ".client" ).change();
 }
 
-$( "input" ).change(function(){
+$('input').on('input', function() {
     numericer(this);
 });
 
 function numericer(that) {
     var regex = /([0-9][, .]*)*/g;
     var arrayString = $(that).val().match(regex);
+    console.log(arrayString);
     $(that).val(arrayString.join(''));
 }
