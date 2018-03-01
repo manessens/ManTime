@@ -56,6 +56,12 @@ class TempsController extends AppController
         $week = $retour[0];
         $validat = $retour[1];
 
+        $exportableTable = TableRegistry::get('Exportable');
+        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->firstOrFail();
+        if (!is_null($isLocked)) {
+            $validat = true;
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
             $arrayIdCurrent = array();
