@@ -155,7 +155,9 @@
                             <?php if ($validat): ?>
                                 <?php
                                     echo $line[$idDay]->time;
-                                    $weekDays[$idDay] += $line[$idDay]->time
+                                    if (!is_null($line[$idDay]->time)) {
+                                        $weekDays[$idDay] += $line[$idDay]->time;
+                                    }
                                 ?>
                             <?php else: ?>
                             <?php
@@ -179,7 +181,7 @@
                     <td scope="col"></td>
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
-                            <div id="t<?php echo $idDay ?>" <?php if (!is_null($value)){if ($value>1){ echo 'style="color:red;"'; }} ?> >
+                            <div id="t<?php echo $idDay ?>" <?php if ($value>1){ echo 'style="color:red;"'; } ?> >
                             <?php if ($validat){ echo $value; } ?>
                             </div>
                         </td>
