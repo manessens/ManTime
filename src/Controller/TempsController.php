@@ -143,6 +143,7 @@ class TempsController extends AppController
                         $day = null;
                         if (empty($dataDay['id'])) {
                             $day = $this->Time->newEntity();
+                            $day->idu = $user->idu;
                         }else{
                             $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
                             $arrayIdCurrent[] = $dataDay['id'];
