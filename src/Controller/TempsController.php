@@ -99,6 +99,7 @@ class TempsController extends AppController
                         $week[$line]['id_profil'] = $arrayData['profil'][$line];
                         $week[$line]['ida'] = $arrayData['activities'][$line];
                         $week[$line][$this->returnDay($day->date, $lundi)] = $day;
+                        
                         $dayTime->modify('+1 days');
                     }
                 }
@@ -119,6 +120,8 @@ class TempsController extends AppController
             }
 
         }
+
+        $week = $ythis->autoCompleteWeek();
 
         $arrayRetour = $projects = $clients = $profilMatrices = array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
@@ -218,7 +221,6 @@ class TempsController extends AppController
         $samedi = clone $lundi;
         $samedi->modify('+5 days');
         $lock = false;
-        $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
                 $week[$key]['idc'] = $day->projet->idc;
@@ -231,6 +233,11 @@ class TempsController extends AppController
                 $week[$key][$this->returnDay($day->date, $lundi)] = $day;
             }
         }
+        return [$week, $lock];
+    }
+
+    private function autoCompleteWeek($week) {
+        $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         foreach ($week as $key => $arrayDays) {
             foreach ($modelWeek as $idDay) {
                 if (!array_key_exists($idDay, $week[$key]) ) {
@@ -238,8 +245,8 @@ class TempsController extends AppController
                 }
             }
         }
-        return [$week, $lock];
     }
+
     private function returnDay($date, $lundi)
     {
         $mardi = clone $lundi;
