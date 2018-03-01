@@ -59,14 +59,54 @@ class TempsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
+            $arrayIdCurrent = array();
             $entities = array();
-            foreach ($arrayData['day'] as $line => $arrayDays) {
-                foreach ($arrayDays as $dayTime) {
-                    $day = $this->Temps->newEntity();
+            $verif = true;
+            foreach ($arrayData['day'] as $line => $arrayDay) {
+                $dayTime = clone $lundi;
+                foreach ($arrayDay as $dataDay) {
+                    $idc = $arrayData['client'][$line];
+                    $arrayIdp = explode($arrayData['projet'][$line], '.');
+                    $arrayIdprof = explode($arrayData['profil'][$line], '.');
+                    $arrayIda = explode($arrayData['activities'][$line], '.');
+                    if ($dataDay['time'] <= 1) {
+                        $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
+                        $verif = false;
+                        break(2);
+                    }
+                    if ($idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
+                        $day = null;
+                        if (empty($dataDay['id'])) {
+                            $day = $this->Time->newEntity();
+                            $day->idu = $user->idu;
+                        }else{
+                            $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
+                            $arrayIdCurrent[] = $dataDay['id'];
+                        }
+                        $day->date = clone $dayTime;
+                        $day->n_ligne = $line;
+                        $day->time = $dataDay['time'];
+                        $day->lock = $arrayData['lock'];
+                        $day->idc = $idc;
+                        $day->idp = $arrayIdp[1];
+                        $day->id_profil = $arrayIdprof[1];
+                        $day->ida = $arrayIda[1];
+                        $entities[] = $day;
+                        $dayTime->modify('+1 days');
+                    }
                 }
+
             }
-            pr($arrayData);exit;
-            // @TODO : controle sur time > 1
+            foreach ($entities as $day) {
+                $verif = $verif && $this->Temps->save($day);
+            }
+            if ($verif) {
+                $this->Flash->success(__('La semaine à été sauvegardé.'));
+
+                return $this->redirect(['controller'=>'Board', 'action' => 'index']);
+            }else{
+                $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
+            }
 
         }
         $arrayRetour = $projects = $clients = $profilMatrices = array();
@@ -129,55 +169,8 @@ class TempsController extends AppController
         $lock = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $arrayData = $this->request->getData();
-            $arrayIdCurrent = array();
-            $arraySave = array();
-            $verif = true;
-            foreach ($arrayData['day'] as $line => $arrayDay) {
-                $dayTime = clone $lundi;
-                foreach ($arrayDay as $dataDay) {
-                    $idc = $arrayData['client'][$line];
-                    $arrayIdp = explode($arrayData['projet'][$line], '.');
-                    $arrayIdprof = explode($arrayData['profil'][$line], '.');
-                    $arrayIda = explode($arrayData['activities'][$line], '.');
-                    if ($dataDay['time'] <= 1) {
-                        $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
-                        $verif = false;
-                        break(2);
-                    }
-                    if ($idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
-                        $day = null;
-                        if (empty($dataDay['id'])) {
-                            $day = $this->Time->newEntity();
-                            $day->idu = $user->idu;
-                        }else{
-                            $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
-                            $arrayIdCurrent[] = $dataDay['id'];
-                        }
-                        $day->date = clone $dayTime;
-                        $day->n_ligne = $line;
-                        $day->time = $dataDay['time'];
-                        $day->lock = $arrayData['lock'];
-                        $day->idc = $idc;
-                        $day->idp = $arrayIdp[1];
-                        $day->id_profil = $arrayIdprof[1];
-                        $day->ida = $arrayIda[1];
-                        $arraySave[] = $day;
-                        $dayTime->modify('+1 days');
-                    }
-                }
-
-            }
-            foreach ($arraySave as $day) {
-                $verif = $verif && $this->Temps->save($day);
-            }
-            if ($verif) {
-                $this->Flash->success(__('La semaine à été sauvegardé.'));
-
-                return $this->redirect(['controller'=>'Board', 'action' => 'index']);
-            }else{
-                $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
-            }
+            pr($arrayData);exit;
+            // @TODO : controle sur time > 1
 
         }
         $arrayRetour = $projects = $clients = $profilMatrices = array();
