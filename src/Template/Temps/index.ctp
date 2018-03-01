@@ -203,7 +203,7 @@
 </div>
 
 <?php
-    if ($validat){
+    if (!$validat){
         echo $this->Html->script('ManTime/man.modal.js');
         echo $this->Html->script('ManTime/man.time.js');
     }
