@@ -104,7 +104,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($week as $k => $line): ?>
+                <?php pr($week);exit; foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions">
                         <?php if (!$validat): ?>
@@ -172,13 +172,9 @@
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
-                    <td scope="col"><div id="tLu"></div></td>
-                    <td scope="col"><div id="tMa"></div></td>
-                    <td scope="col"><div id="tMe"></div></td>
-                    <td scope="col"><div id="tJe"></div></td>
-                    <td scope="col"><div id="tVe"></div></td>
-                    <td scope="col"><div id="tSa"></div></td>
-                    <td scope="col"><div id="tDi"></div></td>
+                    <?php foreach ($weekDays as $idDay): ?>
+                        <td scope="col"><div id="t<?php echo $idDay ?>"><?php if ($validat): ?><?php endif; ?></div></td>
+                    <?php endforeach; ?>
                 </tr>
             </tbody>
         </table>
