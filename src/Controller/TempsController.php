@@ -75,7 +75,7 @@ class TempsController extends AppController
                 }
                 $arrayIdentifierLine[] = $identifierLine;
                 foreach ($arrayDay as $dataDay) {
-                    $idc = $arrayData['client'][$line];
+                    $idc =explode('.',$arrayData['client'][$line])[1];
                     $arrayIdp = explode('.',$arrayData['projet'][$line]);
                     $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
                     $arrayIda = explode('.', $arrayData['activities'][$line]);
@@ -188,7 +188,9 @@ class TempsController extends AppController
         $user = $usersTable->get($idUserAuth);
 
         $users = $usersTable->find('all')->toArray();
+        $arrayRetour = array();
         foreach ($users as $key => $userAll) {
+            $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
             $arrayTemps = array();
             $arrayTemps = $this->Temps->find('all')
                     ->where(['idu =' => $userAll->idu])
@@ -197,7 +199,6 @@ class TempsController extends AppController
                     ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
                     ->contain(['Projet' => ['Client']])
                     ->all();
-
             $buff = array();
             foreach ($arrayTemps as $temps) {
                 $buff[$temps->n_ligne][] = $temps;
@@ -298,17 +299,14 @@ class TempsController extends AppController
 
         }
 
-        $arrayRetour = array();
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser);
 
-            $arrayRetour =  array();
+            $arrayRetour[$idu] =  array();
             $arrayRetour[$idu] = $this->getProjects($idu, $lundi, $dimanche);
         }
         $fullNameUserAuth = $user->fullname;
 
-        pr($week);
-        pr("-----------------------------------------------------");
         pr($arrayRetour);
         exit;
 
@@ -321,6 +319,7 @@ class TempsController extends AppController
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
         $this->set(compact('validat'));
+        $this->set('users', $arrayRetour['users']);
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
@@ -423,7 +422,7 @@ class TempsController extends AppController
         }
         $arrayClients = array();
         foreach ($arrayProjects as $projet) {
-            $arrayClients[$projet->idc] = $projet->client;
+            $arrayClients[$idu . '.' . $projet->idc] = $projet->client;
             $arrayRetour['clients'][$projet->idc] = $projet->client->nom_client;
 
 

@@ -58,7 +58,7 @@ $( ".client" ).change(function(){
 
 function modifyClient (that) {
     var val = $(that).val();
-    var idc = val;
+    var idc = val.split('.')[1];
     var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
