@@ -297,6 +297,8 @@ class TempsController extends AppController
             // }
 
         }
+
+                pr($week);exit;
         $arrayRetour = array();
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser);
