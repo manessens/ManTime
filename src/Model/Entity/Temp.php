@@ -34,6 +34,7 @@ class Temp extends Entity
      * @var array
      */
     protected $_accessible = [
+        'idt' => true,
         'date' => true,
         'time' => true,
         'n_ligne' => true,

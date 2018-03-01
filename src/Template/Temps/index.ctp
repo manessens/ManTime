@@ -154,7 +154,7 @@
                                 <?php $line[$idDay]->time ?>
                             <?php else: ?>
                             <?php
-                                echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->id]);
+                                echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->idt]);
                                 echo $this->form->control("day.$k.$idDay.time", ['label' => false , 'value' => $line[$idDay]->time]);
                              ?>
                             <?php endif; ?>
