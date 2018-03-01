@@ -113,7 +113,7 @@
                     </th>
                     <td scope="col" class="cel_client">
                         <?php if ($validat): ?>
-                        <?php $clients[$line['idc']]; ?>
+                        <?php echo $clients[$line['idc']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
@@ -122,7 +122,7 @@
                     </td>
                     <td scope="col" class="cel_projet">
                         <?php if ($validat): ?>
-                        <?php $projects[$line['idp']]; ?>
+                        <?php echo $projects[$line['idp']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
@@ -131,7 +131,7 @@
                     </td>
                     <td scope="col" class="cel_profil">
                         <?php if ($validat): ?>
-                        <?php $profiles[$line['id_profil']]; ?>
+                        <?php echo $profiles[$line['id_profil']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
@@ -140,18 +140,23 @@
                     </td>
                     <td scope="col" class="cel_activit">
                         <?php if ($validat): ?>
-                        <?php $activities[$line['ida']]; ?>
+                        <?php echo $activities[$line['ida']]; ?>
                         <?php else: ?>
                         <?php
                             echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
                          ?>
                         <?php endif; ?>
                     </td>
-                    <?php $weekDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di']; ?>
-                    <?php foreach ($weekDays as $idDay): ?>
+                    <?php
+                        $weekDays = ['Lu' => 0, 'Ma' => 0, 'Me' => 0, 'Je' => 0, 'Ve' => 0, 'Sa' => 0, 'Di' => 0];
+                    ?>
+                    <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <?php if ($validat): ?>
-                                <?php $line[$idDay]->time ?>
+                                <?php
+                                    echo $line[$idDay]->time;
+                                    $weekDays[$idDay] += $line[$idDay]->time
+                                ?>
                             <?php else: ?>
                             <?php
                                 echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->idt]);
@@ -173,7 +178,13 @@
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <?php foreach ($weekDays as $idDay): ?>
-                        <td scope="col"><div id="t<?php echo $idDay ?>"><?php if ($validat): ?><?php endif; ?></div></td>
+                        <td scope="col">
+                            <div id="t<?php echo $idDay ?>" <?php if ($weekDays[$idDay]>1){ echo 'style="color:red;"'; } ?> >
+                            <?php
+                                if ($validat){ echo $weekDays[$idDay]; } 
+                            ?>
+                            </div>
+                        </td>
                     <?php endforeach; ?>
                 </tr>
             </tbody>
