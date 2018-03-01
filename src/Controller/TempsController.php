@@ -59,9 +59,9 @@ class TempsController extends AppController
                 $dayTime = clone $lundi;
                 foreach ($arrayDay as $dataDay) {
                     $idc = $arrayData['client'][$line];
-                    $arrayIdp = explode($arrayData['projet'][$line], '.');
-                    $arrayIdprof = explode($arrayData['profil'][$line], '.');
-                    $arrayIda = explode($arrayData['activities'][$line], '.');
+                    $arrayIdp = explode('.', '.', $arrayData['projet'][$line]);
+                    $arrayIdprof = explode($arrayData['profil'][$line]);
+                    $arrayIda = explode('.', $arrayData['activities'][$line]);
                     if (empty($dataDay['time'])) {
                         continue;
                     }
