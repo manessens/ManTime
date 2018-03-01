@@ -104,6 +104,9 @@
                 </tr>
             </thead>
             <tbody>
+                <?php
+                    $weekDays = ['Lu' => 0, 'Ma' => 0, 'Me' => 0, 'Je' => 0, 'Ve' => 0, 'Sa' => 0, 'Di' => 0];
+                ?>
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions">
@@ -147,9 +150,6 @@
                          ?>
                         <?php endif; ?>
                     </td>
-                    <?php
-                        $weekDays = ['Lu' => 0, 'Ma' => 0, 'Me' => 0, 'Je' => 0, 'Ve' => 0, 'Sa' => 0, 'Di' => 0];
-                    ?>
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <?php if ($validat): ?>
