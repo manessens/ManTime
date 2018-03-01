@@ -85,7 +85,7 @@ class TempsController extends AppController
                             $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
                             $arrayIdCurrent[] = $dataDay['id'];
                         }
-                        $day->date = FrozenTime::parse($dayTime) ;
+                        $day->date = clone $dayTime ;
                         $day->n_ligne = $line;
                         $day->time = $dataDay['time'];
                         $day->lock = $arrayData['lock'];
@@ -116,6 +116,7 @@ class TempsController extends AppController
                 }
                 //Save
                 foreach ($entities as $day) {
+                    pr($day);exit;
                     $verif = $verif && $this->Temps->save($day);
                 }
             }
