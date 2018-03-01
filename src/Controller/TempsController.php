@@ -62,7 +62,7 @@ class TempsController extends AppController
                     $arrayIdp = explode($arrayData['projet'][$line], '.');
                     $arrayIdprof = explode($arrayData['profil'][$line], '.');
                     $arrayIda = explode($arrayData['activities'][$line], '.');
-                    pr($dataDay);exit;
+                    pr($dataDay);
                     if (empty($dataDay['time'])) {
                         continue;
                     }
@@ -93,7 +93,7 @@ class TempsController extends AppController
                     }
                 }
 
-            }
+            }exit;
             if ($verif) {
                 // @TODO : Suppression des anciens jours non in $arrayIdCurrent
                 foreach ($entities as $day) {
