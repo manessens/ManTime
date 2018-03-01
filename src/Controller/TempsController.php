@@ -205,6 +205,7 @@ class TempsController extends AppController
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
             $week[$userAll->idu] = $retour[0];
         }
+                pr($week);exit;
 
         $validat = false;
         $exportableTable = TableRegistry::get('Exportable');
@@ -298,7 +299,6 @@ class TempsController extends AppController
 
         }
 
-                pr($week);exit;
         $arrayRetour = array();
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser);
