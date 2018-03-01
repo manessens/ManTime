@@ -122,6 +122,7 @@ class TempsController extends AppController
         }
 
         $week = $this->autoCompleteWeek($week);
+        pr($week);exit;
 
         $arrayRetour = $projects = $clients = $profilMatrices = array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
