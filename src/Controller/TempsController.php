@@ -302,8 +302,8 @@ class TempsController extends AppController
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser);
 
-            $arrayRetour[$idu] =  array();
-            $arrayRetour[$idu] = $this->getProjects($idu, $lundi, $dimanche);
+            $arrayRetour =  array();
+            $arrayRetour = $this->getProjects($idu, $lundi, $dimanche);
         }
         $fullNameUserAuth = $user->fullname;
 
