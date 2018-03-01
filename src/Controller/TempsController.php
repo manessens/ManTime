@@ -49,13 +49,6 @@ class TempsController extends AppController
                 ->all();
 
         $buff = array();
-        foreach ($arrayTemps as $temps) {
-            $buff[$temps->n_ligne][] = $temps;
-        }
-
-        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
-        $week = $retour[0];
-        $lock = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
@@ -69,6 +62,9 @@ class TempsController extends AppController
                     $arrayIdp = explode($arrayData['projet'][$line], '.');
                     $arrayIdprof = explode($arrayData['profil'][$line], '.');
                     $arrayIda = explode($arrayData['activities'][$line], '.');
+                    if (empty($dataDay['time'])) {
+                        continue;
+                    }
                     if ($dataDay['time'] <= 1) {
                         $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
                         $verif = false;
@@ -101,6 +97,7 @@ class TempsController extends AppController
             foreach ($entities as $day) {
                 $verif = $verif && $this->Temps->save($day);
             }
+            // @TODO : Suppression des anciens jours non in $arrayIdCurrent
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
@@ -110,6 +107,15 @@ class TempsController extends AppController
             }
 
         }
+
+        foreach ($arrayTemps as $temps) {
+            $buff[$temps->n_ligne][] = $temps;
+        }
+
+        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        $week = $retour[0];
+        $lock = $retour[1];
+
         $arrayRetour = $projects = $clients = $profilMatrices = array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         $fullNameUserAuth = $user->fullname;
