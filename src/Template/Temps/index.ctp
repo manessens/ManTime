@@ -180,9 +180,7 @@
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <div id="t<?php echo $idDay ?>" <?php if ($value>1){ echo 'style="color:red;"'; } ?> >
-                            <?php
-                                if ($validat){ echo $value; }
-                            ?>
+                            <?php if ($validat){ echo $value; } ?>
                             </div>
                         </td>
                     <?php endforeach; ?>
@@ -204,5 +202,9 @@
     <?= $this->Form->end() ?>
 </div>
 
-<?php echo $this->Html->script('ManTime/man.modal.js'); ?>
-<?php echo $this->Html->script('ManTime/man.time.js'); ?>
+<?php
+    if ($validat){
+        echo $this->Html->script('ManTime/man.modal.js');
+        echo $this->Html->script('ManTime/man.time.js');
+    }
+?>
