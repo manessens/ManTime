@@ -98,7 +98,7 @@ class TempsController extends AppController
                         $week[$line]['idp'] = $arrayData['projet'][$line];
                         $week[$line]['id_profil'] = $arrayData['profil'][$line];
                         $week[$line]['ida'] = $arrayData['activities'][$line];
-                        $week[$key][returnDay($day->date, $lundi)] = $day;
+                        $week[$key][$this->returnDay($day->date, $lundi)] = $day;
                         $dayTime->modify('+1 days');
                     }
                 }
@@ -228,7 +228,7 @@ class TempsController extends AppController
                 if (!$lock) {
                     $lock=$day->lock;
                 }
-                $week[$key][returnDay($day->date, $lundi)] = $day;
+                $week[$key][$this->returnDay($day->date, $lundi)] = $day;
             }
         }
         foreach ($week as $key => $arrayDays) {
