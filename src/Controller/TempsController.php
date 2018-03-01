@@ -57,7 +57,7 @@ class TempsController extends AppController
         $validat = $retour[1];
 
         $exportableTable = TableRegistry::get('Exportable');
-        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->firstOrFail();
+        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
         if (!is_null($isLocked)) {
             $validat = true;
         }
