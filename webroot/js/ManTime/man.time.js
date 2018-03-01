@@ -228,15 +228,20 @@ function addLine(that) {
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
         var divDay = $('<div>',{ class:'input text' });
+        var hiddenDay = $('<input>',{
+            name: 'day['+id+']['+idDay+'][id]',
+            type: 'hidden'
+        });
         var inputDay = $('<input>',{
             id:'day-'+id+'-'+idDay,
-            name: 'day['+id+']['+idDay+']',
+            name: 'day['+id+']['+idDay+'][time]',
             type: 'text'
         });
         inputDay.on('input', function() {
             numericer(this);
             updateTotal();
         });
+        divDay.append(hiddenDay);
         divDay.append(inputDay);
         tdDay.append(divDay);
         tr.append(tdDay);
