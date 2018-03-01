@@ -62,7 +62,6 @@ class TempsController extends AppController
                     $arrayIdp = explode($arrayData['projet'][$line], '.');
                     $arrayIdprof = explode($arrayData['profil'][$line], '.');
                     $arrayIda = explode($arrayData['activities'][$line], '.');
-                    pr($dataDay);
                     if (empty($dataDay['time'])) {
                         continue;
                     }
@@ -71,6 +70,7 @@ class TempsController extends AppController
                         $verif = false;
                     }
                     if ($idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
+                        pr($arrayIdp);
                         $day = null;
                         if (empty($dataDay['id'])) {
                             $day = $this->Time->newEntity();
