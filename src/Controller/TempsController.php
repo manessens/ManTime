@@ -87,7 +87,7 @@ class TempsController extends AppController
                         $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
                         $verif = false;
                     }
-                    if ($idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
+                    if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
                         $day = null;
                         if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
@@ -100,7 +100,7 @@ class TempsController extends AppController
                         $day->n_ligne = $line;
                         $day->time = $dataDay['time'];
                         $day->validat = $arrayData['validat'];
-                        $day->idp = $arrayIdp[1];
+                        $day->idp = $arrayIdp[2];
                         $day->id_profil = $arrayIdprof[1];
                         $day->ida = $arrayIda[1];
                         $entities[] = $day;
@@ -417,13 +417,13 @@ class TempsController extends AppController
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
-            $arrayProjects[$projet->idc . '.' . $projet->idp] = $projet;
-            $arrayRetour['projets'][$projet->idc . '.' . $projet->idp] = $projet->nom_projet;
+            $arrayProjects[$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet;
+            $arrayRetour['projets'][$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet->nom_projet;
         }
         $arrayClients = array();
         foreach ($arrayProjects as $projet) {
             $arrayClients[$idu . '.' . $projet->idc] = $projet->client;
-            $arrayRetour['clients'][$projet->idc] = $projet->client->nom_client;
+            $arrayRetour['clients'][$idu . '.' . $projet->idc] = $projet->client->nom_client;
 
 
             $activities = $activitiesTable->findByIdp($projet->idp)->contain(['Activitie'])->all();

@@ -94,7 +94,7 @@ $( ".project" ).change(function(){
 
 function modifyProject(that) {
     var val = $(that).val();
-    var idp = val.split('.')[1];
+    var idp = val.split('.')[2];
     var select = $( that ).parent().parent().find('td.cel_activit').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
