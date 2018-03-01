@@ -181,7 +181,6 @@ class TempsController extends AppController
                 if ($day->date >=  $lundi
                 && $day->date <  $mardi) {
                     $week[$key]['Lu'] = $day;
-                    pr($day);exit;
                 }elseif($day->date >=  $mardi
                 && $day->date <  $mercredi) {
                     $week[$key]['Ma'] = $day;
