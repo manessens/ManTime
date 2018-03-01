@@ -307,9 +307,6 @@ class TempsController extends AppController
         }
         $fullNameUserAuth = $user->fullname;
 
-        pr($arrayRetour);
-        exit;
-
         // $this->set(compact('temps'));
         $this->set(compact('week'));
         $this->set(compact('semaine'));

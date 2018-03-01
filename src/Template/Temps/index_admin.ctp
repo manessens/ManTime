@@ -90,6 +90,7 @@
             <thead>
                 <tr>
                     <th scope="col" class="supp"></th>
+                    <th scope="col"><?= h('Consultants') ?></th>
                     <th scope="col"><?= h('Client') ?></th>
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
@@ -107,77 +108,90 @@
                 <?php
                     $weekDays = ['Lu' => 0, 'Ma' => 0, 'Me' => 0, 'Je' => 0, 'Ve' => 0, 'Sa' => 0, 'Di' => 0];
                 ?>
-                <?php foreach ($week as $k => $line): ?>
-                <tr id="<?php echo $k ?>">
-                    <td scope="col" class="actions">
-                        <?php if (!$validat): ?>
-                            <button type="button" class="btn btn-danger remove">-</button>
-                        <?php endif; ?>
-                    </th>
-                    <td scope="col" class="cel_client">
-                        <?php if ($validat): ?>
-                        <div>
-                            <?php echo $clients[$line['idc']]; ?>
-                        </div>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->select('client['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col" class="cel_projet">
-                        <?php if ($validat): ?>
-                        <div>
-                            <?php echo $projects[$line['idp']]; ?>
-                        </div>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->select('projet['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col" class="cel_profil">
-                        <?php if ($validat): ?>
-                        <div>
-                            <?php echo $profiles[$line['id_profil']]; ?>
-                        </div>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->select('profil['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col" class="cel_activit">
-                        <?php if ($validat): ?>
-                        <div>
-                            <?php echo $activities[$line['ida']]; ?>
-                        </div>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->select('activities['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <?php foreach ($weekDays as $idDay => $value): ?>
-                        <td scope="col">
+                <?php foreach ($week as $kUser => $weekUser): ?>
+                    <?php foreach ($weekUser as $k => $line): ?>
+                    <tr id="<?php echo $k ?>">
+                        <td scope="col" class="actions">
+                            <?php if (!$validat): ?>
+                                <button type="button" class="btn btn-danger remove">-</button>
+                            <?php endif; ?>
+                        </th>
+                        <td scope="col" class="cel_client">
                             <?php if ($validat): ?>
-                                <div style="text-align:center;">
-                                <?php
-                                    echo $line[$idDay]->time;
-                                    if (!is_null($line[$idDay]->time)) {
-                                        $weekDays[$idDay] += $line[$idDay]->time;
-                                    }
-                                ?>
-                                </div>
+                            <div>
+                                <!-- <?php echo $users[$line['idc']]; ?> -->
+                            </div>
                             <?php else: ?>
                             <?php
-                                echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->idt]);
-                                echo $this->form->control("day.$k.$idDay.time", ['label' => false , 'value' => $line[$idDay]->time]);
+                                echo $this->form->select('users['.$kUser.']['.$k.']', $users, ['value' => $kUser, 'class' => 'client']);
                              ?>
                             <?php endif; ?>
                         </td>
+                        <td scope="col" class="cel_client">
+                            <?php if ($validat): ?>
+                            <div>
+                                <?php echo $clients[$line['idc']]; ?>
+                            </div>
+                            <?php else: ?>
+                            <?php
+                                echo $this->form->select('client['.$kUser.']['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
+                             ?>
+                            <?php endif; ?>
+                        </td>
+                        <td scope="col" class="cel_projet">
+                            <?php if ($validat): ?>
+                            <div>
+                                <?php echo $projects[$line['idp']]; ?>
+                            </div>
+                            <?php else: ?>
+                            <?php
+                                echo $this->form->select('projet['.$kUser.']['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
+                             ?>
+                            <?php endif; ?>
+                        </td>
+                        <td scope="col" class="cel_profil">
+                            <?php if ($validat): ?>
+                            <div>
+                                <?php echo $profiles[$line['id_profil']]; ?>
+                            </div>
+                            <?php else: ?>
+                            <?php
+                                echo $this->form->select('profil['.$kUser.']['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
+                             ?>
+                            <?php endif; ?>
+                        </td>
+                        <td scope="col" class="cel_activit">
+                            <?php if ($validat): ?>
+                            <div>
+                                <?php echo $activities[$line['ida']]; ?>
+                            </div>
+                            <?php else: ?>
+                            <?php
+                                echo $this->form->select('activities['.$kUser.']['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
+                             ?>
+                            <?php endif; ?>
+                        </td>
+                        <?php foreach ($weekDays as $idDay => $value): ?>
+                            <td scope="col">
+                                <?php if ($validat): ?>
+                                    <div style="text-align:center;">
+                                    <?php
+                                        echo $line[$idDay]->time;
+                                        if (!is_null($line[$idDay]->time)) {
+                                            $weekDays[$idDay] += $line[$idDay]->time;
+                                        }
+                                    ?>
+                                    </div>
+                                <?php else: ?>
+                                <?php
+                                    echo $this->Form->hidden("day.$kUser.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->idt]);
+                                    echo $this->form->control("day.$kUser.$k.$idDay.time", ['label' => false , 'value' => $line[$idDay]->time]);
+                                 ?>
+                                <?php endif; ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
                     <?php endforeach; ?>
-                </tr>
                 <?php endforeach; ?>
                 <tr id="total">
                     <td scope="col" class="actions">
@@ -202,11 +216,7 @@
         <div class='right col-xs-5'>
             <div class = 'left'>
             <?php
-                if ($validat) {
-                    echo "<div class='header'>La semaine à déjà été validé. Modification impossible.</div>";
-                }else{
-                    echo $this->Form->control('validat', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
-                }
+                echo $this->Form->control('validat', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
             ?>
             </div>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
