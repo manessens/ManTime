@@ -75,8 +75,8 @@ class TempsTable extends Table
             ->notEmpty('n_ligne');
 
         $validator
-            ->integer('lock')
-            ->allowEmpty('lock');
+            ->integer('validat')
+            ->allowEmpty('validat');
 
         $validator
             ->integer('idu')

@@ -8,14 +8,14 @@ var alert;
 var alertVerouillage;
 
 $( "form" ).on('submit',function (e){
-    if ($('#lock').prop('checked')) {
+    if ($('#validat').prop('checked')) {
         var modal = new ModalWindow({
             Title: "Validation semaine",
             Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'false') {
-                    $('#lock').prop('checked', false);
+                    $('#validat').prop('checked', false);
                     alertVerouillage = true;
                 }else{
                     alertVerouillage = false;
@@ -48,8 +48,8 @@ $( "form" ).on('submit',function (e){
     }
 });
 
-$( "#lock" ).click(function(){
-    alertVerouillage = $('#lock').prop('checked');
+$( "#validat" ).click(function(){
+    alertVerouillage = $('#validat').prop('checked');
 });
 
 $( ".client" ).change(function(){

@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $date
  * @property float $time
  * @property int $n_ligne
- * @property int $lock
+ * @property int $validat
  * @property int $idu
  * @property int $idp
  * @property int $id_profil
@@ -38,7 +38,7 @@ class Temp extends Entity
         'date' => true,
         'time' => true,
         'n_ligne' => true,
-        'lock' => true,
+        'validat' => true,
         'idu' => true,
         'idp' => true,
         'id_profil' => true,

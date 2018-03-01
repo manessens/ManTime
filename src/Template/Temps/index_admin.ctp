@@ -107,12 +107,12 @@
                 <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions">
-                        <?php if (!$lock): ?>
+                        <?php if (!$validat): ?>
                             <button type="button" class="btn btn-danger remove">-</button>
                         <?php endif; ?>
                     </th>
                     <td scope="col" class="cel_client">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                         <?php $clients[$line['idc']]; ?>
                         <?php else: ?>
                         <?php
@@ -121,7 +121,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col" class="cel_projet">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                         <?php $projects[$line['idp']]; ?>
                         <?php else: ?>
                         <?php
@@ -130,7 +130,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col" class="cel_profil">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                         <?php $profiles[$line['id_profil']]; ?>
                         <?php else: ?>
                         <?php
@@ -139,7 +139,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col" class="cel_activit">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                         <?php $activities[$line['ida']]; ?>
                         <?php else: ?>
                         <?php
@@ -148,7 +148,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Lu']->time ?>
                         <?php else: ?>
                         <?php
@@ -157,7 +157,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Ma']->time ?>
                         <?php else: ?>
                         <?php
@@ -166,7 +166,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Me']->time ?>
                         <?php else: ?>
                         <?php
@@ -175,7 +175,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Je']->time ?>
                         <?php else: ?>
                         <?php
@@ -184,7 +184,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Ve']->time ?>
                         <?php else: ?>
                         <?php
@@ -193,7 +193,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Sa']->time ?>
                         <?php else: ?>
                         <?php
@@ -202,7 +202,7 @@
                         <?php endif; ?>
                     </td>
                     <td scope="col">
-                        <?php if ($lock): ?>
+                        <?php if ($validat): ?>
                             <?php $line['Di']->time ?>
                         <?php else: ?>
                         <?php
@@ -214,7 +214,7 @@
                 <?php endforeach; ?>
                 <tr id="total">
                     <td scope="col" class="actions">
-                    <?php if (!$lock): ?>
+                    <?php if (!$validat): ?>
                         <button id="add" type="button" class="btn btn-success">+</button>
                     <?php endif; ?>
                     </th>
@@ -235,10 +235,10 @@
         <div class='right col-xs-5'>
             <div class = 'left'>
             <?php
-                if ($lock) {
+                if ($validat) {
                     echo "<div class='header'>La semaine à déjà été validé. Modification impossible.</div>";
                 }else{
-                    echo $this->Form->control('lock', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
+                    echo $this->Form->control('validat', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
                 }
             ?>
             </div>

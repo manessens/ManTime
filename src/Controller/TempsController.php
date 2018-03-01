@@ -54,7 +54,7 @@ class TempsController extends AppController
         }
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
         $week = $retour[0];
-        $lock = $retour[1];
+        $validat = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
@@ -88,8 +88,7 @@ class TempsController extends AppController
                         $day->date = clone $dayTime ;
                         $day->n_ligne = $line;
                         $day->time = $dataDay['time'];
-                        $day->lock = $arrayData['lock'];
-                        $day->idc = $idc;
+                        $day->validat = $arrayData['validat'];
                         $day->idp = $arrayIdp[1];
                         $day->id_profil = $arrayIdprof[1];
                         $day->ida = $arrayIda[1];
@@ -144,7 +143,7 @@ class TempsController extends AppController
         $this->set(compact('lundi'));
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
-        $this->set(compact('lock'));
+        $this->set(compact('validat'));
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
@@ -189,7 +188,7 @@ class TempsController extends AppController
 
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
         $week = $retour[0];
-        $lock = $retour[1];
+        $validat = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             pr($arrayData);exit;
@@ -208,8 +207,8 @@ class TempsController extends AppController
         $this->set(compact('lundi'));
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
-        $this->set(compact('lock'));
-        $this->set('controller','lock');
+        $this->set(compact('validat'));
+        $this->set('controller','validat');
         $this->set('projects', $arrayRetour['projets']);
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
@@ -229,20 +228,20 @@ class TempsController extends AppController
         $vendredi->modify('+4 days');
         $samedi = clone $lundi;
         $samedi->modify('+5 days');
-        $lock = false;
+        $validat = false;
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
                 $week[$key]['idc'] = $day->projet->idc;
                 $week[$key]['idp'] = $day->projet->idc.'.'.$day->idp;
                 $week[$key]['id_profil'] = $day->projet->idc.'.'.$day->id_profil;
                 $week[$key]['ida'] = $day->idp.'.'.$day->ida;
-                if (!$lock) {
-                    $lock=$day->lock;
+                if (!$validat) {
+                    $validat=$day->validat;
                 }
                 $week[$key][$this->returnDay($day->date, $lundi)] = $day;
             }
         }
-        return [$week, $lock];
+        return [$week, $validat];
     }
 
     private function autoCompleteWeek($week) {
