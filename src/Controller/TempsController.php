@@ -62,6 +62,7 @@ class TempsController extends AppController
                     $arrayIdp = explode($arrayData['projet'][$line], '.');
                     $arrayIdprof = explode($arrayData['profil'][$line], '.');
                     $arrayIda = explode($arrayData['activities'][$line], '.');
+                    pr($dataDay);exit;
                     if (empty($dataDay['time'])) {
                         continue;
                     }
@@ -106,11 +107,6 @@ class TempsController extends AppController
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
-
-            pr($buff);
-            foreach ($arrayTemps as $temps) {
-                $buff[$temps->n_ligne][] = $temps;
-            }exit;
 
         }
 
