@@ -50,7 +50,7 @@ class TempsController extends AppController
         foreach ($arrayTemps as $temps) {
             $buff[$temps->n_ligne][] = $temps;
         }
-        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserAuth);
         $week = $retour[0];
         $validat = $retour[1];
 
@@ -203,7 +203,7 @@ class TempsController extends AppController
             foreach ($arrayTemps as $temps) {
                 $buff[$temps->n_ligne][] = $temps;
             }
-            $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
+            $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
             $week[$userAll->idu] = $retour[0];
         }
 
@@ -326,7 +326,7 @@ class TempsController extends AppController
         $this->set('activities', $arrayRetour['activities']);
     }
 
-    private function getDaysInWeek($buff, $lundi, $dimanche)
+    private function getDaysInWeek($buff, $lundi, $dimanche, $idu)
     {
         $week = array();
         $mardi = clone $lundi;
@@ -342,8 +342,8 @@ class TempsController extends AppController
         $validat = false;
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
-                $week[$key]['idc'] = $day->projet->idc;
-                $week[$key]['idp'] = $day->projet->idc.'.'.$day->idp;
+                $week[$key]['idc'] = $idu.'.'.$day->projet->idc;
+                $week[$key]['idp'] = $idu.'.'.$day->projet->idc.'.'.$day->idp;
                 $week[$key]['id_profil'] = $day->projet->idc.'.'.$day->id_profil;
                 $week[$key]['ida'] = $day->idp.'.'.$day->ida;
                 if (!$validat) {
