@@ -177,11 +177,11 @@
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
-                    <?php foreach ($weekDays as $idDay): ?>
+                    <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
-                            <div id="t<?php echo $idDay ?>" <?php if ($weekDays[$idDay]>1){ echo 'style="color:red;"'; } ?> >
+                            <div id="t<?php echo $idDay ?>" <?php if ($value>1){ echo 'style="color:red;"'; } ?> >
                             <?php
-                                if ($validat){ echo $weekDays[$idDay]; }
+                                if ($validat){ echo $value; }
                             ?>
                             </div>
                         </td>
