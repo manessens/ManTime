@@ -85,7 +85,7 @@ class TempsController extends AppController
                             $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
                             $arrayIdCurrent[] = $dataDay['id'];
                         }
-                        $day->date = clone $dayTime;
+                        $day->date = FrozenTime::new($dayTime) ;
                         $day->n_ligne = $line;
                         $day->time = $dataDay['time'];
                         $day->lock = $arrayData['lock'];
