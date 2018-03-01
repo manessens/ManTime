@@ -65,10 +65,9 @@ class TempsController extends AppController
                     if (empty($dataDay['time'])) {
                         continue;
                     }
-                    if ($dataDay['time'] <= 1) {
+                    if ($dataDay['time'] <= 1 && $verif) {
                         $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
                         $verif = false;
-                        break(2);
                     }
                     if ($idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
                         $day = null;
@@ -94,10 +93,12 @@ class TempsController extends AppController
                 }
 
             }
-            foreach ($entities as $day) {
-                $verif = $verif && $this->Temps->save($day);
+            if ($verif) {
+                // @TODO : Suppression des anciens jours non in $arrayIdCurrent
+                foreach ($entities as $day) {
+                    $verif = $verif && $this->Temps->save($day);
+                }
             }
-            // @TODO : Suppression des anciens jours non in $arrayIdCurrent
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
