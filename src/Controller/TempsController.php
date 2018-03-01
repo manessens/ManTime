@@ -106,8 +106,15 @@ class TempsController extends AppController
                 }
 
             }
+            $verif = $verif && !empty($entities);
             if ($verif) {
-                // @TODO : Suppression des anciens jours non in $arrayIdCurrent
+                //Deletion
+                $query = $this->Temps->find('all')->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu]);
+                $listDeletion = $query->toArray();
+                foreach ($listDeletion as  $entity) {
+                    $verif = $verif && $this->Temps->delete($entity);
+                }
+                //Save
                 foreach ($entities as $day) {
                     $verif = $verif && $this->Temps->save($day);
                 }
