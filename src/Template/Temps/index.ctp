@@ -147,69 +147,19 @@
                          ?>
                         <?php endif; ?>
                     </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Lu']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Lu", ['label' => false , 'value' => $line['Lu']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Ma']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Ma", ['label' => false , 'value' => $line['Ma']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Me']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Me", ['label' => false , 'value' => $line['Me']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Je']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Je", ['label' => false , 'value' => $line['Je']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Ve']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Ve", ['label' => false , 'value' => $line['Ve']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Sa']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Sa", ['label' => false , 'value' => $line['Sa']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
-                    <td scope="col">
-                        <?php if ($lock): ?>
-                            <?php $line['Di']->time ?>
-                        <?php else: ?>
-                        <?php
-                            echo $this->form->control("day.$k.Di", ['label' => false , 'value' => $line['Di']->time]);
-                         ?>
-                        <?php endif; ?>
-                    </td>
+                    <<?php $weekDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di']; ?>
+                    <?php foreach ($weekDays as $idDay): ?>
+                        <td scope="col">
+                            <?php if ($lock): ?>
+                                <?php $line[$idDay]->time ?>
+                            <?php else: ?>
+                            <?php
+                                echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->id]);
+                                echo $this->form->control("day.$k.$idDay.time", ['label' => false , 'value' => $line[$idDay]->time]);
+                             ?>
+                            <?php endif; ?>
+                        </td>
+                    <?php endforeach; ?>
                 </tr>
                 <?php endforeach; ?>
                 <tr id="total">

@@ -68,7 +68,7 @@
     <?php endif; ?>
     <?= $this->Form->create() ?>
         <div class="block col-xs-12">
-            <div class="left badge back-success"><?= h($fullNameUserAuth) ?></div>
+            <div class="left badge back-danger"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>

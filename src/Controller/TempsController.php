@@ -58,8 +58,14 @@ class TempsController extends AppController
         $lock = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            pr($user);
-            pr($this->request->getData());exit;
+            $arrayData = $this->request->getData();
+            $entities = array();
+            foreach ($arrayData['day'] as $line => $arrayDays) {
+                foreach ($arrayDays as $dayTime) {
+                    $day = $this->Temps->newEntity();
+                }
+            }
+            pr($arrayData);exit;
             // @TODO : controle sur time > 1
 
         }
