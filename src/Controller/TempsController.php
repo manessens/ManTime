@@ -107,12 +107,16 @@ class TempsController extends AppController
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
 
+            pr($buff);
+            foreach ($arrayTemps as $temps) {
+                $buff[$temps->n_ligne][] = $temps;
+            }exit;
+
         }
 
         foreach ($arrayTemps as $temps) {
             $buff[$temps->n_ligne][] = $temps;
         }
-        pr($buff);exit;
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
         $week = $retour[0];
         $lock = $retour[1];
