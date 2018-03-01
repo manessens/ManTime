@@ -115,10 +115,12 @@ class TempsController extends AppController
             $verif = $verif && !empty($entities);
             if ($verif) {
                 //Deletion
-                $query = $this->Temps->find('all')->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu]);
-                $listDeletion = $query->toArray();
-                foreach ($listDeletion as  $entity) {
-                    $verif = $verif && $this->Temps->delete($entity);
+                if (!empty($arrayIdCurrent)) {
+                    $query = $this->Temps->find('all')->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu]);
+                    $listDeletion = $query->toArray();
+                    foreach ($listDeletion as  $entity) {
+                        $verif = $verif && $this->Temps->delete($entity);
+                    }
                 }
                 //Save
                 foreach ($entities as $day) {
