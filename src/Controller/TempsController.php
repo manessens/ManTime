@@ -92,6 +92,7 @@ class TempsController extends AppController
                         $day->id_profil = $arrayIdprof[1];
                         $day->ida = $arrayIda[1];
                         $entities[] = $day;
+                        $buff[$line][]=$day;
                         $dayTime->modify('+1 days');
                     }
                 }
