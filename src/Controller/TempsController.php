@@ -99,7 +99,7 @@ class TempsController extends AppController
                         $week[$line]['id_profil'] = $arrayData['profil'][$line];
                         $week[$line]['ida'] = $arrayData['activities'][$line];
                         $week[$line][$this->returnDay($day->date, $lundi)] = $day;
-                        
+
                         $dayTime->modify('+1 days');
                     }
                 }
@@ -121,7 +121,7 @@ class TempsController extends AppController
 
         }
 
-        $week = $ythis->autoCompleteWeek();
+        $week = $this->autoCompleteWeek();
 
         $arrayRetour = $projects = $clients = $profilMatrices = array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
