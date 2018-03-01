@@ -216,7 +216,7 @@
         <div class='right col-xs-5'>
             <div class = 'left'>
             <?php
-                echo $this->Form->control('validat', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
+                echo $this->Form->control('validat', ['type' => 'checkbox' , 'value' => !$validat,'label'=>"Valider la semaine (autorise l'export)"]);
             ?>
             </div>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>

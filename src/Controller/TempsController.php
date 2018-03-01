@@ -207,11 +207,11 @@ class TempsController extends AppController
             $week[$userAll->idu] = $retour[0];
         }
 
-        $validat = false;
+        $validat = true;
         $exportableTable = TableRegistry::get('Exportable');
         $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
         if (!is_null($isLocked)) {
-            $validat = true;
+            $validat = false;
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
