@@ -49,6 +49,12 @@ class TempsController extends AppController
                 ->all();
 
         $buff = array();
+        foreach ($arrayTemps as $temps) {
+            $buff[$temps->n_ligne][] = $temps;
+        }
+        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
+        $week = $retour[0];
+        $lock = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
@@ -87,7 +93,12 @@ class TempsController extends AppController
                         $day->id_profil = $arrayIdprof[1];
                         $day->ida = $arrayIda[1];
                         $entities[] = $day;
-                        $buff[$line][]=$day;
+                        // add to $week to keep the data in case of error and redirect in the same page
+                        $week[$line]['idc'] = $idc;
+                        $week[$line]['idp'] = $arrayData['projet'][$line];
+                        $week[$line]['id_profil'] = $arrayData['profil'][$line];
+                        $week[$line]['ida'] = $arrayData['activities'][$line];
+                        $week[$key][returnDay($day->date, $lundi)] = $day;
                         $dayTime->modify('+1 days');
                     }
                 }
@@ -108,13 +119,6 @@ class TempsController extends AppController
             }
 
         }
-
-        foreach ($arrayTemps as $temps) {
-            $buff[$temps->n_ligne][] = $temps;
-        }
-        $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
-        $week = $retour[0];
-        $lock = $retour[1];
 
         $arrayRetour = $projects = $clients = $profilMatrices = array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
@@ -224,27 +228,7 @@ class TempsController extends AppController
                 if (!$lock) {
                     $lock=$day->lock;
                 }
-                if ($day->date >=  $lundi
-                && $day->date <  $mardi) {
-                    $week[$key]['Lu'] = $day;
-                }elseif($day->date >=  $mardi
-                && $day->date <  $mercredi) {
-                    $week[$key]['Ma'] = $day;
-                }elseif($day->date >=  $mercredi
-                && $day->date <  $jeudi) {
-                    $week[$key]['Me'] = $day;
-                }elseif($day->date >=  $jeudi
-                && $day->date <  $vendredi) {
-                    $week[$key]['Je'] = $day;
-                }elseif($day->date >=  $vendredi
-                && $day->date <  $samedi) {
-                    $week[$key]['Ve'] = $day;
-                }elseif($day->date >=  $samedi
-                && $day->date <  $dimanche) {
-                    $week[$key]['Sa'] = $day;
-                }else {
-                    $week[$key]['Di'] = $day;
-                }
+                $week[$key][returnDay($day->date, $lundi)] = $day;
             }
         }
         foreach ($week as $key => $arrayDays) {
@@ -255,6 +239,42 @@ class TempsController extends AppController
             }
         }
         return [$week, $lock];
+    }
+    private function returnDay($date, $lundi)
+    {
+        $mardi = clone $lundi;
+        $mardi->modify('+1 days');
+        $mercredi = clone $lundi;
+        $mercredi->modify('+2 days');
+        $jeudi = clone $lundi;
+        $jeudi->modify('+3 days');
+        $vendredi = clone $lundi;
+        $vendredi->modify('+4 days');
+        $samedi = clone $lundi;
+        $samedi->modify('+5 days');
+        $dimanche = clone $lundi;
+        $dimanche->modify('+5 days');
+        if ($date >=  $lundi
+        && $date <  $mardi) {
+            return 'Lu';
+        }elseif($date >=  $mardi
+        && $date <  $mercredi) {
+            return 'Ma';
+        }elseif($date >=  $mercredi
+        && $date <  $jeudi) {
+            return 'Me';
+        }elseif($date >=  $jeudi
+        && $date <  $vendredi) {
+            return 'Je';
+        }elseif($date >=  $vendredi
+        && $date <  $samedi) {
+            return 'Ve';
+        }elseif($date >=  $samedi
+        && $date <  $dimanche) {
+            return 'Sa';
+        }else {
+            return 'Di';
+        }
     }
 
     private function getProjects($idu, $lundi, $dimanche)
