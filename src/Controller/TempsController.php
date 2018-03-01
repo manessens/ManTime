@@ -205,7 +205,6 @@ class TempsController extends AppController
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
             $week[$userAll->idu] = $retour[0];
         }
-                pr($week);exit;
 
         $validat = false;
         $exportableTable = TableRegistry::get('Exportable');
@@ -308,7 +307,10 @@ class TempsController extends AppController
         }
         $fullNameUserAuth = $user->fullname;
 
-        pr($week);exit;
+        pr($week);
+        pr("-----------------------------------------------------");
+        pr($arrayRetour);
+        exit;
 
         // $this->set(compact('temps'));
         $this->set(compact('week'));
