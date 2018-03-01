@@ -65,7 +65,7 @@ class TempsController extends AppController
             foreach ($arrayData['day'] as $line => $arrayDay) {
                 $dayTime = clone $lundi;
                 $identifierLine = (string) $arrayData['client'][$line] + $arrayData['projet'][$line] + $arrayData['profil'][$line] + $arrayData['activities'][$line] ;
-                if (in_array($identifierLin, $arrayIdentifierLine)) {
+                if (in_array($identifierLine, $arrayIdentifierLine)) {
                     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                     $verif = false;
                 }
