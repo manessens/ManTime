@@ -188,8 +188,7 @@ class TempsController extends AppController
         $user = $usersTable->get($idUserAuth);
 
         $users = $usersTable->find('all')->toArray();
-        $arrayRetour = array();
-        $arrayRetour['users'] = array();
+        $arrayRetour = array('users' => array(), 'projets' => array(), 'clients' => array(), 'profiles' => array(), 'activities' => array());
         foreach ($users as $key => $userAll) {
             $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
             $arrayTemps = array();
