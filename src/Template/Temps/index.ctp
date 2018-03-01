@@ -161,12 +161,14 @@
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <?php if ($validat): ?>
+                                <div style="text-align:center;">
                                 <?php
                                     echo $line[$idDay]->time;
                                     if (!is_null($line[$idDay]->time)) {
                                         $weekDays[$idDay] += $line[$idDay]->time;
                                     }
                                 ?>
+                                </div>
                             <?php else: ?>
                             <?php
                                 echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->idt]);
