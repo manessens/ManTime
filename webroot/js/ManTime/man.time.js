@@ -274,7 +274,7 @@ function updateTotal() {
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
         var totalLu = 0;
         for (var i = 0; i < arrayColLu.length-1; i++) {
-            var value = $(arrayColLu[i]).children().children().val();
+            var value = $(arrayColLu[i]).children().find('input[type=text]').val();
             if (value == "") {
                 value = 0;
             }

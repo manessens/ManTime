@@ -129,9 +129,45 @@ class TempsController extends AppController
         $lock = $retour[1];
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            pr($user);
-            pr($this->request->getData());exit;
-            // @TODO : controle sur time > 1
+            $arrayData = $this->request->getData();
+            $arrayIdCurrent = array();
+            $verif = true;
+            foreach ($arrayData['day'] as $line => $arrayDay) {
+                $dayTime = clone $lundi;
+                foreach ($arrayDay as $dataDay) {
+                    $idc = $arrayData['client'][$line];
+                    $arrayIdp = explode($arrayData['projet'][$line], '.');
+                    $arrayIdprof = explode($arrayData['profil'][$line], '.');
+                    $arrayIda = explode($arrayData['activities'][$line], '.');
+                    if ($dataDay['time'] <= 1 && $idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
+                        $day = null;
+                        if (empty($dataDay['id'])) {
+                            $day = $this->Time->newEntity();
+                        }else{
+                            $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
+                            $arrayIdCurrent[] = $dataDay['id'];
+                        }
+                        $day->date = $dayTime;
+                        $day->n_ligne = $line;
+                        $day->time = $dataDay['time'];
+                        $day->lock = $arrayData['lock'];
+                        $day->idc = $idc;
+                        $day->idp = $arrayIdp[1];
+                        $day->id_profil = $arrayIdprof[1];
+                        $day->ida = $arrayIda[1];
+                        $dayTime->modify('+1 days');
+                        $verif = $verif && $this->Temps->save($temp);
+                    }
+                }
+                if ($verif) {
+                    $this->Flash->success(__('La semaine à été sauvegardé.'));
+
+                    return $this->redirect(['controller'=>'Board', 'action' => 'index']);
+                }else{
+                    $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
+                }
+
+            }
 
         }
         $arrayRetour = $projects = $clients = $profilMatrices = array();
