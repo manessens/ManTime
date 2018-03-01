@@ -72,7 +72,7 @@ class TempsController extends AppController
                         $dayTime->modify('+1 days');
                         continue;
                     }
-                    if ($dataDay['time'] <= 1 && $verif) {
+                    if ($dataDay['time'] >= 1 && $verif) {
                         $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
                         $verif = false;
                     }
