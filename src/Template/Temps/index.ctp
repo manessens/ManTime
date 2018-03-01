@@ -191,7 +191,7 @@
                     <td scope="col"></td>
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
-                            <div id="t<?php echo $idDay ?>" <?php if ($value>1){ echo 'style="color:red;"'; } ?>  style="text-align:center;" >
+                            <div id="t<?php echo $idDay ?>" style="text-align:center; <?php if ($value>1){ echo 'color:red;' } ?>" >
                             <?php if ($validat){ echo $value; } ?>
                             </div>
                         </td>
