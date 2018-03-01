@@ -115,7 +115,6 @@ class TempsController extends AppController
                 }
                 //Save
                 foreach ($entities as $day) {
-                    pr($day);exit;
                     $verif = $verif && $this->Temps->save($day);
                 }
             }
