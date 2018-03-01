@@ -69,6 +69,7 @@ class TempsController extends AppController
                     $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
                     $arrayIda = explode('.', $arrayData['activities'][$line]);
                     if (empty($dataDay['time'])) {
+                        $dayTime->modify('+1 days');
                         continue;
                     }
                     if ($dataDay['time'] <= 1 && $verif) {

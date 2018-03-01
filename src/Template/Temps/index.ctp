@@ -147,7 +147,7 @@
                          ?>
                         <?php endif; ?>
                     </td>
-                    <<?php $weekDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di']; ?>
+                    <?php $weekDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di']; ?>
                     <?php foreach ($weekDays as $idDay): ?>
                         <td scope="col">
                             <?php if ($lock): ?>
