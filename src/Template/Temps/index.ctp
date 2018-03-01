@@ -104,7 +104,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php pr($week);exit; foreach ($week as $k => $line): ?>
+                <?php foreach ($week as $k => $line): ?>
                 <tr id="<?php echo $k ?>">
                     <td scope="col" class="actions">
                         <?php if (!$validat): ?>
@@ -181,7 +181,7 @@
                         <td scope="col">
                             <div id="t<?php echo $idDay ?>" <?php if ($weekDays[$idDay]>1){ echo 'style="color:red;"'; } ?> >
                             <?php
-                                if ($validat){ echo $weekDays[$idDay]; } 
+                                if ($validat){ echo $weekDays[$idDay]; }
                             ?>
                             </div>
                         </td>
