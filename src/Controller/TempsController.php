@@ -112,7 +112,7 @@ class TempsController extends AppController
         foreach ($arrayTemps as $temps) {
             $buff[$temps->n_ligne][] = $temps;
         }
-
+        pr($buff);exit;
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche);
         $week = $retour[0];
         $lock = $retour[1];
