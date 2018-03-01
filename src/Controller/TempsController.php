@@ -300,11 +300,15 @@ class TempsController extends AppController
 
         }
 
+        $arrayBuff=array();
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser);
 
-            $arrayRetour =  array();
-            $arrayRetour = $this->getProjects($idu, $lundi, $dimanche);
+            $arrayBuff = $this->getProjects($idu, $lundi, $dimanche);
+            $arrayRetour['projets']   = array_merge($arrayRetour['projets'], $arrayBuff['projets']);
+            $arrayRetour['clients']   = array_merge($arrayRetour['clients'], $arrayBuff['clients']);
+            $arrayRetour['profiles']  = array_merge($arrayRetour['profiles'], $arrayBuff['profiles']);
+            $arrayRetour['activities']= array_merge($arrayRetour['activities'], $arrayBuff['activities']);
         }
         $fullNameUserAuth = $user->fullname;
 
@@ -317,10 +321,10 @@ class TempsController extends AppController
         $this->set(compact('dimanche'));
         $this->set(compact('fullNameUserAuth'));
         $this->set(compact('validat'));
-        $this->set('users', $arrayRetour['users']);
-        $this->set('projects', $arrayRetour['projets']);
-        $this->set('clients', $arrayRetour['clients']);
-        $this->set('profiles', $arrayRetour['profiles']);
+        $this->set('users',      $arrayRetour['users']);
+        $this->set('projects',   $arrayRetour['projets']);
+        $this->set('clients',    $arrayRetour['clients']);
+        $this->set('profiles',   $arrayRetour['profiles']);
         $this->set('activities', $arrayRetour['activities']);
     }
 
