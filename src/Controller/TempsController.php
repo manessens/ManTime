@@ -119,7 +119,7 @@ class TempsController extends AppController
                     $query = $this->Temps->find('all')
                         ->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu,
                          'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59']);
+                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
                     $listDeletion = $query->toArray();
                     foreach ($listDeletion as  $entity) {
                         $verif = $verif && $this->Temps->delete($entity);
