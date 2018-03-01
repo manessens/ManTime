@@ -69,19 +69,10 @@ class TempsController extends AppController
                         $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
                         $verif = false;
                     }
-                        pr($idc);
-                        pr($arrayIdp[0]);
-                        pr("------------------");
-                        pr($idc);
-                        pr($arrayIdprof[0]);
-                        pr("------------------");
-                        pr($arrayIdp[1]);
-                        pr($arrayIda[0]);
-                        pr("------------------");
                     if ($idc==$arrayIdp[0] && $idc==$arrayIdprof[0] && $arrayIdp[1]==$arrayIda[0]) {
                         $day = null;
                         if (empty($dataDay['id'])) {
-                            $day = $this->Time->newEntity();
+                            $day = $this->Temps->newEntity();
                             $day->idu = $user->idu;
                         }else{
                             $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
@@ -101,7 +92,7 @@ class TempsController extends AppController
                     }
                 }
 
-            }exit;
+            }
             if ($verif) {
                 // @TODO : Suppression des anciens jours non in $arrayIdCurrent
                 foreach ($entities as $day) {
