@@ -315,6 +315,12 @@ class TempsController extends AppController
                             $this->Temps->saveOrFail($day);
                         } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
                             echo $e->getEntity();
+                            $oldDay = $this->Temps->find('all')->where([ 'idu =' => $day->idu,
+                                'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
+                                'ida =' => $day->ida])->first();
+                            pr($oldDay);exit;
+                            // @TODO: Vérifier existence d'un ligne avec même data mais non validat
+                            // -> modfier pour validat
                         }
                         $verif = $verif && $this->Temps->save($day);
                     }
