@@ -224,95 +224,111 @@ class TempsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
-            pr($arrayData);exit;
-            // $arrayIdCurrent = array();
-            // $entities = array();
-            // $verif = true;
-            // $arrayIdentifierLine = array();
-            // if (array_key_exists('day', $arrayData)) {
-            //     foreach ($arrayData['day'] as $line => $arrayDay) {
-            //         $dayTime = clone $lundi;
-            //         $identifierLine = (string) $arrayData['client'][$line] + $arrayData['projet'][$line] + $arrayData['profil'][$line] + $arrayData['activities'][$line] ;
-            //         if (in_array($identifierLine, $arrayIdentifierLine)) {
-            //             $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
-            //             $verif = false;
-            //         }
-            //         $arrayIdentifierLine[] = $identifierLine;
-            //         foreach ($arrayDay as $dataDay) {
-            //             $idc =explode('.',$arrayData['client'][$line])[1];
-            //             $arrayIdp = explode('.',$arrayData['projet'][$line]);
-            //             $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
-            //             $arrayIda = explode('.', $arrayData['activities'][$line]);
-            //             if (empty($dataDay['time'])) {
-            //                 $dayTime->modify('+1 days');
-            //                 continue;
-            //             }
-            //             if ($dataDay['time'] > 1 && $verif) {
-            //                 $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
-            //                 $verif = false;
-            //             }
-            //             if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
-            //                 $day = null;
-            //                 if (empty($dataDay['id'])) {
-            //                     $day = $this->Temps->newEntity();
-            //                     $day->idu = $user->idu;
-            //                 }else{
-            //                     $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
-            //                     $arrayIdCurrent[] = $dataDay['id'];
-            //                 }
-            //                 $day->date = clone $dayTime ;
-            //                 $day->n_ligne = $line;
-            //                 $day->time = $dataDay['time'];
-            //                 $day->validat = $arrayData['validat'];
-            //                 $day->idp = $arrayIdp[2];
-            //                 $day->id_profil = $arrayIdprof[1];
-            //                 $day->ida = $arrayIda[1];
-            //                 $entities[] = $day;
-            //                 // add to $week to keep the data in case of error and redirect in the same page
-            //                 $week[$line]['idc'] = $idc;
-            //                 $week[$line]['idp'] = $arrayData['projet'][$line];
-            //                 $week[$line]['id_profil'] = $arrayData['profil'][$line];
-            //                 $week[$line]['ida'] = $arrayData['activities'][$line];
-            //                 $week[$line][$this->returnDay($day->date, $lundi)] = $day;
-            //
-            //                 $dayTime->modify('+1 days');
-            //             }
-            //         }
-            //     }
-            // }
-            // if ($verif) {
-            //     //Deletion
-            //     if (!empty($arrayIdCurrent)) {
-            //         $query = $this->Temps->find('all')
-            //             ->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu,
-            //              'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-            //              'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
-            //     }else{
-            //         $query = $this->Temps->find('all')
-            //             ->where(['idu =' => $user->idu,
-            //              'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-            //              'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
-            //     }
-            //     $listDeletion = $query->toArray();
-            //     if (!empty($listDeletion)) {
-            //         foreach ($listDeletion as  $entity) {
-            //             $verif = $verif && $this->Temps->delete($entity);
-            //         }
-            //     }
-            //     //Save
-            //     if (!empty($entities)) {
-            //         foreach ($entities as $day) {
-            //             $verif = $verif && $this->Temps->save($day);
-            //         }
-            //     }
-            // }
-            // if ($verif) {
-            //     $this->Flash->success(__('La semaine à été sauvegardé.'));
-            //
-            //     return $this->redirect(['controller'=>'Board', 'action' => 'index']);
-            // }else{
-            //     $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
-            // }
+            // pr($arrayData);exit;
+            $arrayIdCurrent = array();
+            $entities = array();
+            $verif = true;
+            $arrayIdentifierLine = array();
+            if (array_key_exists('day', $arrayData)) {
+                foreach ($arrayData['day'] as $idUser => $arrayLine) {
+                    foreach ($arrayLine as $line => $arrayDay) {
+                        $dayTime = clone $lundi;
+                        $identifierLine = (string) $arrayData['users'][$idUser][$line] + $arrayData['client'][$idUser][$line] +
+                            $arrayData['projet'][$idUser][$line] + $arrayData['profil'][$idUser][$line] + $arrayData['activities'][$idUser][$line] ;
+                        if (in_array($identifierLine, $arrayIdentifierLine)) {
+                            $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
+                            $verif = false;
+                        }
+                        $arrayIdentifierLine[] = $identifierLine;
+                        foreach ($arrayDay as $dataDay) {
+                            $idu = $arrayData['users'][$idUser][$line];
+                            $arrayIdc = explode('.',$arrayData['client'][$idUser][$line]);
+                             = explode('.',$arrayData['projet'][$idUser][$line]);
+                            $arrayIdprof = explode( '.', $arrayData['profil'][$idUser][$line]);
+                            $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
+                            if (empty($dataDay['time'])) {
+                                $dayTime->modify('+1 days');
+                                continue;
+                            }
+                            if ($dataDay['time'] > 1 && $verif) {
+                                $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
+                                $verif = false;
+                            }
+                            if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
+                            && $arrayIdc[1]==$arrayIdp[1] && $arrayIdc[1]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
+                                $day = null;
+                                if (empty($dataDay['id'])) {
+                                    $day = $this->Temps->newEntity();
+                                    $day->validat = 1;
+                                }else{
+                                    // A optimiser si besoin
+                                    $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
+                                    // FIN optimisation
+                                    $arrayIdCurrent[] = $dataDay['id'];
+                                }
+                                $day->idu = $idUser;
+                                $day->date = clone $dayTime ;
+                                $day->n_ligne = $line;
+                                $day->time = $dataDay['time'];
+                                $day->validat = $arrayData['validat'];
+                                $day->idp = $arrayIdp[2];
+                                $day->id_profil = $arrayIdprof[1];
+                                $day->ida = $arrayIda[1];
+                                $entities[] = $day;
+                                // add to $week to keep the data in case of error and redirect in the same page
+                                $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];
+                                $week[$idUser][$line]['idp'] = $arrayData['projet'][$idUser][$line];
+                                $week[$idUser][$line]['id_profil'] = $arrayData['profil'][$idUser][$line];
+                                $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
+                                $week[$idUser][$line][$this->returnDay($day->date, $lundi)] = $day;
+
+                                $dayTime->modify('+1 days');
+                            }
+                        }
+                    }
+                }
+            }
+            if ($verif) {
+                //Deletion
+                if (!empty($arrayIdCurrent)) {
+                    $query = $this->Temps->find('all')
+                        ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1
+                         'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
+                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
+                }else{
+                    $query = $this->Temps->find('all')
+                        ->where(['validat =' => 1,
+                         'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
+                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
+                }
+                $listDeletion = $query->toArray();
+                if (!empty($listDeletion)) {
+                    foreach ($listDeletion as  $entity) {
+                        $verif = $verif && $this->Temps->delete($entity);
+                    }
+                }
+                //Save
+                if (!empty($entities)) {
+                    foreach ($entities as $day) {
+                        $verif = $verif && $this->Temps->save($day);
+                    }
+                }
+                if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
+                    $exportableTable->delete($isLocked);
+                }elseif ($arrayData['validat'] == 1 && is_null($isLocked)) {
+                    $locked = $exportableTable->newEntity();
+                    $locked->n_sem = $semaine;
+                    $locked->annee = $annee;
+                    $exportableTable->save($locked);
+                }
+            }
+            if ($verif) {
+                $this->Flash->success(__('La semaine à été sauvegardé.'));
+
+                return $this->redirect(['controller'=>'Board', 'action' => 'index']);
+            }else{
+                $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
+            }
         }
 
         $arrayBuff=array();
