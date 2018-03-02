@@ -60,7 +60,7 @@ function modifyUser (that) {
     $( ".client" ).change();
 
     var arrayTr = $('tr[user="'+idu+'"]');
-    var arrayId = array();
+    var arrayId = [];
     var idLine = 0;
     arrayTr.each(function(){
         arrayId.push($(arrayTr).attr('id'));
