@@ -1,17 +1,16 @@
 $(function() {
-    $( ".client" ).change();
+    $( ".users" ).change();
     alert = false;
     alertVerouillage = false;
     updateTotal();
 });
-var alert;
 var alertVerouillage;
 
 $( "form" ).on('submit',function (e){
     if ($('#validat').prop('checked')) {
         var modal = new ModalWindow({
             Title: "Validation semaine",
-            Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
+            Message: "Vous avez coché la validation pour export, les consultants ne pourront plus modifier leur temps. Êtes-vous sûr de vouloir continuer ?",
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'false') {
@@ -27,23 +26,7 @@ $( "form" ).on('submit',function (e){
         });
         modal.Show();
     };
-    if (alert) {
-        var modal = new ModalWindow({
-            Title: "Attention saisie journée",
-            Message: "Attention, vous avez saisie un total qui dépasse une journée pleine, êtes vous sûr de vouloir continuer ?",
-            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
-            CallBack: function(result, event, formData, ExtraData, rootDiv) {
-                if (result === 'true') {
-                    alert = false;
-                    $( "form" ).submit();
-                }
-            },
-            Center: true,
-            AllowClickAway: false
-        });
-        modal.Show();
-    };
-    if (alert || alertVerouillage) {
+    if (alertVerouillage) {
         e.preventDefault();
     }
 });
@@ -51,6 +34,30 @@ $( "form" ).on('submit',function (e){
 $( "#validat" ).click(function(){
     alertVerouillage = $('#validat').prop('checked');
 });
+
+$( ".users" ).change(function(){
+    modifyUser(this);
+});
+
+function modifyUser (that) {
+    var val = $(that).val();
+    var idu = val;
+    var select = $(that).parent().parent().find('td.cel_client').children();
+    $( select ).find('option').each(function() {
+        if ( $.inArray($( this ).val(), optionClients[idu]) != -1 ) {
+            $( this ).show();
+        }else{
+            $( this ).hide();
+        }
+    });
+    if ($( select ).find('option[selected=selected]:visible').length ){
+        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    }else{
+        $( select ).val(optionClients[idu][0]);
+    }
+    $( ".client" ).change();
+}
+
 
 $( ".client" ).change(function(){
     modifyClient(this);
@@ -145,6 +152,27 @@ function addLine(that) {
     });
     tdButton.append(button);
     tr.append(tdButton);
+    // User
+    var tdUser = $('<td>',{
+        class:'cel_users',
+        scope:'col'
+    });
+    var selectUser = $('<select>',{
+        class:'user',
+        name:'users['+id+']'
+    })
+    for(var key in valueUsers){
+        var option = $('<option>',{
+            value:key,
+            text:valueUsers[key]
+        })
+        selectUser.append(option);
+    }
+    selectUser.change(function(){
+        modifyUser(this);
+    });
+    tdUser.append(selectUser);
+    tr.append(tdUser);
     // Client
     var tdClient = $('<td>',{
         class:'cel_client',
@@ -262,14 +290,13 @@ $('input').on('input', function() {
 });
 
 function numericer(that) {
-    var regex = /([0-9][, .]*)*/g;
+    var regex = /^([0-9])+([, .])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
     $(that).val(arrayString.join(''));
 }
 function updateTotal() {
     var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
-    var nb = 6;
-    var noalert = true;
+    var nb = 7;
     arrayDays.forEach(function(idDay){
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
         var totalLu = 0;
@@ -282,18 +309,6 @@ function updateTotal() {
         }
         var identifier = '#t'+idDay;
         $(identifier).text(totalLu);
-        if (totalLu>1) {
-            $(identifier).css({"color": "red"});
-            noalert = false;
-        }else{
-            $(identifier).css({"color": "black"});
-            noalert = noalert && true;
-        }
         nb+=1;
     });
-    if (!noalert) {
-        alert = true;
-    }else{
-        alert = false;
-    }
 }

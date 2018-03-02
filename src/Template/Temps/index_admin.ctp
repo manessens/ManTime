@@ -30,11 +30,11 @@
     <?php endforeach; ?>
     <?php foreach ($clients as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
-        if (optionClients.hasOwnProperty(arrayTemp[1])) {
-            optionClients[arrayTemp[1]].push('<?php echo $key; ?>');
+        if (optionClients.hasOwnProperty(arrayTemp[0])) {
+            optionClients[arrayTemp[0]].push('<?php echo $key; ?>');
         }else{
-            optionClients[arrayTemp[1]]=[];
-            optionClients[arrayTemp[1]].push('<?php echo $key; ?>');
+            optionClients[arrayTemp[0]]=[];
+            optionClients[arrayTemp[0]].push('<?php echo $key; ?>');
         }
         valueClients['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
@@ -122,13 +122,13 @@
                 ?>
                 <?php foreach ($week as $kUser => $weekUser): ?>
                     <?php foreach ($weekUser as $k => $line): ?>
-                    <tr id="<?php echo $kUser ?>.<?php echo $k ?>">
+                    <tr id="<?php echo $k ?>" user="<?php echo $kUser ?>">
                         <td scope="col" class="actions">
                             <?php if (!$validat): ?>
                                 <button type="button" class="btn btn-danger remove">-</button>
                             <?php endif; ?>
                         </th>
-                        <td scope="col" class="cel_client">
+                        <td scope="col" class="cel_users">
                             <?php if ($validat): ?>
                             <div>
                                 <!-- <?php echo $users[$line['idc']]; ?> -->

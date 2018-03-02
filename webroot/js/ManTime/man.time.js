@@ -262,7 +262,7 @@ $('input').on('input', function() {
 });
 
 function numericer(that) {
-    var regex = /([0-9][, .]*)*/g;
+    var regex = /^([0-9])+([, .])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
     $(that).val(arrayString.join(''));
 }
