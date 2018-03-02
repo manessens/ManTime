@@ -270,7 +270,7 @@ class TempsController extends AppController
                                 $day->date = clone $dayTime ;
                                 $day->n_ligne = $line;
                                 $day->time = $dataDay['time'];
-                                $day->validat = '1';
+                                $day->validat = 1;
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
                                 $day->ida = $arrayIda[1];
@@ -318,7 +318,8 @@ class TempsController extends AppController
                         }
                         $verif = $verif && $this->Temps->save($day);
                             pr('-----------------------------$verif');
-                            pr($verif);
+                            pr($day);
+                            pr('-----------------------------$verif');
                     }
                 }
                 pr($verif);exit;
