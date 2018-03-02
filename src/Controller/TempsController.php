@@ -281,6 +281,7 @@ class TempsController extends AppController
                                 $week[$idUser][$line]['id_profil'] = $arrayData['profil'][$idUser][$line];
                                 $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
                                 $week[$idUser][$line][$this->returnDay($day->date, $lundi)] = $day;
+                                $week[$idUser]['nline'] = $line;
 
                                 $dayTime->modify('+1 days');
                             }
