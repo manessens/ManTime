@@ -61,7 +61,7 @@ function modifyUser (that) {
     }
     $( ".client" ).change();
 
-    if (first = false) {
+    if (first == false) {
         var arrayTr = $('tr[user="'+idu+'"]');
         var arrayId = [];
         var idLine = 0;
