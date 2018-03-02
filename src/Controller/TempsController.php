@@ -319,7 +319,7 @@ class TempsController extends AppController
                                 'ida =' => $day->ida])->first();
 
                             if (!is_null($oldDay)) {
-                                $day->idu = $oldDay->idu;
+                                $day->idt = $oldDay->idt;
                             }
                             $verif = $verif && $this->Temps->save($day);
                         }
