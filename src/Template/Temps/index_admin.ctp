@@ -19,13 +19,7 @@
 
     $(function() {
     <?php foreach ($users as $key => $value): ?>
-        var arrayTemp = '<?php echo $key; ?>'.split('.');
-        if (optionClients.hasOwnProperty(arrayTemp[0])) {
-            optionUsers[arrayTemp[0]].push('<?php echo $key; ?>');
-        }else{
-            optionUsers[arrayTemp[0]]=[];
-            optionUsers[arrayTemp[0]].push('<?php echo $key; ?>');
-        }
+        optionUsers.push('<?php echo $key; ?>');
         valueUsers['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
     <?php foreach ($clients as $key => $value): ?>

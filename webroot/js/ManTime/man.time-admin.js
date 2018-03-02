@@ -4,6 +4,7 @@ $(function() {
     alertVerouillage = false;
     updateTotal();
 });
+var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
 
 $( "form" ).on('submit',function (e){
@@ -42,20 +43,41 @@ $( ".users" ).change(function(){
 function modifyUser (that) {
     var val = $(that).val();
     var idu = val;
-    var select = $(that).parent().parent().find('td.cel_client').children();
-    $( select ).find('option').each(function() {
+    var tr = $(that).parent().parent();
+    var selectClient = $(tr).find('td.cel_client').children();
+    $( selectClient ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionClients[idu]) != -1 ) {
             $( this ).show();
         }else{
             $( this ).hide();
         }
     });
-    if ($( select ).find('option[selected=selected]:visible').length ){
-        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    if ($( selectClient ).find('option[selected=selected]:visible').length ){
+        $( selectClient ).val($( selectClient ).find('option[selected=selected]:visible').val());
     }else{
-        $( select ).val(optionClients[idu][0]);
+        $( selectClient ).val(optionClients[idu][0]);
     }
     $( ".client" ).change();
+
+    idLine = $('tr[user="'+idu+'"]');
+    $( tr ).attr('id', idLine);
+    $( tr ).attr('user', idu);
+
+    $( that ).attr('name', 'users['+idu+']['+idLine+']');
+    $( selectClient ).attr('name', 'client['+idu+']['+idLine+']');
+    var selectProjet = $(tr).find('td.cel_projet').children();
+    $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
+    var selectProfil = $(tr).find('td.cel_profil').children();
+    $( selectProjet ).attr('name', 'profil['+idu+']['+idLine+']');
+    var tdSelectLast = $(tr).find('td.cel_activit')
+    var selectActivit = $(tdSelectLast).children();
+    $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
+    arrayDays.forEach(function(idDay){
+        tdSelectLast = $(tdSelectLast).next();
+        var inputCurrent = $(tdSelectLast).children();
+        $(inputCurrent).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
+        $(inputCurrent).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
+    }
 }
 
 
@@ -136,8 +158,10 @@ function addLine(that) {
         id = -1;
     }
     id = Number(id)+1;
+    idUser = optionUsers[0];
     var tr = $('<tr>', {
-        id: id
+        id: 0,
+        user: idUser
     });
     var tdButton = $('<td>',{
         class:'action',
@@ -159,8 +183,8 @@ function addLine(that) {
         scope:'col'
     });
     var selectUser = $('<select>',{
-        class:'user',
-        name:'users['+id+']'
+        class:'users',
+        name:'users['+idUser+']['+id+']'
     })
     for(var key in valueUsers){
         var option = $('<option>',{
@@ -181,7 +205,7 @@ function addLine(that) {
     });
     var selectClient = $('<select>',{
         class:'client',
-        name:'client['+id+']'
+        name:'client['+idUser+']['+id+']'
     })
     for(var key in valueClients){
         var option = $('<option>',{
@@ -202,7 +226,7 @@ function addLine(that) {
     });
     var selectProjet = $('<select>',{
         class:'project',
-        name:'projet['+id+']'
+        name:'projet['+idUser+']['+id+']'
     })
     for(var key in valueProjects){
         var option = $('<option>',{
@@ -223,7 +247,7 @@ function addLine(that) {
     });
     var selectProfil = $('<select>',{
         class:'profil',
-        name:'profil['+id+']'
+        name:'profil['+idUser+']['+id+']'
     })
     for(var key in valueProfils){
         var option = $('<option>',{
@@ -241,7 +265,7 @@ function addLine(that) {
     });
     var selectActivit = $('<select>',{
         class:'activit',
-        name:'activities['+id+']'
+        name:'activities['+idUser+']['+id+']'
     })
     for(var key in valueActivits){
         var option = $('<option>',{
@@ -253,17 +277,16 @@ function addLine(that) {
     tdActivit.append(selectActivit);
     tr.append(tdActivit);
     // Days
-    var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
         var divDay = $('<div>',{ class:'input text' });
         var hiddenDay = $('<input>',{
-            name: 'day['+id+']['+idDay+'][id]',
+            name: 'day['+idUser+']['+id+']['+idDay+'][id]',
             type: 'hidden'
         });
         var inputDay = $('<input>',{
             id:'day-'+id+'-'+idDay,
-            name: 'day['+id+']['+idDay+'][time]',
+            name: 'day['+idUser+']['+id+']['+idDay+'][time]',
             type: 'text'
         });
         inputDay.on('input', function() {
@@ -276,13 +299,9 @@ function addLine(that) {
         tr.append(tdDay);
     });
 
-    if (id == 0) {
-        tr.insertBefore('#total');
-    }else{
-        tr.insertAfter('#'+(id-1));
-    }
+    tr.insertBefore('#total');
 
-    $( ".client" ).change();
+    $( ".user" ).change();
 }
 
 $('input').on('input', function() {
@@ -296,7 +315,6 @@ function numericer(that) {
     $(that).val(arrayString.join(''));
 }
 function updateTotal() {
-    var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     var nb = 7;
     arrayDays.forEach(function(idDay){
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
