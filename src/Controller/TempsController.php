@@ -235,6 +235,7 @@ class TempsController extends AppController
                         $dayTime = clone $lundi;
                         $identifierLine = (string) $arrayData['users'][$idUser][$line] + (string) $arrayData['client'][$idUser][$line] +
                             (string) $arrayData['projet'][$idUser][$line] + (string) $arrayData['profil'][$idUser][$line] + (string) $arrayData['activities'][$idUser][$line] ;
+                            pr($identifierLine);exit;
                         if (in_array($identifierLine, $arrayIdentifierLine)) {
                             $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                             $verif = false;
