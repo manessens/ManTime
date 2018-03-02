@@ -31,8 +31,8 @@ $( "form" ).on('submit',function (e){
     };
     if (alertVerouillage) {
         e.preventDefault();
-        alertVerouillage = false;
     }
+    $( "#validat" ).click();
 });
 
 $( "#validat" ).click(function(){
