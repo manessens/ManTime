@@ -58,7 +58,7 @@ $( ".client" ).change(function(){
 
 function modifyClient (that) {
     var val = $(that).val();
-    var idc = val;
+    var idc = val.split('.')[1];
     var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
@@ -94,7 +94,7 @@ $( ".project" ).change(function(){
 
 function modifyProject(that) {
     var val = $(that).val();
-    var idp = val.split('.')[1];
+    var idp = val.split('.')[2];
     var select = $( that ).parent().parent().find('td.cel_activit').children();
     $( select ).find('option').each(function() {
         if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
@@ -228,15 +228,20 @@ function addLine(that) {
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
         var divDay = $('<div>',{ class:'input text' });
+        var hiddenDay = $('<input>',{
+            name: 'day['+id+']['+idDay+'][id]',
+            type: 'hidden'
+        });
         var inputDay = $('<input>',{
             id:'day-'+id+'-'+idDay,
-            name: 'day['+id+']['+idDay+']',
+            name: 'day['+id+']['+idDay+'][time]',
             type: 'text'
         });
         inputDay.on('input', function() {
             numericer(this);
             updateTotal();
         });
+        divDay.append(hiddenDay);
         divDay.append(inputDay);
         tdDay.append(divDay);
         tr.append(tdDay);
@@ -269,7 +274,7 @@ function updateTotal() {
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
         var totalLu = 0;
         for (var i = 0; i < arrayColLu.length-1; i++) {
-            var value = $(arrayColLu[i]).children().children().val();
+            var value = $(arrayColLu[i]).children().find('input[type=text]').val();
             if (value == "") {
                 value = 0;
             }

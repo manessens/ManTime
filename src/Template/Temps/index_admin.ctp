@@ -6,16 +6,28 @@
 ?>
 <script  type="text/javascript">
 
+    var optionUsers =  [];
     var optionClients =  [];
     var optionProjects = [];
     var optionProfils  = [];
     var optionActivits = [];
+    var valueUsers =  [];
     var valueClients =  [];
     var valueProjects = [];
     var valueProfils  = [];
     var valueActivits = [];
 
     $(function() {
+    <?php foreach ($users as $key => $value): ?>
+        var arrayTemp = '<?php echo $key; ?>'.split('.');
+        if (optionClients.hasOwnProperty(arrayTemp[0])) {
+            optionUsers[arrayTemp[0]].push('<?php echo $key; ?>');
+        }else{
+            optionUsers[arrayTemp[0]]=[];
+            optionUsers[arrayTemp[0]].push('<?php echo $key; ?>');
+        }
+        valueUsers['<?php echo $key; ?>'] = '<?php echo $value; ?>';
+    <?php endforeach; ?>
     <?php foreach ($clients as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionClients.hasOwnProperty(arrayTemp[1])) {
@@ -110,7 +122,7 @@
                 ?>
                 <?php foreach ($week as $kUser => $weekUser): ?>
                     <?php foreach ($weekUser as $k => $line): ?>
-                    <tr id="<?php echo $k ?>">
+                    <tr id="<?php echo $kUser ?>.<?php echo $k ?>">
                         <td scope="col" class="actions">
                             <?php if (!$validat): ?>
                                 <button type="button" class="btn btn-danger remove">-</button>
@@ -228,6 +240,6 @@
 <?php
     if (!$validat){
         echo $this->Html->script('ManTime/man.modal.js');
-        echo $this->Html->script('ManTime/man.time.js');
+        echo $this->Html->script('ManTime/man.time-admin.js');
     }
 ?>
