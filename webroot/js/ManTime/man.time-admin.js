@@ -3,9 +3,11 @@ $(function() {
     alert = false;
     alertVerouillage = false;
     updateTotal();
+    first = false;
 });
 var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
+var first = true;
 
 $( "form" ).on('submit',function (e){
     if ($('#validat').prop('checked')) {
@@ -59,38 +61,41 @@ function modifyUser (that) {
     }
     $( ".client" ).change();
 
-    var arrayTr = $('tr[user="'+idu+'"]');
-    var arrayId = [];
-    var idLine = 0;
-    arrayTr.each(function(){
-        arrayId.push($(this).attr('id'));
-    });
-    for (var i = 0; i <= arrayTr.length; i++) {
-        if (!$.inArray(i, arrayId)) {
-            idLine = i;
-            break;
+    if (first = false) {
+        var arrayTr = $('tr[user="'+idu+'"]');
+        var arrayId = [];
+        var idLine = 0;
+        arrayTr.each(function(){
+            arrayId.push(Number($(this).attr('id')));
+        });
+        for (var i = 0; i <= arrayTr.length; i++) {
+            if ($.inArray(i, arrayId) == -1) {
+                idLine = i;
+                break;
+            }
         }
+        $( tr ).attr('id', idLine);
+        $( tr ).attr('user', idu);
+
+        $( that ).attr('name', 'users['+idu+']['+idLine+']');
+        $( selectClient ).attr('name', 'client['+idu+']['+idLine+']');
+        var selectProjet = $(tr).find('td.cel_projet').children();
+        $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
+        var selectProfil = $(tr).find('td.cel_profil').children();
+        $( selectProjet ).attr('name', 'profil['+idu+']['+idLine+']');
+        var tdSelectLast = $(tr).find('td.cel_activit')
+        var selectActivit = $(tdSelectLast).children();
+        $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
+        arrayDays.forEach(function(idDay){
+            tdSelectLast = $(tdSelectLast).next();
+            var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
+            var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
+            $(inputCurrentText).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
+            $(inputCurrentText).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
+            $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
+        });
+
     }
-    // $( tr ).attr('id', idLine);
-    // $( tr ).attr('user', idu);
-    //
-    // $( that ).attr('name', 'users['+idu+']['+idLine+']');
-    // $( selectClient ).attr('name', 'client['+idu+']['+idLine+']');
-    // var selectProjet = $(tr).find('td.cel_projet').children();
-    // $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
-    // var selectProfil = $(tr).find('td.cel_profil').children();
-    // $( selectProjet ).attr('name', 'profil['+idu+']['+idLine+']');
-    // var tdSelectLast = $(tr).find('td.cel_activit')
-    // var selectActivit = $(tdSelectLast).children();
-    // $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
-    // arrayDays.forEach(function(idDay){
-    //     tdSelectLast = $(tdSelectLast).next();
-    //     var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
-    //     var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
-    //     $(inputCurrentText).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
-    //     $(inputCurrentText).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
-    //     $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
-    // });
 }
 
 
