@@ -351,6 +351,7 @@ class TempsController extends AppController
                     $validat=$day->validat;
                 }
                 $week[$key][$this->returnDay($day->date, $lundi)] = $day;
+                $week[$key]['nline'] = $day->n_ligne;
             }
         }
         return [$week, $validat];

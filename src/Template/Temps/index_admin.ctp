@@ -116,7 +116,7 @@
                 ?>
                 <?php foreach ($week as $kUser => $weekUser): ?>
                     <?php foreach ($weekUser as $k => $line): ?>
-                    <tr id="<?php echo $k ?>" user="<?php echo $kUser ?>">
+                    <tr id="<?php echo $line['nline'] ?>" user="<?php echo $kUser ?>">
                         <td scope="col" class="actions">
                             <?php if (!$validat): ?>
                                 <button type="button" class="btn btn-danger remove">-</button>
