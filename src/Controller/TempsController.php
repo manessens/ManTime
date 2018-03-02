@@ -314,15 +314,15 @@ class TempsController extends AppController
                         try {
                             $this->Temps->saveOrFail($day);
                         } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
-                            echo $e->getEntity();
                             $oldDay = $this->Temps->find('all')->where([ 'idu =' => $day->idu,
                                 'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
                                 'ida =' => $day->ida])->first();
-                            pr($oldDay);exit;
-                            // @TODO: Vérifier existence d'un ligne avec même data mais non validat
-                            // -> modfier pour validat
+
+                            if (!is_null($oldDay)) {
+                                $day->idu = $oldDay->idu;
+                            }
+                            $verif = $verif && $this->Temps->save($day);
                         }
-                        $verif = $verif && $this->Temps->save($day);
                     }
                 }
                 if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
