@@ -291,40 +291,42 @@ class TempsController extends AppController
             }
             if ($verif) {
                 //Deletion
-                if (!empty($arrayIdCurrent)) {
-                    $query = $this->Temps->find('all')
-                        ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1,
-                         'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
-                }else{
-                    $query = $this->Temps->find('all')
-                        ->where(['validat =' => 1,
-                         'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
-                }
-                $listDeletion = $query->toArray();
-                if (!empty($listDeletion)) {
-                    foreach ($listDeletion as  $entity) {
-                        $verif = $verif && $this->Temps->delete($entity);
+                if (is_null($isLocked)) {
+                    if (!empty($arrayIdCurrent)) {
+                        $query = $this->Temps->find('all')
+                            ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1,
+                             'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
+                             'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
+                    }else{
+                        $query = $this->Temps->find('all')
+                            ->where(['validat =' => 1,
+                             'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
+                             'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
                     }
-                }
-                //Save
-                if (!empty($entities)) {
-                    foreach ($entities as $day) {
-                        try {
-                            $this->Temps->saveOrFail($day);
-                        } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
-                            $oldDay = $this->Temps->find('all')->where([ 'idu =' => $day->idu,
-                                'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
-                                'ida =' => $day->ida, 'date =' => $day->date])->first();
+                    $listDeletion = $query->toArray();
+                    if (!empty($listDeletion)) {
+                        foreach ($listDeletion as  $entity) {
+                            $verif = $verif && $this->Temps->delete($entity);
+                        }
+                    }
+                    //Save
+                    if (!empty($entities)) {
+                        foreach ($entities as $day) {
+                            try {
+                                $this->Temps->saveOrFail($day);
+                            } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
+                                $oldDay = $this->Temps->find('all')->where([ 'idu =' => $day->idu,
+                                    'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
+                                    'ida =' => $day->ida, 'date =' => $day->date])->first();
 
-                            if (!is_null($oldDay)) {
-                                $oldDay->time = $day->time;
-                                $oldDay->n_ligne = $day->n_ligne;
-                                $oldDay->validat = $day->validat;
-                                $verif = $verif && $this->Temps->save($oldDay);
-                            }else{
-                                $verif = false;
+                                if (!is_null($oldDay)) {
+                                    $oldDay->time = $day->time;
+                                    $oldDay->n_ligne = $day->n_ligne;
+                                    $oldDay->validat = $day->validat;
+                                    $verif = $verif && $this->Temps->save($oldDay);
+                                }else{
+                                    $verif = false;
+                                }
                             }
                         }
                     }
