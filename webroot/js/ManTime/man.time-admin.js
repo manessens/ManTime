@@ -21,8 +21,9 @@ $( "form" ).on('submit',function (e){
                     alertVerouillage = true;
                 }else{
                     alertVerouillage = false;
-                    $( "form" ).submit();
                 }
+                $( "form" ).submit();
+                alertVerouillage = $('#validat').prop('checked');
             },
             Center: true,
             AllowClickAway: false
@@ -32,7 +33,6 @@ $( "form" ).on('submit',function (e){
     if (alertVerouillage) {
         e.preventDefault();
     }
-    $( "#validat" ).click();
 });
 
 $( "#validat" ).click(function(){
