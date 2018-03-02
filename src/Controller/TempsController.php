@@ -290,6 +290,7 @@ class TempsController extends AppController
                 }
             }
             if ($verif) {
+                pr($verif);exit;
                 //Deletion
                 if (!empty($arrayIdCurrent)) {
                     $query = $this->Temps->find('all')
