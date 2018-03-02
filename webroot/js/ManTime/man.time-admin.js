@@ -77,7 +77,7 @@ function modifyUser (that) {
         var inputCurrent = $(tdSelectLast).children();
         $(inputCurrent).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
         $(inputCurrent).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
-    }
+    });
 }
 
 
