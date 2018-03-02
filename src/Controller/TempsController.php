@@ -316,12 +316,15 @@ class TempsController extends AppController
                         } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
                             $oldDay = $this->Temps->find('all')->where([ 'idu =' => $day->idu,
                                 'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
-                                'ida =' => $day->ida])->first();
+                                'ida =' => $day->ida, 'date =' => $day->date])->first();
 
                             if (!is_null($oldDay)) {
-                                $day->idt = $oldDay->idt;
+                                $oldDay->time = $day->time;
+                                $oldDay->n_ligne = $day->n_ligne;
+                                $verif = $verif && $this->Temps->save($oldDay);
+                            }else{
+                                $verif = false;
                             }
-                            $verif = $verif && $this->Temps->save($day);
                         }
                     }
                 }
