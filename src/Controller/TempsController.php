@@ -311,7 +311,11 @@ class TempsController extends AppController
                 //Save
                 if (!empty($entities)) {
                     foreach ($entities as $day) {
-                        pr($this->Temps->save($day));
+                        try {
+                            $table->saveOrFail($entity);
+                        } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
+                            echo $e->getEntity();
+                        }
                         $verif = $verif && $this->Temps->save($day);
                             pr('-----------------------------$verif');
                             pr($verif);
