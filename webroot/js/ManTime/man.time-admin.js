@@ -303,7 +303,7 @@ function addLine(that) {
 
     tr.insertBefore('#total');
 
-    $( ".user" ).change();
+    selectUser.change();
 }
 
 $('input').on('input', function() {
