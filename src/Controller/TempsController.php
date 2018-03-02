@@ -233,8 +233,8 @@ class TempsController extends AppController
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
                         $dayTime = clone $lundi;
-                        $identifierLine = (string) $arrayData['users'][$idUser][$line] + $arrayData['client'][$idUser][$line] +
-                            $arrayData['projet'][$idUser][$line] + $arrayData['profil'][$idUser][$line] + $arrayData['activities'][$idUser][$line] ;
+                        $identifierLine = (string) $arrayData['users'][$idUser][$line] + (string) $arrayData['client'][$idUser][$line] +
+                            (string) $arrayData['projet'][$idUser][$line] + (string) $arrayData['profil'][$idUser][$line] + (string) $arrayData['activities'][$idUser][$line] ;
                         if (in_array($identifierLine, $arrayIdentifierLine)) {
                             $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                             $verif = false;
@@ -292,7 +292,7 @@ class TempsController extends AppController
                 //Deletion
                 if (!empty($arrayIdCurrent)) {
                     $query = $this->Temps->find('all')
-                        ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1, 
+                        ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1,
                          'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
                          'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
                 }else{
