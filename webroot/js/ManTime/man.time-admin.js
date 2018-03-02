@@ -59,7 +59,18 @@ function modifyUser (that) {
     }
     $( ".client" ).change();
 
-    idLine = $('tr[user="'+idu+'"]').length;
+    var arrayTr = $('tr[user="'+idu+'"]');
+    var arrayId = array();
+    var idLine = 0;
+    arrayTr.each(function(){
+        arrayId.push($(arrayTr).attr('id'));
+    });
+    for (var i = 0; i <= arrayTr.length; i++) {
+        if (!$.inArray(i, arrayId)) {
+            idLine = i;
+            break;
+        }
+    }
     $( tr ).attr('id', idLine);
     $( tr ).attr('user', idu);
 
