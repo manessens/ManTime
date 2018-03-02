@@ -59,7 +59,7 @@ function modifyUser (that) {
     }
     $( ".client" ).change();
 
-    idLine = $('tr[user="'+idu+'"]');
+    idLine = $('tr[user="'+idu+'"]').length;
     $( tr ).attr('id', idLine);
     $( tr ).attr('user', idu);
 
