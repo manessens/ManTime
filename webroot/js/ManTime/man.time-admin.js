@@ -83,10 +83,10 @@ function modifyUser (that) {
         var selectProjet = $(tr).find('td.cel_projet').children();
         $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
         var selectProfil = $(tr).find('td.cel_profil').children();
-        $( selectProjet ).attr('name', 'profil['+idu+']['+idLine+']');
+        $( selectProfil ).attr('name', 'profil['+idu+']['+idLine+']');
         var tdSelectLast = $(tr).find('td.cel_activit')
         var selectActivit = $(tdSelectLast).children();
-        $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
+        $( selectActivit ).attr('name', 'activities['+idu+']['+idLine+']');
         arrayDays.forEach(function(idDay){
             tdSelectLast = $(tdSelectLast).next();
             var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
