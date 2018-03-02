@@ -69,7 +69,7 @@ class TempsController extends AppController
             if (array_key_exists('day', $arrayData)) {
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;
-                    $identifierLine = (string) $arrayData['client'][$line] + $arrayData['projet'][$line] + $arrayData['profil'][$line] + $arrayData['activities'][$line] ;
+                    $identifierLine = (string) $arrayData['client'][$line] . $arrayData['projet'][$line] . $arrayData['profil'][$line] . $arrayData['activities'][$line] ;
                     if (in_array($identifierLine, $arrayIdentifierLine)) {
                         $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                         $verif = false;
@@ -235,7 +235,6 @@ class TempsController extends AppController
                         $dayTime = clone $lundi;
                         $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
                             $arrayData['projet'][$idUser][$line] . $arrayData['profil'][$idUser][$line] . $arrayData['activities'][$idUser][$line] ;
-                        pr($identifierLine);exit;
                         if (in_array($identifierLine, $arrayIdentifierLine)) {
                             $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                             $verif = false;
