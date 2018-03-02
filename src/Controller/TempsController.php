@@ -312,7 +312,7 @@ class TempsController extends AppController
                 if (!empty($entities)) {
                     foreach ($entities as $day) {
                         try {
-                            $table->saveOrFail($entity);
+                            $this->Temps->saveOrFail($day);
                         } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
                             echo $e->getEntity();
                         }
