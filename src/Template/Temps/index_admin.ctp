@@ -135,7 +135,7 @@
                             </div>
                             <?php else: ?>
                             <?php
-                                echo $this->form->select('users['.$kUser.']['.$k.']', $users, ['value' => $kUser, 'class' => 'client']);
+                                echo $this->form->select('users['.$kUser.']['.$k.']', $users, ['value' => $kUser, 'class' => 'users']);
                              ?>
                             <?php endif; ?>
                         </td>
