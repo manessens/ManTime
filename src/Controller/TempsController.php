@@ -290,7 +290,6 @@ class TempsController extends AppController
                 }
             }
             if ($verif) {
-                pr($verif);exit;
                 //Deletion
                 if (!empty($arrayIdCurrent)) {
                     $query = $this->Temps->find('all')
@@ -304,11 +303,13 @@ class TempsController extends AppController
                          'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
                 }
                 $listDeletion = $query->toArray();
+                pr($listDeletion);
                 if (!empty($listDeletion)) {
                     foreach ($listDeletion as  $entity) {
                         $verif = $verif && $this->Temps->delete($entity);
                     }
                 }
+                    pr($verif);exit;
                 //Save
                 if (!empty($entities)) {
                     foreach ($entities as $day) {
