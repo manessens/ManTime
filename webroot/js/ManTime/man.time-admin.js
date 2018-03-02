@@ -74,9 +74,11 @@ function modifyUser (that) {
     $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
     arrayDays.forEach(function(idDay){
         tdSelectLast = $(tdSelectLast).next();
-        var inputCurrent = $(tdSelectLast).children();
-        $(inputCurrent).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
-        $(inputCurrent).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
+        var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
+        var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
+        $(inputCurrentText).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
+        $(inputCurrentText).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
+        $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
     });
 }
 
@@ -285,7 +287,7 @@ function addLine(that) {
             type: 'hidden'
         });
         var inputDay = $('<input>',{
-            id:'day-'+id+'-'+idDay,
+            id:'day-'+idUser+'-'+id+'-'+idDay,
             name: 'day['+idUser+']['+id+']['+idDay+'][time]',
             type: 'text'
         });
