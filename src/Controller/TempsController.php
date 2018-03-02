@@ -321,6 +321,7 @@ class TempsController extends AppController
                             if (!is_null($oldDay)) {
                                 $oldDay->time = $day->time;
                                 $oldDay->n_ligne = $day->n_ligne;
+                                $oldDay->validat = $day->validat;
                                 $verif = $verif && $this->Temps->save($oldDay);
                             }else{
                                 $verif = false;
