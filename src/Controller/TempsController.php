@@ -292,7 +292,7 @@ class TempsController extends AppController
                 //Deletion
                 if (!empty($arrayIdCurrent)) {
                     $query = $this->Temps->find('all')
-                        ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1
+                        ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1, 
                          'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
                          'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
                 }else{
