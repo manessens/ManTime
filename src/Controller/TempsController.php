@@ -317,12 +317,8 @@ class TempsController extends AppController
                             echo $e->getEntity();
                         }
                         $verif = $verif && $this->Temps->save($day);
-                            pr('-----------------------------$verif');
-                            pr($day);
-                            pr('-----------------------------$verif');
                     }
                 }
-                pr($verif);exit;
                 if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
                     $exportableTable->delete($isLocked);
                 }elseif ($arrayData['validat'] == 1 && is_null($isLocked)) {
