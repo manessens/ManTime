@@ -303,19 +303,19 @@ class TempsController extends AppController
                          'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
                 }
                 $listDeletion = $query->toArray();
-                pr($listDeletion);
                 if (!empty($listDeletion)) {
                     foreach ($listDeletion as  $entity) {
                         $verif = $verif && $this->Temps->delete($entity);
                     }
                 }
-                    pr($verif);exit;
                 //Save
                 if (!empty($entities)) {
                     foreach ($entities as $day) {
+                        pr($day);
                         $verif = $verif && $this->Temps->save($day);
                     }
                 }
+                pr($verif);exit;
                 if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
                     $exportableTable->delete($isLocked);
                 }elseif ($arrayData['validat'] == 1 && is_null($isLocked)) {
