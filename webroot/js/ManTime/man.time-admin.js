@@ -65,10 +65,11 @@ $( ".client" ).change(function(){
 
 function modifyClient (that) {
     var val = $(that).val();
+    var idu = val.split('.')[0];
     var idc = val.split('.')[1];
     var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
-        if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
+        if ( $.inArray($( this ).val(), optionProjects[idu+'.'+idc]) != -1 ) {
             $( this ).show();
         }else{
             $( this ).hide();
@@ -77,7 +78,7 @@ function modifyClient (that) {
     if ($( select ).find('option[selected=selected]:visible').length ){
         $( select ).val($( select ).find('option[selected=selected]:visible').val());
     }else{
-        $( select ).val(optionProjects[idc][0]);
+        $( select ).val(optionProjects[idu+'.'+idc][0]);
     }
     $( ".project" ).change();
     var select2 = $( that ).parent().parent().find('td.cel_profil').children();

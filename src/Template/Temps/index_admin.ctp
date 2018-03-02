@@ -40,11 +40,11 @@
     <?php endforeach; ?>
     <?php foreach ($projects as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
-        if (optionProjects.hasOwnProperty(arrayTemp[1])) {
-            optionProjects[arrayTemp[1]].push('<?php echo $key; ?>');
+        if (optionProjects.hasOwnProperty(arrayTemp[0]+'.'+arrayTemp[1])) {
+            optionProjects[arrayTemp[0]+'.'+arrayTemp[1]].push('<?php echo $key; ?>');
         }else{
-            optionProjects[arrayTemp[1]]=[];
-            optionProjects[arrayTemp[1]].push('<?php echo $key; ?>');
+            optionProjects[arrayTemp[0]+'.'+arrayTemp[1]]=[];
+            optionProjects[arrayTemp[0]+'.'+arrayTemp[1]].push('<?php echo $key; ?>');
         }
         valueProjects['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
