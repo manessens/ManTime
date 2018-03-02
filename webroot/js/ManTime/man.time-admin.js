@@ -71,26 +71,26 @@ function modifyUser (that) {
             break;
         }
     }
-    $( tr ).attr('id', idLine);
-    $( tr ).attr('user', idu);
-
-    $( that ).attr('name', 'users['+idu+']['+idLine+']');
-    $( selectClient ).attr('name', 'client['+idu+']['+idLine+']');
-    var selectProjet = $(tr).find('td.cel_projet').children();
-    $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
-    var selectProfil = $(tr).find('td.cel_profil').children();
-    $( selectProjet ).attr('name', 'profil['+idu+']['+idLine+']');
-    var tdSelectLast = $(tr).find('td.cel_activit')
-    var selectActivit = $(tdSelectLast).children();
-    $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
-    arrayDays.forEach(function(idDay){
-        tdSelectLast = $(tdSelectLast).next();
-        var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
-        var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
-        $(inputCurrentText).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
-        $(inputCurrentText).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
-        $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
-    });
+    // $( tr ).attr('id', idLine);
+    // $( tr ).attr('user', idu);
+    //
+    // $( that ).attr('name', 'users['+idu+']['+idLine+']');
+    // $( selectClient ).attr('name', 'client['+idu+']['+idLine+']');
+    // var selectProjet = $(tr).find('td.cel_projet').children();
+    // $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
+    // var selectProfil = $(tr).find('td.cel_profil').children();
+    // $( selectProjet ).attr('name', 'profil['+idu+']['+idLine+']');
+    // var tdSelectLast = $(tr).find('td.cel_activit')
+    // var selectActivit = $(tdSelectLast).children();
+    // $( selectProjet ).attr('name', 'activities['+idu+']['+idLine+']');
+    // arrayDays.forEach(function(idDay){
+    //     tdSelectLast = $(tdSelectLast).next();
+    //     var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
+    //     var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
+    //     $(inputCurrentText).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
+    //     $(inputCurrentText).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
+    //     $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
+    // });
 }
 
 
