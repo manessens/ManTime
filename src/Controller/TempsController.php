@@ -243,7 +243,7 @@ class TempsController extends AppController
                         foreach ($arrayDay as $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
                             $arrayIdc = explode('.',$arrayData['client'][$idUser][$line]);
-                             = explode('.',$arrayData['projet'][$idUser][$line]);
+                            $arrayIdp = explode('.',$arrayData['projet'][$idUser][$line]);
                             $arrayIdprof = explode( '.', $arrayData['profil'][$idUser][$line]);
                             $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
                             if (empty($dataDay['time'])) {
