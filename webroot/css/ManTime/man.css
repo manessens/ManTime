@@ -80,6 +80,10 @@
     width: 87% !important;
 }
 
+.newUser{
+    background-color: #dddddd
+}
+
 .fixe{
     position: fixed;
     width: 220px;

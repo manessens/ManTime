@@ -1,5 +1,5 @@
 <div class="convertisseur">
-    <div class="supp col-xs-2 left">
+    <div class="supp left">
         <button id="button-info" type="button" class="btn btn-info" onclick="$( '#table-info' ).toggle();">¤</button>
     </div>
     <div id="table-info" style="display:none;" class="panel panel-default col-xs-9 fixe right" onclick="$( '#table-info' ).hide();">
