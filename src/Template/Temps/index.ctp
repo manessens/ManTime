@@ -85,12 +85,11 @@
                 </div>
             </div>
         </div>
-        <?= $this->element('tableinfo') ?>
         <div class="blank col-xs-12"></div>
         <table id='semainier' cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col" class="supp"></th>
+                    <th scope="col" class="supp"><?= $this->element('tableinfo') ?></th>
                     <th scope="col"><?= h('Client') ?></th>
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
