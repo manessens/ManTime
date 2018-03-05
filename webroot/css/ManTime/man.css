@@ -79,3 +79,11 @@
 .large-10bis{
     width: 87% !important;
 }
+
+.fixe{
+    position: fixed;
+    width: 220px;
+    left: 14.5%;
+    z-index: 999;
+    top:200px
+}

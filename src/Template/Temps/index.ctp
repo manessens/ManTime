@@ -69,23 +69,6 @@
     <?= $this->Form->create() ?>
         <div class="block col-xs-12">
             <div class="col-xs-2"><div class="left badge back-success"><?= h($fullNameUserAuth) ?></div></div>
-            <div class="col-xs-1">
-                <div class="supp">
-                    <button id="info" type="button" class="btn btn-info"><</button>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <table>
-                            <thead>
-                                <tr><td>Heure</td><td>Valeur</td></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>1/2</td><td>0.5</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
             <div class="controler right">
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>
@@ -99,6 +82,23 @@
                     <?php else: ?>
                         <?= $this->Html->link(__('>'), ['action' => 'index', $semaine+1, $annee], ['class' => 'btn btn-success']) ?>
                     <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="fixe">
+            <div class="supp col-xs-2 left">
+                <button id="button-info" type="button" class="btn btn-info" onclick="$( '#table-info' ).toggle();">¤</button>
+            </div>
+            <div id="table-info" class="panel panel-default col-xs-9 right">
+                <div class="panel-body">
+                    <table>
+                        <thead>
+                            <tr><td>Heure</td><td>Valeur</td></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1/2</td><td>0.5</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
