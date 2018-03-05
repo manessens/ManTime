@@ -502,18 +502,35 @@ class TempsController extends AppController
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = $client->nom_client;
         }
+        $userTable = TableRegistry::get('Users');
+        $arrayUser = $userTable->find('all')->toArray();
+        $users = array();
+        foreach ($arrayUser as $user) {
+            $users[$user->idu] = $user->fullname;
+        }
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
-            pr($arrayData);exit;
+            $arrayData['date_debut'] = FrozenTime::parse($data['date_debut']);
+            $arrayData['date_fin'] = FrozenTime::parse($data['date_fin']);
+            // pr($arrayData);exit;
     		$this->response->download('export.csv');
-    		$data = $this->Temps->find('all')->toArray();
+            if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
+    		$data = $this->Temps->find('all')
+                ->where(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
+                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
+                ->toArray();
+            }
+
     		$_serialize = 'data';
             $_delimiter = ';';
        		$this->set(compact('data', '_serialize', '_delimiter'));
     		$this->viewBuilder()->className('CsvView.Csv');
     		return;
         }
+        asort($clients);
+        asort($users);
         $this->set(compact('clients'));
+        $this->set(compact('users'));
     }
 
 

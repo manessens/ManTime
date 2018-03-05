@@ -8,8 +8,28 @@
     <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Export') ?></legend>
-        <?php echo $this->Form->select('Client', $clients, ['empty' => '(choisissez)'] ); ?>
+
+        <?php
+            echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
+            echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
+        ?>
+
+        <div class="input text col-xs-6">
+        <?php
+            echo $this->Form->label('Client','Participants');
+            echo $this->Form->select('client', $clients, ['empty' => '-']);
+        ?>
+        </div>
+
+        <div class="input text col-xs-6">
+        <?php
+            echo $this->Form->label('Consultant','Participants');
+            echo $this->Form->select('user', $users, ['empty' => '-']);
+        ?>
+        </div>
     </fieldset>
-    <?= $this->Form->button(__('Télécharger'), ['class'=>'right btn btn-warning']) ?>
+    <?= $this->Form->button(__('Exporter'), ['class'=>'right btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<?php echo $this->Html->script('ManTime/man.projet.js'); ?>
