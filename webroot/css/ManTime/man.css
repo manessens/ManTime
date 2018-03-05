@@ -91,13 +91,6 @@
     z-index: 999;
     top:190px
 }
-.fixthis{
-  top:0;
-  position:fixed;
-  width:auto;
-  display:none;
-  border:none;
-}
 
 #table-info{
     height: 340px !important;
