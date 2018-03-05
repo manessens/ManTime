@@ -498,18 +498,14 @@ class TempsController extends AppController
     public function export(){
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
-            $chemin = 'fichier.csv';
-            $delimiteur = ',';
-            $fichier_csv = fopen($chemin, 'w+');
-            fprintf($fichier_csv, chr(0xEF).chr(0xBB).chr(0xBF));
-            // foreach($lignes as $ligne){
-            // 	fputcsv($fichier_csv, $ligne, $delimiteur);
-            // }
-        	fputcsv($fichier_csv, ['test', 'tesffdsg'], $delimiteur);
-            fclose($fichier_csv);
-            // $file = $this->Attachments->getFile($id);
-            $response = $this->response->withFile($fichier_csv);
-            return $response;
+
+    		$this->response->download('export.csv');
+    		$data = $this->Temps->find('all')->toArray();
+    		$_serialize = 'data';
+       		$this->set(compact('data', '_serialize'));
+    		$this->viewBuilder()->className('CsvView.Csv');
+    		return;
+
         }
     }
 
