@@ -118,7 +118,7 @@
                 <?php foreach ($week as $kUser => $weekUser): ?>
                     <?php foreach ($weekUser as $k => $line): ?>
                     <tr id="<?php echo $line['nline'] ?>" user="<?php echo $kUser ?>"
-                            <?php if ($kUserOld != $kUser): ?> class="newUser" <?php $kUserOld = $kUser ?><?php endif; ?>>
+                            <?php if ($kUserOld != $kUser): ?> class="newUser" <?php $kUserOld = $kUser; ?><?php endif; ?>>
                         <td scope="col" class="actions">
                             <?php if (!$validat): ?>
                                 <button type="button" class="btn btn-danger remove">-</button>
