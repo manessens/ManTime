@@ -16,14 +16,14 @@
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->label('Client','Participants');
+            echo $this->Form->label('client','Client');
             echo $this->Form->select('client', $clients, ['empty' => '-']);
         ?>
         </div>
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->label('Consultant','Participants');
+            echo $this->Form->label('user','Consultant');
             echo $this->Form->select('user', $users, ['empty' => '-']);
         ?>
         </div>

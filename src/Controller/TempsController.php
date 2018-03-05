@@ -500,7 +500,7 @@ class TempsController extends AppController
         $arrayClient = $clientTable->find('all')->toArray();
         $clients = array();
         foreach ($arrayClient as $client) {
-            $clients[$client->idc] = $client->nom_client;
+            $clients[$client->idc] = ucfirst($client->nom_client);
         }
         $userTable = TableRegistry::get('Users');
         $arrayUser = $userTable->find('all')->toArray();
