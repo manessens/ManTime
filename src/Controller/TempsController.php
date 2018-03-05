@@ -110,7 +110,7 @@ class TempsController extends AppController
                             $week[$line]['idp'] = $arrayData['projet'][$line];
                             $week[$line]['id_profil'] = $arrayData['profil'][$line];
                             $week[$line]['ida'] = $arrayData['activities'][$line];
-                            $week[$line][$this->returnDay($day->date, $lundi)] = $day;
+                            $week[$line][$this->getDay($day->date, $lundi)] = $day;
 
                             $dayTime->modify('+1 days');
                         }
@@ -281,7 +281,7 @@ class TempsController extends AppController
                                 $week[$idUser][$line]['idp'] = $arrayData['projet'][$idUser][$line];
                                 $week[$idUser][$line]['id_profil'] = $arrayData['profil'][$idUser][$line];
                                 $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
-                                $week[$idUser][$line][$this->returnDay($day->date, $lundi)] = $day;
+                                $week[$idUser][$line][$this->getDay($day->date, $lundi)] = $day;
                                 $week[$idUser][$line]['nline'] = $line;
 
                                 $dayTime->modify('+1 days');
@@ -402,7 +402,7 @@ class TempsController extends AppController
                 if (!$validat) {
                     $validat=$day->validat;
                 }
-                $week[$key][$this->returnDay($day->date, $lundi)] = $day;
+                $week[$key][$this->getDay($day->date, $lundi)] = $day;
                 $week[$key]['nline'] = $day->n_ligne;
             }
         }
@@ -421,7 +421,7 @@ class TempsController extends AppController
         return $week;
     }
 
-    private function returnDay($date, $lundi)
+    private function getDay($date, $lundi)
     {
         $mardi = clone $lundi;
         $mardi->modify('+1 days');
@@ -493,70 +493,6 @@ class TempsController extends AppController
 
 
         return $arrayRetour;
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $temp = $this->Temps->newEntity();
-        if ($this->request->is('post')) {
-            $temp = $this->Temps->patchEntity($temp, $this->request->getData());
-            if ($this->Temps->save($temp)) {
-                $this->Flash->success(__('The temp has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The temp could not be saved. Please, try again.'));
-        }
-        $this->set(compact('temp'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Temp id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $temp = $this->Temps->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $temp = $this->Temps->patchEntity($temp, $this->request->getData());
-            if ($this->Temps->save($temp)) {
-                $this->Flash->success(__('The temp has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The temp could not be saved. Please, try again.'));
-        }
-        $this->set(compact('temp'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Temp id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $temp = $this->Temps->get($id);
-        if ($this->Temps->delete($temp)) {
-            $this->Flash->success(__('The temp has been deleted.'));
-        } else {
-            $this->Flash->error(__('The temp could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 
     public function isAuthorized($user)
