@@ -5,10 +5,11 @@
  */
 ?>
 <div class="temps index large-10 large-10bis medium-8 columns content">
-    <legend><?= __('Export') ?></legend>
     <?= $this->Form->create() ?>
-        <div class='right col-xs-5'>
-        <?= $this->Form->button(__('Télécharger'), ['class'=>'right btn btn-warning']) ?>
-        </div>
+    <fieldset>
+        <legend><?= __('Export') ?></legend>
+        <?php echo $this->Form->select('Client', [1, 2, 3, 4, 5], ['empty' => '(choisissez)'] ); ?>
+    </fieldset>
+    <?= $this->Form->button(__('Télécharger'), ['class'=>'right btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>
