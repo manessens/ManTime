@@ -43,7 +43,7 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
-Router::parseExtensions('csv');
+Router::extensions(['csv']);
 
 Router::scope('/', function (RouteBuilder $routes) {
     /**
