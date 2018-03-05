@@ -32,4 +32,4 @@
     <?= $this->Form->end() ?>
 </div>
 
-<?php echo $this->Html->script('ManTime/man.projet.js'); ?>
+<?php echo $this->Html->script('ManTime/man.export.js'); ?>
