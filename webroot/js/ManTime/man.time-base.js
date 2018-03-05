@@ -4,7 +4,7 @@
          var $this = $(this),
             $t_fixed;
          function init() {
-            $this.wrap('<div class="container" />');
+            $this.wrap('<div class="tabler" />');
             $t_fixed = $this.clone();
             $t_fixed.find("tbody").remove().end().addClass("fixthis").insertBefore($this);
             resizeFixed();
