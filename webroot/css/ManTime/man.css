@@ -83,13 +83,13 @@
 .fixe{
     position: fixed;
     width: 220px;
-    left: 14.5%;
+    left: 17%;
     z-index: 999;
     top:190px
 }
 
 #table-info{
-    height: 100% !important;
+    height: 340px !important;
 }
 
 table.info{
@@ -98,6 +98,10 @@ table.info{
 table.info thead{
     height: 40px !important;
 }
+table.info tbody tr{
+    border-color: #bbbbbb
+}
 table.info tbody tr td{
     padding: 5px 10px !important;
+    font-weight: normal !important;
 }
