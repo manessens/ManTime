@@ -89,7 +89,7 @@
             <div class="supp col-xs-2 left">
                 <button id="button-info" type="button" class="btn btn-info" onclick="$( '#table-info' ).toggle();">¤</button>
             </div>
-            <div id="table-info" class="panel panel-default col-xs-9 right">
+            <div id="table-info" style="display:none;" class="panel panel-default col-xs-9 right">
                 <div class="panel-body">
                     <table>
                         <thead>
