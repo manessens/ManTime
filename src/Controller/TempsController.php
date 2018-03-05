@@ -496,9 +496,15 @@ class TempsController extends AppController
     }
 
     public function export(){
+        $clientTable = TableRegistry::get('Client');
+        $arrayClient = $clientTable->find('all')->toArray();
+        $clients = array();
+        foreach ($arrayClient as $client) {
+            $clients[$client->idc] = $client->nom_client;
+        }
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
-
+            pr($arrayData);exit;
     		$this->response->download('export.csv');
     		$data = $this->Temps->find('all')->toArray();
     		$_serialize = 'data';
@@ -506,8 +512,8 @@ class TempsController extends AppController
        		$this->set(compact('data', '_serialize', '_delimiter'));
     		$this->viewBuilder()->className('CsvView.Csv');
     		return;
-
         }
+        $this->set(compact('clients'));
     }
 
 

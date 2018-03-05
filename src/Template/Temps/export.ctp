@@ -8,7 +8,7 @@
     <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Export') ?></legend>
-        <?php echo $this->Form->select('Client', [1, 2, 3, 4, 5], ['empty' => '(choisissez)'] ); ?>
+        <?php echo $this->Form->select('Client', $clients, ['empty' => '(choisissez)'] ); ?>
     </fieldset>
     <?= $this->Form->button(__('Télécharger'), ['class'=>'right btn btn-warning']) ?>
     <?= $this->Form->end() ?>
