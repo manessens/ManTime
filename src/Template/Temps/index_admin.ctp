@@ -125,7 +125,7 @@
                         <td scope="col" class="cel_users">
                             <?php if ($validat): ?>
                             <div>
-                                <!-- <?php echo $users[$line['idc']]; ?> -->
+                                <?php echo $users[$kUser]; ?>
                             </div>
                             <?php else: ?>
                             <?php
@@ -212,7 +212,7 @@
                     <td scope="col"></td>
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
-                            <div id="t<?php echo $idDay ?>" style="text-align:center; <?php if ($value>1){ echo 'color:red;'; } ?>" >
+                            <div id="t<?php echo $idDay ?>" style="text-align:center;" >
                             <?php if ($validat){ echo $value; } ?>
                             </div>
                         </td>
