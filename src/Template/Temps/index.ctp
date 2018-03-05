@@ -68,7 +68,17 @@
     <?php endif; ?>
     <?= $this->Form->create() ?>
         <div class="block col-xs-12">
-            <div class="left badge back-success"><?= h($fullNameUserAuth) ?></div>
+            <div class="col-xs-2"><div class="left badge back-success"><?= h($fullNameUserAuth) ?></div></div>
+            <div class="col-xs-1 table">
+                <table>
+                    <thead>
+                        <tr><td>Heure</td><td>Valeur</td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1/2</td><td>0.5</td></tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="controler right">
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>
