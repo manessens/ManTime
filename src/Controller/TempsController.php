@@ -495,6 +495,20 @@ class TempsController extends AppController
         return $arrayRetour;
     }
 
+    public function export(){
+        if ($this->request->is(['post'])) {
+            $chemin = 'fichier.csv';
+            $delimiteur = ',';
+            $fichier_csv = fopen($chemin, 'w+');
+            fprintf($fichier_csv, chr(0xEF).chr(0xBB).chr(0xBF));
+            fclose($fichier_csv);
+            // $file = $this->Attachments->getFile($id);
+            $response = $this->response->withFile($fichier_csv);
+            return $response;
+        }
+    }
+
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
