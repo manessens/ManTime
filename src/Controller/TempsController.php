@@ -502,7 +502,8 @@ class TempsController extends AppController
     		$this->response->download('export.csv');
     		$data = $this->Temps->find('all')->toArray();
     		$_serialize = 'data';
-       		$this->set(compact('data', '_serialize'));
+            $_delimiter = ';';
+       		$this->set(compact('data', '_serialize', '_delimiter'));
     		$this->viewBuilder()->className('CsvView.Csv');
     		return;
 
