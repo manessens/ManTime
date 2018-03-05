@@ -85,23 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="fixe">
-            <div class="supp col-xs-2 left">
-                <button id="button-info" type="button" class="btn btn-info" onclick="$( '#table-info' ).toggle();">¤</button>
-            </div>
-            <div id="table-info" style="display:none;" class="panel panel-default col-xs-9 right">
-                <div class="panel-body">
-                    <table>
-                        <thead>
-                            <tr><td>Heure</td><td>Valeur</td></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>1/2</td><td>0.5</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <?= $this->element('tableinfo') ?>
         <div class="blank col-xs-12"></div>
         <table id='semainier' cellpadding="0" cellspacing="0">
             <thead>
