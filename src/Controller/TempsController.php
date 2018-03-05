@@ -171,6 +171,7 @@ class TempsController extends AppController
         $this->set('clients', $arrayRetour['clients']);
         $this->set('profiles', $arrayRetour['profiles']);
         $this->set('activities', $arrayRetour['activities']);
+        $this->set('controller', false);
     }
     /**
      * Index method
@@ -375,6 +376,7 @@ class TempsController extends AppController
         $this->set('clients',    $arrayRetour['clients']);
         $this->set('profiles',   $arrayRetour['profiles']);
         $this->set('activities', $arrayRetour['activities']);
+        $this->set('controller', false);
     }
 
     private function getDaysInWeek($buff, $lundi, $dimanche, $idu)

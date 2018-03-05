@@ -46,7 +46,7 @@ $cakeDescription = 'ManTime premier essaies';
 </head>
 <body class="home">
     <h1>ManTime</h1>
-    <?= $this->Html->link('Voir les Articles', ['controller' => 'Articles' , 'action' => 'index']) ?>
+    <!-- <?= $this->Html->link('Voir les Articles', ['controller' => 'Articles' , 'action' => 'index']) ?> -->
 
 </body>
 </html>

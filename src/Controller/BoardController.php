@@ -23,7 +23,7 @@ class BoardController extends AppController
         $user_id = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id)->firstOrFail();
-        $this->set('controller', 'Board');
+        $this->set('controller', false);
         $this->set(compact('user'));
 
     }

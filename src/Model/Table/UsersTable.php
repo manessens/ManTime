@@ -10,8 +10,6 @@ use Cake\Auth\DefaultPasswordHasher;
 /**
  * Users Model
  *
- * @property \App\Model\Table\ArticlesTable|\Cake\ORM\Association\HasMany $Articles
- *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -37,9 +35,6 @@ class UsersTable extends Table
         $this->setDisplayField('idu');
         $this->setPrimaryKey('idu');
 
-        $this->hasMany('Articles', [
-            'foreignKey' => 'user_id'
-        ]);
     }
 
     /**

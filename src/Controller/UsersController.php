@@ -87,7 +87,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Articles']
+            'contain' => []
         ]);
 
         $this->set('user', $user);
@@ -185,7 +185,7 @@ class UsersController extends AppController
             $this->Flash->error(__('Votre profil ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
-        $this->set('controller','User');
+        $this->set('controller', false);
 
     }
 
