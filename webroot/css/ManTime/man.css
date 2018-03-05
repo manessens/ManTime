@@ -81,7 +81,7 @@
 }
 
 .newUser{
-    background-color: #dcf0f6 !important
+    background-color: #e6f4f8 !important
 }
 
 .fixe{
@@ -90,6 +90,13 @@
     left: 17%;
     z-index: 999;
     top:190px
+}
+.fixthis{
+  top:0;
+  position:fixed;
+  width:auto;
+  display:none;
+  border:none;
 }
 
 #table-info{
