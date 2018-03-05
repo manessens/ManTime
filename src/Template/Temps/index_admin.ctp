@@ -238,5 +238,4 @@
         echo $this->Html->script('ManTime/man.modal.js');
         echo $this->Html->script('ManTime/man.time-admin.js');
     }
-    echo $this->Html->script('ManTime/man.time-base.js');
 ?>
