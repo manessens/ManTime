@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Participant'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="participant view large-9 medium-8 columns content">
+<div class="participant view large-10 large-10bis medium-8 columns content">
     <h3><?= h($participant->idu) ?></h3>
     <table class="vertical-table">
         <tr>

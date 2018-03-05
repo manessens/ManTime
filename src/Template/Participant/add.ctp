@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('List Participant'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="participant form large-10 medium-8 columns content">
+<div class="participant form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($participant) ?>
     <fieldset>
         <legend><?= __('Ajouter Participant') ?></legend>

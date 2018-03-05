@@ -1,6 +1,6 @@
 <!-- <?php $this->set('controller', 'Articles'); ?>
 <?= $this->element('menuleft') ?> -->
-<div class="articles view large-9 medium-8 columns content">
+<div class="articles view large-10 large-10bis medium-8 columns content">
     <h1>Modifier un article</h1>
     <?php
         echo $this->Form->create($article);

@@ -1,5 +1,5 @@
 
-<div class="articles view large-9 medium-8 columns content">
+<div class="articles view large-10 large-10bis medium-8 columns content">
     <h1><?= h($article->title) ?></h1>
     <p><?= h($article->body) ?></p>
     <p><small>Créé le : <?= $article->created->format(DATE_RFC850) ?></small></p>

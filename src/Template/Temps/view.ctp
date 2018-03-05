@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Temp'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="temps view large-9 medium-8 columns content">
+<div class="temps view large-10 large-10bis medium-8 columns content">
     <h3><?= h($temp->idt) ?></h3>
     <table class="vertical-table">
         <tr>

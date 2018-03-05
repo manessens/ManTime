@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="users form large-10 medium-8 columns content">
+<div class="users form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Profil de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend><table class="vertical-table">

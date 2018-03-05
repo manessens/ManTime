@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Activitie $activitie
  */
 ?>
-<div class="activitie view large-9 medium-8 columns content">
+<div class="activitie view large-10 large-10bis medium-8 columns content">
     <h3><?= h($activitie->nom_activit) ?></h3>
     <table class="vertical-table">
         <tr>

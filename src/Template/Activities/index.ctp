@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('New Activity'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="activities index large-10 medium-8 columns content">
+<div class="activities index large-10 large-10bis medium-8 columns content">
     <h3><?= __('Activities') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

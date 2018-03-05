@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Projet[]|\Cake\Collection\CollectionInterface $projet
  */
 ?>
-<div class="projet index large-10 medium-8 columns content">
+<div class="projet index large-10 large-10bis medium-8 columns content">
     <h3><?= __('Projets') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

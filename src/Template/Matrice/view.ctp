@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Matrice $matrice
  */
 ?>
-<div class="matrice view large-9 medium-8 columns content">
+<div class="matrice view large-10 large-10bis medium-8 columns content">
     <h3><?= h($matrice->nom_matrice) ?></h3>
     <table class="col-xs-5 vertical-table">
         <thead>

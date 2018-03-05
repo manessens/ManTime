@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="users view large-9 medium-8 columns content">
+<div class="users view large-10 large-10bis medium-8 columns content">
     <legend class="text-danger"><?= h($user->email) ?></legend>
     <table class="vertical-table">
         <tr>

@@ -66,7 +66,7 @@
 
 </script>
 
-<div class="temps index large-10 medium-8 columns content">
+<div class="temps index large-10 large-10bis medium-8 columns content">
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
     <?php else: ?>

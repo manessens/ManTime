@@ -1,5 +1,5 @@
 <!-- <?= $this->element('menuleft', ['controller' => 'Articles']) ?> -->
-<div class="articles view large-9 medium-8 columns content">
+<div class="articles view large-10 large-10bis medium-8 columns content">
     <h1>Articles</h1>
     <?= $this->Html->link('Ajouter un article', ['action' => 'add']) ?>
     <table>

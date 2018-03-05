@@ -1,5 +1,5 @@
 
-<div class="users index large-10 medium-8 columns content">
+<div class="users index large-10 large-10bis medium-8 columns content">
     <legend>Login</legend>
     <?= $this->Form->create() ?>
     <?= $this->Form->control('email') ?>
