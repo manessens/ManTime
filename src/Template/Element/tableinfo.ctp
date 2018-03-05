@@ -4,7 +4,7 @@
     </div>
     <div id="table-info" style="display:none;" class="panel panel-default col-xs-9 right">
         <div class="panel-body">
-            <table>
+            <table class="info">
                 <thead>
                     <tr><td>Heure</td><td>Valeur</td></tr>
                 </thead>
