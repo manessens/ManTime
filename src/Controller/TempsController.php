@@ -598,7 +598,7 @@ class TempsController extends AppController
     public function getDataFromTimes($times=array(), $users = array(), $clients = array())
     {
         $projetTable = TableRegistry::get('Projet');
-        $projects = $projetTable->find('list', ['fields'=>['Projet.idp', 'Projet.nom_projet']])->toArray();
+        $projects = $projetTable->find('list', ['fields'=>['Projet.idp', 'Projet.nom_projet']])->all();
         pr($projects);exit;
         $data = array();
         if (empty($times) || !is_array($times)) {
