@@ -435,7 +435,7 @@ class TempsController extends AppController
         $samedi = clone $lundi;
         $samedi->modify('+5 days');
         $dimanche = clone $lundi;
-        $dimanche->modify('+5 days');
+        $dimanche->modify('+6 days');
         if ($date >=  $lundi
         && $date <  $mardi) {
             return 'Lu';
