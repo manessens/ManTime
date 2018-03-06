@@ -525,7 +525,7 @@ class TempsController extends AppController
                         ->andWhere(['date <=' => $arrayData['date_fin']])
                         ->toArray();
                 }
-
+                pr($data);exit;
                 if (empty($data)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
