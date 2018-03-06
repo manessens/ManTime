@@ -543,7 +543,7 @@ class TempsController extends AppController
                 // }
                 $query->orWhere(['AND' => [['n_sem IN' => $arraNSem['2018']], ['annee =' => '2018']]],
                                 [ 'AND' => [['n_sem IN' => $arraNSem['2019']], ['annee =' => '2019']]]
-                                )
+                            );
                 pr($query);
                 $periode = $query->toArray();
                 pr($periode);exit;
