@@ -573,9 +573,13 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    $data = $this->getDataFromTimes($times, $users, $clients);
+                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet']);
                     pr($data);exit;
-                    $title = 'export';
+                    if ($arrayData['fitnet']) {
+                        $title = 'export_fitnet';
+                    }else{
+                        $title = 'export';
+                    }
             		$this->response->download($title.'.csv');
             		$_serialize = 'data';
                     $_delimiter = ';';
@@ -644,8 +648,26 @@ class TempsController extends AppController
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]+=$time->time;
 
         }
-        return $data;
-
+        ksort($data);
+        ksort($data[$keyClient]);
+        ksort($data[$keyClient][$keyProject]);
+        $dataLine=array();
+        foreach ($data as $client => $arrProj) {
+            foreach ($arrProj as $projet => $arrUser) {
+                foreach ($arrUser as $user => $arrProfil) {
+                    foreach ($arrProfil as $profil => $arrActiv) {
+                        foreach ($arrActiv as $activit => $arrDate) {
+                            foreach ($arrDate as $date => $time) {
+                                $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
+                                $timebuffer = ['janvier'=>$time];
+                                $dataLine[] = array[$buffer, $timebuffer];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $dataLine;
     }
 
     public function isAuthorized($user)

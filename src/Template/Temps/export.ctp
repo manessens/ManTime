@@ -25,6 +25,9 @@
             echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
         ?>
         </div>
+        <?php
+            echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export pour intégration fitnet']);
+        ?>
     </fieldset>
     <?= $this->Form->button(__('Exporter'), ['class'=>'right btn btn-warning']) ?>
     <?= $this->Form->end() ?>
