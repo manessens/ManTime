@@ -19,6 +19,9 @@ class ExportForm extends Form
 
     protected function _buildValidator(Validator $validator)
     {
+
+        $validator->requirePresence('date_debut', 'create');
+        $validator->requirePresence('date_fin', 'create');
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {

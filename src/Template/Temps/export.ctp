@@ -10,7 +10,7 @@
         <legend><?= __('Export') ?></legend>
 
         <?php
-            echo $this->Form->control('date_debut', [ 'label' => 'Date de début', 'class'=>'datepicker']);
+            echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
 
