@@ -520,8 +520,9 @@ class TempsController extends AppController
                 $data = array();
                 if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
             		$data = $this->Temps->find('all')
-                        ->where(['date >=' => $arrayData['date_debut']])
-                        ->andWhere(['date <=' => $arrayData['date_fin']])
+                        // ->where(['date >=' => $arrayData['date_debut']])
+                        // ->andWhere(['date <=' => $arrayData['date_fin']])
+                        ->andWhere(['validat =' => 1])
                         ->toArray();
                 }
                 if (empty($data)) {
