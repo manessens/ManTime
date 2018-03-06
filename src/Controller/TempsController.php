@@ -532,8 +532,8 @@ class TempsController extends AppController
                 pr($anneeDebut);
                 pr($anneeFin);
                 pr('test');
-                pr($semaineDebut <= $semaineFin && $anneeDebut <= $anneeFin);
                 for ($i=$semaineDebut; $i <= $semaineFin && $y <= $anneeFin ; $i++) {
+                    pr($i);
                     if ($i > 52) {
                         $i = 1;
                         $y++;
