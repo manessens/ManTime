@@ -676,7 +676,7 @@ class TempsController extends AppController
                                     }else{
                                         $timebufferMonth['janvier'] = $time;
                                     }
-                                    $timebuffer = array_merge($timebuffer, $timebufferMonth)
+                                    $timebuffer = array_merge($timebuffer, $timebufferMonth);
                                 }
                                 $dataLine[] = array_merge($buffer, $timebuffer);
                             }
