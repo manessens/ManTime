@@ -519,7 +519,7 @@ class TempsController extends AppController
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
 
                 $data = array();
-                $periode = array();
+                $periodes = array();
                 $exportableTable = TableRegistry::get('Exportable');
                 $semaineDebut = (int)date('W', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-YYYY')));
                 $anneeDebut = (int)date('Y', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-YYYY')));
@@ -539,20 +539,29 @@ class TempsController extends AppController
                 $andWhere = array();
                 foreach ($arraNSem as $an => $sem) {
                     if (!empty($sem)) {
-                        $andWhere[] = ['n_sem IN' => $sem, ['annee =' => $an]];
+                        $andWhere[] = ['n_sem IN' => $sem, 'annee =' => $an];
                     }
                 }
                 $query->where(['OR' => $andWhere]);
-                pr($query);
-                $periode = $query->toArray();
-                pr($periode);exit;
+                $periodes = $query->toArray();
 
-                if (empty($arrayData['client']) && empty($arrayData['user']) && !empty($periode)) {
+                $andWhere = array();
+                if (empty($arrayData['client']) && empty($arrayData['user']) && !empty($periodes)) {
+                    foreach ($periodes as $periode) {
+                        $lundi = new Date('now');
+                        $lundi->setISOdate($periode->annee, $periode->n_sem);
+                        $dimanche = clone $lundi;
+                        $dimanche->modify('+6 days');
+
+                        $andWhere[] = [ 'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
+                                        'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59'),
+                                        'validat =' => 1,
+                                    ];
+                    }
             		$data = $this->Temps->find('all')
-                        ->where(['date >=' => $arrayData['date_debut']])
-                        ->andWhere(['date <=' => $arrayData['date_fin']])
-                        ->andWhere(['validat =' => 1])
-                        ->toArray();
+                        ->where(['OR' => $andWhere]);
+                        // ->toArray();
+                        pr($data);exit;
                 }
                 if (empty($data)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
