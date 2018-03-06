@@ -518,13 +518,18 @@ class TempsController extends AppController
                 $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
 
                 $data = array();
-                pr($arrayData);
-                pr('----------------------');
-                pr(empty($arrayData['client']));exit;
-                if (empty($arrayData['client']) && empty($arrayData['user'])) {
+                $periode = array();
+                $exportableTable = TableRegistry::get('Exportable');
+                $semaine = (int)date('W', $arrayData['date_debut']);
+                pr($semaine);exit;
+
+
+                $periode = $exportableTable->find('all')->where('n_sem')
+
+                if (empty($arrayData['client']) && empty($arrayData['user']) && !empty($periode)) {
             		$data = $this->Temps->find('all')
-                        // ->where(['date >=' => $arrayData['date_debut']])
-                        // ->andWhere(['date <=' => $arrayData['date_fin']])
+                        ->where(['date >=' => $arrayData['date_debut']])
+                        ->andWhere(['date <=' => $arrayData['date_fin']])
                         ->andWhere(['validat =' => 1])
                         ->toArray();
                 }
