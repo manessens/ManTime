@@ -513,15 +513,10 @@ class TempsController extends AppController
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
-            if (!$isValid) {
-                $errors = $export->errors();
-                foreach ($errors as $error) {
-                    $this->Flash->error($error);
-                }
-            }else{
+            if ($isValid){
                 $arrayData['date_debut'] = FrozenTime::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
-                
+
         		$this->response->download('export.csv');
                 if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
 
