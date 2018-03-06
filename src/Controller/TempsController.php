@@ -660,7 +660,7 @@ class TempsController extends AppController
                             foreach ($arrDate as $date => $time) {
                                 $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
                                 $timebuffer = ['janvier'=>$time];
-                                $dataLine[] = array_merge([$buffer, $timebuffer]);
+                                $dataLine[] = array_merge($buffer, $timebuffer);
                             }
                         }
                     }
