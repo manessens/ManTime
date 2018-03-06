@@ -570,7 +570,7 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    $data = getDataFromTimes($times);
+                    $data = $this->getDataFromTimes($times);
                     pr($data);exit;
                     $title = 'export';
             		$this->response->download($title.'.csv');
