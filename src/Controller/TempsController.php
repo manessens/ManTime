@@ -521,8 +521,7 @@ class TempsController extends AppController
                 $data = array();
                 $periode = array();
                 $exportableTable = TableRegistry::get('Exportable');
-                // $semaine = (int)date('W', $arrayData['date_debut']);
-                pr(strtotime($arrayData['date_debut']));exit;
+                $semaine = (int)date('W', strtotime($arrayData['date_debut']);
                 pr($semaine);exit;
 
 
