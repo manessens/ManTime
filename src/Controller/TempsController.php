@@ -643,23 +643,41 @@ class TempsController extends AppController
                 $keyDate = $time->date->i18nFormat('YYYY-MM');
             }
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = 0;
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]+=$time->time;
+            if ($time->time = 1) {
+                $timeUO = $time->time; // = matrice/J
+            }else{
+                $timeUO = $time->time; // > *matrice/h
+            }
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO;
 
         }
         ksort($data);
         ksort($data[$keyClient]);
         ksort($data[$keyClient][$keyProject]);
         $dataLine=array();
+        $arrayMonth = ['Janvier'=>0, 'Février'=>0, 'Mars'=>0, 'Avril'=>0, 'Mai'=>0, 'Juin'=>0, 'Juillet'=>0, 'Août'=>0,
+         'Septembre'=>0, 'Octobre'=>0, 'novembre'=>0, 'Décembre'=>0];
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrDate) {
-                            foreach ($arrDate as $date => $time) {
+                            foreach ($arrDate as $date => $arrTime) {
                                 $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
-                                $timebuffer = ['janvier'=>$time];
+                                $timebuffer = []
+                                foreach ($arrTime as $type => $time) {
+                                    $timebufferMonth = $arrayMonth;
+                                    if ($type === 'CA') {
+                                        $timebufferMonth['janvier'] = $time // * prix UO
+                                    }else{
+                                        $timebufferMonth['janvier'] = $time
+                                    }
+                                    $timebuffer = array_merge($timebuffer, $timebufferMonth)
+                                }
                                 $dataLine[] = array_merge($buffer, $timebuffer);
                             }
                         }
