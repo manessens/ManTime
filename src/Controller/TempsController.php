@@ -512,17 +512,17 @@ class TempsController extends AppController
         }
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
+            pr($arrayData);exit;
             $arrayData['date_debut'] = FrozenTime::parse($arrayData['date_debut']);
             $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
 
-            if (is_null($data)) {
+            if (is_null($arrayData)) {
                 $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
             }else{
                 // pr($arrayData);exit;
         		$this->response->download('export.csv');
                 if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
 
-                    //@TODO : a revoir la sélection
             		$data = $this->Temps->find('all')
                         ->where(['date >=' => $arrayData['date_debut']])
                         ->andWhere(['date <=' => $arrayData['date_fin']])
