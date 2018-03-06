@@ -525,7 +525,7 @@ class TempsController extends AppController
                 $anneeDebut = (int)date('Y', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-YYYY')));
                 $semaineFin = (int)date('W', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-YYYY')));
                 $anneeFin = (int)date('Y', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-YYYY')));
-                $arraNSem = array(array());
+                $arraNSem = array($anneeDebut => array());
                 $y=$anneeDebut;
                 for ($i=$semaineDebut; $i <= $semaineFin && $y <= $anneeFin ; $i++) {
                     if ($i > 52) {
@@ -538,7 +538,9 @@ class TempsController extends AppController
 
                 $query = $exportableTable->find('all');
                 foreach ($arraNSem as $an => $sem) {
-                    $query->orWhere(['n_sem IN' => $sem, 'AND' => ['annee =' => $an]]);
+                    if (!empty($sem)) {
+                        $query->orWhere(['n_sem IN' => $sem, 'AND' => ['annee =' => $an]]);
+                    }
                 }
                 $periode = $query->toArray();
                 pr($periode);exit;
