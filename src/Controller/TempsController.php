@@ -595,7 +595,7 @@ class TempsController extends AppController
         $this->set(compact('users'));
     }
 
-    public function getDataFromTimes($times=array(), $users = array(), $clients = array())
+    public function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false)
     {
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
@@ -633,12 +633,15 @@ class TempsController extends AppController
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = $arrayMonth;
             }
-            $keyDate = $time->date;
-            pr($keyDate);exit;
+            if ($isFitnet) {
+                $keyDate = $time->date->i18nFormat('YYYY-MM-dd');
+            }else{
+                $keyDate = $time->date->i18nFormat('YYYY-MM');
+            }
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyDate])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = 0;
             }
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']+=$time->time;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]+=$time->time;
 
         }
         return $data;
