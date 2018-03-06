@@ -39,7 +39,6 @@ class ProjetTable extends Table
         $this->setDisplayField('idp');
         $this->setPrimaryKey('idp');
         $this->setDisplayField('nom_projet');
-        $this->setDisplayField('idc');
 
         $this->belongsTo('Client', [
             'foreignKey' => 'idc'
