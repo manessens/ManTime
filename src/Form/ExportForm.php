@@ -19,13 +19,14 @@ class ExportForm extends Form
 
     protected function _buildValidator(Validator $validator)
     {
-        // $validator->add('name', 'length', [
-        //         'rule' => ['minLength', 10],
-        //         'message' => 'Un nom est requis'
-        //     ])->add('email', 'format', [
-        //         'rule' => 'email',
-        //         'message' => 'Une adresse email valide est requise',
-        //     ]);
+        $validator->add('date_fin', [
+            'supToDebut' => [
+                'rule' => function ($value, $context) {
+                    return $value > $context['data']['date_debut'];
+                },
+                'message' => __("Date de fin inférieur à celle de début.")
+            ]
+        ]);
         return $validator;
     }
 

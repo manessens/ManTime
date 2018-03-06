@@ -16,17 +16,13 @@
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->control('client');
-            // echo $this->Form->label('client','Client');
-            // echo $this->Form->select('client', $clients, ['empty' => '-']);
+            echo $this->Form->control('client',  ['label' => 'Client', 'empty' => '-']);
         ?>
         </div>
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->control('user');
-            // echo $this->Form->label('user','Consultant');
-            // echo $this->Form->select('user', $users, ['empty' => '-']);
+            echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
         ?>
         </div>
     </fieldset>
