@@ -609,7 +609,28 @@ class TempsController extends AppController
             return $data;
         }
         foreach ($times as $time) {
-            $data[$clients[$projectClients[$time->idp]]][$projects[$time->idp]][$users[$time->idu]][$profils[$time->id_profil]][$activits[$time->ida]]=$time->time;
+            $keyClient = $clients[$projectClients[$time->idp]];
+            $keyProject = $projects[$time->idp];
+            $keyUser = $users[$time->idu];
+            $keyProfil = $profils[$time->id_profil];
+            $keyActivit = $activits[$time->ida];
+            $arrayMonth = ['janvier'=>0, 'fevrier'=>0];
+            if (!array_key_exists($keyClient, $data)) {
+                $data[$keyClient] = array();
+            }
+            if (!array_key_exists($keyProject, $data[$keyClient])) {
+                $data[$keyClient][$keyProject] = array();
+            }
+            if (!array_key_exists($keyUser, $data[$keyClient][$keyProject])) {
+                $data[$keyClient][$keyProject][$keyUser] = array();
+            }
+            if (!array_key_exists($keyProfil, $data[$keyClient][$keyProject][$keyUser])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil] = array();
+            }
+            if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array($arrayMonth);
+            }
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']=$time->time;
         }
 
     }
