@@ -18,12 +18,12 @@
             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
-        <!-- <div class="input text col-xs-6"> -->
+        <div class="input text col-xs-6">
         <?php
-            // echo $this->Form->label('participant','Participants');
+            echo $this->Form->label('participant','Participants');
             echo $this->Form->select('participant', $participants, ['multiple' => true , 'value' => $myParticipants, 'class' => 'multiple form-control']);
         ?>
-        <!-- </div> -->
+        </div>
         <div class="input text col-xs-6">
         <?php
             echo $this->Form->label('activities','Activités');
