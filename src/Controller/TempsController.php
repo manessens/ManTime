@@ -565,7 +565,7 @@ class TempsController extends AppController
                         $arrayIdProjet = $exportableTable->find('list',['fields' =>['Projet.idc', 'Projet.idp']])->where(['idc =' => $arrayData['client']])->toArray();
                         $query->andWhere(['idp IN' => $arrayIdProjet]);
                     }
-                    if (!empty($arrayData['user']) {
+                    if (!empty($arrayData['user']) ){
                         $query->andWhere(['idu =' => $arrayData['user']]);
                     }
                     $times = $query->toArray();
