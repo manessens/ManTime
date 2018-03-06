@@ -534,7 +534,6 @@ class TempsController extends AppController
                     }
                     $arraNSem[$y][] = $i;
                 }
-                pr($arraNSem);
 
                 $query = $exportableTable->find('all');
                 foreach ($arraNSem as $an => $sem) {
@@ -542,6 +541,7 @@ class TempsController extends AppController
                         $query->orWhere(['n_sem IN' => $sem, 'AND' => ['annee =' => $an]]);
                     }
                 }
+                pr($query);
                 $periode = $query->toArray();
                 pr($periode);exit;
 
