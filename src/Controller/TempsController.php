@@ -599,13 +599,17 @@ class TempsController extends AppController
     {
         $projetTable = TableRegistry::get('Projet');
         $projects = $projetTable->find('list', ['fields'=>['idp', 'nom_projet']])->toArray();
-        pr($projects);exit;
+        $projectClients = $projetTable->find('list', ['fields'=>['idp', 'idc']])->toArray();
+        $profilTable = TableRegistry::get('Profil');
+        $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
+        $activitTable = TableRegistry::get('Activitie');
+        $activits = $activitTable->find('list', ['fields'=>['ida', 'nom_activit']])->toArray();
         $data = array();
         if (empty($times) || !is_array($times)) {
             return $data;
         }
         foreach ($times as $time) {
-            // $data[]
+            $data[$clients[$projectClients[$time->idp]]][$projects[$time->idp]][$users[$time->idu]][$profils[$time->id_profil]][$activits[$time->ida]]=$time->time;
         }
 
     }

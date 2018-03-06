@@ -35,6 +35,7 @@ class ProfilTable extends Table
         $this->setTable('profil');
         $this->setDisplayField('id_profil');
         $this->setPrimaryKey('id_profil');
+        $this->setDisplayField('nom_profil');
 
         $this->hasMany('LignMat', [
             'foreignKey' => 'id_profil'

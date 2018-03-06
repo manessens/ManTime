@@ -33,6 +33,7 @@ class ActivitieTable extends Table
         $this->setTable('activitie');
         $this->setDisplayField('ida');
         $this->setPrimaryKey('ida');
+        $this->setDisplayField('nom_activit');
     }
 
     /**
