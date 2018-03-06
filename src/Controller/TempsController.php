@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\I18n\FrozenTime;
+use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
@@ -514,13 +515,14 @@ class TempsController extends AppController
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
-                $arrayData['date_debut'] = FrozenTime::parse($arrayData['date_debut']);
-                $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
+                $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
+                $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
 
                 $data = array();
                 $periode = array();
                 $exportableTable = TableRegistry::get('Exportable');
-                $semaine = (int)date('W', $arrayData['date_debut']);
+                // $semaine = (int)date('W', $arrayData['date_debut']);
+                pr(strtotime($arrayData['date_debut']));exit;
                 pr($semaine);exit;
 
 
