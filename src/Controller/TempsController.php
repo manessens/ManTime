@@ -517,7 +517,6 @@ class TempsController extends AppController
                 $arrayData['date_debut'] = FrozenTime::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
 
-        		$this->response->download('export.csv');
                 $data = array();
                 if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
             		$data = $this->Temps->find('all')
@@ -525,10 +524,10 @@ class TempsController extends AppController
                         ->andWhere(['date <=' => $arrayData['date_fin']])
                         ->toArray();
                 }
-                pr($data);exit;
                 if (empty($data)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
+            		$this->response->download('export.csv');
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter'));
