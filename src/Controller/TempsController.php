@@ -618,7 +618,6 @@ class TempsController extends AppController
             $keyUser = $users[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
-            $arrayMonth = ['janvier'=>0, 'fevrier'=>0];
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
             }
@@ -633,6 +632,11 @@ class TempsController extends AppController
             }
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = $arrayMonth;
+            }
+            $keyDate = $time->date
+            pr($keyDate);exit;
+            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyDate])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = 0;
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']+=$time->time;
 
