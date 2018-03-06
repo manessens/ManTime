@@ -598,8 +598,12 @@ class TempsController extends AppController
     public function getDataFromTimes($times=array(), $users = array(), $clients = array())
     {
         $projetTable = TableRegistry::get('Projet');
-        $projects = $projetTable->find('list', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
-        $projectClients = $projetTable->find('list', ['fields'=>['idp', 'Client.idc']])->contain(['Client'])->toArray();
+        $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
+        $projects = $projectClients = array()
+        foreach ($arrayprojects as $proj) {
+            $projects[$proj->idp] = $proj->nom_projet;
+            $projects[$proj->idp] = $proj->idc;
+        }
         $profilTable = TableRegistry::get('Profil');
         $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
         $activitTable = TableRegistry::get('Activitie');
