@@ -25,7 +25,7 @@ class ExportForm extends Form
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {
-                    return $value > $context['data']['date_debut'];
+                    return $value >= $context['data']['date_debut'];
                 },
                 'message' => __("Date de fin inférieur à celle de début.")
             ]
