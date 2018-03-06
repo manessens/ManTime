@@ -574,7 +574,7 @@ class TempsController extends AppController
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet']);
-                    // pr($data);exit;
+                    pr($data);exit;
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
@@ -668,7 +668,7 @@ class TempsController extends AppController
                         foreach ($arrActiv as $activit => $arrDate) {
                             foreach ($arrDate as $date => $arrTime) {
                                 $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
-                                $timebuffer = []
+                                $timebuffer = [];
                                 foreach ($arrTime as $type => $time) {
                                     $timebufferMonth = $arrayMonth;
                                     if ($type === 'CA') {
