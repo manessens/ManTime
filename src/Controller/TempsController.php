@@ -499,7 +499,7 @@ class TempsController extends AppController
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
-        $clients = $clientTable->find('all')->toArray();
+        $arrayClient = $clientTable->find('all')->toArray();
         $clients = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
