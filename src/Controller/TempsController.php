@@ -638,7 +638,7 @@ class TempsController extends AppController
             }else{
                 $keyDate = $time->date->i18nFormat('YYYY-MM');
             }
-            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate])) {
+            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = 0;
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]+=$time->time;
