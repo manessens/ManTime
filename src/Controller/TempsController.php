@@ -569,7 +569,6 @@ class TempsController extends AppController
                         $query->andWhere(['idu =' => $arrayData['user']]);
                     }
                     $times = $query->toArray();
-                    pr($times);exit;
                 }
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
