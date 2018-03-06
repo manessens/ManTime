@@ -631,6 +631,8 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array($arrayMonth);
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']=$time->time;
+
+            return $data;
         }
 
     }
