@@ -573,7 +573,7 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    $data = $this->getDataFromTimes($times);
+                    $data = $this->getDataFromTimes($times, $users, $clients);
                     pr($data);exit;
                     $title = 'export';
             		$this->response->download($title.'.csv');
@@ -595,14 +595,17 @@ class TempsController extends AppController
         $this->set(compact('users'));
     }
 
-    public function getDataFromTimes($times=array())
+    public function getDataFromTimes($times=array(), $users = array(), $clients = array())
     {
+        $projetTable = TableRegistry::get('Projet');
+        $projects = $projetTable->find('list', ['fields'=>['Projet.idp', 'Projet.nom_projet']])->toArray();
+        pr($projects);exit;
         $data = array();
         if (empty($times) || !is_array($times)) {
             return $data;
         }
         foreach ($times as $time) {
-
+            $data[]
         }
 
     }
