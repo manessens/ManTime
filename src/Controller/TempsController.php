@@ -539,7 +539,7 @@ class TempsController extends AppController
                 $andWhere = array();
                 foreach ($arraNSem as $an => $sem) {
                     if (!empty($sem)) {
-                        $andWhere[] = ['n_sem IN' => $sem, ['annee =' => $an]]);
+                        $andWhere[] = ['n_sem IN' => $sem, ['annee =' => $an]];
                     }
                 }
                 $query->where(['OR' => $andWhere]);
