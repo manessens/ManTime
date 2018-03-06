@@ -536,11 +536,12 @@ class TempsController extends AppController
                 }
 
                 $query = $exportableTable->find('all');
-                foreach ($arraNSem as $an => $sem) {
-                    if (!empty($sem)) {
-                        $query->orWhere(['n_sem IN' => $sem, 'AND' => ['annee =' => $an]]);
-                    }
-                }
+                // foreach ($arraNSem as $an => $sem) {
+                //     if (!empty($sem)) {
+                //         $query->orWhere(['n_sem IN' => $sem, 'AND' => ['annee =' => $an]]);
+                //     }
+                // }
+                $query->where('OR' => ['AND' => ['n_sem IN' => $arraNSem['2018'], 'annee =' => '2018'],  'AND' => ['n_sem IN' => $arraNSem['2019'], 'annee =' => '2019']])
                 pr($query);
                 $periode = $query->toArray();
                 pr($periode);exit;
