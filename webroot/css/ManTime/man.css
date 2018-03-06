@@ -110,7 +110,7 @@ table.info tbody tr td{
     font-weight: normal !important;
 }
 
-.form-error>.error-message{
+.input .error-message{
     display: block;
     padding: 0.375rem 0.5625rem 0.5625rem;
     margin-top: -1px;
