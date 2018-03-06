@@ -559,9 +559,9 @@ class TempsController extends AppController
                                     ];
                     }
             		$data = $this->Temps->find('all')
-                        ->where(['OR' => $andWhere]);
-                        // ->toArray();
-                        pr($data);exit;
+                        ->where(['OR' => $andWhere])
+                        ->toArray();
+                    pr($data);exit;
                 }
                 if (empty($data)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
