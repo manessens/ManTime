@@ -520,8 +520,8 @@ class TempsController extends AppController
                 $data = array();
                 pr($arrayData);
                 pr('----------------------');
-                pr(is_null($arrayData['client']));exit;
-                if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
+                pr(empty($arrayData['client']));exit;
+                if (empty($arrayData['client']) && empty($arrayData['user'])) {
             		$data = $this->Temps->find('all')
                         // ->where(['date >=' => $arrayData['date_debut']])
                         // ->andWhere(['date <=' => $arrayData['date_fin']])
