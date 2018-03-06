@@ -631,14 +631,14 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil] = array();
             }
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = $arrayMonth;
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array();
             }
             if ($isFitnet) {
                 $keyDate = $time->date->i18nFormat('YYYY-MM-dd');
             }else{
                 $keyDate = $time->date->i18nFormat('YYYY-MM');
             }
-            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyDate])) {
+            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = 0;
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]+=$time->time;
