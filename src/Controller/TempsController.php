@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
+use App\Form\ExportForm;
 
 /**
  * Temps Controller
@@ -496,6 +497,7 @@ class TempsController extends AppController
     }
 
     public function export(){
+        $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
         $arrayClient = $clientTable->find('all')->toArray();
         $clients = array();
@@ -512,23 +514,36 @@ class TempsController extends AppController
             $arrayData = $this->request->getData();
             $arrayData['date_debut'] = FrozenTime::parse($arrayData['date_debut']);
             $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
-            // pr($arrayData);exit;
-    		$this->response->download('export.csv');
-            if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
-        		$data = $this->Temps->find('all')
-                    ->where(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-                    ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
-                    ->toArray();
+
+            if (is_null($data)) {
+                $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
+            }else{
+                // pr($arrayData);exit;
+        		$this->response->download('export.csv');
+                if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
+
+                    //@TODO : a revoir la sélection
+            		$data = $this->Temps->find('all')
+                        ->where(['date >=' => $arrayData['date_debut']])
+                        ->andWhere(['date <=' => $arrayData['date_fin']])
+                        ->toArray();
+                }
+
+                if (is_null($data)) {
+                    $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
+                }else{
+            		$_serialize = 'data';
+                    $_delimiter = ';';
+               		$this->set(compact('data', '_serialize', '_delimiter'));
+            		$this->viewBuilder()->className('CsvView.Csv');
+            		return;
+                }
             }
 
-    		$_serialize = 'data';
-            $_delimiter = ';';
-       		$this->set(compact('data', '_serialize', '_delimiter'));
-    		$this->viewBuilder()->className('CsvView.Csv');
-    		return;
         }
         asort($clients);
         asort($users);
+        $this->set(compact('export'));
         $this->set(compact('clients'));
         $this->set(compact('users'));
     }

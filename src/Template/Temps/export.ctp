@@ -23,8 +23,9 @@
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->label('user','Consultant');
-            echo $this->Form->select('user', $users, ['empty' => '-']);
+            echo $this->Form->control('user');
+            // echo $this->Form->label('user','Consultant');
+            // echo $this->Form->select('user', $users, ['empty' => '-']);
         ?>
         </div>
     </fieldset>
