@@ -526,7 +526,7 @@ class TempsController extends AppController
                         ->toArray();
                 }
 
-                if (is_null($data)) {
+                if (empty($data)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
             		$_serialize = 'data';
