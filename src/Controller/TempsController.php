@@ -600,6 +600,7 @@ class TempsController extends AppController
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
         $projects = $projectClients = array();
+        pr($arrayprojects);exit;
         foreach ($arrayprojects as $proj) {
             $projects[$proj->idp] = $proj->nom_projet;
             $projects[$proj->idp] = $proj->idc;
