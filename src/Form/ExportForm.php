@@ -13,7 +13,7 @@ class ExportForm extends Form
         $schema->addField('client', 'int')
             ->addField('user', ['type' => 'int'])
             ->addField('date_debut', ['type' => 'date'])
-            ->addField('date_fin', ['type' => 'date']);
+            ->addField('date_fin', ['type' => 'date'])
             ->addField('fitnet', ['type' => 'int']);
         return $schema;
     }
