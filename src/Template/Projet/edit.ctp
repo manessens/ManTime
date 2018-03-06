@@ -21,7 +21,7 @@
         <!-- <div class="input text col-xs-6"> -->
         <?php
             // echo $this->Form->label('participant','Participants');
-            echo $this->Form->control('participant', $participants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple form-control']);
+            echo $this->Form->control('participant', $participants, ['multiple' => true , 'value' => $myParticipants, 'class' => 'multiple form-control']);
         ?>
         <!-- </div> -->
         <div class="input text col-xs-6">
