@@ -524,7 +524,7 @@ class TempsController extends AppController
                 pr($semaine);exit;
 
 
-                $periode = $exportableTable->find('all')->where('n_sem')
+                // $periode = $exportableTable->find('all')->where('n_sem');
 
                 if (empty($arrayData['client']) && empty($arrayData['user']) && !empty($periode)) {
             		$data = $this->Temps->find('all')
