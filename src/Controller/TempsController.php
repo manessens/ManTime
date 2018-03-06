@@ -511,7 +511,7 @@ class TempsController extends AppController
             $users[$user->idu] = $user->fullname;
         }
         if ($this->request->is(['post'])) {
-            $arrayData = $this->request->getData();
+            $arrayData = $export->validate($this->request->getData());
             // pr($arrayData);
             $errors = $export->errors();
             pr($errors);
