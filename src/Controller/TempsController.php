@@ -511,13 +511,13 @@ class TempsController extends AppController
             $users[$user->idu] = $user->fullname;
         }
         if ($this->request->is(['post'])) {
-            $arrayData = $export->validate($this->request->getData());
-            pr($arrayData);
+            $arrayData = $this->request->getData();
+            // pr($arrayData);
             $errors = $export->errors();
             pr($errors);
-
-            pr('$arrayData');
-            pr($this->request->getData());exit;
+            //
+            // pr('$arrayData');
+            // pr($this->request->getData());exit;
             $arrayData['date_debut'] = FrozenTime::parse($arrayData['date_debut']);
             $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
 
