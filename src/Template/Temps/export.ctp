@@ -16,8 +16,9 @@
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->label('client','Client');
-            echo $this->Form->select('client', $clients, ['empty' => '-']);
+            echo $this->Form->control('client');
+            // echo $this->Form->label('client','Client');
+            // echo $this->Form->select('client', $clients, ['empty' => '-']);
         ?>
         </div>
 
