@@ -636,8 +636,8 @@ class TempsController extends AppController
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']+=$time->time;
 
-            return $data;
         }
+        return $data;
 
     }
 
