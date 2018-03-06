@@ -535,6 +535,8 @@ class TempsController extends AppController
             		$this->viewBuilder()->className('CsvView.Csv');
             		return;
                 }
+            }else{
+                $this->Flash->error("Une erreur est survenu. Merci de vérifier la saisie ou de retenter ultérieurement");
             }
 
         }
