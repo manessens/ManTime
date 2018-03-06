@@ -5,7 +5,7 @@
  */
 ?>
 <div class="temps index large-10 large-10bis medium-8 columns content">
-    <?= $this->Form->create() ?>
+    <?= $this->Form->create('export') ?>
     <fieldset>
         <legend><?= __('Export') ?></legend>
 
