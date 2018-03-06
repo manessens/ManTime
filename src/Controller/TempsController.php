@@ -562,7 +562,7 @@ class TempsController extends AppController
                         ->andwhere(['OR' => $andWhere]);
                     if (!empty($arrayData['client'])) {
                         $exportableTable = TableRegistry::get('Projet');
-                        $arrayIdProjet = $exportableTable->find('list',['fields' =>'Projet.idc'])->where(['idc =' => $arrayData['client']])->toArray();
+                        $arrayIdProjet = $exportableTable->find('list',['fields' =>['Projet.idc', 'Projet.idp']])->where(['idc =' => $arrayData['client']])->toArray();
                         pr($arrayIdProjet);exit;
                     }
                     $times = $query->toArray();
