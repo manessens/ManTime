@@ -605,7 +605,7 @@ class TempsController extends AppController
             return $data;
         }
         foreach ($times as $time) {
-            $data[]
+            // $data[]
         }
 
     }
