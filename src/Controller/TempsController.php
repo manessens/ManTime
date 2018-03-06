@@ -574,7 +574,7 @@ class TempsController extends AppController
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet']);
-                    pr($data);exit;
+                    // pr($data);exit;
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
