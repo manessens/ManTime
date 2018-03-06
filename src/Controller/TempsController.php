@@ -555,12 +555,12 @@ class TempsController extends AppController
 
                         $andWhere[] = [ 'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
                                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59'),
-                                        'validat =' => 1,
                                     ];
                     }
             		$data = $this->Temps->find('all')
-                        ->where(['OR' => $andWhere])
-                        ->toArray();
+                        ->where(['date >=' => $arrayData['date_debut'], 'date <=' => $arrayData['date_fin'], 'validat =' => 1])
+                        ->andwhere(['OR' => $andWhere]);
+                        // ->toArray();
                     pr($data);exit;
                 }
                 if (empty($data)) {
