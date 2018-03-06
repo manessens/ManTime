@@ -599,7 +599,7 @@ class TempsController extends AppController
     {
         $projetTable = TableRegistry::get('Projet');
         $projects = $projetTable->find('list', ['fields'=>['idp', 'nom_projet']])->toArray();
-        $projectClients = $projetTable->find('list', ['fields'=>['idp', 'Client.idc']])->toArray();
+        $projectClients = $projetTable->find('list', ['fields'=>['idp', 'Client.idc']])->contain(['Client'])->toArray();
         $profilTable = TableRegistry::get('Profil');
         $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
         $activitTable = TableRegistry::get('Activitie');
