@@ -160,7 +160,6 @@ class TempsController extends AppController
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         $fullNameUserAuth = $user->fullname;
 
-        // $this->set(compact('temps'));
         $this->set(compact('week'));
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
@@ -227,7 +226,7 @@ class TempsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
-            // pr($arrayData);exit;
+
             $arrayIdCurrent = array();
             $entities = array();
             $verif = true;
@@ -534,7 +533,7 @@ class TempsController extends AppController
                     }
                     $arraNSem[$y][] = $i;
                 }
-
+                $query = null;
                 $query = $exportableTable->find('all');
                 $andWhere = array();
                 foreach ($arraNSem as $an => $sem) {
@@ -546,7 +545,7 @@ class TempsController extends AppController
                 $periodes = $query->toArray();
 
                 $andWhere = array();
-                if (empty($arrayData['client']) && empty($arrayData['user']) && !empty($periodes)) {
+                if (!empty($periodes)) {
                     foreach ($periodes as $periode) {
                         $lundi = new Date('now');
                         $lundi->setISOdate($periode->annee, $periode->n_sem);
@@ -557,16 +556,24 @@ class TempsController extends AppController
                                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59'),
                                     ];
                     }
-            		$data = $this->Temps->find('all')
+                    $query = null;
+            		$query = $this->Temps->find('all')
                         ->where(['date >=' => $arrayData['date_debut'], 'date <=' => $arrayData['date_fin'], 'validat =' => 1])
-                        ->andwhere(['OR' => $andWhere])
-                        ->toArray();
-                    pr($data);exit;
+                        ->andwhere(['OR' => $andWhere]);
+                    if (!empty($arrayData['client'])) {
+                        $exportableTable = TableRegistry::get('Projet');
+                        $arrayIdProjet = $exportableTable->find('idc')->where(['idc =' => $arrayData['client']])->toArray();
+                        pr($arrayIdProjet);exit;
+                    }
+                    $times = $query->toArray();
                 }
-                if (empty($data)) {
+                if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-            		$this->response->download('export.csv');
+                    $data = getDataFromTimes($times);
+                    pr($data);exit;
+                    $title = 'export';
+            		$this->response->download($title.'.csv');
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter'));
@@ -585,6 +592,17 @@ class TempsController extends AppController
         $this->set(compact('users'));
     }
 
+    public function getDataFromTimes($times=array())
+    {
+        $data = array();
+        if (empty($times) || !is_array($times)) {
+            return $data;
+        }
+        foreach ($times as $time) {
+
+        }
+
+    }
 
     public function isAuthorized($user)
     {
