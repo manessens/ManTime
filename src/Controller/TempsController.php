@@ -559,8 +559,8 @@ class TempsController extends AppController
                     }
             		$data = $this->Temps->find('all')
                         ->where(['date >=' => $arrayData['date_debut'], 'date <=' => $arrayData['date_fin'], 'validat =' => 1])
-                        ->andwhere(['OR' => $andWhere]);
-                        // ->toArray();
+                        ->andwhere(['OR' => $andWhere])
+                        ->toArray();
                     pr($data);exit;
                 }
                 if (empty($data)) {
