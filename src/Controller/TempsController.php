@@ -672,9 +672,9 @@ class TempsController extends AppController
                                 foreach ($arrTime as $type => $time) {
                                     $timebufferMonth = $arrayMonth;
                                     if ($type === 'CA') {
-                                        $timebufferMonth['janvier'] = $time // * prix UO
+                                        $timebufferMonth['janvier'] = $time; // * prix UO
                                     }else{
-                                        $timebufferMonth['janvier'] = $time
+                                        $timebufferMonth['janvier'] = $time;
                                     }
                                     $timebuffer = array_merge($timebuffer, $timebufferMonth)
                                 }
