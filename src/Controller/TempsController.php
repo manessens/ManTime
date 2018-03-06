@@ -628,9 +628,9 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil] = array();
             }
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array($arrayMonth);
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = $arrayMonth;
             }
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']=$time->time;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['janvier']+=$time->time;
 
             return $data;
         }
