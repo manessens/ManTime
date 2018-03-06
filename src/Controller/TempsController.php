@@ -499,7 +499,7 @@ class TempsController extends AppController
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all')->toArray();
+        $clients = $clientTable->find('all')->toArray();
         $clients = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
@@ -562,7 +562,7 @@ class TempsController extends AppController
                         ->andwhere(['OR' => $andWhere]);
                     if (!empty($arrayData['client'])) {
                         $exportableTable = TableRegistry::get('Projet');
-                        $arrayIdProjet = $exportableTable->find('all',['fields' =>'Projet.idc'])->where(['idc =' => $arrayData['client']])->toArray();
+                        $arrayIdProjet = $exportableTable->find('list',['fields' =>'Projet.idc'])->where(['idc =' => $arrayData['client']])->toArray();
                         pr($arrayIdProjet);exit;
                     }
                     $times = $query->toArray();
