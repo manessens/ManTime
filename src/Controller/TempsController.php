@@ -518,6 +518,9 @@ class TempsController extends AppController
                 $arrayData['date_fin'] = FrozenTime::parse($arrayData['date_fin']);
 
                 $data = array();
+                pr($arrayData);
+                pr('----------------------');
+                pr(is_null($arrayData['client']);exit;
                 if (is_null($arrayData['client']) && is_null($arrayData['user'])) {
             		$data = $this->Temps->find('all')
                         // ->where(['date >=' => $arrayData['date_debut']])
