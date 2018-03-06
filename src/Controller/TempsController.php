@@ -563,9 +563,13 @@ class TempsController extends AppController
                     if (!empty($arrayData['client'])) {
                         $exportableTable = TableRegistry::get('Projet');
                         $arrayIdProjet = $exportableTable->find('list',['fields' =>['Projet.idc', 'Projet.idp']])->where(['idc =' => $arrayData['client']])->toArray();
-                        pr($arrayIdProjet);exit;
+                        $query->andWhere(['idp IN' => $arrayIdProjet]);
+                    }
+                    if (!empty($arrayData['user']) {
+                        $query->andWhere(['idu =' => $arrayData['user']]);
                     }
                     $times = $query->toArray();
+                    pr($times);exit;
                 }
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
