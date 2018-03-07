@@ -560,6 +560,7 @@ class TempsController extends AppController
                     if (!empty($arrayData['client'])) {
                         $exportableTable = TableRegistry::get('Projet');
                         $arrayIdProjet = $exportableTable->find('list',['fields' =>['Projet.idc', 'Projet.idp']])->where(['idc =' => $arrayData['client']])->toArray();
+                        pr($arrayIdProjet);exit;
                         $query->andWhere(['idp IN' => $arrayIdProjet]);
                     }
                     if (!empty($arrayData['user']) ){
@@ -597,6 +598,7 @@ class TempsController extends AppController
         $this->set(compact('export'));
         $this->set(compact('clients'));
         $this->set(compact('users'));
+        $this->set('controller', false);
     }
 
     private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false)
