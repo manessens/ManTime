@@ -558,8 +558,8 @@ class TempsController extends AppController
                         ->where(['date >=' => $arrayData['date_debut'], 'date <=' => $arrayData['date_fin'], 'validat =' => 1])
                         ->andwhere(['OR' => $andWhere]);
                     if (!empty($arrayData['client'])) {
-                        $exportableTable = TableRegistry::get('Projet');
-                        $arrayIdProjet = $exportableTable->find('list',['fields' =>'idp'])->where(['idc =' => $arrayData['client']])->toArray();
+                        $ProjetTable = TableRegistry::get('Projet');
+                        $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $arrayData['client']])->toArray();
                         pr($arrayIdProjet);exit;
                         $query->andWhere(['idp IN' => $arrayIdProjet]);
                     }
