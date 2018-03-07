@@ -50,6 +50,10 @@
     height:100% !important;
 }
 
+.panel .panel-body img{
+    height:130px !important;
+}
+
 .semaine{
     background-color: #337ab7 !important;
     width: 65px !important;
