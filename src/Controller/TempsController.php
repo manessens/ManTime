@@ -36,8 +36,7 @@ class TempsController extends AppController
         $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
         $dimanche = clone $lundi;
-        $dimanche->setTime(23, 59, 59);
-        $dimanche->modify('+6 days');
+        $dimanche->modify('+7 days');
 
         $usersTable = TableRegistry::get('Users');
         $idUserAuth = $this->Auth->user('idu');
@@ -46,7 +45,7 @@ class TempsController extends AppController
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi])
-                ->andWhere(['date <=' => $dimanche])
+                ->andWhere(['date <' => $dimanche])
                 ->contain(['Projet' => ['Client']])
                 ->all();
 
@@ -127,12 +126,12 @@ class TempsController extends AppController
                     $query = $this->Temps->find('all')
                         ->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu,
                          'date >=' => $lundi,
-                         'date <=' => $dimanche]);
+                         'date <' => $dimanche]);
                 }else{
                     $query = $this->Temps->find('all')
                         ->where(['idu =' => $user->idu,
                          'date >=' => $lundi,
-                         'date <=' => $dimanche]);
+                         'date <' => $dimanche]);
                 }
                 $listDeletion = $query->toArray();
                 if (!empty($listDeletion)) {
@@ -194,8 +193,7 @@ class TempsController extends AppController
         $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
         $dimanche = clone $lundi;
-        $dimanche->modify('+6 days');
-        $dimanche->setTime(23, 59, 59);
+        $dimanche->modify('+7 days');
 
         $usersTable = TableRegistry::get('Users');
         $idUserAuth = $this->Auth->user('idu');
@@ -210,7 +208,7 @@ class TempsController extends AppController
                     ->where(['idu =' => $userAll->idu])
                     ->andWhere(['validat =' => 1])
                     ->andWhere(['date >=' => $lundi])
-                    ->andWhere(['date <=' => $dimanche])
+                    ->andWhere(['date <' => $dimanche])
                     ->contain(['Projet' => ['Client']])->all();
             $buff = array();
             foreach ($arrayTemps as $temps) {
@@ -300,7 +298,7 @@ class TempsController extends AppController
                     $query = $this->Temps->find('all')
                         ->where(['validat =' => 1,
                          'date >=' => $lundi,
-                         'date <=' => $dimanche]);
+                         'date <' => $dimanche]);
                     if (!empty($arrayIdCurrent)) {
                         $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                     }
@@ -456,7 +454,7 @@ class TempsController extends AppController
         $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
-            ->andWhere(['date_debut <=' => $dimanche])
+            ->andWhere(['date_debut <' => $dimanche])
             ->andWhere(['date_fin >=' => $lundi])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]]);
             pr($particpations);exit;
@@ -542,11 +540,10 @@ class TempsController extends AppController
                         $lundi->setTime(00, 00, 00);
                         $lundi->setISOdate($periode->annee, $periode->n_sem);
                         $dimanche = clone $lundi;
-                        $dimanche->setTime(23, 59, 59);
-                        $dimanche->modify('+6 days');
+                        $dimanche->modify('+7 days');
 
                         $andWhere[] = [ 'date >=' => $lundi,
-                                        'date <=' => $dimanche,
+                                        'date <' => $dimanche,
                                     ];
                     }
                     $query = null;
