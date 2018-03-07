@@ -584,7 +584,7 @@ class TempsController extends AppController
                     $arrayMonth = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'novembre', 'Décembre'];
                     $arrayMonth = array_merge($arrayMonth, $arrayMonth);
                     $arrayMonth = array_merge($arrayMonth, $arrayMonth);
-                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités'], $arrayMonth)
+                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités'], $arrayMonth);
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
