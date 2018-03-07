@@ -671,10 +671,10 @@ class TempsController extends AppController
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO;
 
+            ksort($data[$keyClient]);
+            ksort($data[$keyClient][$keyProject]);
         }
         ksort($data);
-        ksort($data[$keyClient]);
-        ksort($data[$keyClient][$keyProject]);
         $dataLine=array();
         if ($isFitnet) {
             //@TODO mise en page pour fitnet
