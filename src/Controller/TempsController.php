@@ -213,6 +213,7 @@ class TempsController extends AppController
             foreach ($arrayTemps as $temps) {
                 $buff[$temps->n_ligne][] = $temps;
             }
+            pr($lundi);
             pr($userAll->idu);
             pr($arrayTemps);
             pr('----------------------');
