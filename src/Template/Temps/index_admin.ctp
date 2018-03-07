@@ -70,7 +70,7 @@
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
     <?php else: ?>
-        <legend><?= __('Saisie de la semaine #') ?><?= $semaine ?></legend>
+        <legend><?= __('Saisie de la semaine #') ?><?= $semaine ?><?= __(" de l'année ") ?><?= $annee ?></legend>
     <?php endif; ?>
     <?= $this->Form->create() ?>
         <div class="block col-xs-12">

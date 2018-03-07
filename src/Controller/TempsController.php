@@ -213,9 +213,13 @@ class TempsController extends AppController
             foreach ($arrayTemps as $temps) {
                 $buff[$temps->n_ligne][] = $temps;
             }
+            pr($userAll->idu);
+            pr($arrayTemps);
+            pr('----------------------');
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
             $week[$userAll->idu] = $retour[0];
         }
+        pr($week);exit;
 
         $validat = false;
         $exportableTable = TableRegistry::get('Exportable');
@@ -383,16 +387,6 @@ class TempsController extends AppController
     private function getDaysInWeek($buff, $lundi, $dimanche, $idu)
     {
         $week = array();
-        $mardi = clone $lundi;
-        $mardi->modify('+1 days');
-        $mercredi = clone $lundi;
-        $mercredi->modify('+2 days');
-        $jeudi = clone $lundi;
-        $jeudi->modify('+3 days');
-        $vendredi = clone $lundi;
-        $vendredi->modify('+4 days');
-        $samedi = clone $lundi;
-        $samedi->modify('+5 days');
         $validat = false;
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
@@ -673,6 +667,7 @@ class TempsController extends AppController
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
+            ksort($data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]);
         }
         ksort($data);
         $dataLine=array();
