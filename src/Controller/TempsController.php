@@ -667,6 +667,11 @@ class TempsController extends AppController
             }else{
                 $timeUO = $time->time * $arrayMatrice[$keyClient][$keyProfil]['h'];
             }
+            pr($keyUser);
+            pr($keyProfil);
+            pr($keyActivit);
+            pr($time->time);
+            pr('--------------------');
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO;
@@ -674,6 +679,7 @@ class TempsController extends AppController
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
         }
+        pr('END');exit;
         ksort($data);
         $dataLine=array();
         if ($isFitnet) {
