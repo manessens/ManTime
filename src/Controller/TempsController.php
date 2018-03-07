@@ -684,30 +684,38 @@ class TempsController extends AppController
                         foreach ($arrProfil as $profil => $arrActiv) {
                             foreach ($arrActiv as $activit => $arrDate) {
                                 $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
-                                $timebuffer = [];
-                                $timebufferMonth = $arrayMonth;
-                                $UobufferMonth = $arrayMonth;
-                                $CabufferMonth = $arrayMonth;
+                                $timebuffer = array();
+                                $arrayYear = array();
                                 foreach ($arrDate as $date => $arrTime) {
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
-                                        $monthKey = explode('-',$date)[1] -1;
-                                        switch ($type) {
-                                            case 'UO':
-                                                $UobufferMonth[$monthKey] = $time;
-                                                break;
-                                            case 'CA':
-                                                $CabufferMonth[$monthKey] = ($time*$arrayClientPrice[$client]);
-                                                break;
-                                            default:
-                                                $timebufferMonth[$monthKey] = $time;
-                                                break;
+                                        if (in_array($yearKey, $arrayYear)) {
+                                            $monthKey = explode('-',$date)[1] -1;
+                                            switch ($type) {
+                                                case 'UO':
+                                                    $UobufferMonth[$yearKey][$monthKey] = $time;
+                                                    break;
+                                                case 'CA':
+                                                    $CabufferMonth[$yearKey][$monthKey] = ($time*$arrayClientPrice[$client]);
+                                                    break;
+                                                default:
+                                                    $timebufferMonth[$yearKey][$monthKey] = $time;
+                                                    break;
+                                            }
+                                        }else{
+                                            $arrayYear[] = $yearKey;
+                                            $timebufferMonth[$yearKey] = $arrayMonth;
+                                            $UobufferMonth[$yearKey] = $arrayMonth;
+                                            $CabufferMonth[$yearKey] = $arrayMonth;
                                         }
                                     }
                                 }
-                                $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
-                                $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
-                                $timebuffer = array_merge($timebuffer, $timebufferMonth);
+                                sort($arrayYear);
+                                foreach ($arrayYear as $yearValue) {
+                                    $timebufferMonth[$yearValue] = array_merge($timebufferMonth[$yearValue], $UobufferMonth[$yearValue]);
+                                    $timebufferMonth[$yearValue] = array_merge($timebufferMonth[$yearValue], $CabufferMonth[$yearValue]);
+                                    $timebuffer = array_merge($timebuffer, $timebufferMonth[$yearValue]);
+                                }
                                 $dataLine[] = array_merge($buffer, $timebuffer);
                             }
                         }
