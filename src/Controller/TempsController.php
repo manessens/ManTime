@@ -214,7 +214,7 @@ class TempsController extends AppController
                 $buff[$temps->n_ligne][] = $temps;
             }
             pr($lundi);
-            pr($userAll->idu);
+            pr($dimanche);
             pr($arrayTemps);
             pr('----------------------');
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
