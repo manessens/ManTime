@@ -618,8 +618,8 @@ class TempsController extends AppController
         $arrayMatrice = array();
         foreach ($arrayClientMatrice as $client) {
             foreach ($client->matrice->lign_mat as $lign_mat) {
-                $arrayMatrice[$client->idc][$lign_mat->id_profil]['h'] = $lign_mat->heur;
-                $arrayMatrice[$client->idc][$lign_mat->id_profil]['j'] = $lign_mat->jour;
+                $arrayMatrice[$clients[$client->idc]][$profils[$lign_mat->id_profil]]['h'] = $lign_mat->heur;
+                $arrayMatrice[$clients[$client->idc]][$profils[$lign_mat->id_profil]]['j'] = $lign_mat->jour;
             }
         }
         pr($arrayMatrice);exit;
