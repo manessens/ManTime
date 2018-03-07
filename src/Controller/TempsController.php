@@ -685,21 +685,21 @@ class TempsController extends AppController
                     foreach ($arrUser as $user => $arrProfil) {
                         foreach ($arrProfil as $profil => $arrActiv) {
                             foreach ($arrActiv as $activit => $arrDate) {
+                                $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
                                 foreach ($arrDate as $date => $arrTime) {
-                                    $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
                                     $timebuffer = [];
+                                    $timebufferMonth = $arrayMonth;
                                     foreach ($arrTime as $type => $time) {
-                                        $timebufferMonth = $arrayMonth;
                                         $monthKey = explode('-',$date)[1] -1;
                                         if ($type === 'CA') {
-                                            $timebufferMonth[$monthKey] = $time*$arrayClientPrice[$client];
+                                            $timebufferMonth[$monthKey] += ($time*$arrayClientPrice[$client]);
                                         }else{
-                                            $timebufferMonth[$monthKey] = $time;
+                                            $timebufferMonth[$monthKey] += $time;
                                         }
-                                        $timebuffer = array_merge($timebuffer, $timebufferMonth);
                                     }
-                                    $dataLine[] = array_merge($buffer, $timebuffer);
+                                    $timebuffer = array_merge($timebuffer, $timebufferMonth);
                                 }
+                                $dataLine[] = array_merge($buffer, $timebuffer);
                             }
                         }
                     }
