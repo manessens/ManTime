@@ -612,6 +612,11 @@ class TempsController extends AppController
         $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
         $activitTable = TableRegistry::get('Activitie');
         $activits = $activitTable->find('list', ['fields'=>['ida', 'nom_activit']])->toArray();
+
+        $clientTable = TableRegistry::get('Client');
+        $arrayClientMatrice = $clientTable->find('all')->contain(['Matrice'=>['LignMat']])->toArray();
+        pr($arrayClientMatrice);exit;
+
         $data = array();
         if (empty($times) || !is_array($times)) {
             return $data;
@@ -659,27 +664,30 @@ class TempsController extends AppController
         ksort($data[$keyClient]);
         ksort($data[$keyClient][$keyProject]);
         $dataLine=array();
-        ///@TODO probleme génération du triple mois
-        $arrayMonth = ['', '', '', '', '', '', '', '', '', '', '', ''];
-        foreach ($data as $client => $arrProj) {
-            foreach ($arrProj as $projet => $arrUser) {
-                foreach ($arrUser as $user => $arrProfil) {
-                    foreach ($arrProfil as $profil => $arrActiv) {
-                        foreach ($arrActiv as $activit => $arrDate) {
-                            foreach ($arrDate as $date => $arrTime) {
-                                $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
-                                $timebuffer = [];
-                                foreach ($arrTime as $type => $time) {
-                                    $timebufferMonth = $arrayMonth;
-                                    $monthKey = explode('-',$date)[1] -1;
-                                    if ($type === 'CA') {
-                                        $timebufferMonth[$monthKey] = $time; // * prix UO
-                                    }else{
-                                        $timebufferMonth[$monthKey] = $time;
+        if ($isFitnet) {
+            //@TODO mise en page pour fitnet
+        }else{
+            $arrayMonth = ['', '', '', '', '', '', '', '', '', '', '', ''];
+            foreach ($data as $client => $arrProj) {
+                foreach ($arrProj as $projet => $arrUser) {
+                    foreach ($arrUser as $user => $arrProfil) {
+                        foreach ($arrProfil as $profil => $arrActiv) {
+                            foreach ($arrActiv as $activit => $arrDate) {
+                                foreach ($arrDate as $date => $arrTime) {
+                                    $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
+                                    $timebuffer = [];
+                                    foreach ($arrTime as $type => $time) {
+                                        $timebufferMonth = $arrayMonth;
+                                        $monthKey = explode('-',$date)[1] -1;
+                                        if ($type === 'CA') {
+                                            $timebufferMonth[$monthKey] = $time; // * prix UO
+                                        }else{
+                                            $timebufferMonth[$monthKey] = $time;
+                                        }
+                                        $timebuffer = array_merge($timebuffer, $timebufferMonth);
                                     }
-                                    $timebuffer = array_merge($timebuffer, $timebufferMonth);
+                                    $dataLine[] = array_merge($buffer, $timebuffer);
                                 }
-                                $dataLine[] = array_merge($buffer, $timebuffer);
                             }
                         }
                     }
