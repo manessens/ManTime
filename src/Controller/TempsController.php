@@ -560,7 +560,6 @@ class TempsController extends AppController
                     if (!empty($arrayData['client'])) {
                         $ProjetTable = TableRegistry::get('Projet');
                         $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $arrayData['client']])->toArray();
-                        pr($arrayIdProjet);exit;
                         $query->andWhere(['idp IN' => $arrayIdProjet]);
                     }
                     if (!empty($arrayData['user']) ){
