@@ -689,24 +689,23 @@ class TempsController extends AppController
                                 foreach ($arrDate as $date => $arrTime) {
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
-                                        if (in_array($yearKey, $arrayYear)) {
-                                            $monthKey = explode('-',$date)[1] -1;
-                                            switch ($type) {
-                                                case 'UO':
-                                                    $UobufferMonth[$yearKey][$monthKey] = $time;
-                                                    break;
-                                                case 'CA':
-                                                    $CabufferMonth[$yearKey][$monthKey] = ($time*$arrayClientPrice[$client]);
-                                                    break;
-                                                default:
-                                                    $timebufferMonth[$yearKey][$monthKey] = $time;
-                                                    break;
-                                            }
-                                        }else{
+                                        if (!in_array($yearKey, $arrayYear)) {
                                             $arrayYear[] = $yearKey;
                                             $timebufferMonth[$yearKey] = $arrayMonth;
                                             $UobufferMonth[$yearKey] = $arrayMonth;
                                             $CabufferMonth[$yearKey] = $arrayMonth;
+                                        }
+                                        $monthKey = explode('-',$date)[1] -1;
+                                        switch ($type) {
+                                            case 'UO':
+                                                $UobufferMonth[$yearKey][$monthKey] = $time;
+                                                break;
+                                            case 'CA':
+                                                $CabufferMonth[$yearKey][$monthKey] = ($time*$arrayClientPrice[$client]);
+                                                break;
+                                            default:
+                                                $timebufferMonth[$yearKey][$monthKey] = $time;
+                                                break;
                                         }
                                     }
                                 }
