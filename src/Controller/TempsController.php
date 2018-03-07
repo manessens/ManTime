@@ -454,7 +454,7 @@ class TempsController extends AppController
         $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
-            ->andWhere(['date_debut <' => $dimanche->i18nFormat('YYYY-MM-dd')])
+            ->andWhere(['date_debut <' => $dimanche->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT])])
             ->andWhere(['date_fin >=' => $lundi->i18nFormat('YYYY-MM-dd')])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]]);//->all();
                     pr($dimanche);
