@@ -615,7 +615,14 @@ class TempsController extends AppController
 
         $clientTable = TableRegistry::get('Client');
         $arrayClientMatrice = $clientTable->find('all')->contain(['Matrice'=>['LignMat']])->toArray();
-        pr($arrayClientMatrice);exit;
+        $arrayMatrice = array();
+        foreach ($arrayClientMatrice as $client) {
+            foreach ($client->matrice->lign_mat as $lign_mat) {
+                $arrayMatrice[$client->idc][$lign_mat->id_profil]['h'] = $lign_mat->heur;
+                $arrayMatrice[$client->idc][$lign_mat->id_profil]['j'] = $lign_mat->jour;
+            }
+        }
+        pr($arrayMatrice);exit;
 
         $data = array();
         if (empty($times) || !is_array($times)) {
