@@ -662,7 +662,7 @@ class TempsController extends AppController
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
-            if ($time->time = 1) {
+            if ($time->time == 1) {
                 $timeUO =  $arrayMatrice[$keyClient][$keyProfil]['j'];
             }else{
                 $timeUO = $time->time * $arrayMatrice[$keyClient][$keyProfil]['h'];
