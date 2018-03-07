@@ -207,15 +207,14 @@ class TempsController extends AppController
                     ->andWhere(['validat =' => 1])
                     ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
                     ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
-                    ->contain(['Projet' => ['Client']])
-                    ->all();
+                    ->contain(['Projet' => ['Client']]);
+
+                    pr($arrayTemps);exit;
+                    $arrayTemps->all();
             $buff = array();
             foreach ($arrayTemps as $temps) {
                 $buff[$temps->n_ligne][] = $temps;
             }
-            pr($lundi);
-            pr($dimanche);
-            pr($arrayTemps);
             pr('----------------------');
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
             $week[$userAll->idu] = $retour[0];
