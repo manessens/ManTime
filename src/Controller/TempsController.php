@@ -520,6 +520,10 @@ class TempsController extends AppController
                 $anneeDebut = (int)date('Y', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-').$arrayData['date_debut']->year));
                 $semaineFin = (int)date('W', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-').$arrayData['date_fin']->year));
                 $anneeFin = (int)date('Y', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-').$arrayData['date_fin']->year));
+                pr($semaineDebut);
+                pr($anneeDebut);
+                pr($semaineFin);
+                pr($anneeFin);exit;
                 $arraNSem = array($anneeDebut => array());
                 $y=$anneeDebut;
                 for ($i=$semaineDebut; ($i <= $semaineFin || $y < $anneeFin) ; $i++) {
@@ -549,8 +553,8 @@ class TempsController extends AppController
                         $dimanche = clone $lundi;
                         $dimanche->modify('+7 days');
 
-                        $andWhere[] = [ 'date >=' => $lundi->year.$lundi->i18nFormat('-MM-dd'),
-                                        'date <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd'),
+                        $andWhere[] = [ 'date >=' => $lundi,
+                                        'date <' => $dimanche,
                                     ];
                     }
                     $query = null;
