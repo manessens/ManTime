@@ -480,7 +480,7 @@ class TempsController extends AppController
             }
         }
 
-
+        pr($arrayRetour);exit;
         return $arrayRetour;
     }
 
