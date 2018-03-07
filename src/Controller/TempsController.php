@@ -194,8 +194,8 @@ class TempsController extends AppController
         $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
         $dimanche = clone $lundi;
-        $dimanche->setTime(23, 59, 59);
         $dimanche->modify('+6 days');
+        $dimanche->setTime(23, 59, 59);
 
         $usersTable = TableRegistry::get('Users');
         $idUserAuth = $this->Auth->user('idu');
