@@ -207,8 +207,8 @@ class TempsController extends AppController
             $arrayTemps = $this->Temps->find('all')
                     ->where(['idu =' => $userAll->idu])
                     ->andWhere(['validat =' => 1])
-                    ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-                    ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
+                    ->andWhere(['date >=' => $lundi])
+                    ->andWhere(['date <=' => $dimanche])
                     ->contain(['Projet' => ['Client']]);
 
                     pr($lundi);
