@@ -189,8 +189,10 @@ class TempsController extends AppController
             $annee = date('Y');
         }
         $lundi = new Date('now');
+        $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
         $dimanche = clone $lundi;
+        $dimanche->setTime(23, 59, 59);
         $dimanche->modify('+6 days');
 
         $usersTable = TableRegistry::get('Users');
@@ -205,8 +207,8 @@ class TempsController extends AppController
             $arrayTemps = $this->Temps->find('all')
                     ->where(['idu =' => $userAll->idu])
                     ->andWhere(['validat =' => 1])
-                    ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-                    ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
+                    ->andWhere(['date >=' => $lundi->time])
+                    ->andWhere(['date <=' => $dimanche->time])
                     ->contain(['Projet' => ['Client']]);
 
                     pr($lundi);
