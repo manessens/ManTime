@@ -506,8 +506,8 @@ class TempsController extends AppController
                 $data = array();
                 $periodes = array();
                 $exportableTable = TableRegistry::get('Exportable');
-                $semaineDebut = (int)date('W', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-').$arrayData['date_fin']->year));
-                $anneeDebut = (int)date('Y', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-').$arrayData['date_fin']->year));
+                $semaineDebut = (int)date('W', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-').$arrayData['date_debut']->year));
+                $anneeDebut = (int)date('Y', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-').$arrayData['date_debut']->year));
                 $semaineFin = (int)date('W', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-').$arrayData['date_fin']->year));
                 $anneeFin = (int)date('Y', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-').$arrayData['date_fin']->year));
                 pr($anneeDebut);
