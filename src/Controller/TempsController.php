@@ -212,7 +212,7 @@ class TempsController extends AppController
                     ->contain(['Projet' => ['Client']]);
 
                     pr($lundi);
-                    pr($arrayTemps);exit;
+                    pr($arrayTemps);
                     $arrayTemps->all();
             $buff = array();
             foreach ($arrayTemps as $temps) {
