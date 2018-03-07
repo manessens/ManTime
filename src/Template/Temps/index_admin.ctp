@@ -82,7 +82,10 @@
                     <?php else: ?>
                         <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', $semaine-1, $annee], ['class' => 'btn btn-success']) ?>
                     <?php endif; ?>
-                    <?php echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM')); ?>
+                    <?php
+                        $dimanche->modify('-1 day');
+                        echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM'));
+                    ?>
                     <?php if ($semaine+1 > 52 ): ?>
                         <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', 1, $annee+1], ['class' => 'btn btn-success']) ?>
                     <?php else: ?>
