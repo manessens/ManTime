@@ -4,22 +4,22 @@
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Validation semaine', 'content'=>'une image de calendrier', 'img'=>'calendario.png']),
+            ['title' => 'Validation semaine', 'content'=>'Gestions des temps par semaines', 'img'=>'calendario.png']),
             ['controller' => 'Temps', 'action' => 'index-admin'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Export', 'content'=>'une image de fichier']),
+            ['title' => 'Export', 'content'=>'Export csv', 'img'=>'24543.png']),
             ['controller' => 'Temps', 'action' => 'export'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Consultants', 'content'=>'une image un jour']),
+            ['title' => 'Consultants', 'content'=>'Gestions des consultants', 'img'=>'Avatar_homme.png']),
             ['controller' => 'Users', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Matrices', 'content'=>'une autre image un autre jour']),
+            ['title' => 'Matrices', 'content'=>'Gestion des matrices', 'img'=>'matrice-toeplitz.gif']),
             ['controller' => 'Matrice', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
