@@ -460,7 +460,7 @@ class TempsController extends AppController
                     pr($dimanche);
                     pr($lundi);
                     pr($particpations);
-                    pr($particpations->all());exit;
+                    pr($particpations->toArray());exit;
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet;
