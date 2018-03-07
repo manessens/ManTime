@@ -484,7 +484,6 @@ class TempsController extends AppController
         $query = $this->Temps->find('all')
             ->where(['date <=' => $currentYear->year.'-01-01']);
         $listDeletion = $query->toArray();
-    pr($listDeletion);exit;
         if (!empty($listDeletion)) {
             foreach ($listDeletion as $entity) {
                 $this->Temps->delete($entity);
@@ -507,7 +506,7 @@ class TempsController extends AppController
             $users[$user->idu] = $user->fullname;
         }
         if ($this->request->is(['post'])) {
-            $this->clearDtb();
+            // $this->clearDtb();
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
@@ -572,7 +571,6 @@ class TempsController extends AppController
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet']);
-                    // pr($data);exit;
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
