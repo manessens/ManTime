@@ -549,8 +549,8 @@ class TempsController extends AppController
                         $dimanche = clone $lundi;
                         $dimanche->modify('+7 days');
 
-                        $andWhere[] = [ 'date >=' => $lundi,
-                                        'date <' => $dimanche,
+                        $andWhere[] = [ 'date >=' => $lundi->year.$lundi->i18nFormat('-MM-dd'),
+                                        'date <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd'),
                                     ];
                     }
                     $query = null;
