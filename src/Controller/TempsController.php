@@ -457,7 +457,6 @@ class TempsController extends AppController
             ->andWhere(['date_debut <' => $dimanche])
             ->andWhere(['date_fin >=' => $lundi])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]]);
-            pr($particpations);exit;
         $particpations->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
