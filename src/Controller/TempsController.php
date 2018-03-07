@@ -480,7 +480,7 @@ class TempsController extends AppController
 
     private function clearDtb(){
         $currentYear = new Date('Now');
-        $currentYear->modify('-2 years')
+        $currentYear->modify('-2 years');
         pr($currentYear);exit;
         $query = $this->Temps->find('all')
             ->where(['date <=' => $currentYear->year.'-01-01']);
