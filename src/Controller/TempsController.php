@@ -666,6 +666,9 @@ class TempsController extends AppController
                 $timeUO =  $arrayMatrice[$keyClient][$keyProfil]['j'];
             }else{
                 $timeUO = $time->time * $arrayMatrice[$keyClient][$keyProfil]['h'];
+                pr($time->time);
+                pr($time->time * $arrayMatrice[$keyClient][$keyProfil]['h']);
+                pr($arrayMatrice[$keyClient][$keyProfil]['h']);exit;
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
