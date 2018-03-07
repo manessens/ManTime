@@ -659,8 +659,8 @@ class TempsController extends AppController
         ksort($data[$keyClient]);
         ksort($data[$keyClient][$keyProject]);
         $dataLine=array();
-        $arrayMonth = ['Janvier'=>0, 'Février'=>0, 'Mars'=>0, 'Avril'=>0, 'Mai'=>0, 'Juin'=>0, 'Juillet'=>0, 'Août'=>0,
-         'Septembre'=>0, 'Octobre'=>0, 'novembre'=>0, 'Décembre'=>0];
+        ///@TODO probleme génération du triple mois
+        $arrayMonth = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'novembre', 'Décembre'];
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 foreach ($arrUser as $user => $arrProfil) {
@@ -672,9 +672,9 @@ class TempsController extends AppController
                                 foreach ($arrTime as $type => $time) {
                                     $timebufferMonth = $arrayMonth;
                                     if ($type === 'CA') {
-                                        $timebufferMonth['janvier'] = $time; // * prix UO
+                                        $timebufferMonth[0] = $time; // * prix UO
                                     }else{
-                                        $timebufferMonth['janvier'] = $time;
+                                        $timebufferMonth[0] = $time;
                                     }
                                     $timebuffer = array_merge($timebuffer, $timebufferMonth);
                                 }
