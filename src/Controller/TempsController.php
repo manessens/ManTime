@@ -616,13 +616,14 @@ class TempsController extends AppController
         $clientTable = TableRegistry::get('Client');
         $arrayClientMatrice = $clientTable->find('all')->contain(['Matrice'=>['LignMat']])->toArray();
         $arrayMatrice = array();
+        $arrayClientPrice = array();
         foreach ($arrayClientMatrice as $client) {
+            $arrayClientPrice[$client->nom_client]= $client->prix;
             foreach ($client->matrice->lign_mat as $lign_mat) {
-                $arrayMatrice[$clients[$client->idc]][$profils[$lign_mat->id_profil]]['h'] = $lign_mat->heur;
-                $arrayMatrice[$clients[$client->idc]][$profils[$lign_mat->id_profil]]['j'] = $lign_mat->jour;
+                $arrayMatrice[$client->nom_client][$profils[$lign_mat->id_profil]]['h'] = $lign_mat->heur;
+                $arrayMatrice[$client->nom_client][$profils[$lign_mat->id_profil]]['j'] = $lign_mat->jour;
             }
         }
-        pr($arrayMatrice);exit;
 
         $data = array();
         if (empty($times) || !is_array($times)) {
@@ -658,9 +659,9 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
             if ($time->time = 1) {
-                $timeUO = $time->time; // = matrice/J
+                $timeUO =  $arrayMatrice[$keyClient][$keyProfil]['j'];
             }else{
-                $timeUO = $time->time; // > *matrice/h
+                $timeUO = $time->time * $arrayMatrice[$keyClient][$keyProfil]['h'];
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
@@ -687,7 +688,7 @@ class TempsController extends AppController
                                         $timebufferMonth = $arrayMonth;
                                         $monthKey = explode('-',$date)[1] -1;
                                         if ($type === 'CA') {
-                                            $timebufferMonth[$monthKey] = $time; // * prix UO
+                                            $timebufferMonth[$monthKey] = $time*$arrayClientPrice[$client];
                                         }else{
                                             $timebufferMonth[$monthKey] = $time;
                                         }
