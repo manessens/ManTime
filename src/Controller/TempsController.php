@@ -574,16 +574,20 @@ class TempsController extends AppController
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet']);
-                    pr($data);exit;
+                    // pr($data);exit;
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
                         $title = 'export';
                     }
             		$this->response->download($title.'.csv');
+                    $arrayMonth = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'novembre', 'Décembre'];
+                    $arrayMonth = array_merge($arrayMonth, $arrayMonth);
+                    $arrayMonth = array_merge($arrayMonth, $arrayMonth);
+                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités'], $arrayMonth)
             		$_serialize = 'data';
                     $_delimiter = ';';
-               		$this->set(compact('data', '_serialize', '_delimiter'));
+               		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
             		$this->viewBuilder()->className('CsvView.Csv');
             		return;
                 }
