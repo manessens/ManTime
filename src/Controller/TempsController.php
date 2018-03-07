@@ -33,8 +33,10 @@ class TempsController extends AppController
             $annee = date('Y');
         }
         $lundi = new Date('now');
+        $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
         $dimanche = clone $lundi;
+        $dimanche->setTime(23, 59, 59);
         $dimanche->modify('+6 days');
 
         $usersTable = TableRegistry::get('Users');
@@ -43,8 +45,8 @@ class TempsController extends AppController
 
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
-                ->andWhere(['date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00')])
-                ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
+                ->andWhere(['date >=' => $lundi])
+                ->andWhere(['date <=' => $dimanche])
                 ->contain(['Projet' => ['Client']])
                 ->all();
 
@@ -124,13 +126,13 @@ class TempsController extends AppController
                 if (!empty($arrayIdCurrent)) {
                     $query = $this->Temps->find('all')
                         ->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu,
-                         'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
+                         'date >=' => $lundi,
+                         'date <=' => $dimanche]);
                 }else{
                     $query = $this->Temps->find('all')
                         ->where(['idu =' => $user->idu,
-                         'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                         'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
+                         'date >=' => $lundi,
+                         'date <=' => $dimanche]);
                 }
                 $listDeletion = $query->toArray();
                 if (!empty($listDeletion)) {
@@ -209,20 +211,14 @@ class TempsController extends AppController
                     ->andWhere(['validat =' => 1])
                     ->andWhere(['date >=' => $lundi])
                     ->andWhere(['date <=' => $dimanche])
-                    ->contain(['Projet' => ['Client']]);
-
-                    pr($lundi);
-                    pr($arrayTemps);
-                    $arrayTemps->all();
+                    ->contain(['Projet' => ['Client']])->all();
             $buff = array();
             foreach ($arrayTemps as $temps) {
                 $buff[$temps->n_ligne][] = $temps;
             }
-            pr('----------------------');
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
             $week[$userAll->idu] = $retour[0];
         }
-        pr($week);exit;
 
         $validat = false;
         $exportableTable = TableRegistry::get('Exportable');
@@ -301,16 +297,12 @@ class TempsController extends AppController
             if ($verif) {
                 //Deletion
                 if (is_null($isLocked)) {
+                    $query = $this->Temps->find('all')
+                        ->where(['validat =' => 1,
+                         'date >=' => $lundi,
+                         'date <=' => $dimanche]);
                     if (!empty($arrayIdCurrent)) {
-                        $query = $this->Temps->find('all')
-                            ->where(['idt NOT IN' => $arrayIdCurrent, 'validat =' => 1,
-                             'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                             'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
-                    }else{
-                        $query = $this->Temps->find('all')
-                            ->where(['validat =' => 1,
-                             'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                             'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')]);
+                        $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                     }
                     $listDeletion = $query->toArray();
                     if (!empty($listDeletion)) {
@@ -464,8 +456,8 @@ class TempsController extends AppController
         $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
-            ->andWhere(['date_debut <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
-            ->andWhere(['date_fin >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:0')])
+            ->andWhere(['date_debut <=' => $dimanche])
+            ->andWhere(['date_fin >=' => $lundi])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
@@ -545,12 +537,14 @@ class TempsController extends AppController
                 if (!empty($periodes)) {
                     foreach ($periodes as $periode) {
                         $lundi = new Date('now');
+                        $lundi->setTime(00, 00, 00);
                         $lundi->setISOdate($periode->annee, $periode->n_sem);
                         $dimanche = clone $lundi;
+                        $dimanche->setTime(23, 59, 59);
                         $dimanche->modify('+6 days');
 
-                        $andWhere[] = [ 'date >=' => $lundi->i18nFormat('YYYY-MM-dd 00:00:00'),
-                                        'date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59'),
+                        $andWhere[] = [ 'date >=' => $lundi,
+                                        'date <=' => $dimanche,
                                     ];
                     }
                     $query = null;
