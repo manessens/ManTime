@@ -4,7 +4,7 @@
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Saisie de la semaine', 'content'=>'une image de calendrier']),
+            ['title' => 'Saisie de la semaine', 'content'=>'Saisie des semaines', 'img'=>'calendario.png']),
             ['controller' => 'Temps', 'action' => 'index'],
             ['escape' => false]); ?>
     </div>
