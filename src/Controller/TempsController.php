@@ -209,6 +209,7 @@ class TempsController extends AppController
                     ->andWhere(['date <=' => $dimanche->i18nFormat('YYYY-MM-dd 23:59:59')])
                     ->contain(['Projet' => ['Client']]);
 
+                    pr($lundi);
                     pr($arrayTemps);exit;
                     $arrayTemps->all();
             $buff = array();
