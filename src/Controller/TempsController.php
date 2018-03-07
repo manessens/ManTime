@@ -457,8 +457,8 @@ class TempsController extends AppController
             ->andWhere(['date_debut <' => $dimanche->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT])])
             ->andWhere(['date_fin >=' => $lundi->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT])])
             ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]]);//->all();
-                    pr($dimanche);
-                    pr($lundi);
+                    pr($dimanche->year);
+                    pr($lundi->year);
                     pr($particpations);
                     pr($particpations->all());exit;
         foreach ($particpations as $participant) {
