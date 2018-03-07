@@ -4,7 +4,7 @@
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Validation semaine', 'content'=>'une image de calendrier']),
+            ['title' => 'Validation semaine', 'content'=>'une image de calendrier', 'img'=>'calendario.png']),
             ['controller' => 'Temps', 'action' => 'index-admin'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(

@@ -4,7 +4,7 @@
             <?= $title ?>
         </div>
         <div class="panel-body">
-            <?= $content ?>
+            <?php echo $this->Html->image($img, ['alt' => $content]); ?>
         </div>
     </div>
 </div>
