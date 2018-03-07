@@ -454,13 +454,9 @@ class TempsController extends AppController
         $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
         $particpations = $participantTable->find('all')
             ->where(['idu =' => $idu])
-            ->andWhere(['date_debut <' => $dimanche->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT])])
-            ->andWhere(['date_fin >=' => $lundi->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT])])
-            ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]]);//->all();
-                    pr($dimanche->year);
-                    pr($lundi->year);
-                    pr($particpations);
-                    pr($particpations->all());exit;
+            ->andWhere(['date_debut <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd')])
+            ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')])
+            ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet;
