@@ -122,16 +122,12 @@ class TempsController extends AppController
             }
             if ($verif) {
                 //Deletion
+                $query = $this->Temps->find('all')
+                    ->where(['idu =' => $user->idu,
+                     'date >=' => $lundi,
+                     'date <' => $dimanche]);
                 if (!empty($arrayIdCurrent)) {
-                    $query = $this->Temps->find('all')
-                        ->where(['idt  NOT IN' => $arrayIdCurrent, 'idu =' => $user->idu,
-                         'date >=' => $lundi,
-                         'date <' => $dimanche]);
-                }else{
-                    $query = $this->Temps->find('all')
-                        ->where(['idu =' => $user->idu,
-                         'date >=' => $lundi,
-                         'date <' => $dimanche]);
+                    $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                 }
                 $listDeletion = $query->toArray();
                 if (!empty($listDeletion)) {
@@ -482,6 +478,20 @@ class TempsController extends AppController
         return $arrayRetour;
     }
 
+    private function clearDtb(){
+        $currentYear = new Date('Now');
+        $currentYear->modify('-2 years')
+        pr($currentYear);exit;
+        $query = $this->Temps->find('all')
+            ->where(['date <=' => $currentYear->year.'-01-01']);
+        $listDeletion = $query->toArray();
+        if (!empty($listDeletion)) {
+            foreach ($listDeletion as $entity) {
+                $this->Temps->delete($entity);
+            }
+        }
+    }
+
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
@@ -497,6 +507,7 @@ class TempsController extends AppController
             $users[$user->idu] = $user->fullname;
         }
         if ($this->request->is(['post'])) {
+            $this->clearDtb();
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
@@ -590,7 +601,7 @@ class TempsController extends AppController
         $this->set(compact('users'));
     }
 
-    public function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false)
+    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false)
     {
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
@@ -641,10 +652,11 @@ class TempsController extends AppController
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array();
             }
+            $dateTime = $time->date;
             if ($isFitnet) {
-                $keyDate = $time->date->i18nFormat('YYYY-MM-dd');
+                $keyDate = $dateTime->year.'-'.$dateTime->month.'-'.$dateTime->day;
             }else{
-                $keyDate = $time->date->i18nFormat('YYYY-MM');
+                $keyDate = $dateTime->year.'-'.$dateTime->month;
             }
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
@@ -680,6 +692,7 @@ class TempsController extends AppController
                                 $CabufferMonth = $arrayMonth;
                                 foreach ($arrDate as $date => $arrTime) {
                                     foreach ($arrTime as $type => $time) {
+                                        $yearKey = explode('-',$date)[0];
                                         $monthKey = explode('-',$date)[1] -1;
                                         switch ($type) {
                                             case 'UO':
