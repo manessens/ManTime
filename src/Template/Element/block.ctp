@@ -4,7 +4,13 @@
             <?= $title ?>
         </div>
         <div class="panel-body">
-            <?php echo $this->Html->image($img, ['alt' => $content]); ?>
+            <?php
+                if (isset($img)) {
+                    echo $this->Html->image($img, ['alt' => $content]);
+                }else{
+                    echo $content;
+                }
+             ?>
         </div>
     </div>
 </div>
