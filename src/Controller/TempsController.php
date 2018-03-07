@@ -483,8 +483,8 @@ class TempsController extends AppController
         $currentYear->modify('-2 years');
         $query = $this->Temps->find('all')
             ->where(['date <=' => $currentYear->year.'-01-01']);
-        pr($query);exit;
         $listDeletion = $query->toArray();
+    pr($listDeletion);exit;
         if (!empty($listDeletion)) {
             foreach ($listDeletion as $entity) {
                 $this->Temps->delete($entity);
