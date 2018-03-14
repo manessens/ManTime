@@ -153,9 +153,12 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    echo $this->requestAction('Temps/getProjectName/'.$line['idp']);
+                                    if (array_key_exists($line['idp'], $projects)) {
+                                        echo $projects[$line['idp']];
+                                    }else{
+                                        echo $this->requestAction('Temps/getProjectName/'.$line['idp']);
+                                    }
                                 ?>
-                                <?php echo $projects[$line['idp']]; ?>
                             </div>
                             <?php else: ?>
                             <?php
