@@ -479,7 +479,7 @@ class TempsController extends AppController
     }
 
     public function getProjectName($id = null){
-        return $this->response->withStringBody("prout");
+        return $this->response->withStringBody("prout ".$id);
     }
 
     private function clearDtb(){
