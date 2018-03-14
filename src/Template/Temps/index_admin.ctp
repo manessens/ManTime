@@ -154,10 +154,7 @@
                             <div>
                                 <?php
                                     $parametre = $line['idp'];
-                                    $ec = $this->requestAction(array( 'controller' => 'Temps',
-                                                        'action' => 'getProjectName', 'id' => 'test'
-
-                                                    ));
+                                    $ec = $this->requestAction(['controller'=>'Temps','action' => 'getProjectName', 'prout']);
                                     echo $ec
                                 ?>
                                 <?php echo $projects[$line['idp']]; ?>
