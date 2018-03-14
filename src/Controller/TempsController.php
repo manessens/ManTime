@@ -480,7 +480,7 @@ class TempsController extends AppController
 
     public function getProjectName($id){
         $projetTable = TableRegistry::get('Projet');
-        $idp = split('.', $id)[2];
+        $idp = explode('.', $id)[2];
         $poject = $projetTable->find('list',['fields' =>['idp', 'nom_projet']])->where(['idp =' => $idp])->first();
         pr($poject);exit;
         return $this->response->withStringBody("prout ");
