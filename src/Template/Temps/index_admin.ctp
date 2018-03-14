@@ -153,7 +153,7 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    $parametre = $projects[$line['idp']];
+                                    $parametre = $line['idp'];
                                     $ec = $this->requestAction(array( 'controller' => 'Temps',
                                                         'action' => 'getProjectName',
                                                         $parametre
