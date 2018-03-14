@@ -742,7 +742,7 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index']) ) {
+        if (in_array($action, ['index', 'getProjectName']) ) {
             return true;
         }
 
