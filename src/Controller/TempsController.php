@@ -481,7 +481,7 @@ class TempsController extends AppController
     public function getProjectName($id){
         $projetTable = TableRegistry::get('Projet');
         $idp = explode('.', $id)[2];
-        $project = $projetTable->get($idp)->first();
+        $project = $projetTable->get($idp);
         return $this->response->withStringBody($project->nom_projet);
     }
 
