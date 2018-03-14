@@ -478,6 +478,10 @@ class TempsController extends AppController
         return $arrayRetour;
     }
 
+    public function getProjectName($id){
+        return "prout";
+    }
+
     private function clearDtb(){
         $currentYear = new Date('Now');
         $currentYear->modify('-2 years');

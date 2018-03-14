@@ -152,6 +152,14 @@
                         <td scope="col" class="cel_projet">
                             <?php if ($validat): ?>
                             <div>
+                                <?php
+
+                                    $ec = $this->requestAction(array( 'controller' => 'Temps',
+                                                        'action' => 'getProjectName',
+                                                        $projects[$line['idp']]
+                                                    ));
+                                    echo $ech
+                                ?>
                                 <?php echo $projects[$line['idp']]; ?>
                             </div>
                             <?php else: ?>
