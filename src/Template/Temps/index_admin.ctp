@@ -155,9 +155,9 @@
                                 <?php
                                     $parametre = $line['idp'];
                                     $ec = $this->requestAction(array( 'controller' => 'Temps',
-                                                        'action' => 'getProjectName',
+                                                        'action' => 'getProjectName', 'id' => 'test'
 
-                                                    ),'test');
+                                                    ));
                                     echo $ec
                                 ?>
                                 <?php echo $projects[$line['idp']]; ?>
