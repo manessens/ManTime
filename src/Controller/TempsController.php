@@ -485,6 +485,27 @@ class TempsController extends AppController
         return $this->response->withStringBody($project->nom_projet);
     }
 
+    public function getClientName($id){
+        $clientTable = TableRegistry::get('Client');
+        $idc = explode('.', $id)[1];
+        $client = $projetTable->get($idc);
+        return $this->response->withStringBody($client->nom_client);
+    }
+
+    public function getProfilName($id){
+        $profilTable = TableRegistry::get('Profil');
+        $idprof = explode('.', $id)[1];
+        $profil = $profilTable->get($idprof);
+        return $this->response->withStringBody($profil->nom_profil);
+    }
+
+    public function getActivitieName($id){
+        $actTable = TableRegistry::get('Activitie');
+        $ida = explode('.', $id)[1];
+        $act = $actTable->get($ida);
+        return $this->response->withStringBody($act->nom_activit);
+    }
+
     private function clearDtb(){
         $currentYear = new Date('Now');
         $currentYear->modify('-2 years');

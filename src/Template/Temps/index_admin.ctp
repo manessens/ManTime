@@ -141,7 +141,13 @@
                         <td scope="col" class="cel_client">
                             <?php if ($validat): ?>
                             <div>
-                                <?php echo $clients[$line['idc']]; ?>
+                                <?php
+                                    if (array_key_exists($line['idc'], $clients)) {
+                                        echo $clients[$line['idc']];
+                                    }else{
+                                        echo $this->requestAction('Temps/getClientName/'.$line['idc']);
+                                    }
+                                ?>
                             </div>
                             <?php else: ?>
                             <?php
@@ -169,7 +175,13 @@
                         <td scope="col" class="cel_profil">
                             <?php if ($validat): ?>
                             <div>
-                                <?php echo $profiles[$line['id_profil']]; ?>
+                                <?php
+                                    if (array_key_exists($line['id_profil'], $profiles)) {
+                                        echo $profiles[$line['id_profil']];
+                                    }else{
+                                        echo $this->requestAction('Temps/getProfilName/'.$line['id_profil']);
+                                    }
+                                ?>
                             </div>
                             <?php else: ?>
                             <?php
@@ -180,7 +192,13 @@
                         <td scope="col" class="cel_activit">
                             <?php if ($validat): ?>
                             <div>
-                                <?php echo $activities[$line['ida']]; ?>
+                                <?php
+                                    if (array_key_exists($line['ida'], $activities)) {
+                                        echo $activities[$line['ida']];
+                                    }else{
+                                        echo $this->requestAction('Temps/getActivitieName/'.$line['ida']);
+                                    }
+                                ?>
                             </div>
                             <?php else: ?>
                             <?php
