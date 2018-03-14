@@ -156,9 +156,9 @@
 
                                     $ec = $this->requestAction(array( 'controller' => 'Temps',
                                                         'action' => 'getProjectName',
-                                                        [$projects[$line['idp']]]
+                                                        $projects[$line['idp']]
                                                     ));
-                                    echo $ech
+                                    echo $ec
                                 ?>
                                 <?php echo $projects[$line['idp']]; ?>
                             </div>

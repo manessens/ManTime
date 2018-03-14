@@ -478,7 +478,7 @@ class TempsController extends AppController
         return $arrayRetour;
     }
 
-    public function getProjectName($id){
+    public function getProjectName($id = null){
         return "prout";
     }
 
