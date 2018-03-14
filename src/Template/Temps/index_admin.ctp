@@ -153,9 +153,7 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    $parametre = $line['idp'];
-                                    $ec = $this->requestAction('Temps/getProjectName/prout');
-                                    echo $ec
+                                    echo $this->requestAction('Temps/getProjectName/'.$line['idp']);
                                 ?>
                                 <?php echo $projects[$line['idp']]; ?>
                             </div>
