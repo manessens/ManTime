@@ -478,7 +478,7 @@ class TempsController extends AppController
         return $arrayRetour;
     }
 
-    public function getProjectName($id = null){
+    public function getProjectName($id){
         return $this->response->withStringBody("prout ".$id);
     }
 
