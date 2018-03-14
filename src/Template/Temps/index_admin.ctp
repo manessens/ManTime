@@ -153,10 +153,10 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-
+                                    $parametre = $projects[$line['idp']];
                                     $ec = $this->requestAction(array( 'controller' => 'Temps',
                                                         'action' => 'getProjectName',
-                                                        $projects[$line['idp']]
+                                                        $parametre
                                                     ));
                                     echo $ec
                                 ?>
