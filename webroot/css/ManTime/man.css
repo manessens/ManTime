@@ -96,6 +96,10 @@
     top:190px
 }
 
+.multiple{
+    margin-bottom:0px !important;
+}
+
 #table-info{
     height: 340px !important;
 }

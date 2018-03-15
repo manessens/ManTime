@@ -12,3 +12,25 @@ $('.multiple option').mousedown(function(e) {
     $(this).prop('selected', !$(this).prop('selected'));
     return false;
 });
+
+$( "#search_participant" ).on('keyup', function (e){
+    var search_text = $(this).val();
+    $('select[name="participant[]"] option').each(function(){
+        if ($(this).text().match('.*('+search_text+').*')) {
+            $(this).show();
+        }else{
+            $(this).hide();
+        }
+    });
+});
+
+$( "#search_activit" ).on('keyup', function (e){
+    var search_text = $(this).val();
+    $('select[name="activities[]"] option').each(function(){
+        if ($(this).text().match('.*('+search_text+').*')) {
+            $(this).show();
+        }else{
+            $(this).hide();
+        }
+    });
+});
