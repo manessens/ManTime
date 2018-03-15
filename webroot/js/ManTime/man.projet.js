@@ -34,3 +34,8 @@ $( "#search_activit" ).on('keyup', function (e){
         }
     });
 });
+
+$('.height-input').on('click', function(e){
+    $(this).parent().prev().val('');
+    $(this).parent().prev().keyup();
+});

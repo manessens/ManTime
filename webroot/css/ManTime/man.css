@@ -5,6 +5,14 @@
 .height-input{
     height: 2.3125rem !important;
 }
+.height-input:hover{
+  background-color: #e0e0e0 !important;
+  background-position: 0 -15px !important;
+}
+.height-input.active {
+  background-color: #e0e0e0 !important;
+  border-color: #dbdbdb !important;
+}
 
 .header{
     font-size: 0.875rem !important;
