@@ -26,8 +26,8 @@
             <div class="input-group">
                 <input type="text" id='search_participant' class="form-control" placeholder="Search">
                 <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit">
-                    <i class="glyphicon glyphicon-search"></i>
+                  <button class="btn btn-default height-input" type="button">
+                    <b>X</b>
                   </button>
                 </div>
             </div>
@@ -36,8 +36,15 @@
         <?php
             echo $this->Form->label('activities','Activités');
             echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple form-control']);
-            echo "<input id='search_activit' type='text'>"
         ?>
+            <div class="input-group">
+                <input type="text" id='search_activit' class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-default height-input" type="button">
+                    <b>X</b>
+                  </button>
+                </div>
+            </div>
         </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
