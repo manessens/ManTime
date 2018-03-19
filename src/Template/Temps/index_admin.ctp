@@ -6,7 +6,7 @@
 ?>
 <script  type="text/javascript">
 
-    var optionUsers =  [];
+    var optionUsers =  ['-1':'-'];
     var optionClients =  [];
     var optionProjects = [];
     var optionProfils  = [];
