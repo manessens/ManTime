@@ -766,7 +766,7 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index', 'getProjectName']) ) {
+        if (in_array($action, ['index', 'getProjectName', 'getClientName', 'getProfilName', 'getActivitieName']) ) {
             return true;
         }
 
