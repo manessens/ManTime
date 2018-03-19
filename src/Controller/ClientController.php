@@ -117,10 +117,11 @@ class ClientController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $client = $this->Client->get($id);
-        if ($this->Client->delete($client)) {
+        try {
+            $this->Client->delete($client);
             $this->Flash->success(__('Le client a été supprimé avec succés.'));
-        } else {
-            $this->Flash->error(__("Le client n'a pus être supprimé. Merci de retenter ultérieurement."));
+        } catch (\PDOException $e) {
+            $this->Flash->error(__("Le client n'a pus être supprimé. Assurez-vous qu'il ne soit pas utilisé avant de réessayer."));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -135,7 +136,7 @@ class ClientController extends AppController
         }
 
         // if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
-        if (in_array($action, ['index', 'view', 'add', 'edit']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete']) && $user['admin'] === 1 ) {
             return true;
         }
 
