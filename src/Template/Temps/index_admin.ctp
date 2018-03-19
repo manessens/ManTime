@@ -6,11 +6,12 @@
 ?>
 <script  type="text/javascript">
 
-    var optionUsers =  { "-1" : '-'};
-    var optionClients =  { "-1" : '-'};
-    var optionProjects = { "-1" : '-'};
-    var optionProfils  = { "-1" : '-'};
-    var optionActivits = { "-1" : '-'};
+    var optionUsers =  [];
+    optionUsers['-1'] =  ['-'];
+    var optionClients =  [];
+    var optionProjects = [];
+    var optionProfils  = [];
+    var optionActivits = [];
     var valueUsers =  [];
     var valueClients =  [];
     var valueProjects = [];
