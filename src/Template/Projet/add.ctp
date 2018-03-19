@@ -22,14 +22,30 @@
         <div class="input text col-xs-6">
         <?php
             echo $this->Form->label('participant','Participants');
-            echo $this->Form->select('participant', $particpants, ['multiple' => true , 'value' => $myParticpants, 'class' => 'multiple form-control']);
+            echo $this->Form->select('participant', $participants, ['multiple' => true , 'value' => $myParticipants, 'class' => 'multiple form-control']);
         ?>
+            <div class="input-group">
+                <input type="text" id='search_participant' class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-default height-input" type="button">
+                    <b>X</b>
+                  </button>
+                </div>
+            </div>
         </div>
         <div class="input text col-xs-6">
         <?php
             echo $this->Form->label('activities','Activités');
             echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple form-control']);
         ?>
+            <div class="input-group">
+                <input type="text" id='search_activit' class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-default height-input" type="button">
+                    <b>X</b>
+                  </button>
+                </div>
+            </div>
         </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>

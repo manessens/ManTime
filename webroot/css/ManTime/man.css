@@ -21,6 +21,9 @@
     font-weight: bold !important;
 }
 
+.back-basic{
+    background-color: #e0e0e0 !important;
+}
 .back-danger{
     background-color: #d43f3a !important;
 }
