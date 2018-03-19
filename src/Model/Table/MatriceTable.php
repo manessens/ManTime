@@ -38,6 +38,7 @@ class MatriceTable extends Table
         $this->setDisplayField('idm');
         $this->setPrimaryKey('idm');
         $this->hasMany('LignMat', [
+            'dependent' => true,
             'foreignKey' => 'idm'
         ]);
     }
