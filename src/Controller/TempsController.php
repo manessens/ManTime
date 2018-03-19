@@ -243,6 +243,11 @@ class TempsController extends AppController
                             $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                             $verif = false;
                         }
+                        if ($arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0
+                         || $arrayData['projet'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0
+                         || $arrayData['activities'][$line] == 0) {
+                            continue;
+                        }
                         $arrayIdentifierLine[] = $identifierLine;
                         foreach ($arrayDay as $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
