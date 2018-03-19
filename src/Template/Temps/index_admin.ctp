@@ -7,12 +7,12 @@
 <script  type="text/javascript">
 
     var optionUsers =  [];
-    optionUsers['-1'] =  ['-'];
     var optionClients =  [];
     var optionProjects = [];
     var optionProfils  = [];
     var optionActivits = [];
     var valueUsers =  [];
+    valueUsers['-1'] =  ['-'];
     var valueClients =  [];
     var valueProjects = [];
     var valueProfils  = [];
