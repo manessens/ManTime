@@ -7,7 +7,7 @@
 <div class="projet form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($projet) ?>
     <fieldset>
-        <legend><?= __('Edit Projet') ?></legend>
+        <legend><?= __('Edition du Projet') ?> <span class="text-danger"><?= h($projet->nom_projet) ?></span></legend>
         <div class="input text required">
         <?php
             echo $this->Form->label('idc','Client');
