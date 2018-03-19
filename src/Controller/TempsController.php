@@ -154,8 +154,8 @@ class TempsController extends AppController
         $week = $this->autoCompleteWeek($week);
 
         $arrayRetour =  array();
-        $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         $arrayRetour = array('projets' => ['0'=>'-'], 'clients' => ['0'=>'-'], 'profiles' => ['0'=>'-'], 'activities' => ['0'=>'-']);
+        $arrayRetour = array_merge($arrayRetour, $this->getProjects($user->idu, $lundi, $dimanche));
         $fullNameUserAuth = $user->fullname;
 
         $this->set(compact('week'));
