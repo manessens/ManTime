@@ -66,7 +66,7 @@ function modifyUser (that) {
     if ($( selectClient ).find('option[selected=selected]:visible').length ){
         $( selectClient ).val($( selectClient ).find('option[selected=selected]:visible').val());
     }else{
-        if (val == 0) {
+        if (val == 0 || optionClients[idu] == null) {
             $( selectClient ).val(val);
         }else{
             $( selectClient ).val(optionClients[idu][0]);
