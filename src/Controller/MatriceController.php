@@ -116,11 +116,16 @@ class MatriceController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+        $LigneTable = TableRegistry::get('LignMat');
+        $lines = $this->Matrice->find('all')->where(['idm ='=>$id])->toArray();
         $matrice = $this->Matrice->get($id);
         try {
+            foreach ($lines as $line) {
+                $this->$LigneTable->delete($line);
+            }
             $this->Matrice->delete($matrice);
             $this->Flash->success(__('La matrice a été supprimée correctement.'));
-        } catch (Exception $e) {
+        } catch (/PDOException $e) {
             $this->Flash->error(__("La matrice n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
         }
 
