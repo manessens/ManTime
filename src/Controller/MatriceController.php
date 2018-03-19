@@ -117,7 +117,7 @@ class MatriceController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $clientTable = TableRegistry::get('Client');
-        $testClient = $clientTable->find('all')->where(['idm =' => $id])->toArraay();
+        $testClient = $clientTable->find('all')->where(['idm =' => $id])->toArray();
         if (!empty($testClient)) {
             $this->Flash->error(__("La matrice n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
             return $this->redirect(['action' => 'index']);
