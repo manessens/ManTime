@@ -122,8 +122,6 @@ class MatriceController extends AppController
             $this->Flash->error(__("La matrice n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
             return $this->redirect(['action' => 'index']);
         }
-        $LigneTable = TableRegistry::get('LignMat');
-        $lines = $LigneTable->find('all')->where(['idm ='=>$id])->toArray();
         $matrice = $this->Matrice->get($id);
         try {
             $this->Matrice->delete($matrice);
