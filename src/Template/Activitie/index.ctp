@@ -5,11 +5,11 @@
  */
 ?>
 <div class="activitie index large-10 large-10bis medium-8 columns content">
-    <h3><?= __('Activitie') ?></h3>
+    <h3><?= __('Activités') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('nom_activit','Activité') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('nom_activit','Label activité') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
