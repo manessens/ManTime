@@ -117,11 +117,11 @@ class MatriceController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $LigneTable = TableRegistry::get('LignMat');
-        $lines = $this->Matrice->find('all')->where(['idm ='=>$id])->toArray();
+        $lines = $LigneTable->find('all')->where(['idm ='=>$id])->toArray();
         $matrice = $this->Matrice->get($id);
         try {
             foreach ($lines as $line) {
-                $this->$LigneTable->delete($line);
+                $LigneTable->delete($line);
             }
             $this->Matrice->delete($matrice);
             $this->Flash->success(__('La matrice a été supprimée correctement.'));
