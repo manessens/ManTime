@@ -280,10 +280,12 @@ class ProjetController extends AppController
                 return $this->redirect(['action' => 'index']);
             };
         }
-        if ($this->Projet->delete($projet)) {
+
+        try {
+            $this->Projet->delete($projet);
             $this->Flash->success(__('Le projet à été supprimé avec succés'));
-        } else {
-            $this->Flash->error(__("Le projet n'a pus être supprimé. Merci de retenter ultérieurment."));
+        } catch (\PDOException $e) {
+            $this->Flash->error(__("Le projet n'a pus être supprimé. Assurez-vous qu'il ne soit pas utilisé avant de retenter."));
         }
 
         return $this->redirect(['action' => 'index']);

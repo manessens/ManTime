@@ -200,11 +200,17 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('Le consultant a bien été supprimé.'));
-        } else {
-            $this->Flash->error(__('Le consultant ne peut être supprimé. Veuillez retenter ultérieurement.'));
+        $user->actif = 0;
+        if ($this->Users->save($user)) {
+            $this->Flash->success(__('Le consultant à été désactivé.'));
+        }else{
+            $this->Flash->error(__('Erreur à la modification du consultant. Veuillez retenter ultérieurement.'));
         }
+        // if ($this->Users->delete($user)) {
+        //     $this->Flash->success(__('Le consultant a bien été supprimé.'));
+        // } else {
+        //     $this->Flash->error(__('Le consultant ne peut être supprimé. Veuillez retenter ultérieurement.'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }
