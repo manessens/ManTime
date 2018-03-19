@@ -96,10 +96,12 @@ class ActivitieController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $activitie = $this->Activitie->get($id);
-        if ($this->Activitie->delete($activitie)) {
+
+        try {
+            $this->Activitie->delete($activitie);
             $this->Flash->success(__("L'activité a bien été supprimée."));
-        } else {
-            $this->Flash->error(__("L'activité n'a pus être supprimée. Merci de rententer ultérieurement."));
+        } catch (\PDOException $e) {
+            $this->Flash->error(__("L'activité n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
         }
 
         return $this->redirect(['action' => 'index']);
