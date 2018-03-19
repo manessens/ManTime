@@ -125,7 +125,7 @@ class MatriceController extends AppController
             }
             $this->Matrice->delete($matrice);
             $this->Flash->success(__('La matrice a été supprimée correctement.'));
-        } catch (/PDOException $e) {
+        } catch (\PDOException $e) {
             $this->Flash->error(__("La matrice n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
         }
 
