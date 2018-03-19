@@ -117,10 +117,11 @@ class MatriceController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $matrice = $this->Matrice->get($id);
-        if ($this->Matrice->delete($matrice)) {
+        try {
+            $this->Matrice->delete($matrice);
             $this->Flash->success(__('La matrice a été supprimée correctement.'));
-        } else {
-            $this->Flash->error(__("La matrice n'a pus être supprimée. Merci de rententer ultérieurement."));
+        } catch (Exception $e) {
+            $this->Flash->error(__("La matrice n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
         }
 
         return $this->redirect(['action' => 'index']);
