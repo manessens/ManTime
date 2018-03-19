@@ -49,7 +49,7 @@ function modifyUser (that) {
     var tr = $(that).parent().parent();
     var selectClient = $(tr).find('td.cel_client').children();
     $( selectClient ).find('option').each(function() {
-        if (val) {
+        if (val == 0) {
             if ( $( this ).val() == val) {
                 $( this ).show();
             }else{
