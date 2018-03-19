@@ -12,7 +12,6 @@
     var optionProfils  = [];
     var optionActivits = [];
     var valueUsers =  [];
-    valueUsers['-1'] =  ['-'];
     var valueClients =  [];
     var valueProjects = [];
     var valueProfils  = [];
