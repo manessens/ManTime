@@ -7,7 +7,7 @@
 <div class="matrice form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($matrice) ?>
     <fieldset>
-        <legend><?= __('Edition de  Matrice') ?></legend>
+        <legend><?= __('Edition de  la matrice') ?> <span class="text-danger"><?= h($matrice->nom_matrice) ?></span></legend>
         <table class="col-xs-5 vertical-table">
             <thead>
                 <tr>
