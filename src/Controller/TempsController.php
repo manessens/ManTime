@@ -196,7 +196,7 @@ class TempsController extends AppController
         $user = $usersTable->get($idUserAuth);
 
         $users = $usersTable->find('all')->toArray();
-        $arrayRetour = array('users' => ['-1'=>'-'], 'projets' => ['-1'=>'-'], 'clients' => ['-1'=>'-'], 'profiles' => ['-1'=>'-'], 'activities' => ['-1'=>'-']);
+        $arrayRetour = array('users' => ['-1'=>'-'], 'projets' => array(), 'clients' => array(), 'profiles' => array(), 'activities' => array());
         foreach ($users as $key => $userAll) {
             $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
             $arrayTemps = array();
@@ -345,6 +345,10 @@ class TempsController extends AppController
         }
 
         $arrayBuff=array();
+        $arrayRetour['projets']    = ['-1'=>'-'];   
+        $arrayRetour['clients']    = ['-1'=>'-'];
+        $arrayRetour['profiles']   = ['-1'=>'-'];
+        $arrayRetour['activities'] = ['-1'=>'-'];
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser);
 
