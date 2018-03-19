@@ -134,7 +134,7 @@
                             </div>
                             <?php else: ?>
                             <?php
-                                echo $this->form->select('users['.$kUser.']['.$k.']', $users, ['value' => $kUser, 'class' => 'users', 'empty' => '-']);
+                                echo $this->form->select('users['.$kUser.']['.$k.']', $users, ['value' => $kUser, 'class' => 'users']);
                              ?>
                             <?php endif; ?>
                         </td>
@@ -151,7 +151,7 @@
                             </div>
                             <?php else: ?>
                             <?php
-                                echo $this->form->select('client['.$kUser.']['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client', 'empty' => '-']);
+                                echo $this->form->select('client['.$kUser.']['.$k.']', $clients, ['value' => $line['idc'], 'class' => 'client']);
                              ?>
                             <?php endif; ?>
                         </td>
@@ -168,7 +168,7 @@
                             </div>
                             <?php else: ?>
                             <?php
-                                echo $this->form->select('projet['.$kUser.']['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project', 'empty' => '-']);
+                                echo $this->form->select('projet['.$kUser.']['.$k.']', $projects, ['value' => $line['idp'], 'class' => 'project']);
                              ?>
                             <?php endif; ?>
                         </td>
@@ -185,7 +185,7 @@
                             </div>
                             <?php else: ?>
                             <?php
-                                echo $this->form->select('profil['.$kUser.']['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil', 'empty' => '-']);
+                                echo $this->form->select('profil['.$kUser.']['.$k.']', $profiles, ['value' => $line['id_profil'], 'class' => 'profil']);
                              ?>
                             <?php endif; ?>
                         </td>
@@ -202,7 +202,7 @@
                             </div>
                             <?php else: ?>
                             <?php
-                                echo $this->form->select('activities['.$kUser.']['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit', 'empty' => '-']);
+                                echo $this->form->select('activities['.$kUser.']['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
                              ?>
                             <?php endif; ?>
                         </td>
