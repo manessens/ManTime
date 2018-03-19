@@ -155,6 +155,7 @@ class TempsController extends AppController
 
         $arrayRetour =  array();
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
+        $arrayRetour = array('projets' => ['0'=>'-'], 'clients' => ['0'=>'-'], 'profiles' => ['0'=>'-'], 'activities' => ['0'=>'-']);
         $fullNameUserAuth = $user->fullname;
 
         $this->set(compact('week'));
