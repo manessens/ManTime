@@ -70,6 +70,7 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
+                $clientTable = TableRegistry::get('Client');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;
                     $identifierLine = (string) $arrayData['client'][$line] . $arrayData['projet'][$line] . $arrayData['profil'][$line] . $arrayData['activities'][$line] ;
@@ -104,6 +105,8 @@ class TempsController extends AppController
                                 $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
                                 $arrayIdCurrent[] = $dataDay['id'];
                             }
+                            $client  = $clientTable->get($idc);
+
                             $day->date = clone $dayTime ;
                             $day->n_ligne = $line;
                             $day->time = $dataDay['time'];
@@ -111,6 +114,8 @@ class TempsController extends AppController
                             $day->idp = $arrayIdp[2];
                             $day->id_profil = $arrayIdprof[1];
                             $day->ida = $arrayIda[1];
+                            $day->idm = $client->idm;
+                            $day->prix = $client->prix;
                             $entities[] = $day;
                             // add to $week to keep the data in case of error and redirect in the same page
                             $week[$line]['idc'] = $idc;
@@ -234,6 +239,7 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
+                $clientTable = TableRegistry::get('Client');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
                         $dayTime = clone $lundi;
@@ -275,6 +281,8 @@ class TempsController extends AppController
                                     // FIN optimisation
                                     $arrayIdCurrent[] = $dataDay['id'];
                                 }
+                                $client  = $clientTable->get($arrayIdc[1]);
+
                                 $day->idu = $idUser;
                                 $day->date = clone $dayTime ;
                                 $day->n_ligne = $line;
@@ -283,6 +291,8 @@ class TempsController extends AppController
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
                                 $day->ida = $arrayIda[1];
+                                $day->idm = $client->idm;
+                                $day->prix = $client->prix;
                                 $entities[] = $day;
                                 // add to $week to keep the data in case of error and redirect in the same page
                                 $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];

@@ -46,6 +46,9 @@ class TempsTable extends Table
         $this->belongsTo('Activitie', [
             'foreignKey' => 'ida'
         ]);
+        $this->belongsTo('Matrice', [
+            'foreignKey' => 'idm'
+        ]);
     }
 
     /**
@@ -87,6 +90,11 @@ class TempsTable extends Table
             ->integer('idp')
             ->requirePresence('idp', 'create')
             ->notEmpty('idp');
+
+        $validator
+            ->integer('idm')
+            ->requirePresence('idm', 'create')
+            ->notEmpty('idm');
 
         $validator
             ->integer('id_profil')

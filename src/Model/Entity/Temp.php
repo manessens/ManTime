@@ -11,13 +11,16 @@ use Cake\ORM\Entity;
  * @property float $time
  * @property int $n_ligne
  * @property int $validat
+ * @property float $prix
  * @property int $idu
  * @property int $idp
+ * @property int $idm
  * @property int $id_profil
  * @property int $ida
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Projet $projet
+ * @property \App\Model\Entity\Matrice $matrice
  * @property \App\Model\Entity\Profil $profil
  * @property \App\Model\Entity\Activitie $activitie
  */
@@ -39,12 +42,15 @@ class Temp extends Entity
         'time' => true,
         'n_ligne' => true,
         'validat' => true,
+        'prix' => true,
         'idu' => true,
         'idp' => true,
+        'idm' => true,
         'id_profil' => true,
         'ida' => true,
         'user' => true,
         'projet' => true,
+        'matrice' => true,
         'profil' => true,
         'activitie' => true
     ];
