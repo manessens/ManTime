@@ -66,7 +66,12 @@ class UsersTable extends Table
 
         $validator
             ->scalar('mdp')
-            ->minLength('mdp', 6)
+            ->minLength('mdp', [
+                'length' => [
+                    'rule' => ['minLength', 6],
+                    'message' => 'Le mot de pass doit avoir au moins 6 caractères',
+                ]
+            ])
             ->requirePresence('mdp', 'create')
             ->notEmpty('mdp');
 
@@ -84,11 +89,16 @@ class UsersTable extends Table
 
         $validator
             ->scalar('password2')
-            ->minLength('password2', 6)
+            ->add('password2', [
+                'length' => [
+                    'rule' => ['minLength', 6],
+                    'message' => 'Le mot de pass doit avoir au moins 6 caractères',
+                ]
+            ])
             ->add('password2',[
                 'match'=>[
                     'rule'=> ['compareWith','mdp'],
-                    'message'=>'The passwords does not match!',
+                    'message'=>'Les mot de pass sont différents.',
                 ]
             ])
             ->notEmpty('password2');
