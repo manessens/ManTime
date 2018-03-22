@@ -165,6 +165,10 @@ class TempsController extends AppController
         $arrayRetour =  array();
         $arrayEmpty = ['0'=>'-'];
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
+        asort($arrayRetour['projets']);
+        asort($arrayRetour['clients']);
+        asort($arrayRetour['profiles']);
+        asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
         $this->set(compact('week'));
@@ -374,6 +378,10 @@ class TempsController extends AppController
             $arrayRetour['profiles']  = array_merge($arrayRetour['profiles'], $arrayBuff['profiles']);
             $arrayRetour['activities']= array_merge($arrayRetour['activities'], $arrayBuff['activities']);
         }
+        asort($arrayRetour['projets']);
+        asort($arrayRetour['clients']);
+        asort($arrayRetour['profiles']);
+        asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
         // $this->set(compact('temps'));
