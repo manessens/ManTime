@@ -1,9 +1,9 @@
 $(function() {
-    $( ".users" ).change();
+    // $( ".users" ).change();
     alert = false;
     alertVerouillage = false;
     updateTotal();
-    // first = false;
+    first = false;
 });
 var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
