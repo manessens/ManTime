@@ -11,7 +11,7 @@ var alertVerouillage;
 var first = true;
 
 function init(){
-    $(select).each(function(){
+    $('select').each(function(){
         var selected = $( this ).val();
         $(this).child("option [value='"+selected+"']").attr('selected', 'selected');
     })
