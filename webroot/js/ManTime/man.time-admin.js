@@ -1,4 +1,5 @@
 $(function() {
+    init();
     $( ".users" ).change();
     alert = false;
     alertVerouillage = false;
@@ -8,6 +9,14 @@ $(function() {
 var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
 var first = true;
+
+function init(){
+    $(select).each(function(){
+        var selected = $( this ).val();
+        $(this).child("option [value='"+selected+"']").attr('selected', 'selected');
+    })
+}
+
 
 $( "form" ).on('submit',function (e){
     if ($('#validat').prop('checked')) {
