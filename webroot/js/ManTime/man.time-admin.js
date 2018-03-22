@@ -72,8 +72,8 @@ function modifyUser (that) {
             }
         }
     });
-    if ($( selectClient ).find('option[selected=selected]:visible').length ){
-        $( selectClient ).val($( selectClient ).find('option[selected=selected]:visible').val());
+    if ($( selectClient ).find('option[selected="selected"]').css('display')!='none' ){
+        $( selectClient ).val($( selectClient ).find('option[selected="selected"]').val());
     }else{
         if (val == 0 || optionClients[idu] == null) {
             $( selectClient ).val(0);
@@ -147,8 +147,8 @@ function modifyClient (that) {
             }
         }
     });
-    if ($( select ).find('option[selected=selected]:visible').length ){
-        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    if ($( select ).find('option[selected="selected"]').css('display')!='none' ){
+        $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
         if (val == 0) {
             $( select ).val(val);
@@ -173,8 +173,8 @@ function modifyClient (that) {
             }
         }
     });
-    if ($( select2 ).find('option[selected=selected]:visible').length ){
-        $( select2 ).val($( select2 ).find('option[selected=selected]:visible').val());
+    if ($( select2 ).find('option[selected="selected"]').css('display')!='none' ){
+        $( select2 ).val($( select2 ).find('option[selected="selected"]').val());
     }else{
         if (val == 0) {
             $( select2 ).val(val);
@@ -207,8 +207,8 @@ function modifyProject(that) {
             }
         }
     });
-    if ($( select ).find('option[selected=selected]:visible').length ){
-        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    if ($( select ).find('option[selected="selected"]').css('display')!='none' ){
+        $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
         if (val == 0) {
             $( select ).val(val);
