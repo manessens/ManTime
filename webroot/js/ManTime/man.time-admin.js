@@ -1,5 +1,5 @@
 $(function() {
-    // $( ".users" ).change();
+    $( ".users" ).change();
     alert = false;
     alertVerouillage = false;
     updateTotal();
