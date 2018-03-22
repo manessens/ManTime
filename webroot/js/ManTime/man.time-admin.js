@@ -72,7 +72,7 @@ function modifyUser (that) {
             $( selectClient ).val(optionClients[idu][0]);
         }
     }
-    $( ".client" ).change();
+    $( selectClient ).change();
 
     // if (first == false) {
     //     var arrayTr = $('tr[user="'+idu+'"]');
@@ -147,7 +147,7 @@ function modifyClient (that) {
             $( select ).val(optionProjects[idu+'.'+idc][0]);
         }
     }
-    $( ".project" ).change();
+    $( select ).change();
     var select2 = $( that ).parent().parent().find('td.cel_profil').children();
     $( select2 ).find('option').each(function() {
         if (val == 0) {
@@ -263,7 +263,7 @@ function addLine(that) {
         selectUser.append(option);
     }
     selectUser.change(function(){
-        modifyUser(selectUser);
+        modifyUser(this);
     });
     tdUser.append(selectUser);
     tr.append(tdUser);
@@ -284,7 +284,7 @@ function addLine(that) {
         selectClient.append(option);
     }
     selectClient.change(function(){
-        modifyClient(selectClient);
+        modifyClient(this);
     });
     tdClient.append(selectClient);
     tr.append(tdClient);
@@ -305,7 +305,7 @@ function addLine(that) {
         selectProjet.append(option);
     }
     selectProjet.change(function(){
-        modifyProject(selectProjet);
+        modifyProject(this);
     });
     tdProjet.append(selectProjet);
     tr.append(tdProjet);
