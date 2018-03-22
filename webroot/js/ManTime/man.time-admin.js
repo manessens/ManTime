@@ -3,11 +3,11 @@ $(function() {
     alert = false;
     alertVerouillage = false;
     updateTotal();
-    first = false;
+    // first = false;
 });
 var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
-var first = true;
+// var first = true;
 
 $( "form" ).on('submit',function (e){
     if ($('#validat').prop('checked')) {
@@ -263,7 +263,7 @@ function addLine(that) {
         selectUser.append(option);
     }
     selectUser.change(function(){
-        modifyUser(this);
+        modifyUser(selectUser);
     });
     tdUser.append(selectUser);
     tr.append(tdUser);
@@ -284,7 +284,7 @@ function addLine(that) {
         selectClient.append(option);
     }
     selectClient.change(function(){
-        modifyClient(this);
+        modifyClient(selectClient);
     });
     tdClient.append(selectClient);
     tr.append(tdClient);
@@ -305,7 +305,7 @@ function addLine(that) {
         selectProjet.append(option);
     }
     selectProjet.change(function(){
-        modifyProject(this);
+        modifyProject(selectProjet);
     });
     tdProjet.append(selectProjet);
     tr.append(tdProjet);
