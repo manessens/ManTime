@@ -378,6 +378,7 @@ class TempsController extends AppController
             $arrayRetour['profiles']  = array_merge($arrayRetour['profiles'], $arrayBuff['profiles']);
             $arrayRetour['activities']= array_merge($arrayRetour['activities'], $arrayBuff['activities']);
         }
+        asort($arrayRetour['users']);
         asort($arrayRetour['projets']);
         asort($arrayRetour['clients']);
         asort($arrayRetour['profiles']);
