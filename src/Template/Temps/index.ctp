@@ -161,6 +161,15 @@
                          ?>
                         <?php endif; ?>
                     </td>
+                    <td class="detail" scope="col">
+                        <?php if ($validat): ?>
+                            <?php echo $line['detail']; ?>
+                        <?php else: ?>
+                        <?php
+                            echo $this->form->control("detail.$k", ['label' => false , 'value' => $line['detail']]);
+                         ?>
+                        <?php endif; ?>
+                    </td>
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <?php if ($validat): ?>

@@ -5,6 +5,7 @@ $(function() {
     alertVerouillage = false;
     updateTotal();
 });
+var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alert;
 var alertVerouillage;
 
@@ -232,8 +233,23 @@ function addLine(that) {
     }
     tdActivit.append(selectActivit);
     tr.append(tdActivit);
+    //Detail
+    var tdDetail = $('<td>',{
+        class:'detail',
+        scope:'col'
+    });
+    var divDetail = $('<div>',{
+        class:'input text',
+    });
+    var inputDetail = $('<input>',{
+        type:'text',
+        name:'detail['+id+']',
+        id: 'detail-'+id
+    });
+    divDetail.append(inputDetail);
+    tdDetail.append(divDetail);
+    tr.append(tdDetail);
     // Days
-    var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
         var divDay = $('<div>',{ class:'input text' });
@@ -271,13 +287,12 @@ $('input').on('input', function() {
 });
 
 function numericer(that) {
-    var regex = /^([0-9])+([, .])?([0-9]+)?/g;
+    var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
     $(that).val(arrayString.join(''));
 }
 function updateTotal() {
-    var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
-    var nb = 6;
+    var nb = 7;
     var noalert = true;
     arrayDays.forEach(function(idDay){
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');

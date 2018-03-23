@@ -134,6 +134,9 @@ table.info tbody tr td{
     padding: 5px 10px !important;
     font-weight: normal !important;
 }
+td.detail{
+    font-style: italic !important;
+}
 
 .input .error-message{
     display: block;

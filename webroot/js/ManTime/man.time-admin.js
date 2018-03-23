@@ -354,6 +354,22 @@ function addLine(that) {
     }
     tdActivit.append(selectActivit);
     tr.append(tdActivit);
+    //Detail
+    var tdDetail = $('<td>',{
+        class:'detail',
+        scope:'col'
+    });
+    var divDetail = $('<div>',{
+        class:'input text',
+    });
+    var inputDetail = $('<input>',{
+        type:'text',
+        name:'detail['+idUser+']['+id+']',
+        id: 'detail-'+idUser+'-'+id
+    });
+    divDetail.append(inputDetail);
+    tdDetail.append(divDetail);
+    tr.append(tdDetail);
     // Days
     arrayDays.forEach(function(idDay){
         var tdDay = $('<td>',{ scope:'col' });
@@ -388,7 +404,7 @@ $('input').on('input', function() {
 });
 
 function numericer(that) {
-    var regex = /^([0-9])+([, .])?([0-9]+)?/g;
+    var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
     $(that).val(arrayString.join(''));
 }

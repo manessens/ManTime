@@ -207,7 +207,7 @@
                              ?>
                             <?php endif; ?>
                         </td>
-                        <td scope="col">
+                        <td class="detail" scope="col">
                             <?php if ($validat): ?>
                                 <?php echo $line['detail']; ?>
                             <?php else: ?>
