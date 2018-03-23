@@ -76,7 +76,7 @@ function modifyClient (that) {
             $( this ).hide();
         }
     });
-    if ($( select ).find('option[selected="selected"]').css('display')!='none' && $( selectClient ).find('option[selected="selected"]').length ){
+    if ($( select ).find('option[selected="selected"]').css('display')!='none' && $( select ).find('option[selected="selected"]').length ){
         $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
         $( select ).val(optionProjects[idc][0]);
