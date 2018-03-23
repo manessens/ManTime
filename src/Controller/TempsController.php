@@ -308,7 +308,7 @@ class TempsController extends AppController
                                 $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
                                 $week[$idUser][$line][$this->getDay($day->date, $lundi)] = $day;
                                 $week[$idUser][$line]['nline'] = $line;
-                                $week[$idUser][$line]['detal'] = $day->detail;
+                                $week[$idUser][$line]['detail'] = $day->detail;
 
                                 $dayTime->modify('+1 days');
                             }

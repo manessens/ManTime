@@ -104,6 +104,7 @@
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
+                    <th scope="col"><?= h('Détails') ?></th>
                     <th class="semaine" scope="col"><?= h('Lu') ?></th>
                     <th class="semaine" scope="col"><?= h('Ma') ?></th>
                     <th class="semaine" scope="col"><?= h('Me') ?></th>
@@ -203,6 +204,15 @@
                             <?php else: ?>
                             <?php
                                 echo $this->form->select('activities['.$kUser.']['.$k.']', $activities, ['value' => $line['ida'], 'class' => 'activit']);
+                             ?>
+                            <?php endif; ?>
+                        </td>
+                        <td scope="col">
+                            <?php if ($validat): ?>
+                                <?php echo $line['detail']; ?>
+                            <?php else: ?>
+                            <?php
+                                echo $this->form->control("detail.$kUser.$k.detail", ['label' => false , 'value' => $line['detail']]);
                              ?>
                             <?php endif; ?>
                         </td>
