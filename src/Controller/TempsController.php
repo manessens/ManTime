@@ -640,9 +640,11 @@ class TempsController extends AppController
                     }
             		$this->response->download($title.'.csv');
                     $arrayMonth = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'novembre', 'Décembre'];
-                    $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonth);
-                    $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonth);
-                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités'], $arrayMonthBuffer);
+                    $arrayMonthUO = ['UO Janvier', 'UO Février', 'UO Mars', 'UO Avril', 'UO Mai', 'UO Juin', 'UO Juillet', 'UO Août', 'UO Septembre', 'UO Octobre', 'UO novembre', 'UO Décembre'];
+                    $arrayMonthCA = ['CA Janvier', 'CA Février', 'CA Mars', 'CA Avril', 'CA Mai', 'CA Juin', 'CA Juillet', 'CA Août', 'CA Septembre', 'CA Octobre', 'CA novembre', 'CA Décembre'];
+                    $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
+                    $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
+                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités','Détails'], $arrayMonthBuffer);
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
