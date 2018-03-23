@@ -730,6 +730,7 @@ class TempsController extends AppController
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['detail']=$time->detail;
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
@@ -750,6 +751,10 @@ class TempsController extends AppController
                                 $timebuffer = array();
                                 $arrayYear = array();
                                 foreach ($arrDate as $date => $arrTime) {
+                                    if (!is_array($date)) {
+                                        $buffer['detail'=>$arrTime];
+                                        continue;
+                                    }
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
                                         if (!in_array($yearKey, $arrayYear)) {
