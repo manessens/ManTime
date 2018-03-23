@@ -110,6 +110,7 @@ function modifyUser (that) {
         var tdSelectLast = $(tr).find('td.cel_detail');
         var inputDetail = $(tdSelectLast).children('div').children('input');
         $( inputDetail ).attr('name', 'detail['+idu+']['+idLine+']');
+        $( inputDetail ).attr('id', 'detail-'+idu+'-'+idLine);
         arrayDays.forEach(function(idDay){
             tdSelectLast = $(tdSelectLast).next();
             var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
