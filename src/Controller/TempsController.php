@@ -639,7 +639,7 @@ class TempsController extends AppController
                         $title = 'export';
                     }
             		$this->response->download($title.'.csv');
-                    $arrayMonth = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'novembre', 'Décembre'];
+                    $arrayMonth = ['JH Janvier', 'JH Février', 'JH Mars', 'JH Avril', 'JH Mai', 'JH Juin', 'JH Juillet', 'JH Août', 'JH Septembre', 'JH Octobre', 'JH novembre', 'JH Décembre'];
                     $arrayMonthUO = ['UO Janvier', 'UO Février', 'UO Mars', 'UO Avril', 'UO Mai', 'UO Juin', 'UO Juillet', 'UO Août', 'UO Septembre', 'UO Octobre', 'UO novembre', 'UO Décembre'];
                     $arrayMonthCA = ['CA Janvier', 'CA Février', 'CA Mars', 'CA Avril', 'CA Mai', 'CA Juin', 'CA Juillet', 'CA Août', 'CA Septembre', 'CA Octobre', 'CA novembre', 'CA Décembre'];
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
@@ -679,14 +679,13 @@ class TempsController extends AppController
         $activits = $activitTable->find('list', ['fields'=>['ida', 'nom_activit']])->toArray();
 
         $clientTable = TableRegistry::get('Client');
-        $arrayClientMatrice = $clientTable->find('all')->contain(['Matrice'=>['LignMat']])->toArray();
+        $matriceTable = TableRegistry::get('Matrice');
+        $arrayMatriceHard = $matriceTable->find('all')->contain(['LignMat'])->toArray();
         $arrayMatrice = array();
-        $arrayClientPrice = array();
-        foreach ($arrayClientMatrice as $client) {
-            $arrayClientPrice[ucfirst($client->nom_client)]= $client->prix;
-            foreach ($client->matrice->lign_mat as $lign_mat) {
-                $arrayMatrice[ucfirst($client->nom_client)][$profils[$lign_mat->id_profil]]['h'] = $lign_mat->heur;
-                $arrayMatrice[ucfirst($client->nom_client)][$profils[$lign_mat->id_profil]]['j'] = $lign_mat->jour;
+        foreach ($arrayMatriceHard as $matrice) {
+            foreach ($matrice->lign_mat as $lign_mat) {
+                $arrayMatrice[$matrice->idm][$profils[$lign_mat->id_profil]]['h'] = $lign_mat->heur;
+                $arrayMatrice[$matrice->idm][$profils[$lign_mat->id_profil]]['j'] = $lign_mat->jour;
             }
         }
 
@@ -725,13 +724,13 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
             if ($time->time == 1) {
-                $timeUO =  $arrayMatrice[$keyClient][$keyProfil]['j'];
+                $timeUO =  $arrayMatrice[$time->idm][$keyProfil]['j'];
             }else{
-                $timeUO = round($time->time * 8, 1) * $arrayMatrice[$keyClient][$keyProfil]['h'];
+                $timeUO = round($time->time * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO*$time->prix;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['detail']=$time->detail;
 
             ksort($data[$keyClient]);
@@ -771,7 +770,7 @@ class TempsController extends AppController
                                                 $UobufferMonth[$yearKey][$monthKey] = $time;
                                                 break;
                                             case 'CA':
-                                                $CabufferMonth[$yearKey][$monthKey] = ($time*$arrayClientPrice[$client]);
+                                                $CabufferMonth[$yearKey][$monthKey] = $time;
                                                 break;
                                             default:
                                                 $timebufferMonth[$yearKey][$monthKey] = $time;
