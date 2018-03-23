@@ -212,7 +212,7 @@
                                 <?php echo $line['detail']; ?>
                             <?php else: ?>
                             <?php
-                                echo $this->form->control("detail.$kUser.$k.detail", ['label' => false , 'value' => $line['detail']]);
+                                echo $this->form->control("detail.$kUser.$k", ['label' => false , 'value' => $line['detail']]);
                              ?>
                             <?php endif; ?>
                         </td>
