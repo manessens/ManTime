@@ -393,7 +393,7 @@ function numericer(that) {
     $(that).val(arrayString.join(''));
 }
 function updateTotal() {
-    var nb = 7;
+    var nb = 8;
     arrayDays.forEach(function(idDay){
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
         var totalLu = 0;
