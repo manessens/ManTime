@@ -161,7 +161,7 @@
                          ?>
                         <?php endif; ?>
                     </td>
-                    <td class="detail" scope="col">
+                    <td class="cel_detail" scope="col">
                         <?php if ($validat): ?>
                             <?php echo $line['detail']; ?>
                         <?php else: ?>

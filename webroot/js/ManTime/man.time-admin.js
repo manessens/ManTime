@@ -105,9 +105,11 @@ function modifyUser (that) {
         $( selectProjet ).attr('name', 'projet['+idu+']['+idLine+']');
         var selectProfil = $(tr).find('td.cel_profil').children();
         $( selectProfil ).attr('name', 'profil['+idu+']['+idLine+']');
-        var tdSelectLast = $(tr).find('td.cel_activit')
-        var selectActivit = $(tdSelectLast).children();
+        var selectActivit = $(tr).find('td.cel_activit').children();
         $( selectActivit ).attr('name', 'activities['+idu+']['+idLine+']');
+        var tdSelectLast = $(tr).find('td.cel_detail');
+        var inputDetail = $(tdSelectLast).children('div').children('input');
+        $( inputDetail ).attr('name', 'detail['+idu+']['+idLine+']');
         arrayDays.forEach(function(idDay){
             tdSelectLast = $(tdSelectLast).next();
             var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
@@ -356,7 +358,7 @@ function addLine(that) {
     tr.append(tdActivit);
     //Detail
     var tdDetail = $('<td>',{
-        class:'detail',
+        class:'cel_detail',
         scope:'col'
     });
     var divDetail = $('<div>',{

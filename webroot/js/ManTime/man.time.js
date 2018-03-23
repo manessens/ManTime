@@ -235,7 +235,7 @@ function addLine(that) {
     tr.append(tdActivit);
     //Detail
     var tdDetail = $('<td>',{
-        class:'detail',
+        class:'cel_detail',
         scope:'col'
     });
     var divDetail = $('<div>',{
