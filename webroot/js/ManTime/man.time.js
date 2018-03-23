@@ -68,8 +68,8 @@ function modifyClient (that) {
             $( this ).hide();
         }
     });
-    if ($( select ).find('option[selected=selected]:visible').length ){
-        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    if ($( select ).find('option[selected="selected"]').css('display')!='none' && $( selectClient ).find('option[selected="selected"]').length ){
+        $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
         $( select ).val(optionProjects[idc][0]);
     }
@@ -82,8 +82,8 @@ function modifyClient (that) {
             $( this ).hide();
         }
     });
-    if ($( select2 ).find('option[selected=selected]:visible').length ){
-        $( select2 ).val($( select2 ).find('option[selected=selected]:visible').val());
+    if ($( select2 ).find('option[selected="selected"]').css('display')!='none' && $( select2 ).find('option[selected="selected"]').length ){
+        $( select2 ).val($( select2 ).find('option[selected="selected"]').val());
     }else{
         $( select2 ).val(optionProfils[idc][0]);
     }
@@ -104,8 +104,8 @@ function modifyProject(that) {
             $( this ).hide();
         }
     });
-    if ($( select ).find('option[selected=selected]:visible').length ){
-        $( select ).val($( select ).find('option[selected=selected]:visible').val());
+    if ($( select ).find('option[selected="selected"]').css('display')!='none' && $( select ).find('option[selected="selected"]').length ){
+        $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
         $( select ).val(optionActivits[idp][0]);
     }

@@ -24,13 +24,13 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Clients', 'content'=>'Gestion des clients', 'img'=>'espace-client.png']),
-            ['controller' => 'Client', 'action' => 'index'],
+            ['title' => 'Projets', 'content'=>'Gestion des projets', 'img'=>'7-0.jpg']),
+            ['controller' => 'Projet', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Projets', 'content'=>'Gestion des projets', 'img'=>'7-0.jpg']),
-            ['controller' => 'Projet', 'action' => 'index'],
+            ['title' => 'Clients', 'content'=>'Gestion des clients', 'img'=>'espace-client.png']),
+            ['controller' => 'Client', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
