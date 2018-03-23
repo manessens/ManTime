@@ -9,6 +9,7 @@
                     <tr><td>Heure</td><td>Valeur</td></tr>
                 </thead>
                 <tbody>
+                    <tr><td>1/4</td><td>0.03</td></tr>
                     <tr><td>1/2</td><td>0.06</td></tr>
                     <tr><td>1</td><td>0.13</td></tr>
                     <tr><td>2</td><td>0.25</td></tr>
