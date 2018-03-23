@@ -249,6 +249,7 @@
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
+                    <td scope="col"></td>
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <div id="t<?php echo $idDay ?>" style="text-align:center;" >
