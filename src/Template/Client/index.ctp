@@ -36,6 +36,6 @@
             <?= $this->Paginator->next(__('suivant') . ' >') ?>
             <?= $this->Paginator->last(__('dernier') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} de {{pages}}, affiché {{current}} enregistrement(s) sur {{count}} total')]) ?></p>
     </div>
 </div>
