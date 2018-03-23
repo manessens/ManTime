@@ -752,7 +752,7 @@ class TempsController extends AppController
                                 $arrayYear = array();
                                 foreach ($arrDate as $date => $arrTime) {
                                     if (!is_array($date)) {
-                                        $buffer['detail'=>$arrTime];
+                                        $buffer['detail']=$arrTime;
                                         continue;
                                     }
                                     foreach ($arrTime as $type => $time) {
