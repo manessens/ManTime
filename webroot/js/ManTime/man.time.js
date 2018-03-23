@@ -1,4 +1,5 @@
 $(function() {
+    init();
     $( ".client" ).change();
     alert = false;
     alertVerouillage = false;
@@ -6,6 +7,13 @@ $(function() {
 });
 var alert;
 var alertVerouillage;
+
+function init(){
+    $('select').each(function(){
+        var selected = $( this ).val();
+        $(this).children("option [value='"+selected+"']").attr('selected', 'selected');
+    })
+}
 
 $( "form" ).on('submit',function (e){
     if ($('#validat').prop('checked')) {
