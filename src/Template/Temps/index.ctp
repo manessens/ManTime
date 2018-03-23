@@ -97,6 +97,7 @@
                     <th scope="col"><?= h('Projet') ?></th>
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
+                    <th scope="col"><?= h('Détails') ?></th>
                     <th class="semaine" scope="col"><?= h('Lu') ?></th>
                     <th class="semaine" scope="col"><?= h('Ma') ?></th>
                     <th class="semaine" scope="col"><?= h('Me') ?></th>
@@ -197,6 +198,7 @@
                         <button id="add" type="button" class="btn btn-success">+</button>
                     <?php endif; ?>
                     </th>
+                    <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
