@@ -9,7 +9,7 @@
     <fieldset>
         <legend><?= __('Ajouter une activité') ?></legend>
         <?php
-            echo $this->Form->control('nom_activit', ['label' => "activité"]);
+            echo $this->Form->control('nom_activit', ['label' => "Activité"]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>

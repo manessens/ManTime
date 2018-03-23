@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property int $n_ligne
  * @property int $validat
  * @property float $prix
+ * @property string $detail
  * @property int $idu
  * @property int $idp
  * @property int $idm
@@ -43,6 +44,7 @@ class Temp extends Entity
         'n_ligne' => true,
         'validat' => true,
         'prix' => true,
+        'detail' => true,
         'idu' => true,
         'idp' => true,
         'idm' => true,

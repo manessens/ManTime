@@ -73,6 +73,11 @@ class TempsTable extends Table
             ->allowEmpty('time');
 
         $validator
+            ->scalar('detail')
+            ->maxLength('detail', 50)
+            ->allowEmpty('detail');
+
+        $validator
             ->integer('n_ligne')
             ->requirePresence('n_ligne', 'create')
             ->notEmpty('n_ligne');

@@ -116,6 +116,7 @@ class TempsController extends AppController
                             $day->ida = $arrayIda[1];
                             $day->idm = $client->idm;
                             $day->prix = $client->prix;
+                            $day->detail = $arrayData['detail'][$line];
                             $entities[] = $day;
                             // add to $week to keep the data in case of error and redirect in the same page
                             $week[$line]['idc'] = $idc;
@@ -123,6 +124,7 @@ class TempsController extends AppController
                             $week[$line]['id_profil'] = $arrayData['profil'][$line];
                             $week[$line]['ida'] = $arrayData['activities'][$line];
                             $week[$line][$this->getDay($day->date, $lundi)] = $day;
+                            $week[$line]['detal'] = $day->detail;
 
                             $dayTime->modify('+1 days');
                         }
@@ -297,6 +299,7 @@ class TempsController extends AppController
                                 $day->ida = $arrayIda[1];
                                 $day->idm = $client->idm;
                                 $day->prix = $client->prix;
+                                $day->detail = $arrayData['detail'][$idUser][$line];
                                 $entities[] = $day;
                                 // add to $week to keep the data in case of error and redirect in the same page
                                 $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];
@@ -305,6 +308,7 @@ class TempsController extends AppController
                                 $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
                                 $week[$idUser][$line][$this->getDay($day->date, $lundi)] = $day;
                                 $week[$idUser][$line]['nline'] = $line;
+                                $week[$idUser][$line]['detal'] = $day->detail;
 
                                 $dayTime->modify('+1 days');
                             }
@@ -416,6 +420,7 @@ class TempsController extends AppController
                     $validat=$day->validat;
                 }
                 $week[$key][$this->getDay($day->date, $lundi)] = $day;
+                $week[$key]['detail'] = $day->detail;
                 $week[$key]['nline'] = $day->n_ligne;
             }
         }
