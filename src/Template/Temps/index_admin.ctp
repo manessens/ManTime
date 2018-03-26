@@ -10,7 +10,7 @@
     $test = "bla'";
     pr($test);
     $change = addslashes($test);
-    pr($test);exit;
+    pr($change);exit;
 
  ?>
 
