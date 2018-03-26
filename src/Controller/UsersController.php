@@ -43,9 +43,8 @@ class UsersController extends AppController
                 $this->Auth->setUser($user);
                 return $this->redirect(['controller'=>'board', 'action' => 'index']);
             } else {
-                $this->Flash->error("Une erreur c'est produit à la sauvegarde !");
+                $this->Flash->error("Une erreur c'est produite à la sauvegarde !");
             }
-            $this->Flash->error(__("Erreur d'identification."));
         }
         $this->set(compact('user'));
     }

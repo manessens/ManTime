@@ -69,7 +69,7 @@ class UsersTable extends Table
             ->add('mdp', [
                 'length' => [
                     'rule' => ['minLength', 6],
-                    'message' => 'Le mot de pass doit avoir au moins 6 caractères',
+                    'message' => 'Le mot de passe doit avoir au moins 6 caractères',
                 ]
             ])
             ->requirePresence('mdp', 'create')
@@ -92,13 +92,13 @@ class UsersTable extends Table
             ->add('password2', [
                 'length' => [
                     'rule' => ['minLength', 6],
-                    'message' => 'Le mot de pass doit avoir au moins 6 caractères',
+                    'message' => 'Le mot de passe doit avoir au moins 6 caractères',
                 ]
             ])
             ->add('password2',[
                 'match'=>[
                     'rule'=> ['compareWith','mdp'],
-                    'message'=>'Les mot de pass sont différents.',
+                    'message'=>'Les mot de passe sont différents.',
                 ]
             ])
             ->notEmpty('password2');
