@@ -71,30 +71,54 @@ function modifyClient (that) {
     var idc = val.split('.')[1];
     var select = $(that).parent().parent().find('td.cel_projet').children();
     $( select ).find('option').each(function() {
-        if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
-            $( this ).show();
-        }else{
-            $( this ).hide();
+        if (val == 0) {
+            if ( $( this ).val() == 0) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
+        }else {
+            if ( $.inArray($( this ).val(), optionProjects[idc]) != -1 ) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
         }
     });
     if ($( select ).find('option[selected="selected"]').css('display')!='none' && $( select ).find('option[selected="selected"]').length ){
         $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
-        $( select ).val(optionProjects[idc][0]);
+        if (val == 0) {
+            $( select ).val(val);
+        }else{
+            $( select ).val(optionProjects[idc][0]);
+        }
     }
     $( ".project" ).change();
     var select2 = $( that ).parent().parent().find('td.cel_profil').children();
     $( select2 ).find('option').each(function() {
-        if ( $.inArray($( this ).val(), optionProfils[idc]) != -1 ) {
-            $( this ).show();
-        }else{
-            $( this ).hide();
+        if (val == 0) {
+            if ( $( this ).val() == 0) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
+        }else {
+            if ( $.inArray($( this ).val(), optionProfils[idc]) != -1 ) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
         }
     });
     if ($( select2 ).find('option[selected="selected"]').css('display')!='none' && $( select2 ).find('option[selected="selected"]').length ){
         $( select2 ).val($( select2 ).find('option[selected="selected"]').val());
     }else{
-        $( select2 ).val(optionProfils[idc][0]);
+        if (val == 0) {
+            $( select ).val(val);
+        }else{
+            $( select2 ).val(optionProfils[idc][0]);
+        }
     }
 }
 
@@ -107,16 +131,28 @@ function modifyProject(that) {
     var idp = val.split('.')[2];
     var select = $( that ).parent().parent().find('td.cel_activit').children();
     $( select ).find('option').each(function() {
-        if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
-            $( this ).show();
-        }else{
-            $( this ).hide();
+        if (val == 0) {
+            if ( $( this ).val() == 0) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
+        }else {
+            if ( $.inArray($( this ).val(), optionActivits[idp]) != -1 ) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
         }
     });
     if ($( select ).find('option[selected="selected"]').css('display')!='none' && $( select ).find('option[selected="selected"]').length ){
         $( select ).val($( select ).find('option[selected="selected"]').val());
     }else{
-        $( select ).val(optionActivits[idp][0]);
+        if (val == 0) {
+            $( select ).val(val);
+        }else{
+            $( select ).val(optionActivits[idp][0]);
+        }
     }
 }
 
