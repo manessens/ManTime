@@ -13,7 +13,6 @@ function init(){
     $('select').each(function(){
         var selected = $( this ).val();
         $(this).children("option [value='"+selected+"']").attr('selected', 'selected');
-        console.log('appel init');
     })
 }
 
@@ -327,6 +326,7 @@ function numericer(that) {
     var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
     if (arrayString.length == 0) {
+        console.log(arrayString);
         $(that).val('');
     }else{
         $(that).val(arrayString.join(''));
