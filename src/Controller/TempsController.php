@@ -157,10 +157,10 @@ class TempsController extends AppController
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
                 // return $this->redirect(['controller'=>'Board', 'action' => 'index']);
+                return $this->redirect(['action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
-            return $this->redirect(['action' => 'index']);
         }
 
         $week = $this->autoCompleteWeek($week);
@@ -187,6 +187,8 @@ class TempsController extends AppController
         $this->set('profiles', array_merge($arrayEmpty, $arrayRetour['profiles']));
         $this->set('activities', array_merge($arrayEmpty, $arrayRetour['activities']));
         $this->set('controller', false);
+
+        return $this->redirect(['action' => 'index']);
     }
     /**
      * Index method
@@ -370,7 +372,7 @@ class TempsController extends AppController
                 return $this->redirect(['controller'=>'Board', 'action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
-                
+
                 return $this->redirect(['action' => 'index']);
             }
         }
