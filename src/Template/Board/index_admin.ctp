@@ -14,7 +14,7 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Consultants', 'content'=>'Gestions des consultants', 'img'=>'Consultants.png']),
+            ['title' => 'Consultants', 'content'=>'Gestions des consultants', 'img'=>'007-users-group.png']),
             ['controller' => 'Users', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
