@@ -299,7 +299,7 @@ function addLine(that) {
             name: 'day['+id+']['+idDay+'][time]',
             type: 'text'
         });
-        inputDay.on('input', function() {
+        inputDay.on('keyup', function() {
             numericer(this);
             updateTotal();
         });
@@ -318,7 +318,7 @@ function addLine(that) {
     $( ".client" ).change();
 }
 
-$('input').on('input', function() {
+$('input').on('keyup', function() {
     numericer(this);
     updateTotal();
 });
