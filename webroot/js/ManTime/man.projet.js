@@ -25,9 +25,9 @@ $( "#search_participant" ).on('keyup', function (e){
 });
 
 $( "#search_activit" ).on('keyup', function (e){
-    var search_text = $(this).val();
+    var search_text = $(this).val().toLowerCase();
     $('select[name="activities[]"] option').each(function(){
-        if ($(this).text().match('.*('+search_text+').*')) {
+        if ($(this).text().toLowerCase().match('.*('+search_text+').*')) {
             $(this).show();
         }else{
             $(this).hide();
