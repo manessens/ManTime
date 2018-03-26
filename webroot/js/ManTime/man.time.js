@@ -162,6 +162,7 @@ $( ".remove" ).click(function(){
 
 function delLine(that) {
     $(that).parent().parent().remove();
+    updateTotal();
 }
 
 $( "#add" ).click(function(){
