@@ -13,6 +13,7 @@ function init(){
     $('select').each(function(){
         var selected = $( this ).val();
         $(this).children("option [value='"+selected+"']").attr('selected', 'selected');
+        console.log('appel init');
     })
 }
 
