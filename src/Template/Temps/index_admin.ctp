@@ -4,6 +4,17 @@
  * @var \App\Model\Entity\Temp[]|\Cake\Collection\CollectionInterface $temps
  */
 ?>
+
+
+<?php
+    $test = "bla'";
+    pr($test);
+    $change = addcslashes($test, "'");
+    pr($test);exit;
+
+ ?>
+
+
 <script  type="text/javascript">
 
     var optionUsers =  [];
@@ -16,15 +27,6 @@
     var valueProjects = [];
     var valueProfils  = [];
     var valueActivits = [];
-
-    <?php
-        $test = "bla'";
-        pr($test);
-        $change = addcslashes($test, "\'");
-        pr($test);exit;
-
-     ?>
-
 
     $(function() {
     <?php foreach ($users as $key => $value): ?>
