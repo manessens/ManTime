@@ -9,8 +9,8 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('nom_projet','Projet') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('idc','Client') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('nom_projet','Projet') ?></th>
                 <th class="date" scope="col"><?= $this->Paginator->sort('date_debut','Date de début') ?></th>
                 <th class="date" scope="col"><?= $this->Paginator->sort('date_fin','Date de fin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -19,8 +19,8 @@
         <tbody>
             <?php foreach ($projet as $projet): ?>
             <tr>
-                <td><?= h($projet->nom_projet) ?></td>
                 <td><?= h($projet->client->nom_client) ?></td>
+                <td><?= h($projet->nom_projet) ?></td>
                 <td><?= h($projet->date_debut->i18nFormat('dd-MM-yyyy')) ?></td>
                 <td><?= h($projet->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
                 <td class="actions">
