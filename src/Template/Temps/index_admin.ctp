@@ -69,7 +69,7 @@
 
 <div class="temps index large-10 large-10bis medium-8 columns content">
     <?php if ($current == $semaine): ?>
-        <h3><?= __('Saisie de la semaine courrante #') ?><?= $semaine ?></h3>
+        <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
         <legend><?= __('Saisie de la semaine #') ?><?= $semaine ?><?= __(" de l'année ") ?><?= $annee ?></legend>
     <?php endif; ?>
