@@ -99,12 +99,12 @@ class TempsController extends AppController
                         }
                         $day->time = $dataDay['time'];
                         // add to $week to keep the data in case of error and redirect in the same page
-                        $week[$line]['idc'] = $idc;
+                        $week[$line]['idc'] = $arrayData['client'][$line];
                         $week[$line]['idp'] = $arrayData['projet'][$line];
                         $week[$line]['id_profil'] = $arrayData['profil'][$line];
                         $week[$line]['ida'] = $arrayData['activities'][$line];
                         $week[$line][$this->getDay($day->date, $lundi)] = $day;
-                        $week[$line]['detail'] = $day->detail;
+                        $week[$line]['detail'] = $arrayData['detail'][$line];
 
                         if (empty($dataDay['time'])) {
                             $dayTime->modify('+1 days');
