@@ -346,7 +346,7 @@ function updateTotal() {
             totalLu += parseFloat(value);
         }
         var identifier = '#t'+idDay;
-        $(identifier).text(totalLu);
+        $(identifier).text(totalLu.toFixed(2));
         if (totalLu>1) {
             $(identifier).css({"color": "red"});
             noalert = false;
