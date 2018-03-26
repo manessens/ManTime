@@ -9,7 +9,7 @@
 <?php
     $test = "bla'";
     pr($test);
-    $change = addcslashes($test, "'");
+    $change = addslashes($test, "'");
     pr($test);exit;
 
  ?>
