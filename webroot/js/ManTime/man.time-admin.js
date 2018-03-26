@@ -424,7 +424,7 @@ function updateTotal() {
             totalLu += parseFloat(value);
         }
         var identifier = '#t'+idDay;
-        $(identifier).text(totalLu);
+        $(identifier).text(totalLu.toFixed(2));
         nb+=1;
     });
 }
