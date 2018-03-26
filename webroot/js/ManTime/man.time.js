@@ -325,8 +325,8 @@ $('input').on('keyup', function() {
 function numericer(that) {
     var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
-    if (arrayString.length == 0) {
         console.log(arrayString);
+    if (arrayString.length == 0) {
         $(that).val('');
     }else{
         $(that).val(arrayString.join(''));
