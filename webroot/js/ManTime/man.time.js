@@ -115,7 +115,7 @@ function modifyClient (that) {
         $( select2 ).val($( select2 ).find('option[selected="selected"]').val());
     }else{
         if (val == 0) {
-            $( select ).val(val);
+            $( select2 ).val(val);
         }else{
             $( select2 ).val(optionProfils[idc][0]);
         }
