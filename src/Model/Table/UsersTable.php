@@ -66,7 +66,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('mdp')
-            ->minLength('mdp', [
+            ->add('mdp', [
                 'length' => [
                     'rule' => ['minLength', 6],
                     'message' => 'Le mot de pass doit avoir au moins 6 caractères',
