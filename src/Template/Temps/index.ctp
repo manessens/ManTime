@@ -29,10 +29,10 @@
     <?php foreach ($projects as $key => $value): ?>
         var arrayTemp = '<?php echo $key; ?>'.split('.');
         if (optionProjects.hasOwnProperty(arrayTemp[1])) {
-            optionProjects[arrayTemp[1]].push('<?php echo addcslashes( $key, "'" ); ?>');
+            optionProjects[arrayTemp[1]].push('<?php echo $key; ?>');
         }else{
             optionProjects[arrayTemp[1]]=[];
-            optionProjects[arrayTemp[1]].push('<?php echo addcslashes( $key, "'" ); ?>');
+            optionProjects[arrayTemp[1]].push('<?php echo $key; ?>');
         }
         valueProjects['<?php echo $key; ?>'] = '<?php echo $value; ?>';
     <?php endforeach; ?>
