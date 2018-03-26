@@ -328,7 +328,7 @@ class TempsController extends AppController
                         $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                     }
                     $listDeletion = $query->toArray();
-                    pr($listDeletion);exit;
+                    pr($arrayIdCurrent);exit;
                     if (!empty($listDeletion)) {
                         foreach ($listDeletion as  $entity) {
                             $verif = $verif && $this->Temps->delete($entity);
