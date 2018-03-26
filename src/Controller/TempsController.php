@@ -88,12 +88,20 @@ class TempsController extends AppController
                         $arrayIdp = explode('.',$arrayData['projet'][$line]);
                         $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
+                        // add to $week to keep the data in case of error and redirect in the same page
+                        $week[$line]['idc'] = $idc;
+                        $week[$line]['idp'] = $arrayData['projet'][$line];
+                        $week[$line]['id_profil'] = $arrayData['profil'][$line];
+                        $week[$line]['ida'] = $arrayData['activities'][$line];
+                        $week[$line][$this->getDay($day->date, $lundi)] = $day;
+                        $week[$line]['detal'] = $day->detail;
+
                         if (empty($dataDay['time'])) {
                             $dayTime->modify('+1 days');
                             continue;
                         }
                         if ($dataDay['time'] > 1 && $verif) {
-                            $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
+                            $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
                             $verif = false;
                         }
                         if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
@@ -118,13 +126,6 @@ class TempsController extends AppController
                             $day->prix = $client->prix;
                             $day->detail = $arrayData['detail'][$line];
                             $entities[] = $day;
-                            // add to $week to keep the data in case of error and redirect in the same page
-                            $week[$line]['idc'] = $idc;
-                            $week[$line]['idp'] = $arrayData['projet'][$line];
-                            $week[$line]['id_profil'] = $arrayData['profil'][$line];
-                            $week[$line]['ida'] = $arrayData['activities'][$line];
-                            $week[$line][$this->getDay($day->date, $lundi)] = $day;
-                            $week[$line]['detal'] = $day->detail;
 
                             $dayTime->modify('+1 days');
                         }
@@ -157,7 +158,7 @@ class TempsController extends AppController
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
                 // return $this->redirect(['controller'=>'Board', 'action' => 'index']);
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
@@ -188,7 +189,6 @@ class TempsController extends AppController
         $this->set('activities', array_merge($arrayEmpty, $arrayRetour['activities']));
         $this->set('controller', false);
 
-        return $this->redirect(['action' => 'index']);
     }
     /**
      * Index method
