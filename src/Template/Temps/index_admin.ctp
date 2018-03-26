@@ -17,6 +17,15 @@
     var valueProfils  = [];
     var valueActivits = [];
 
+    <?php
+        $test = "bla'";
+        pr($test);
+        $change = addcslashes($test, "\'");
+        pr($test);exit;
+
+     ?>
+
+
     $(function() {
     <?php foreach ($users as $key => $value): ?>
         optionUsers.push('<?php echo $key; ?>');
