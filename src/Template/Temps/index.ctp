@@ -17,44 +17,44 @@
 
     $(function() {
     <?php foreach ($clients as $key => $value): ?>
-        var arrayTemp = '<?php echo $key; ?>'.split('.');
+        var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
         if (optionClients.hasOwnProperty(arrayTemp[1])) {
-            optionClients[arrayTemp[1]].push('<?php echo $key; ?>');
+            optionClients[arrayTemp[1]].push('<?php echo addslashes($key); ?>');
         }else{
             optionClients[arrayTemp[1]]=[];
-            optionClients[arrayTemp[1]].push('<?php echo $key; ?>');
+            optionClients[arrayTemp[1]].push('<?php echo addslashes($key); ?>');
         }
-        valueClients['<?php echo $key; ?>'] = '<?php echo $value; ?>';
+        valueClients['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
     <?php endforeach; ?>
     <?php foreach ($projects as $key => $value): ?>
-        var arrayTemp = '<?php echo $key; ?>'.split('.');
+        var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
         if (optionProjects.hasOwnProperty(arrayTemp[1])) {
-            optionProjects[arrayTemp[1]].push('<?php echo $key; ?>');
+            optionProjects[arrayTemp[1]].push('<?php echo addslashes($key); ?>');
         }else{
             optionProjects[arrayTemp[1]]=[];
-            optionProjects[arrayTemp[1]].push('<?php echo $key; ?>');
+            optionProjects[arrayTemp[1]].push('<?php echo addslashes($key); ?>');
         }
-        valueProjects['<?php echo $key; ?>'] = '<?php echo $value; ?>';
+        valueProjects['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
     <?php endforeach; ?>
     <?php foreach ($profiles as $key => $value): ?>
-        var arrayTemp = '<?php echo $key; ?>'.split('.');
+        var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
         if (optionProfils.hasOwnProperty(arrayTemp[0])) {
-            optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionProfils[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
         }else{
             optionProfils[arrayTemp[0]]=[];
-            optionProfils[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionProfils[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
         }
-        valueProfils['<?php echo $key; ?>'] = '<?php echo $value; ?>';
+        valueProfils['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
     <?php endforeach; ?>
     <?php foreach ($activities as $key => $value): ?>
-        var arrayTemp = '<?php echo $key; ?>'.split('.');
+        var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
         if (optionActivits.hasOwnProperty(arrayTemp[0])) {
-            optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionActivits[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
         }else{
             optionActivits[arrayTemp[0]]=[];
-            optionActivits[arrayTemp[0]].push('<?php echo $key; ?>');
+            optionActivits[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
         }
-        valueActivits['<?php echo $key; ?>'] = '<?php echo $value; ?>';
+        valueActivits['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
     <?php endforeach; ?>
     });
 
@@ -206,7 +206,7 @@
                     <?php foreach ($weekDays as $idDay => $value): ?>
                         <td scope="col">
                             <div id="t<?php echo $idDay ?>" style="text-align:center; <?php if ($value>1){ echo 'color:red;'; } ?>" >
-                            <?php if ($validat){ echo $value; } ?>
+                            <?php if ($validat){ echo addslashes($value); } ?>
                             </div>
                         </td>
                     <?php endforeach; ?>
