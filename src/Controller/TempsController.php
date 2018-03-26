@@ -160,7 +160,6 @@ class TempsController extends AppController
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
                 // return $this->redirect(['controller'=>'Board', 'action' => 'index']);
-                return $this->redirect(['action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
@@ -272,32 +271,34 @@ class TempsController extends AppController
                             $arrayIdp = explode('.',$arrayData['projet'][$idUser][$line]);
                             $arrayIdprof = explode( '.', $arrayData['profil'][$idUser][$line]);
                             $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
-                            if (empty($dataDay['time'])) {
-                                $dayTime->modify('+1 days');
-                                continue;
+                            //Generate Day
+                            $day = null;
+                            if (empty($dataDay['id'])) {
+                                $day = $this->Temps->newEntity();
+                                $day->validat = 1;
+                            }else{
+                                // A optimiser si besoin
+                                $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
+                                // FIN optimisation
+                                $arrayIdCurrent[] = $dataDay['id'];
                             }
-                            if ($dataDay['time'] > 1 && $verif) {
-                                $this->Flash->error(__('La saisie journalière ne peux dépasser une journée sur un même projet'));
-                                $verif = false;
-                            }
+                            $day->time = $dataDay['time'];
+                            // add to $week to keep the data in case of error and redirect in the same page
+                            $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];
+                            $week[$idUser][$line]['idp'] = $arrayData['projet'][$idUser][$line];
+                            $week[$idUser][$line]['id_profil'] = $arrayData['profil'][$idUser][$line];
+                            $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
+                            $week[$idUser][$line][$this->getDay($day->date, $lundi)] = $day;
+                            $week[$idUser][$line]['nline'] = $line;
+                            $week[$idUser][$line]['detail'] = $arrayData['detail'][$idUser][$line];
+
                             if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
                             && $arrayIdc[1]==$arrayIdp[1] && $arrayIdc[1]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
-                                $day = null;
-                                if (empty($dataDay['id'])) {
-                                    $day = $this->Temps->newEntity();
-                                    $day->validat = 1;
-                                }else{
-                                    // A optimiser si besoin
-                                    $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
-                                    // FIN optimisation
-                                    $arrayIdCurrent[] = $dataDay['id'];
-                                }
                                 $client  = $clientTable->get($arrayIdc[1]);
 
                                 $day->idu = $idUser;
                                 $day->date = clone $dayTime ;
                                 $day->n_ligne = $line;
-                                $day->time = $dataDay['time'];
                                 $day->validat = 1;
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
@@ -306,14 +307,6 @@ class TempsController extends AppController
                                 $day->prix = $client->prix;
                                 $day->detail = $arrayData['detail'][$idUser][$line];
                                 $entities[] = $day;
-                                // add to $week to keep the data in case of error and redirect in the same page
-                                $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];
-                                $week[$idUser][$line]['idp'] = $arrayData['projet'][$idUser][$line];
-                                $week[$idUser][$line]['id_profil'] = $arrayData['profil'][$idUser][$line];
-                                $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
-                                $week[$idUser][$line][$this->getDay($day->date, $lundi)] = $day;
-                                $week[$idUser][$line]['nline'] = $line;
-                                $week[$idUser][$line]['detail'] = $day->detail;
 
                                 $dayTime->modify('+1 days');
                             }
@@ -374,8 +367,6 @@ class TempsController extends AppController
                 return $this->redirect(['controller'=>'Board', 'action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
-
-                return $this->redirect(['action' => 'index']);
             }
         }
 
