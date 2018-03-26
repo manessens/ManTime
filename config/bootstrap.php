@@ -218,3 +218,5 @@ if (Configure::read('debug')) {
 Plugin::load('CsvView');
 
 Plugin::load('BootstrapUI');
+
+Plugin::load('Cake/Localized');
