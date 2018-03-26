@@ -88,6 +88,16 @@ class TempsController extends AppController
                         $arrayIdp = explode('.',$arrayData['projet'][$line]);
                         $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
+                        //generate day
+                        $day = null;
+                        if (empty($dataDay['id'])) {
+                            $day = $this->Temps->newEntity();
+                            $day->idu = $user->idu;
+                        }else{
+                            $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
+                            $arrayIdCurrent[] = $dataDay['id'];
+                        }
+                        $day->time = $dataDay['time'];
                         // add to $week to keep the data in case of error and redirect in the same page
                         $week[$line]['idc'] = $idc;
                         $week[$line]['idp'] = $arrayData['projet'][$line];
@@ -105,14 +115,6 @@ class TempsController extends AppController
                             $verif = false;
                         }
                         if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
-                            $day = null;
-                            if (empty($dataDay['id'])) {
-                                $day = $this->Temps->newEntity();
-                                $day->idu = $user->idu;
-                            }else{
-                                $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
-                                $arrayIdCurrent[] = $dataDay['id'];
-                            }
                             $client  = $clientTable->get($idc);
 
                             $day->date = clone $dayTime ;
