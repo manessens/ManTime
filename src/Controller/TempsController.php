@@ -156,7 +156,7 @@ class TempsController extends AppController
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
-                return $this->redirect(['controller'=>'Board', 'action' => 'index']);
+                // return $this->redirect(['controller'=>'Board', 'action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
@@ -366,7 +366,7 @@ class TempsController extends AppController
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardé.'));
 
-                // return $this->redirect(['controller'=>'Board', 'action' => 'index']);
+                return $this->redirect(['controller'=>'Board', 'action' => 'index']);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
