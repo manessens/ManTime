@@ -326,7 +326,11 @@ $('input').on('keyup', function() {
 function numericer(that) {
     var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
-    $(that).val(arrayString.join(''));
+    if (arrayString.length == 0) {
+        $(that).val('');
+    }else{
+        $(that).val(arrayString.join(''));
+    }
 }
 function updateTotal() {
     var nb = 7;

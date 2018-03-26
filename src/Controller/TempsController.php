@@ -106,7 +106,7 @@ class TempsController extends AppController
                         $week[$line][$this->getDay($day->date, $lundi)] = $day;
                         $week[$line]['detail'] = $arrayData['detail'][$line];
 
-                        if (empty($dataDay['time'])) {
+                        if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
                             $dayTime->modify('+1 days');
                             continue;
                         }
@@ -292,6 +292,10 @@ class TempsController extends AppController
                             $week[$idUser][$line]['nline'] = $line;
                             $week[$idUser][$line]['detail'] = $arrayData['detail'][$idUser][$line];
 
+                            if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
+                                $dayTime->modify('+1 days');
+                                continue;
+                            }
                             if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
                             && $arrayIdc[1]==$arrayIdp[1] && $arrayIdc[1]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
                                 $client  = $clientTable->get($arrayIdc[1]);
