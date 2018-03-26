@@ -116,6 +116,10 @@ class TempsController extends AppController
                         }
                         if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
                             $client  = $clientTable->get($idc);
+                            //For deletion
+                            if ($day->idt) {
+                                $arrayIdCurrent[] = $dataDay['id'];
+                            }
 
                             $day->date = clone $dayTime ;
                             $day->n_ligne = $line;
@@ -279,7 +283,6 @@ class TempsController extends AppController
                                 // A optimiser si besoin
                                 $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
                                 // FIN optimisation
-                                $arrayIdCurrent[] = $dataDay['id'];
                             }
                             $day->time = $dataDay['time'];
                             // add to $week to keep the data in case of error and redirect in the same page
@@ -298,7 +301,10 @@ class TempsController extends AppController
                             if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
                             && $arrayIdc[1]==$arrayIdp[1] && $arrayIdc[1]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
                                 $client  = $clientTable->get($arrayIdc[1]);
-
+                                //For deletion
+                                if ($day->idt) {
+                                    $arrayIdCurrent[] = $dataDay['id'];
+                                }
                                 $day->idu = $idUser;
                                 $day->date = clone $dayTime ;
                                 $day->n_ligne = $line;
@@ -328,7 +334,6 @@ class TempsController extends AppController
                         $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                     }
                     $listDeletion = $query->toArray();
-                    pr($arrayIdCurrent);exit;
                     if (!empty($listDeletion)) {
                         foreach ($listDeletion as  $entity) {
                             $verif = $verif && $this->Temps->delete($entity);
