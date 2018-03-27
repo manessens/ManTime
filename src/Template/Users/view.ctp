@@ -31,7 +31,7 @@
         <tr>
             <th scope="row" ><?= __('Rôle') ?></th>
             <td>
-                <?= $this->element('tagYN', ['role' => $this->Number->format($user->role)]) ?>
+                <?= $this->element('roleselect', ['role' => $this->Number->format($user->role)]) ?>
             </td>
         </tr>
     </table>
