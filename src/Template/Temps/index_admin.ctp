@@ -67,7 +67,7 @@
 
 </script>
 
-<div class="temps index large-10 large-10bis medium-8 columns content">
+<div class="temps index col-xs-12 columns content">
     <?php if ($current == $semaine): ?>
         <h3><?= __('Validation de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
