@@ -41,7 +41,7 @@ class BoardController extends AppController
             return true;
         }
 
-        if (in_array($action, ['indexAdmin']) && $user['role'] >== 50 ) {
+        if (in_array($action, ['indexAdmin']) && $user['role'] >= 50 ) {
             return true;
         }
 
