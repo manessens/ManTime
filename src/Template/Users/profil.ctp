@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="users form large-10 large-10bis medium-8 columns content">
+<div class="col-xs-10 new_content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Profil de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend><table class="vertical-table">
@@ -32,7 +32,7 @@
             }
          ?>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
+    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning right']) ?>
     <?= $this->Form->end() ?>
 </div>
 

@@ -1,5 +1,5 @@
 
-<div class="users index large-10 large-10bis medium-8 columns content">
+<div class="col-xs-10 new_content">
     <h3 class="text-danger"><?= __('Tableau de bord administrateur de ') ?><?=  h($user->fullname); ?></h3>
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(

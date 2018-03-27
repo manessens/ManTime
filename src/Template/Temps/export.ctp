@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Temp[]|\Cake\Collection\CollectionInterface $temps
  */
 ?>
-<div class="temps index large-10 large-10bis medium-8 columns content">
+<div class="col-xs-10 new_content">
     <?= $this->Form->create($export) ?>
     <fieldset>
         <legend><?= __('Export') ?></legend>

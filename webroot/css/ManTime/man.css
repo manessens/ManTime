@@ -15,7 +15,9 @@
   background-color: #e0e0e0 !important;
   border-color: #dbdbdb !important;
 }
-
+.new_content{
+    padding-left: 15%
+}
 .header{
     font-size: 0.875rem !important;
     font-weight: bold !important;
