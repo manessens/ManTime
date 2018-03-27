@@ -23,7 +23,10 @@ class ProjetController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain'   => ['Client']
+            'contain'   => ['Client'],
+            'sortWhitelist' => [
+                'Client.nom_client', 'nom_projet', 'date_debut', 'date_fin'
+            ]
         ];
         $this->set('projet', $this->paginate($this->Projet));
         $this->set(compact('projet'));
