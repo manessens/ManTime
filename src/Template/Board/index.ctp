@@ -1,5 +1,5 @@
 
-<div class="col-xs-10 new_content">
+<div class="col-xs-12 new_content">
     <legend><?= __('Tableau de bord de ') ?><span class="text-primary"><?=  h($user->fullname); ?></span></legend>
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
