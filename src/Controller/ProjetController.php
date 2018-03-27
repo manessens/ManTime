@@ -26,6 +26,9 @@ class ProjetController extends AppController
             'contain'   => ['Client'],
             'sortWhitelist' => [
                 'Client.nom_client', 'nom_projet', 'date_debut', 'date_fin'
+            ],
+            'order' => [
+                'Client.nom_client' => 'asc'
             ]
         ];
         $this->set('projet', $this->paginate($this->Projet));
