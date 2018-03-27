@@ -60,7 +60,7 @@
 
 </script>
 
-<div class="col-xs-12">
+<div class="col-xs-12 content">
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
