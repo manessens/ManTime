@@ -41,12 +41,14 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-2 large-2bis medium-4 columns">
             <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
+                <!-- <h1><a href=""><?= $this->fetch('title') ?></a></h1> -->
+                <h1><?= $this->Html->link(__('ManTimes'), ['controller' => 'Board','action' => 'index']) ?></h1>
             </li>
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a target="_blank" href="">Documentation</a></li>
+                <li><?= $this->Html->link(__('Profil'), ['controller' => 'Users', 'action' => 'profil']) ?></li>
+                <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
                 <!-- <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li> -->
                 <!-- <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li> -->
             </ul>
