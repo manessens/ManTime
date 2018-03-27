@@ -29,15 +29,15 @@
             </td>
         </tr>
         <tr>
-            <th scope="row" class="text-danger"><?= __('Admin') ?></th>
+            <th scope="row" class="text-primary"><?= __('Chef de projet') ?></th>
             <td>
-                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
+                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 20]) ?>
             </td>
         </tr>
         <tr>
             <th scope="row" class="text-danger"><?= __('Admin') ?></th>
             <td>
-                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 20]) ?>
+                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
             </td>
         </tr>
     </table>
