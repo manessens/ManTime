@@ -20,8 +20,13 @@
             <tr>
                 <th scope="row"><?= __('Admin') ?></th>
                 <td>
-                    <?php $this->set('test', $this->Number->format($user->admin) ) ?>
-                    <?= $this->element('tagYN') ?>
+                    <?= $this->element('tagYN', ['test'=>$this->Number->format($user->role) >= 50]) ?>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?= __('Chef de projet') ?></th>
+                <td>
+                    <?= $this->element('tagYN', ['test'=>$this->Number->format($user->role) >= 20]) ?>
                 </td>
             </tr>
         </table>

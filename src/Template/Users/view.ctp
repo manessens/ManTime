@@ -32,7 +32,7 @@
         <tr>
             <th scope="row" class="text-danger"><?= __('Admin') ?></th>
             <td>
-                <?= $this->element('tagYN', ['test' => $this->Number->format($user->admin)]) ?>
+                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
             </td>
         </tr>
     </table>

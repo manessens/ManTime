@@ -18,6 +18,7 @@
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);
 
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
+            echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['class' => 'text-primary']]);
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
