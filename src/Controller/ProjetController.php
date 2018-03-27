@@ -58,6 +58,8 @@ class ProjetController extends AppController
     public function add()
     {
         $clientOption = $this->getClientOption();
+        $participantsOption = $this->getUserOption();
+        $activitiesOption = $this->getActivitiesOption();
         $projet = $this->Projet->newEntity();
         $myParticipants = array();
         $myActivities = array();
@@ -75,7 +77,7 @@ class ProjetController extends AppController
             if ($this->Projet->save($projet)) {
                 if ($this->updateParticipant($projet, $data['participant'])
                 && $this->updateActivities($projet, $data['activities']) ){
-                    //sauvegarde après mise ç jour des listes
+                    //sauvegarde après mise à jour des listes
                     $this->Projet->save($projet);
                     $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
 
@@ -84,11 +86,14 @@ class ProjetController extends AppController
             }
             $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
         }
+        asort($clientOption);
+        asort($participantsOption);
+        asort($activitiesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $this->set('participants', $this->getUserOption());
+        $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
-        $this->set('activities', $this->getActivitiesOption());
+        $this->set('activities', $activitiesOption);
         $this->set('myActivities', $myActivities);
     }
 
@@ -102,6 +107,8 @@ class ProjetController extends AppController
     public function edit($id = null)
     {
         $clientOption = $this->getClientOption();
+        $participantsOption = $this->getUserOption();
+        $activitiesOption = $this->getActivitiesOption();
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities', 'Participant' ]
         ]);
@@ -125,11 +132,14 @@ class ProjetController extends AppController
             }
             $this->Flash->error(__("Le projet n'a pus être sauvegardé. Merci de retenter ultérieurment."));
         }
+        asort($clientOption);
+        asort($participantsOption);
+        asort($activitiesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $this->set('participants', $this->getUserOption());
+        $this->set('participants', $participantsOption);
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
-        $this->set('activities', $this->getActivitiesOption());
+        $this->set('activities', $activitiesOption);
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
