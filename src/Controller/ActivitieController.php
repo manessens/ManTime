@@ -20,6 +20,11 @@ class ActivitieController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'order' => [
+                'nom_activit' => 'asc'
+            ]
+        ];
         $activitie = $this->paginate($this->Activitie);
 
         $this->set(compact('activitie'));
