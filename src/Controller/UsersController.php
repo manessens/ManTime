@@ -110,8 +110,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['admin']) {
                 $user['role'] = 50;
-            }
-            if ($user['role']) {
+            }elseif ($user['role']) {
                 $user['role'] = 20;
             }
             if ($this->Users->save($user)) {
@@ -164,8 +163,7 @@ class UsersController extends AppController
             }
             if ($user['admin']) {
                 $user['role'] = 50;
-            }
-            if ($user['role']) {
+            }elseif ($user['role']) {
                 $user['role'] = 20;
             }
             if ($this->Users->save($user)) {
