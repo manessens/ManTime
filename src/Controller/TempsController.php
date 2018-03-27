@@ -809,7 +809,7 @@ class TempsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['indexAdmin', 'export']) && $user['role'] >== 50 ) {
+        if (in_array($action, ['indexAdmin', 'export']) && $user['role'] >= 50 ) {
             return true;
         }
 
