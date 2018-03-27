@@ -32,7 +32,6 @@ class ProjetController extends AppController
             ]
         ];
         $this->set('projet', $this->paginate($this->Projet));
-        $this->set(compact('projet'));
     }
 
     /**

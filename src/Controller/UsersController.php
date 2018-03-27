@@ -21,6 +21,12 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'order' => [
+                'prenom' => 'asc'
+            ]
+        ];
+
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
