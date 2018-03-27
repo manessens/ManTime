@@ -14,8 +14,8 @@
                 <th scope="col"><?= $this->Paginator->sort('nom','Nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email','Adresse email') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('actif','Actif') ?></th>
-                <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('role','Chef de projet') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -29,10 +29,10 @@
                     <?= $this->element('tagYN', ['test' => $this->Number->format($user->actif)]) ?>
                 </td>
                 <td>
-                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
+                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 20]) ?>
                 </td>
                 <td>
-                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 20]) ?>
+                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
                 </td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' => $user->idu, 'entity'=>$user->email]); ?>

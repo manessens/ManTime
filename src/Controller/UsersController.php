@@ -118,6 +118,8 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
+        $user->admin = $user->role >= 50;
+        $user->role = $user->role >= 20;
         $this->set(compact('user'));
     }
 
@@ -167,6 +169,8 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
+        $user->admin = $user->role >= 50;
+        $user->role = $user->role >= 20;
         $this->set(compact('user'));
     }
 
