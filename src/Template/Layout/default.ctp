@@ -55,8 +55,10 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
         </div>
     </nav>
     <?= $this->Flash->render() ?>
-    <div class="clearfix">
-        <?= $this->element('menuleft') ?>
+    <div class="clearfix col-xs-12 center">
+        <?php if( $this->request->session()->read('Auth.User.role') >= 50 && !isset($controller) ): ?>
+            <?= $this->element('menuleft') ?>
+        <?php endif; ?>
         <?= $this->fetch('content') ?>
     </div>
     <footer>
