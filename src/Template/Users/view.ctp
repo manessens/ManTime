@@ -29,15 +29,15 @@
             </td>
         </tr>
         <tr>
-            <th scope="row" class="text-primary"><?= __('Chef de projet') ?></th>
+            <th scope="row" ><?= __('Rôle') ?></th>
             <td>
-                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 20]) ?>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-danger"><?= __('Admin') ?></th>
-            <td>
-                <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
+                <?php if ($this->Number->format($user->role) >= 50): ?>
+                    <span class="text-danger">Admin</span>
+                <?php elseif($this->Number->format($user->role) >= 20): ?>
+                    <span class="text-primary">Chef de projet</span>
+                <?php else: ?>
+                    <span>Consultant</span>
+                <?php endif; ?>
             </td>
         </tr>
     </table>
