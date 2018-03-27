@@ -18,15 +18,9 @@
                 <td><?= h($user->nom) ?></td>
             </tr>
             <tr>
-                <th scope="row"><?= __('Admin') ?></th>
+                <th scope="row"><?= __('Rôle') ?></th>
                 <td>
-                    <?= $this->element('tagYN', ['test'=>$this->Number->format($user->role) >= 50]) ?>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><?= __('Chef de projet') ?></th>
-                <td>
-                    <?= $this->element('tagYN', ['test'=>$this->Number->format($user->role) >= 20]) ?>
+                    <?= $this->element('roleselect', ['role'=>$this->Number->format($user->role)]) ?>
                 </td>
             </tr>
         </table>
