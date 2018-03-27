@@ -185,7 +185,7 @@
                             <?php else: ?>
                             <?php
                                 echo $this->Form->hidden("day.$k.$idDay.id", ['label' => false , 'value' => $line[$idDay]->idt]);
-                                echo $this->form->control("day.$k.$idDay.time", ['label' => false , 'value' => $line[$idDay]->time]);
+                                echo $this->form->control("day.$k.$idDay.time", ['label' => false , 'value' => $line[$idDay]->time, 'class' => 'numericer']);
                              ?>
                             <?php endif; ?>
                         </td>

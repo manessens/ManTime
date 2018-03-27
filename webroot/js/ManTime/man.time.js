@@ -318,7 +318,7 @@ function addLine(that) {
     $( ".client" ).change();
 }
 
-$('input').on('input', function() {
+$('.numericer').on('input', function() {
     numericer(this);
     updateTotal();
 });
