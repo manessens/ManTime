@@ -56,6 +56,10 @@
     color: #f0ad4e !important;
 }
 
+.tag_role{
+    width: 130px !important;
+}
+
 .panel{
     padding:0 !important;
     text-align: center !important;

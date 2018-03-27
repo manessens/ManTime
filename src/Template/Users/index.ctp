@@ -14,7 +14,7 @@
                 <th scope="col"><?= $this->Paginator->sort('nom','Nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email','Adresse email') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('actif','Actif') ?></th>
-                <th class="medium-1" scope="col"><?= $this->Paginator->sort('role','Rôle') ?></th>
+                <th class="tag_role" scope="col"><?= $this->Paginator->sort('role','Rôle') ?></th>
                 <!-- <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th> -->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
