@@ -4,6 +4,11 @@
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',
+            ['title' => 'Saisie de la semaine', 'content'=>'Saisie des semaines', 'img'=>'Saisie_semaine.png']),
+            ['controller' => 'Temps', 'action' => 'index'],
+            ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
             ['title' => 'Validation semaine', 'content'=>'Gestions des temps par semaines', 'img'=>'Validation_semaine.png']),
             ['controller' => 'Temps', 'action' => 'index-admin'],
             ['escape' => false]); ?>
