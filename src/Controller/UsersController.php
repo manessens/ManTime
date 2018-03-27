@@ -111,6 +111,9 @@ class UsersController extends AppController
             if ($user['admin']) {
                 $user['role'] = 50;
             }
+            if ($user['role']) {
+                $user['role'] = 20;
+            }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
@@ -161,6 +164,9 @@ class UsersController extends AppController
             }
             if ($user['admin']) {
                 $user['role'] = 50;
+            }
+            if ($user['role']) {
+                $user['role'] = 20;
             }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
