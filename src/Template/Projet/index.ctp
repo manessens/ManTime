@@ -9,7 +9,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('idc','Client') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('client.nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('nom_projet','Projet') ?></th>
                 <th class="date" scope="col"><?= $this->Paginator->sort('date_debut','Date de début') ?></th>
                 <th class="date" scope="col"><?= $this->Paginator->sort('date_fin','Date de fin') ?></th>
