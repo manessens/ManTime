@@ -23,7 +23,7 @@ class ClientController extends AppController
     {
         $this->paginate =[
             'contain'   => ['Matrice'],
-            'order'     => ['nom_cllient'=>'asc']
+            'order'     => ['nom_client'=>'asc']
         ];
         $this->set('client', $this->paginate($this->Client));
         $this->set(compact('client'));
