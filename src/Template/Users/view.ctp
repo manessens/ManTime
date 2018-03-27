@@ -31,13 +31,7 @@
         <tr>
             <th scope="row" ><?= __('Rôle') ?></th>
             <td>
-                <?php if ($this->Number->format($user->role) >= 50): ?>
-                    <span class="text-danger">Admin</span>
-                <?php elseif($this->Number->format($user->role) >= 20): ?>
-                    <span class="text-primary">Chef de projet</span>
-                <?php else: ?>
-                    <span>Consultant</span>
-                <?php endif; ?>
+                <?= $this->element('tagYN', ['role' => $this->Number->format($user->role)]) ?>
             </td>
         </tr>
     </table>
