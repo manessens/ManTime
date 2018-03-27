@@ -88,6 +88,10 @@ class UsersTable extends Table
             ->allowEmpty('admin');
 
         $validator
+            ->integer('role')
+            ->allowEmpty('role');
+
+        $validator
             ->scalar('password2')
             ->add('password2', [
                 'length' => [

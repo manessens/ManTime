@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $mdp
  * @property int $actif
  * @property int $admin
+ * @property int $role
  * @property int $prem_connect
  *
  */
@@ -36,7 +37,8 @@ class User extends Entity
         'mdp' => true,
         'actif' => true,
         'prem_connect' => true,
-        'admin' => true
+        'admin' => true,
+        'role' => true
     ];
 
     protected function _getFullname()

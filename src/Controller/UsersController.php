@@ -108,6 +108,9 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($user['admin']) {
+                $user['role'] = 50;
+            }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
@@ -153,6 +156,9 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['prem_connect']) {
                 $user['mdp'] = 'Welcome1!';
+            }
+            if ($user['admin']) {
+                $user['role'] = 50;
             }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
@@ -238,7 +244,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >== 50 ) {
             return true;
         }
 

@@ -59,7 +59,7 @@ class ClientController extends AppController
         foreach ($matrices as $matrice) {
             $matricesOption[$matrice->idm] = $matrice->nom_matrice;
         }
-
+        asort($matricesOption);
         $client = $this->Client->newEntity();
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
@@ -90,7 +90,7 @@ class ClientController extends AppController
         foreach ($matrices as $matrice) {
             $matricesOption[$matrice->idm] = $matrice->nom_matrice;
         }
-
+        asort($matricesOption);
         $client = $this->Client->get($id, [
             'contain' => ['Matrice']
         ]);
@@ -136,8 +136,8 @@ class ClientController extends AppController
             return false;
         }
 
-        // if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['admin'] === 1 ) {
-        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete']) && $user['admin'] === 1 ) {
+        // if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >== 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete']) && $user['role'] >== 50 ) {
             return true;
         }
 
