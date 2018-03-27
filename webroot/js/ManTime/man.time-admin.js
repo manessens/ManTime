@@ -401,7 +401,7 @@ function addLine(that) {
     // selectUser.change();
 }
 
-$('input').on('input', function() {
+$('.numericer').on('input', function() {
     numericer(this);
     updateTotal();
 });
