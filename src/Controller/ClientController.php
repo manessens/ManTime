@@ -22,7 +22,8 @@ class ClientController extends AppController
     public function index()
     {
         $this->paginate =[
-            'contain'   => ['Matrice']
+            'contain'   => ['Matrice'],
+            'order'     => ['nom_cllient'=>'asc']
         ];
         $this->set('client', $this->paginate($this->Client));
         $this->set(compact('client'));
