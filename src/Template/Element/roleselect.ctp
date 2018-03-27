@@ -1,7 +1,7 @@
 <?php if ($role >= 50): ?>
-    <span class="text-danger">Admin</span>
+    <div class="badge back-danger" >Admin</div>
 <?php elseif($role >= 20): ?>
-    <span class="text-primary">Chef de projet</span>
+    <div class="badge back-primary" >Chef de projet</div>
 <?php else: ?>
-    <span>Consultant</span>
+    <div class="badge back-default" >Consultant</div>
 <?php endif; ?>
