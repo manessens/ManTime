@@ -21,6 +21,12 @@ class MatriceController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'order' => [
+                'nom_matrice' => 'asc'
+            ]
+        ];
+
         $matrice = $this->paginate($this->Matrice);
 
         $this->set(compact('matrice'));
