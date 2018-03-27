@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="col-xs-12 new_content">
+<div class="col-xs-12 new_content content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Profil de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend><table class="vertical-table">
