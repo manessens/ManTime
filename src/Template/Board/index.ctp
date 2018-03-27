@@ -7,5 +7,12 @@
             ['title' => 'Saisie de la semaine', 'content'=>'Saisie des semaines', 'img'=>'Saisie_semaine.png']),
             ['controller' => 'Temps', 'action' => 'index'],
             ['escape' => false]); ?>
+        <?php if ($this->request->session()->read('Auth.User.role') >= 20): ?>
+            <?= $this->Html->link($this->element(
+                'block',
+                ['title' => 'Export', 'content'=>'Export csv', 'img'=>'Export.png']),
+                ['controller' => 'Temps', 'action' => 'export'],
+                ['escape' => false]); ?>
+        <?php endif; ?>
     </div>
 </div>
