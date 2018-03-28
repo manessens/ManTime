@@ -665,8 +665,8 @@ class TempsController extends AppController
                             for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
                                 $period[$i.$y] = '';
                                 $arrayMonth[] = 'JH '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
-                                $arrayMonthUO[] = 'UO '.$arrayMonthKey[$y].' '.$i;
-                                $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
+                                $arrayMonthUO[] = 'UO '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
+                                $arrayMonthCA[] = 'CA '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
                             }
                         }
                     }
@@ -774,7 +774,12 @@ class TempsController extends AppController
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrDate) {
-                            $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
+                            $buffer = ['client'=>mb_convert_encoding($client, "ISO-8859-1"),
+                                'projet'=>mb_convert_encoding($projet, "ISO-8859-1"),
+                                'user'=>mb_convert_encoding($user, "ISO-8859-1"),
+                                'profil'=>mb_convert_encoding($profil, "ISO-8859-1"),
+                                'activit'=>mb_convert_encoding($activit, "ISO-8859-1")
+                            ];
                             $timebuffer = array();
                             foreach ($arrDate as $date => $arrTime) {
                                 if (!is_array($arrTime)) {
