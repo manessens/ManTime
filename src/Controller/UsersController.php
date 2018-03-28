@@ -53,6 +53,7 @@ class UsersController extends AppController
             }
         }
         $this->set(compact('user'));
+        $this->set('controller', false);
     }
 
     public function login()
