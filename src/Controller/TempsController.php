@@ -664,7 +664,7 @@ class TempsController extends AppController
                         for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
                             for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
                                 $period[$i.$y] = '';
-                                $arrayMonth[] = 'JH '.$arrayMonthKey[$y].' '.$i;
+                                $arrayMonth[] = 'JH '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
                                 $arrayMonthUO[] = 'UO '.$arrayMonthKey[$y].' '.$i;
                                 $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
                             }
