@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="users form large-10 large-10bis medium-8 columns content">
+<div class="col-xs-10 new_content content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Modifier votre Mot de passe');?> <?=  h($user->email); ?></legend>

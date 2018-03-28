@@ -1,5 +1,5 @@
 
-<div class="users index large-10 large-10bis medium-8 columns content">
+<div class="col-xs-12 new_content content">
     <div class='col-xs-4'>
         <legend>Login</legend>
         <?= $this->Form->create() ?>
