@@ -657,6 +657,8 @@ class TempsController extends AppController
                             $start->modify('+1 days');
                             $x++;
                         }
+                        pr($period);
+                        pr($arrayMonth);exit;
                     }else{
                         $title = 'export';
                         for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
