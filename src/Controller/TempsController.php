@@ -637,8 +637,6 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    //@TODO : key 20181 : annee+keyMonth : double boucle de date-année-début à date-année-fin et date-mois-debut à date-mois-fin
-                    // + converstion pour header ac arrayMonthKey
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
                         7=>'Juillet', 8=>'Août', 9=>'Septembre', 10=>'Octobre', 11=>'Novembre', 12=>'Décembre'];
 
@@ -646,20 +644,29 @@ class TempsController extends AppController
                     $arrayMonth=array();
                     $arrayMonthUO=array();
                     $arrayMonthCA=array();
-                    for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
-                        for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
-                            $period[$i.$y] = '';
-                            $arrayMonth[] = 'JH '.$arrayMonthKey[$y].' '.$i;
-                            $arrayMonthUO[] = 'UO '.$arrayMonthKey[$y].' '.$i;
-                            $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
+                    if ($arrayData['fitnet']) {
+                        $title = 'export_fitnet';
+                        $start = $arrayData['date_debut'];
+                        $end = $arrayData['date_debut'];
+                        while ($start <= $end) {
+                            $period[$start->year.$start->month.$start->day] = '';
+                            $arrayMonth[] = 'JH '.$start->i18nFormat('dd-MM-YYYY');
+                            $arrayMonthUO[] = 'UO '.$start->i18nFormat('dd-MM-YYYY');
+                            $arrayMonthCA[] = 'CA '.$start->i18nFormat('dd-MM-YYYY');
+                            $start->modify('+1 days');
+                        }
+                    }else{
+                        $title = 'export';
+                        for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
+                            for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
+                                $period[$i.$y] = '';
+                                $arrayMonth[] = 'JH '.$arrayMonthKey[$y].' '.$i;
+                                $arrayMonthUO[] = 'UO '.$arrayMonthKey[$y].' '.$i;
+                                $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
+                            }
                         }
                     }
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period);
-                    if ($arrayData['fitnet']) {
-                        $title = 'export_fitnet';
-                    }else{
-                        $title = 'export';
-                    }
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
@@ -758,54 +765,56 @@ class TempsController extends AppController
         }
         ksort($data);
         $dataLine=array();
-        if ($isFitnet) {
-            //@TODO mise en page pour fitnet
-        }else{
-            // $arrayMonth = ['', '', '', '', '', '', '', '', '', '', '', ''];
-            foreach ($data as $client => $arrProj) {
-                foreach ($arrProj as $projet => $arrUser) {
-                    foreach ($arrUser as $user => $arrProfil) {
-                        foreach ($arrProfil as $profil => $arrActiv) {
-                            foreach ($arrActiv as $activit => $arrDate) {
-                                $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
-                                $timebuffer = array();
-                                $arrayYear = array();
-                                foreach ($arrDate as $date => $arrTime) {
-                                    if (!is_array($arrTime)) {
-                                        $buffer['detail']=$arrTime;
-                                        continue;
-                                    }
-                                    foreach ($arrTime as $type => $time) {
-                                        $yearKey = explode('-',$date)[0];
-                                        if (!in_array($yearKey, $arrayYear)) {
-                                            $arrayYear[] = $yearKey;
-                                            $timebufferMonth = $period;
-                                            $UobufferMonth = $period;
-                                            $CabufferMonth = $period;
+        foreach ($data as $client => $arrProj) {
+            foreach ($arrProj as $projet => $arrUser) {
+                foreach ($arrUser as $user => $arrProfil) {
+                    foreach ($arrProfil as $profil => $arrActiv) {
+                        foreach ($arrActiv as $activit => $arrDate) {
+                            $buffer = ['client'=>$client, 'projet'=>$projet, 'user'=>$user, 'profil'=>$profil,'activit'=>$activit];
+                            $timebuffer = array();
+                            foreach ($arrDate as $date => $arrTime) {
+                                if (!is_array($arrTime)) {
+                                    $buffer['detail']=$arrTime;
+                                    continue;
+                                }
+                                foreach ($arrTime as $type => $time) {
+                                    $yearKey = explode('-',$date)[0];
+                                    $timebufferMonth = $period;
+                                    $UobufferMonth = $period;
+                                    $CabufferMonth = $period;
+                                    $monthKey = explode('-',$date)[1];
+                                    if ($isFitnet) {
+                                        $dayKey = explode('-',$date)[2];
+                                        switch ($type) {
+                                            case 'UO':
+                                                $UobufferMonth[$yearKey.$monthKey.$dayKey] = $time;
+                                                break;
+                                            case 'CA':
+                                                $CabufferMonth[$yearKey.$monthKey.$dayKey] = $time;
+                                                break;
+                                            default:
+                                                $timebufferMonth[$yearKey.$monthKey.$dayKey] = $time;
+                                                break;
                                         }
-                                        $monthKey = explode('-',$date)[1];
+                                    }else{
                                         switch ($type) {
                                             case 'UO':
                                                 $UobufferMonth[$yearKey.$monthKey] = $time;
-                                                // $UobufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                             case 'CA':
                                                 $CabufferMonth[$yearKey.$monthKey] = $time;
-                                                // $CabufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                             default:
                                                 $timebufferMonth[$yearKey.$monthKey] = $time;
-                                                // $timebufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                         }
                                     }
                                 }
-                                sort($arrayYear);
-                                $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
-                                $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
-                                $timebuffer = array_merge($timebuffer, $timebufferMonth);
-                                $dataLine[] = array_merge($buffer, $timebuffer);
                             }
+                            $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
+                            $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                            $timebuffer = array_merge($timebuffer, $timebufferMonth);
+                            $dataLine[] = array_merge($buffer, $timebuffer);
                         }
                     }
                 }
