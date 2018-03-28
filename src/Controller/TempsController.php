@@ -649,7 +649,7 @@ class TempsController extends AppController
                         $start = $arrayData['date_debut'];
                         $end = $arrayData['date_debut'];
                         $x =0;
-                        while ($start <= $end || $x <= 10) {
+                        while ($start <= $end && $x <= 10) {
                             $period[$start->year.$start->month.$start->day] = '';
                             $arrayMonth[] = 'JH '.$start->i18nFormat('dd-MM-YYYY');
                             $arrayMonthUO[] = 'UO '.$start->i18nFormat('dd-MM-YYYY');
