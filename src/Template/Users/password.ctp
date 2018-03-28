@@ -13,7 +13,7 @@
             echo $this->Form->control('mdp',['label' => 'Mot de passe', 'value' => '', 'type' => 'password']);
             echo $this->Form->control('password2', ['label' => 'Confirmation mot de passe', 'type'=>'password']);
         ?>
+        <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-primary']) ?>
     </fieldset>
-    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-primary']) ?>
     <?= $this->Form->end() ?>
 </div>
