@@ -656,7 +656,7 @@ class TempsController extends AppController
                             $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
                         }
                     }
-
+                    pr($period);
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period);
                     pr($data);exit;
                     if ($arrayData['fitnet']) {
@@ -787,7 +787,7 @@ class TempsController extends AppController
                                             $UobufferMonth = $period;
                                             $CabufferMonth = $period;
                                         }
-                                        $monthKey = explode('-',$date)[1] -1;
+                                        $monthKey = explode('-',$date)[1];
                                         switch ($type) {
                                             case 'UO':
                                                 $UobufferMonth[$yearKey.$monthKey] = $time;
