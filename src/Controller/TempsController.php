@@ -656,9 +656,7 @@ class TempsController extends AppController
                             $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
                         }
                     }
-                    pr($period);
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period);
-                    pr($data);exit;
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
