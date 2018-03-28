@@ -801,13 +801,13 @@ class TempsController extends AppController
                                     }
                                     switch ($type) {
                                         case 'UO':
-                                            $UobufferMonth[$keyTime] = $time;
+                                            $UobufferMonth[$keyTime] = str_replace('.', ',', $time);
                                             break;
                                         case 'CA':
-                                            $CabufferMonth[$keyTime] = $time;
+                                            $CabufferMonth[$keyTime] = str_replace('.', ',', $time);
                                             break;
                                         default:
-                                            $timebufferMonth[$keyTime] = $time;
+                                            $timebufferMonth[$keyTime] = str_replace('.', ',', $time);
                                             break;
                                     }
                                 }
