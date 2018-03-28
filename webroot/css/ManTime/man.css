@@ -106,6 +106,10 @@
 .newUser{
     background-color: #e6f4f8 !important
 }
+.menu_fixed{
+    position: fixed;
+    width: 10%;
+}
 
 .fixe{
     position: fixed;
