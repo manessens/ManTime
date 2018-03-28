@@ -641,16 +641,23 @@ class TempsController extends AppController
                 }else{
                     //@TODO : key 20181 : annee+keyMonth : double boucle de date-année-début à date-année-fin et date-mois-debut à date-mois-fin
                     // + converstion pour header ac arrayMonthKey
-                    $period = array();
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
                         7=>'Juillet', 8=>'Août', 9=>'Septembre', 10=>'Octobre', 11=>'Novembre', 12=>'Décembre'];
+
+                    $period = array();
+                    $arrayMonth=array();
+                    $arrayMonthUO=array();
+                    $arrayMonthCA=array();
                     for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
                         for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
-                            $period[$i.$y] = $arrayMonthKey[$y];
+                            $period[$i.$y] = '';
+                            $arrayMonth[] = 'JH '.$arrayMonthKey[$y].' '.$i;
+                            $arrayMonthUO[] = 'UO '.$arrayMonthKey[$y].' '.$i;
+                            $arrayMonthCA[] = 'CA '.$arrayMonthKey[$y].' '.$i;
                         }
                     }
-                    pr($period);exit;
-                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $arrayMonthKey);
+
+                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period);
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
@@ -760,7 +767,7 @@ class TempsController extends AppController
         if ($isFitnet) {
             //@TODO mise en page pour fitnet
         }else{
-            $arrayMonth = ['', '', '', '', '', '', '', '', '', '', '', ''];
+            // $arrayMonth = ['', '', '', '', '', '', '', '', '', '', '', ''];
             foreach ($data as $client => $arrProj) {
                 foreach ($arrProj as $projet => $arrUser) {
                     foreach ($arrUser as $user => $arrProfil) {
@@ -778,33 +785,31 @@ class TempsController extends AppController
                                         $yearKey = explode('-',$date)[0];
                                         if (!in_array($yearKey, $arrayYear)) {
                                             $arrayYear[] = $yearKey;
-                                            $timebufferMonth[$yearKey] = $arrayMonth;
-                                            $UobufferMonth[$yearKey] = $arrayMonth;
-                                            $CabufferMonth[$yearKey] = $arrayMonth;
+                                            $timebufferMonth = $period;
+                                            $UobufferMonth = $period;
+                                            $CabufferMonth = $period;
                                         }
                                         $monthKey = explode('-',$date)[1] -1;
                                         switch ($type) {
                                             case 'UO':
-                                                $UobufferMonth[$yearKey][$monthKey] = $time;
+                                                $UobufferMonth[$yearKey.$monthKey] = $time;
                                                 // $UobufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                             case 'CA':
-                                                $CabufferMonth[$yearKey][$monthKey] = $time;
+                                                $CabufferMonth[$yearKey.$monthKey] = $time;
                                                 // $CabufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                             default:
-                                                $timebufferMonth[$yearKey][$monthKey] = $time;
+                                                $timebufferMonth[$yearKey.$monthKey] = $time;
                                                 // $timebufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                         }
                                     }
                                 }
                                 sort($arrayYear);
-                                foreach ($arrayYear as $yearValue) {
-                                    $timebufferMonth[$yearValue] = array_merge($timebufferMonth[$yearValue], $UobufferMonth[$yearValue]);
-                                    $timebufferMonth[$yearValue] = array_merge($timebufferMonth[$yearValue], $CabufferMonth[$yearValue]);
-                                    $timebuffer = array_merge($timebuffer, $timebufferMonth[$yearValue]);
-                                }
+                                $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
+                                $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                                $timebuffer = array_merge($timebuffer, $timebufferMonth);
                                 $dataLine[] = array_merge($buffer, $timebuffer);
                             }
                         }
