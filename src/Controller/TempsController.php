@@ -125,11 +125,13 @@ class TempsController extends AppController
                             $day->n_ligne = $line;
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
+                            if ($day->idp != $arrayIdp[2]) {
+                                $day->idm = $client->idm;
+                                $day->prix = $client->prix;
+                            }
                             $day->idp = $arrayIdp[2];
                             $day->id_profil = $arrayIdprof[1];
                             $day->ida = $arrayIda[1];
-                            $day->idm = $client->idm;
-                            $day->prix = $client->prix;
                             $day->detail = $arrayData['detail'][$line];
                             $entities[] = $day;
 
@@ -308,11 +310,13 @@ class TempsController extends AppController
                                 $day->date = clone $dayTime ;
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
+                                if ($day->idp != $arrayIdp[2]) {
+                                    $day->idm = $client->idm;
+                                    $day->prix = $client->prix;
+                                }
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
                                 $day->ida = $arrayIda[1];
-                                $day->idm = $client->idm;
-                                $day->prix = $client->prix;
                                 $day->detail = $arrayData['detail'][$idUser][$line];
                                 $entities[] = $day;
 
