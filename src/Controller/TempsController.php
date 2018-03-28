@@ -658,15 +658,13 @@ class TempsController extends AppController
                     }
 
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period);
+                    pr($data);exit;
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
                         $title = 'export';
                     }
             		$this->response->download($title.'.csv');
-                    $arrayMonth = ['JH Janvier', 'JH Février', 'JH Mars', 'JH Avril', 'JH Mai', 'JH Juin', 'JH Juillet', 'JH Août', 'JH Septembre', 'JH Octobre', 'JH novembre', 'JH Décembre'];
-                    $arrayMonthUO = ['UO Janvier', 'UO Février', 'UO Mars', 'UO Avril', 'UO Mai', 'UO Juin', 'UO Juillet', 'UO Août', 'UO Septembre', 'UO Octobre', 'UO novembre', 'UO Décembre'];
-                    $arrayMonthCA = ['CA Janvier', 'CA Février', 'CA Mars', 'CA Avril', 'CA Mai', 'CA Juin', 'CA Juillet', 'CA Août', 'CA Septembre', 'CA Octobre', 'CA novembre', 'CA Décembre'];
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
                     $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités','Détails'], $arrayMonthBuffer);
