@@ -778,43 +778,34 @@ class TempsController extends AppController
                                     continue;
                                 }
                                 foreach ($arrTime as $type => $time) {
+                                    $timebufferMonth = clone $period;
+                                    $UobufferMonth = clone $period;
+                                    $CabufferMonth = clone $period;
                                     $yearKey = explode('-',$date)[0];
-                                    $timebufferMonth = $period;
-                                    $UobufferMonth = $period;
-                                    $CabufferMonth = $period;
                                     $monthKey = explode('-',$date)[1];
+                                    $keyTime = '';
                                     if ($isFitnet) {
                                         $dayKey = explode('-',$date)[2];
-                                        switch ($type) {
-                                            case 'UO':
-                                                $UobufferMonth[$yearKey.$monthKey.$dayKey] = $time;
-                                                break;
-                                            case 'CA':
-                                                $CabufferMonth[$yearKey.$monthKey.$dayKey] = $time;
-                                                break;
-                                            default:
-                                                $timebufferMonth[$yearKey.$monthKey.$dayKey] = $time;
-                                                break;
-                                        }
+                                        $keyTime = $yearKey.$monthKey.$dayKey;
                                     }else{
-                                        switch ($type) {
-                                            case 'UO':
-                                                $UobufferMonth[$yearKey.$monthKey] = $time;
-                                                break;
-                                            case 'CA':
-                                                $CabufferMonth[$yearKey.$monthKey] = $time;
-                                                break;
-                                            default:
-                                                $timebufferMonth[$yearKey.$monthKey] = $time;
-                                                break;
-                                        }
+                                        $keyTime = $yearKey.$monthKey;
+                                    }
+                                    switch ($type) {
+                                        case 'UO':
+                                            $UobufferMonth[$keyTime] = $time;
+                                            break;
+                                        case 'CA':
+                                            $CabufferMonth[$keyTime] = $time;
+                                            break;
+                                        default:
+                                            $timebufferMonth[$keyTime] = $time;
+                                            break;
                                     }
                                 }
                             }
                             $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                             $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
-                            $timebuffer = array_merge($timebuffer, $timebufferMonth);
-                            $dataLine[] = array_merge($buffer, $timebuffer);
+                            $dataLine[] = array_merge($buffer, $timebufferMonth);
                         }
                     }
                 }
