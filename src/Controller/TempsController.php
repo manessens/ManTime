@@ -175,7 +175,6 @@ class TempsController extends AppController
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         asort($arrayRetour['projets']);
         asort($arrayRetour['clients']);
-        asort($arrayRetour['profiles']);
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
@@ -392,7 +391,6 @@ class TempsController extends AppController
         asort($arrayRetour['users']);
         asort($arrayRetour['projets']);
         asort($arrayRetour['clients']);
-        asort($arrayRetour['profiles']);
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
