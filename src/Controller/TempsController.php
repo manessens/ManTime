@@ -647,7 +647,7 @@ class TempsController extends AppController
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                         $start = $arrayData['date_debut'];
-                        $end = $arrayData['date_debut'];
+                        $end = $arrayData['date_fin'];
                         $x =0;
                         while ($start <= $end && $x <= 10) {
                             $period[$start->year.$start->month.$start->day] = '';
