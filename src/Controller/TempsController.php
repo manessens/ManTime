@@ -791,6 +791,7 @@ class TempsController extends AppController
                                         $keyTime = $yearKey.$monthKey;
                                     }
                                     pr($type);
+                                    pr($time);
                                     switch ($type) {
                                         case 'UO':
                                             $UobufferMonth[$keyTime] = $time;
