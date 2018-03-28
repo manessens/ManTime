@@ -664,9 +664,9 @@ class TempsController extends AppController
                         for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
                             for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
                                 $period[$i.$y] = '';
-                                $arrayMonth[] = 'JH '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
-                                $arrayMonthUO[] = 'UO '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
-                                $arrayMonthCA[] = 'CA '.mb_convert_encoding($arrayMonthKey[$y], "ISO-8859-1").' '.$i;
+                                $arrayMonth[] = 'JH '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
+                                $arrayMonthUO[] = 'UO '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
+                                $arrayMonthCA[] = 'CA '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
                             }
                         }
                     }
@@ -674,7 +674,7 @@ class TempsController extends AppController
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
-                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', mb_convert_encoding('Activités', "ISO-8859-1"),mb_convert_encoding('Détails', "ISO-8859-1")], $arrayMonthBuffer);
+                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails')], $arrayMonthBuffer);
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
@@ -774,11 +774,11 @@ class TempsController extends AppController
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrDate) {
-                            $buffer = ['client'=>mb_convert_encoding($client, "ISO-8859-1"),
-                                'projet'=>mb_convert_encoding($projet, "ISO-8859-1"),
-                                'user'=>mb_convert_encoding($user, "ISO-8859-1"),
-                                'profil'=>mb_convert_encoding($profil, "ISO-8859-1"),
-                                'activit'=>mb_convert_encoding($activit, "ISO-8859-1")
+                            $buffer = ['client'=>$this->convertToIso($client),
+                                'projet'=>$this->convertToIso($projet),
+                                'user'=>$this->convertToIso($user),
+                                'profil'=>$this->convertToIso($profil),
+                                'activit'=>$this->convertToIso($activit)
                             ];
                             $timebuffer = array();
                             foreach ($arrDate as $date => $arrTime) {
@@ -821,6 +821,9 @@ class TempsController extends AppController
             }
         }
         return $dataLine;
+    }
+    private function convertToIso($string = ''){
+        return mb_convert_encoding($string, "ISO-8859-1");
     }
 
     public function isAuthorized($user)
