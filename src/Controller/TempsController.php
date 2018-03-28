@@ -639,7 +639,12 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet']);
+                    pr($arrayData['date_fin']);exit;
+                    //@TODO : key 20181 : annee+keyMonth : double boucle de date-année-début à date-année-fin et date-mois-debut à date-mois-fin
+                    // + converstion pour header ac arrayMonthKey
+                    $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
+                        7=>'Juillet', 8=>'Août', 9=>'Septembre', 10=>'Octobre', 11=>'Novembre', 12=>'Décembre'];
+                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $arrayMonthKey);
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                     }else{
@@ -671,7 +676,7 @@ class TempsController extends AppController
         $this->set('controller', false);
     }
 
-    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false)
+    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period)
     {
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
@@ -775,12 +780,15 @@ class TempsController extends AppController
                                         switch ($type) {
                                             case 'UO':
                                                 $UobufferMonth[$yearKey][$monthKey] = $time;
+                                                // $UobufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                             case 'CA':
                                                 $CabufferMonth[$yearKey][$monthKey] = $time;
+                                                // $CabufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                             default:
                                                 $timebufferMonth[$yearKey][$monthKey] = $time;
+                                                // $timebufferMonth[$yearKey][$arrayMonth[$monthKey]] = $time;
                                                 break;
                                         }
                                     }
