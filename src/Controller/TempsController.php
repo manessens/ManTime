@@ -639,11 +639,17 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    pr($arrayData['date_fin']->month);exit;
                     //@TODO : key 20181 : annee+keyMonth : double boucle de date-année-début à date-année-fin et date-mois-debut à date-mois-fin
                     // + converstion pour header ac arrayMonthKey
+                    $period = array();
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
                         7=>'Juillet', 8=>'Août', 9=>'Septembre', 10=>'Octobre', 11=>'Novembre', 12=>'Décembre'];
+                    for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
+                        for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
+                            $period[$i.$y] = $arrayMonthKey[$y];
+                        }
+                    }
+                    pr($period);exit;
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $arrayMonthKey);
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
