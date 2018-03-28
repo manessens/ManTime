@@ -639,7 +639,7 @@ class TempsController extends AppController
                 if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
-                    pr($arrayData['date_fin']);exit;
+                    pr($arrayData['date_fin']->month);exit;
                     //@TODO : key 20181 : annee+keyMonth : double boucle de date-année-début à date-année-fin et date-mois-debut à date-mois-fin
                     // + converstion pour header ac arrayMonthKey
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
