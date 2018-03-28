@@ -648,12 +648,14 @@ class TempsController extends AppController
                         $title = 'export_fitnet';
                         $start = $arrayData['date_debut'];
                         $end = $arrayData['date_debut'];
-                        while ($start <= $end) {
+                        $x =0;
+                        while ($start <= $end || $x <= 10) {
                             $period[$start->year.$start->month.$start->day] = '';
                             $arrayMonth[] = 'JH '.$start->i18nFormat('dd-MM-YYYY');
                             $arrayMonthUO[] = 'UO '.$start->i18nFormat('dd-MM-YYYY');
                             $arrayMonthCA[] = 'CA '.$start->i18nFormat('dd-MM-YYYY');
                             $start->modify('+1 days');
+                            $x++;
                         }
                     }else{
                         $title = 'export';
