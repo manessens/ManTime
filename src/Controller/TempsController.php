@@ -777,10 +777,10 @@ class TempsController extends AppController
                                     $buffer['detail']=$arrTime;
                                     continue;
                                 }
+                                $timebufferMonth = $period;
+                                $UobufferMonth = $period;
+                                $CabufferMonth = $period;
                                 foreach ($arrTime as $type => $time) {
-                                    $timebufferMonth = $period;
-                                    $UobufferMonth = $period;
-                                    $CabufferMonth = $period;
                                     $yearKey = explode('-',$date)[0];
                                     $monthKey = explode('-',$date)[1];
                                     $keyTime = '';
