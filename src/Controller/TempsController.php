@@ -778,9 +778,9 @@ class TempsController extends AppController
                                     continue;
                                 }
                                 foreach ($arrTime as $type => $time) {
-                                    $timebufferMonth = clone $period;
-                                    $UobufferMonth = clone $period;
-                                    $CabufferMonth = clone $period;
+                                    $timebufferMonth = $period;
+                                    $UobufferMonth = $period;
+                                    $CabufferMonth = $period;
                                     $yearKey = explode('-',$date)[0];
                                     $monthKey = explode('-',$date)[1];
                                     $keyTime = '';
@@ -806,6 +806,7 @@ class TempsController extends AppController
                             $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                             $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
                             $dataLine[] = array_merge($buffer, $timebufferMonth);
+                            pr($dataLine);exit;
                         }
                     }
                 }
