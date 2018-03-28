@@ -674,7 +674,7 @@ class TempsController extends AppController
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
-                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', 'Activités','Détails'], $arrayMonthBuffer);
+                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', mb_convert_encoding('Activités', "ISO-8859-1"),mb_convert_encoding('Détails', "ISO-8859-1")], $arrayMonthBuffer);
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
