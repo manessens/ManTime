@@ -790,8 +790,6 @@ class TempsController extends AppController
                                     }else{
                                         $keyTime = $yearKey.$monthKey;
                                     }
-                                    pr($type);
-                                    pr($time);
                                     switch ($type) {
                                         case 'UO':
                                             $UobufferMonth[$keyTime] = $time;
@@ -808,7 +806,6 @@ class TempsController extends AppController
                             $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                             $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
                             $dataLine[] = array_merge($buffer, $timebufferMonth);
-                            pr($dataLine);exit;
                         }
                     }
                 }
