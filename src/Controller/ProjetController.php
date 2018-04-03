@@ -79,7 +79,7 @@ class ProjetController extends AppController
                 && $this->updateActivities($projet, $data['activities']) ){
                     //sauvegarde après mise à jour des listes
                     $this->Projet->save($projet);
-                    $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
+                    $this->Flash->success(__('Le projet à été sauvegardé avec succés.'));
 
                     return $this->redirect(['action' => 'index']);
                 }
@@ -125,7 +125,7 @@ class ProjetController extends AppController
             if ($this->updateParticipant($projet, $data['participant'])
             && $this->updateActivities($projet, $data['activities']) ){
                 if ( $this->Projet->save($projet) ) {
-                    $this->Flash->success(__('Le projet à été sauegardé avec succés.'));
+                    $this->Flash->success(__('Le projet à été sauvegardé avec succés.'));
                     //retour à la liste en cas de succés
                     return $this->redirect(['action' => 'index']);
                 }

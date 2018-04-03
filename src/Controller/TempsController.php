@@ -162,7 +162,7 @@ class TempsController extends AppController
                 }
             }
             if ($verif) {
-                $this->Flash->success(__('La semaine à été sauvegardé.'));
+                $this->Flash->success(__('La semaine à été sauvegardée.'));
                 return $this->redirect(['action' => 'index', $semaine, $annee]);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
@@ -373,7 +373,7 @@ class TempsController extends AppController
                 }
             }
             if ($verif) {
-                $this->Flash->success(__('La semaine à été sauvegardé.'));
+                $this->Flash->success(__('La semaine à été sauvegardée.'));
 
                 return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
             }else{
