@@ -94,7 +94,7 @@ function modifyClient (that) {
             $( select ).val(optionProjects[idc][0]);
         }
     }
-    $( ".project" ).change();
+    $( select ).change();
     var select2 = $( that ).parent().parent().find('td.cel_profil').children();
     $( select2 ).find('option').each(function() {
         if (val == 0) {
