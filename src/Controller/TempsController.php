@@ -94,8 +94,7 @@ class TempsController extends AppController
                             $day = $this->Temps->newEntity();
                             $day->idu = $user->idu;
                         }else{
-                            $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
-                            $arrayIdCurrent[] = $dataDay['id'];
+                            $day = $this->Temps->get($dataDay['id']);
                         }
                         $day->time = $dataDay['time'];
                         // add to $week to keep the data in case of error and redirect in the same page
