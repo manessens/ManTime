@@ -398,7 +398,7 @@ function addLine(that) {
 
     tr.insertBefore('#total');
 
-    // selectUser.change();
+    selectUser.change();
 }
 
 $('.numericer').on('input', function() {
