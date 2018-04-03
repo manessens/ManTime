@@ -315,7 +315,7 @@ function addLine(that) {
         tr.insertAfter('#'+(id-1));
     }
 
-    $( ".client" ).change();
+    // selectClient.change();
 }
 
 $('.numericer').on('input', function() {
