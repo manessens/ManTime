@@ -123,7 +123,7 @@ class TempsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['date','idu', 'idp', 'id_profil', 'ida']));
+        // $rules->add($rules->isUnique(['date','idu', 'idp', 'id_profil', 'ida']));
 
         return $rules;
     }
