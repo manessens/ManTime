@@ -794,7 +794,7 @@ class TempsController extends AppController
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO*$time->prix;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['detail']=$time->detail;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['detail']=$this->convertToIso($time->detail);
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
