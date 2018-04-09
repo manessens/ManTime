@@ -365,6 +365,7 @@ class TempsController extends AppController
                         }
                     }
                 }
+                pr($arrayData);exit;
                 if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
                     $exportableTable->delete($isLocked);
                 }elseif ($arrayData['validat'] == 1 && is_null($isLocked)) {
