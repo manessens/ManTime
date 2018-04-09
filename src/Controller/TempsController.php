@@ -762,6 +762,7 @@ class TempsController extends AppController
             $keyUser = $users[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
+            $nLine = $time->n_ligne;
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
             }
@@ -777,8 +778,8 @@ class TempsController extends AppController
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array();
             }
-            if (!array_key_exists([$time->n_ligne], $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne] = array();
+            if (!array_key_exists($nLine, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine] = array();
             }
             $dateTime = $time->date;
             if ($isFitnet) {
@@ -786,18 +787,18 @@ class TempsController extends AppController
             }else{
                 $keyDate = $dateTime->year.'-'.$dateTime->month;
             }
-            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
+            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
             if ($time->time == 1) {
                 $timeUO =  $arrayMatrice[$time->idm][$keyProfil]['j'];
             }else{
                 $timeUO = round($time->time * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             }
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate]['JH']+=$time->time;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate]['UO']+=$timeUO;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate]['CA']+=$timeUO*$time->prix;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne]['detail']=$this->convertToIso($time->detail);
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
