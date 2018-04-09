@@ -779,9 +779,9 @@ class TempsController extends AppController
             }
             $dateTime = $time->date;
             if ($isFitnet) {
-                $keyDate = $dateTime->year.'-'.$dateTime->month.'-'.$dateTime->day.'-'.$time->detail;
+                $keyDate = $dateTime->year.'-'.$dateTime->month.'-'.$dateTime->day;
             }else{
-                $keyDate = $dateTime->year.'-'.$dateTime->month.'-'.$time->detail;
+                $keyDate = $dateTime->year.'-'.$dateTime->month;
             }
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
