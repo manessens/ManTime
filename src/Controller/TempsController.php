@@ -253,9 +253,6 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
-
-                pr($arrayData);exit;
-
                 $clientTable = TableRegistry::get('Client');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
@@ -368,9 +365,6 @@ class TempsController extends AppController
                         }
                     }
                 }
-
-                pr($arrayData);exit;
-
                 if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
                     $exportableTable->delete($isLocked);
                 }elseif ($arrayData['validat'] == 1 && is_null($isLocked)) {
