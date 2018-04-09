@@ -777,24 +777,27 @@ class TempsController extends AppController
             if (!array_key_exists($keyActivit, $data[$keyClient][$keyProject][$keyUser][$keyProfil])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit] = array();
             }
+            if (!array_key_exists([$time->n_ligne], $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne] = array();
+            }
             $dateTime = $time->date;
             if ($isFitnet) {
                 $keyDate = $dateTime->year.'-'.$dateTime->month.'-'.$dateTime->day;
             }else{
                 $keyDate = $dateTime->year.'-'.$dateTime->month;
             }
-            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
+            if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne])) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
             if ($time->time == 1) {
                 $timeUO =  $arrayMatrice[$time->idm][$keyProfil]['j'];
             }else{
                 $timeUO = round($time->time * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             }
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['JH']+=$time->time;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['UO']+=$timeUO;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$keyDate]['CA']+=$timeUO*$time->prix;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]['detail']=$this->convertToIso($time->detail);
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate]['JH']+=$time->time;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate]['UO']+=$timeUO;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne][$keyDate]['CA']+=$timeUO*$time->prix;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$time->n_ligne]['detail']=$this->convertToIso($time->detail);
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
@@ -806,48 +809,50 @@ class TempsController extends AppController
             foreach ($arrProj as $projet => $arrUser) {
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
-                        foreach ($arrActiv as $activit => $arrDate) {
-                            $buffer = ['client'=>$this->convertToIso($client),
-                                'projet'=>$this->convertToIso($projet),
-                                'user'=>$this->convertToIso($user),
-                                'profil'=>$this->convertToIso($profil),
-                                'activit'=>$this->convertToIso($activit)
-                            ];
-                            $timebuffer = array();
-                            foreach ($arrDate as $date => $arrTime) {
-                                if (!is_array($arrTime)) {
-                                    $buffer['detail']=$arrTime;
-                                    continue;
-                                }
-                                $timebufferMonth = $period;
-                                $UobufferMonth = $period;
-                                $CabufferMonth = $period;
-                                foreach ($arrTime as $type => $time) {
-                                    $yearKey = explode('-',$date)[0];
-                                    $monthKey = explode('-',$date)[1];
-                                    $keyTime = '';
-                                    if ($isFitnet) {
-                                        $dayKey = explode('-',$date)[2];
-                                        $keyTime = $yearKey.$monthKey.$dayKey;
-                                    }else{
-                                        $keyTime = $yearKey.$monthKey;
+                        foreach ($arrActiv as $activit => $arrLine) {
+                            foreach ($arrLine as $line => $arrDate) {
+                                $buffer = ['client'=>$this->convertToIso($client),
+                                    'projet'=>$this->convertToIso($projet),
+                                    'user'=>$this->convertToIso($user),
+                                    'profil'=>$this->convertToIso($profil),
+                                    'activit'=>$this->convertToIso($activit)
+                                ];
+                                $timebuffer = array();
+                                foreach ($arrDate as $date => $arrTime) {
+                                    if (!is_array($arrTime)) {
+                                        $buffer['detail']=$arrTime;
+                                        continue;
                                     }
-                                    switch ($type) {
-                                        case 'UO':
-                                            $UobufferMonth[$keyTime] = str_replace('.', ',', $time);
-                                            break;
-                                        case 'CA':
-                                            $CabufferMonth[$keyTime] = str_replace('.', ',', $time);
-                                            break;
-                                        default:
-                                            $timebufferMonth[$keyTime] = str_replace('.', ',', $time);
-                                            break;
+                                    $timebufferMonth = $period;
+                                    $UobufferMonth = $period;
+                                    $CabufferMonth = $period;
+                                    foreach ($arrTime as $type => $time) {
+                                        $yearKey = explode('-',$date)[0];
+                                        $monthKey = explode('-',$date)[1];
+                                        $keyTime = '';
+                                        if ($isFitnet) {
+                                            $dayKey = explode('-',$date)[2];
+                                            $keyTime = $yearKey.$monthKey.$dayKey;
+                                        }else{
+                                            $keyTime = $yearKey.$monthKey;
+                                        }
+                                        switch ($type) {
+                                            case 'UO':
+                                                $UobufferMonth[$keyTime] = str_replace('.', ',', $time);
+                                                break;
+                                            case 'CA':
+                                                $CabufferMonth[$keyTime] = str_replace('.', ',', $time);
+                                                break;
+                                            default:
+                                                $timebufferMonth[$keyTime] = str_replace('.', ',', $time);
+                                                break;
+                                        }
                                     }
                                 }
+                                $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
+                                $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                                $dataLine[] = array_merge($buffer, $timebufferMonth);
                             }
-                            $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
-                            $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
-                            $dataLine[] = array_merge($buffer, $timebufferMonth);
                         }
                     }
                 }
