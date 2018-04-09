@@ -27,7 +27,7 @@
         </div>
         <div class="input col-xs-6 left">
         <?php
-            echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export pour intégration fitnet']);
+            echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export avec niveau de détail au jour']);
         ?>
         </div>
         <?= $this->Form->button(__('Exporter'), ['class'=>'right btn btn-warning']) ?>
