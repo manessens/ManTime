@@ -73,16 +73,17 @@ class TempsController extends AppController
                 $clientTable = TableRegistry::get('Client');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;
-                    $identifierLine = (string) $arrayData['client'][$line] . $arrayData['projet'][$line] . $arrayData['profil'][$line] . $arrayData['activities'][$line] ;
-                    if (in_array($identifierLine, $arrayIdentifierLine)) {
-                        $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
-                        $verif = false;
-                    }
+                    // $identifierLine = (string) $arrayData['client'][$line] . $arrayData['projet'][$line] .
+                    //         $arrayData['profil'][$line] . $arrayData['activities'][$line] . $arrayData['detail'][$line] ;
+                    // if (in_array($identifierLine, $arrayIdentifierLine)) {
+                    //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
+                    //     $verif = false;
+                    // }
                     if ($arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
                      || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0) {
                         continue;
                     }
-                    $arrayIdentifierLine[] = $identifierLine;
+                    // $arrayIdentifierLine[] = $identifierLine;
                     foreach ($arrayDay as $dataDay) {
                         $idc =explode('.',$arrayData['client'][$line])[1];
                         $arrayIdp = explode('.',$arrayData['projet'][$line]);
@@ -256,18 +257,19 @@ class TempsController extends AppController
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
                         $dayTime = clone $lundi;
-                        $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
-                            $arrayData['projet'][$idUser][$line] . $arrayData['profil'][$idUser][$line] . $arrayData['activities'][$idUser][$line] ;
-                        if (in_array($identifierLine, $arrayIdentifierLine)) {
-                            $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
-                            $verif = false;
-                        }
+                        // $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
+                        //     $arrayData['projet'][$idUser][$line] . $arrayData['profil'][$idUser][$line] .
+                        //     $arrayData['activities'][$idUser][$line] . $arrayData['detail'][$idUser][$line] ;
+                        // if (in_array($identifierLine, $arrayIdentifierLine)) {
+                        //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
+                        //     $verif = false;
+                        // }
                         if ($arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0
                          || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
                          || $arrayData['activities'][$idUser][$line] == 0) {
                             continue;
                         }
-                        $arrayIdentifierLine[] = $identifierLine;
+                        // $arrayIdentifierLine[] = $identifierLine;
                         foreach ($arrayDay as $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
                             $arrayIdc = explode('.',$arrayData['client'][$idUser][$line]);
