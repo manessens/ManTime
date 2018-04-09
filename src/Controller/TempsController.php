@@ -247,7 +247,10 @@ class TempsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
-
+            if (!array_key_exists('validat', $arrayData)) {
+                $this->Flash->error(__('Longueur maximal de requête atteinte ! Veuillez consulter un responsable avant de continuer.'));
+                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+            }
             $arrayIdCurrent = array();
             $entities = array();
             $verif = true;
