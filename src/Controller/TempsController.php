@@ -67,9 +67,10 @@ class TempsController extends AppController
             $arrayData = $this->request->getData();
             $arrayIdCurrent = array();
             $entities = array();
-            $verif = true;
             $arrayIdentifierLine = array();
+            $verif = false;
             if (array_key_exists('day', $arrayData)) {
+                $verif = true;
                 $clientTable = TableRegistry::get('Client');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;

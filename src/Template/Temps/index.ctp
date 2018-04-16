@@ -223,7 +223,11 @@
                 }
             ?>
             </div>
-        <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
+        <?php
+            if !($validat){
+                $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
+            }
+        ?>
         </div>
     <?= $this->Form->end() ?>
 </div>
