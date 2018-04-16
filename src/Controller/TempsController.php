@@ -732,13 +732,12 @@ class TempsController extends AppController
     {
         $dateDay = date('w', time($day));
         // contrôle jour férié
+        pr($dateDay);
         switch ($dateDay) {
             case '5':
-                pr($dateDay);
                 return 1.5;
                 break;
             case '6':
-                pr($dateDay);
                 return 2;
                 break;
             default:
