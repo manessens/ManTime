@@ -816,7 +816,6 @@ class TempsController extends AppController
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
-            pr($this->getIncreaseDay($dateTime));
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=($timeUO * $this->getIncreaseDay($dateTime));
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);
@@ -826,7 +825,7 @@ class TempsController extends AppController
             ksort($data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]);
         }
         ksort($data);
-        $dataLine=array();exit;
+        $dataLine=array();
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 foreach ($arrUser as $user => $arrProfil) {
