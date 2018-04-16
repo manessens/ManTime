@@ -730,7 +730,7 @@ class TempsController extends AppController
 
     private function getIncreaseDay($day)
     {
-        $dateDay = trim($day);
+        $dateDay = date('w', time($day));
         pr($dateDay);
         pr(strstr($dateDay,"Sunday"));exit;
         if (strstr($dateDay,"Sunday")){
