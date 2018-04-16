@@ -88,7 +88,7 @@ function modifyUser (that) {
         var arrayId = [];
         var idLine = 0;
         arrayTr.each(function(){
-            arrayId.push(Number($(this).attr('id')));
+            arrayId.push(Number($(this).attr('idLine')));
         });
         for (var i = 0; i <= arrayTr.length; i++) {
             if ($.inArray(i, arrayId) == -1) {
@@ -96,7 +96,7 @@ function modifyUser (that) {
                 break;
             }
         }
-        $( tr ).attr('id', idLine);
+        $( tr ).attr('idLine', idLine);
         $( tr ).attr('user', idu);
 
         $( that ).attr('name', 'users['+idu+']['+idLine+']');
@@ -110,7 +110,7 @@ function modifyUser (that) {
         var tdSelectLast = $(tr).find('td.cel_detail');
         var inputDetail = $(tdSelectLast).children('div').children('input');
         $( inputDetail ).attr('name', 'detail['+idu+']['+idLine+']');
-        $( inputDetail ).attr('id', 'detail-'+idu+'-'+idLine);
+        $( inputDetail ).attr('idLine', 'detail-'+idu+'-'+idLine);
         arrayDays.forEach(function(idDay){
             tdSelectLast = $(tdSelectLast).next();
             var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
@@ -234,14 +234,14 @@ $( "#add" ).click(function(){
 });
 
 function addLine(that) {
-    var id = $('#semainier>tbody tr:last').prev().attr('id');
+    var id = $('#semainier>tbody tr:last').prev().attr('idLine');
     if (id == undefined) {
         id = -1;
     }
     id = Number(id)+1;
     idUser = optionUsers[0];
     var tr = $('<tr>', {
-        id: 0,
+        idLine: 0,
         user: idUser
     });
     var tdButton = $('<td>',{
