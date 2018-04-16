@@ -728,6 +728,16 @@ class TempsController extends AppController
         $this->set('controller', false);
     }
 
+    private function getIncreaseDay($day)
+    {
+        $dateDay = trim($day);
+        pr($dateDay);
+        pr(strstr($dateDay,"Sunday"));exit;
+        if (strstr($dateDay,"Sunday")){
+            pr($dateDay);exit;
+        }
+    }
+
     private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period)
     {
         $projetTable = TableRegistry::get('Projet');
@@ -798,17 +808,8 @@ class TempsController extends AppController
             }
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
-            $dateDay = trim($dateTime);
-            if (strstr($dateDay,"Sunday")){
-                pr($dateDay);exit;
-            }
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
-            // if (condition) {
-            //     # code...
-            // }else{
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
-            //
-            // }
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=($timeUO * $this->getIncreaseDay($dateTime);
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);
 
