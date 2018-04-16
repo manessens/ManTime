@@ -223,13 +223,13 @@
                 }
             ?>
             </div>
-        <?php
-            if ($validat){
-                echo "erreur";
-            }else{
-                $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
-            }
-        ?>
+            <?php
+                if ($validat) {
+                    echo "<div class='header'>Erreur.</div>";
+                }else{
+                    $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
+                }
+            ?>
         </div>
     <?= $this->Form->end() ?>
 </div>
