@@ -67,7 +67,7 @@
 
 </script>
 
-<div class="col-xs-12 content">
+<div id = "topofpage" class="col-xs-12 content">
     <?php if ($current == $semaine): ?>
         <h3><?= __('Validation de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
@@ -266,6 +266,9 @@
             <?php
                 echo $this->Form->control('validat', ['type' => 'checkbox' , 'value' => !$validat,'label'=>"Valider la semaine (autorise l'export)"]);
             ?>
+            </div>
+            <div class = 'right col-xs-1'>
+                <a href="#topofpage"><button id="top" type="button" class="btn btn-info">^</button></a>
             </div>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>
