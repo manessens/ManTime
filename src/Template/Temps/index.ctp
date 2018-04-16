@@ -62,7 +62,8 @@
 
 <div class="col-xs-12 content">
     <div class="hidden">
-        <?php pr($holidays); ?>
+        <?php pr($holidays);
+        echo $lundi->toUnixString(); ?>
     </div>
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
