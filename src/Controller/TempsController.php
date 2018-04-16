@@ -730,8 +730,8 @@ class TempsController extends AppController
 
     private function getIncreaseDay($day)
     {
-        // $dateDay = date('w', time($day));
-        $dateDay = strftime ('%a', time($day));
+        $dateDay = date('w', $day->time);
+        // $dateDay = strftime ('%a', time($day));
         // contrôle jour férié
         pr($day);
         pr($dateDay);
