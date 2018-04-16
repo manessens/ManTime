@@ -224,7 +224,7 @@
             ?>
             </div>
         <?php
-            if !($validat){
+            if (!$validat){
                 $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
             }
         ?>
