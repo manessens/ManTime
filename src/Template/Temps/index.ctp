@@ -61,9 +61,6 @@
 </script>
 
 <div class="col-xs-12 content">
-    <div class="hidden">
-        <?php pr($holidays); ?>
-    </div>
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
@@ -101,7 +98,13 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
-                    <th class="semaine" scope="col"><?= h('Lu') ?></th>
+                    <th <?php
+                        if (in_array($lundi->toUnixString(), $holidays)) {
+                            echo 'class="weekend"';
+                        }else{
+                            echo 'class="semaine"';
+                        }
+                     ?>  scope="col"><?= h('Lu') ?></th>
                     <th class="semaine" scope="col"><?= h('Ma') ?></th>
                     <th class="semaine" scope="col"><?= h('Me') ?></th>
                     <th class="semaine" scope="col"><?= h('Je') ?></th>
