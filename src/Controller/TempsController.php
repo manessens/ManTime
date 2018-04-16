@@ -796,8 +796,19 @@ class TempsController extends AppController
             }else{
                 $timeUO = round($time->time * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             }
+
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
+            $dateDay = trim($dateTime);
+            if (strstr($dateDay,"Sunday")){
+                pr($dateDay);exit;
+            }
+            //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
+            // if (condition) {
+            //     # code...
+            // }else{
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
+            //
+            // }
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);
 
