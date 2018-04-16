@@ -61,6 +61,9 @@
 </script>
 
 <div class="col-xs-12 content">
+    <div class="hidden">
+        <?php pr($holidays); ?>
+    </div>
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
