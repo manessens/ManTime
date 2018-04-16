@@ -731,15 +731,12 @@ class TempsController extends AppController
     private function getIncreaseDay($day)
     {
         $dateDay = date('w', $day->toUnixString());
-        // $dateDay = strftime ('%a', time($day));
-        // contrôle jour férié
+        // contrôle jour férié : return 2;
         switch ($dateDay) {
             case '6':
-            pr($dateDay);
                 return 1.5;
                 break;
             case '0':
-            pr($dateDay);
                 return 2;
                 break;
             default:
@@ -829,7 +826,6 @@ class TempsController extends AppController
         }
         ksort($data);
         $dataLine=array();
-        exit;
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 foreach ($arrUser as $user => $arrProfil) {
