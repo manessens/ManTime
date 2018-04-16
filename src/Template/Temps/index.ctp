@@ -226,7 +226,7 @@
         <?php
             if ($validat){
                 echo "erreur";
-            else{
+            }else{
                 $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
             }
         ?>
