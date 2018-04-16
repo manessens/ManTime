@@ -733,12 +733,13 @@ class TempsController extends AppController
         $dateDay = date('w', $day->toUnixString());
         // $dateDay = strftime ('%a', time($day));
         // contrôle jour férié
-        pr($dateDay);
         switch ($dateDay) {
-            case '5':
+            case '6':
+            pr($dateDay);
                 return 1.5;
                 break;
-            case '6':
+            case '0':
+            pr($dateDay);
                 return 2;
                 break;
             default:
@@ -818,7 +819,6 @@ class TempsController extends AppController
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
-            pr($dateTime);
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=($timeUO * $this->getIncreaseDay($dateTime));
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);
