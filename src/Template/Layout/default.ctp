@@ -38,7 +38,7 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
+    <nav id="topofpage" class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-2 large-2bis medium-4 columns">
             <li class="name">
                 <!-- <h1><a href=""><?= $this->fetch('title') ?></a></h1> -->

@@ -67,7 +67,7 @@
 
 </script>
 
-<div id = "topofpage" class="col-xs-12 content">
+<div class="col-xs-12 content">
     <?php if ($current == $semaine): ?>
         <h3><?= __('Validation de la semaine courante #') ?><?= $semaine ?></h3>
     <?php else: ?>
