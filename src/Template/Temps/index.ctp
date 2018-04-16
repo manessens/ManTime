@@ -224,10 +224,8 @@
             ?>
             </div>
             <?php
-                if ($validat) {
-                    echo "<div class='header'>Erreur.</div>";
-                }else{
-                    $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
+                if (!$validat) {
+                    echo $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']);
                 }
             ?>
         </div>
