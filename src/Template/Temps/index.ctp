@@ -102,7 +102,7 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
-                    <th<th <?php
+                    <th <?php
                         if (in_array($lundi->toUnixString(), $holidays)) {
                             echo 'class="weekend"';
                         }else{
