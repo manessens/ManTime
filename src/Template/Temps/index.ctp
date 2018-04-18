@@ -115,7 +115,6 @@
                     <th class="semaine" scope="col"><?= h('Ve') ?></th>
                     <th class="weekend" scope="col"><?= h('Sa') ?></th>
                     <th class="holidays" scope="col"><?= h('Di') ?></th>
-                    
                 </tr>
             </thead>
             <tbody>
