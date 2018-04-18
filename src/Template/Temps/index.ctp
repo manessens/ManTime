@@ -104,7 +104,7 @@
                     <th scope="col"><?= h('Détails') ?></th>
                     <th <?php
                         if (in_array($lundi->toUnixString(), $holidays)) {
-                            echo 'class="weekend"';
+                            echo 'class="holidays"';
                         }else{
                             echo 'class="semaine"';
                         }
@@ -114,7 +114,7 @@
                     <th class="semaine" scope="col"><?= h('Je') ?></th>
                     <th class="semaine" scope="col"><?= h('Ve') ?></th>
                     <th class="weekend" scope="col"><?= h('Sa') ?></th>
-                    <th class="weekend" scope="col"><?= h('Di') ?></th>
+                    <th class="holidays" scope="col"><?= h('Di') ?></th>
                 </tr>
             </thead>
             <tbody>

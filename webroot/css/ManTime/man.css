@@ -86,6 +86,12 @@
     color: white;
     text-align: center;
 }
+.holidays{
+    background-color: #808080 !important;
+    width: 65px !important;
+    color: white;
+    text-align: center;
+}
 
 .supp{
     width: 40px !important;
