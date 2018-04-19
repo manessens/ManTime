@@ -20,7 +20,7 @@
         <div class="input text required">
         <?php
             echo $this->Form->label('Matrice');
-            echo $this->Form->select('idm', $matricesOption, ['value'=>14]);
+            echo $this->Form->select('idm', $matricesOption, ['value'=>10]);
         ?>
         </div>
         <?php echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>

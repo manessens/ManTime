@@ -60,13 +60,7 @@ class ProjetController extends AppController
         $clientOption = $this->getClientOption();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
-        $matriceTable = TableRegistry::get('Matrice');
-        $query = $matriceTable->find('all');
-        $matrices = $query->toArray();
-        $matricesOption = [];
-        foreach ($matrices as $matrice) {
-            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
-        }
+        $matricesOption = $this->getmatricesOption();
         $projet = $this->Projet->newEntity();
         $myParticipants = array();
         $myActivities = array();
@@ -118,6 +112,7 @@ class ProjetController extends AppController
         $clientOption = $this->getClientOption();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
+        $matricesOption = $this->getmatricesOption();
         $projet = $this->Projet->get($id, [
             'contain' => ['Activities', 'Participant' ]
         ]);
@@ -146,6 +141,7 @@ class ProjetController extends AppController
         asort($activitiesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
+        $this->set(compact('matricesOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activities', $activitiesOption);
@@ -231,6 +227,20 @@ class ProjetController extends AppController
         }
         asort($userOption);
         return $userOption;
+    }
+
+    private function getMatricesOption()
+    {
+
+        $matriceTable = TableRegistry::get('Matrice');
+        $query = $matriceTable->find('all');
+        $matrices = $query->toArray();
+        $matricesOption = [];
+        foreach ($matrices as $matrice) {
+            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
+        }
+        asort($matricesOption);
+        return $matricesOption;
     }
 
     private function getActivitiesOption()
