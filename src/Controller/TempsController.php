@@ -500,7 +500,7 @@ class TempsController extends AppController
                 $year = intval(strftime('%Y'));
         }
 
-        $easterDate = easter_date($year);
+        $easterDate = easter_date(2017);
         $tt = Time::createFromTimestamp($easterDate);
         pr($tt);exit;
         $easterDay = date('j', $easterDate);
