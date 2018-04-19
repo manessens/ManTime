@@ -44,7 +44,7 @@ class ProjetController extends AppController
     public function view($id = null)
     {
         $projet = $this->Projet->get($id, [
-            'contain' => ['Client', 'Activities' => ['Activitie'], 'Participant' => ['Users']]
+            'contain' => ['Client', 'Activities' => ['Activitie'], 'Participant' => ['Users'], 'Matrice']
         ]);
 
         $this->set('projet', $projet);
