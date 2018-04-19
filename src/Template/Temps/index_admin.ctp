@@ -251,8 +251,9 @@
                     <td scope="col"></td>
                     <td scope="col"></td>
                     <td scope="col"></td>
+                    <?php $lundi->modify('-7 days'); ?>
                     <?php foreach ($weekDays as $idDay => $value): ?>
-                        <td scope="col">
+                        <td <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : ( ($idDay == 'Sa' || $idDay == 'Di') ? 'class="weekend"':''); ?> scope="col">
                             <div id="t<?php echo $idDay ?>" style="text-align:center;" >
                             <?php if ($validat){ echo $value; } ?>
                             </div>

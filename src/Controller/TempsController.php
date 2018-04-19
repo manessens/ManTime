@@ -259,10 +259,9 @@ class TempsController extends AppController
             }
             $arrayIdCurrent = array();
             $entities = array();
-            $verif = false;
+            $verif = true;
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
-                $verif = true;
                 $clientTable = TableRegistry::get('Client');
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
