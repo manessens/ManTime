@@ -130,8 +130,7 @@ class TempsController extends AppController
                                 $client  = $clientTable->get($idc);
                                 // $projet  = $projetTable->get($arrayIdp[2]);
                                 $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$arrayIdp[2]])->first();
-                                pr($projet);exit;
-                                // $day->idm = $projet->idm;
+                                $day->idm = $projet->idm;
                                 $day->prix = $client->prix;
                             }
                             $day->idp = $arrayIdp[2];
