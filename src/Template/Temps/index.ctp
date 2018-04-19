@@ -104,7 +104,7 @@
                     <th class="semaine" scope="col"><?= h('Je') ?></th>
                     <th class="semaine" scope="col"><?= h('Ve') ?></th>
                     <th class="weekend" scope="col"><?= h('Sa') ?></th>
-                    <th <?php echo (in_array($dimanche->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+6 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
                 </tr>
             </thead>
             <tbody>
