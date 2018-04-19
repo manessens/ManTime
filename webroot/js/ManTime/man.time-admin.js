@@ -160,31 +160,6 @@ function modifyClient (that) {
         }
     }
     $( select ).change();
-    var select2 = $( that ).parent().parent().find('td.cel_profil').children();
-    $( select2 ).find('option').each(function() {
-        if (val == 0) {
-            if ( $( this ).val() == 0) {
-                $( this ).show();
-            }else{
-                $( this ).hide();
-            }
-        }else {
-            if ( $.inArray($( this ).val(), optionProfils[idc]) != -1 ) {
-                $( this ).show();
-            }else{
-                $( this ).hide();
-            }
-        }
-    });
-    if ($( select2 ).find('option[selected="selected"]').css('display')!='none' && $( select2 ).find('option[selected="selected"]').length){
-        $( select2 ).val($( select2 ).find('option[selected="selected"]').val());
-    }else{
-        if (val == 0) {
-            $( select2 ).val(val);
-        }else{
-            $( select2 ).val(optionProfils[idc][0]);
-        }
-    }
 }
 
 $( ".project" ).change(function(){
@@ -217,6 +192,31 @@ function modifyProject(that) {
             $( select ).val(val);
         }else{
             $( select ).val(optionActivits[idp][0]);
+        }
+    }
+    var select2 = $( that ).parent().parent().find('td.cel_profil').children();
+    $( select2 ).find('option').each(function() {
+        if (val == 0) {
+            if ( $( this ).val() == 0) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
+        }else {
+            if ( $.inArray($( this ).val(), optionProfils[idp]) != -1 ) {
+                $( this ).show();
+            }else{
+                $( this ).hide();
+            }
+        }
+    });
+    if ($( select2 ).find('option[selected="selected"]').css('display')!='none' && $( select2 ).find('option[selected="selected"]').length){
+        $( select2 ).val($( select2 ).find('option[selected="selected"]').val());
+    }else{
+        if (val == 0) {
+            $( select2 ).val(val);
+        }else{
+            $( select2 ).val(optionProfils[idp][0]);
         }
     }
 }

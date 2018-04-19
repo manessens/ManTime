@@ -259,10 +259,12 @@ class TempsController extends AppController
             }
             $arrayIdCurrent = array();
             $entities = array();
-            $verif = true;
+            $verif = false;
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
+                $verif = true;
                 $clientTable = TableRegistry::get('Client');
+                $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
                         $dayTime = clone $lundi;
@@ -310,8 +312,7 @@ class TempsController extends AppController
                                 continue;
                             }
                             if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
-                            && $arrayIdc[1]==$arrayIdp[1] && $arrayIdc[1]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
-                                $client  = $clientTable->get($arrayIdc[1]);
+                            && $arrayIdc[1]==$arrayIdp[1] && $arrayIdp[2]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
                                 //For deletion
                                 if ($day->idt) {
                                     $arrayIdCurrent[] = $dataDay['id'];
@@ -321,7 +322,9 @@ class TempsController extends AppController
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
-                                    $day->idm = $client->idm;
+                                    $client  = $clientTable->get($arrayIdc[1]);
+                                    $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$arrayIdp[2]])->first();
+                                    $day->idm = $projet->idm;
                                     $day->prix = $client->prix;
                                 }
                                 $day->idp = $arrayIdp[2];
