@@ -337,8 +337,14 @@ function updateTotal() {
     var noalert = true;
     arrayDays.forEach(function(idDay){
         var arrayColLu = $('#semainier > tbody > tr > td:nth-child('+nb+')');
+        var headers = $('#semainier > thead > tr > th:nth-child('+nb+')');
         var totalLu = 0;
         for (var i = 0; i < arrayColLu.length-1; i++) {
+            if (headers.length > 0 ) {
+                if ( $(headers[0]).attr('class') == 'holidays' ){
+                    $(arrayColLu[i]).attr('class', 'holidays');
+                }
+            }
             var value = $(arrayColLu[i]).children().find('input[type=text]').val();
             if (value == "") {
                 value = 0;
