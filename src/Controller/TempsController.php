@@ -534,7 +534,7 @@ class TempsController extends AppController
             ->where(['idu =' => $idu])
             ->andWhere(['date_debut <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd')])
             ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')])
-            ->contain(['Projet' => ['Client'=>['Matrice'=>['LignMat'=>['Profil']]]]])->all();
+            ->contain(['Projet' => ['Client', 'Matrice'=>['LignMat'=>['Profil']] ] ])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet;
@@ -545,15 +545,13 @@ class TempsController extends AppController
             $arrayClients[$idu . '.' . $projet->idc] = $projet->client;
             $arrayRetour['clients'][$idu . '.' . $projet->idc] = $projet->client->nom_client;
 
+            foreach ($projet->matrice->lign_mat as $ligne) {
+                $arrayRetour['profiles'][$projet->idp . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
+            }
 
             $activities = $activitiesTable->findByIdp($projet->idp)->contain(['Activitie'])->all();
             foreach ($activities as $activity) {
                 $arrayRetour['activities'][$projet->idp . '.' . $activity->ida] = $activity->activitie->nom_activit;
-            }
-        }
-        foreach ($arrayClients as $client) {
-            foreach ($client->matrice->lign_mat as $ligne) {
-                $arrayRetour['profiles'][$client->idc . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
             }
         }
 
