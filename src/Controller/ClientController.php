@@ -22,7 +22,6 @@ class ClientController extends AppController
     public function index()
     {
         $this->paginate =[
-            'contain'   => ['Matrice'],
             'order'     => ['nom_client'=>'asc']
         ];
         $this->set('client', $this->paginate($this->Client));
@@ -38,9 +37,7 @@ class ClientController extends AppController
      */
     public function view($id = null)
     {
-        $client = $this->Client->get($id, [
-            'contain' => ['Matrice']
-        ]);
+        $client = $this->Client->get($id);
 
         $this->set('client', $client);
     }
@@ -52,14 +49,6 @@ class ClientController extends AppController
      */
     public function add()
     {
-        $matriceTable = TableRegistry::get('Matrice');
-        $query = $matriceTable->find('all');
-        $matrices = $query->toArray();
-        $matricesOption = [];
-        foreach ($matrices as $matrice) {
-            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
-        }
-        asort($matricesOption);
         $client = $this->Client->newEntity();
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
@@ -71,7 +60,6 @@ class ClientController extends AppController
             $this->Flash->error(__("Le client n'a pus être sauvegardé. Merci de réessayer ultérieurement."));
         }
         $this->set(compact('client'));
-        $this->set(compact('matricesOption'));
     }
 
     /**
@@ -83,17 +71,7 @@ class ClientController extends AppController
      */
     public function edit($id = null)
     {
-        $matriceTable = TableRegistry::get('Matrice');
-        $query = $matriceTable->find('all');
-        $matrices = $query->toArray();
-        $matricesOption = [];
-        foreach ($matrices as $matrice) {
-            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
-        }
-        asort($matricesOption);
-        $client = $this->Client->get($id, [
-            'contain' => ['Matrice']
-        ]);
+        $client = $this->Client->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
@@ -104,7 +82,6 @@ class ClientController extends AppController
             $this->Flash->error(__("Le client n'a pus être sauvegardé. Merci de réessayer ultérieurement."));
         }
         $this->set(compact('client'));
-        $this->set(compact('matricesOption'));
     }
 
     /**

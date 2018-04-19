@@ -11,7 +11,6 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('prix','prix UO (€)') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('idm','Matrice') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -20,7 +19,6 @@
             <tr>
                 <td><?= h($client->nom_client) ?></td>
                 <td><?= $this->Number->format($client->prix) ?></td>
-                <td><?= h($client->matrice->nom_matrice) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$client->idc, 'entity'=>$client->nom_client]); ?>
                 </td>

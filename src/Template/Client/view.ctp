@@ -15,10 +15,6 @@
             <th scope="row"><?= __('Prix UO') ?></th>
             <td><?= $this->Number->format($client->prix) ?>€</td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Matrice') ?></th>
-            <td><?= h($client->matrice->nom_matrice) ?></td>
-        </tr>
     </table>
     <div class="right">
         <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $client->idc]) ?></div>
