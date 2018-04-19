@@ -99,7 +99,7 @@ class ProjetController extends AppController
         asort($matricesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
-        $this->set(compact($matricesOption));
+        $this->set(compact('matricesOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
         $this->set('activities', $activitiesOption);
