@@ -505,7 +505,6 @@ class TempsController extends AppController
         $easterDate = easter_date($year);
         $easterDay = date('j', $easterDate) + 1;
         $easterMonth = date('n', $easterDate);
-        $easterYear = date('Y', $easterDate);
 
         $holidays = array(
                 // Jours feries fixes
@@ -735,10 +734,17 @@ class TempsController extends AppController
         $this->set('controller', false);
     }
 
-    private function getIncreaseDay($day)
+    private function getIncreaseDay($day, $holidays = array())
     {
         $dateDay = date('w', $day->toUnixString());
+        if (empty($holidays)) {
+            $holidays = $this->getHolidays();
+        }
         // contrôle jour férié : return 2;
+        if (in_array($day->toUnixString() ,$holidays)) {
+            return 2;
+        }
+        //dimanche 2, samedi 1.5 default 1
         switch ($dateDay) {
             case '6':
                 return 1.5;
@@ -781,6 +787,7 @@ class TempsController extends AppController
         if (empty($times) || !is_array($times)) {
             return $data;
         }
+        $holidays = $this->getHolidays();
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
             $keyProject = $projects[$time->idp];
@@ -823,7 +830,7 @@ class TempsController extends AppController
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
-            $timeUO *= $this->getIncreaseDay($dateTime);
+            $timeUO *= $this->getIncreaseDay($dateTime, $holidays);
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);

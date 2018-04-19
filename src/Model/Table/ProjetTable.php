@@ -87,6 +87,10 @@ class ProjetTable extends Table
             ->requirePresence('date_fin', 'create')
             ->notEmpty('date_fin');
 
+        $validator
+            ->integer('idm')
+            ->allowEmpty('idm');
+
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {
