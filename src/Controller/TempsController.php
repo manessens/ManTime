@@ -72,6 +72,7 @@ class TempsController extends AppController
             if (array_key_exists('day', $arrayData)) {
                 $verif = true;
                 $clientTable = TableRegistry::get('Client');
+                $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;
                     // $identifierLine = (string) $arrayData['client'][$line] . $arrayData['projet'][$line] .
@@ -116,7 +117,6 @@ class TempsController extends AppController
                             $verif = false;
                         }
                         if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
-                            $client  = $clientTable->get($idc);
                             //For deletion
                             if ($day->idt) {
                                 $arrayIdCurrent[] = $dataDay['id'];
@@ -127,7 +127,11 @@ class TempsController extends AppController
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
                             if ($day->idp != $arrayIdp[2]) {
-                                $day->idm = $client->idm;
+                                $client  = $clientTable->get($idc);
+                                // $projet  = $projetTable->get($arrayIdp[2]);
+                                $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$arrayIdp[2]])->first();
+                                pr($projet);exit;
+                                // $day->idm = $projet->idm;
                                 $day->prix = $client->prix;
                             }
                             $day->idp = $arrayIdp[2];
