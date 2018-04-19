@@ -9,12 +9,14 @@ use Cake\ORM\Entity;
  * @property int $idp
  * @property string $nom_projet
  * @property int $idc
+ * @property int $idm
  * @property \Cake\I18n\FrozenTime $date_debut
  * @property \Cake\I18n\FrozenTime $date_fin
  *
  * @property \App\Model\Entity\Client $client
  * @property \App\Model\Entity\Activity[] $activities
  * @property \App\Model\Entity\Participant[] $participant
+ * @property \App\Model\Entity\Matrice $matrice
  */
 class Projet extends Entity
 {
@@ -35,6 +37,8 @@ class Projet extends Entity
         'date_fin' => true,
         'client' => true,
         'activities' => true,
-        'participant' => true
+        'participant' => true,
+        'idm' => true,
+        'matrice' => true
     ];
 }

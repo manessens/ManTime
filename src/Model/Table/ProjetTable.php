@@ -49,6 +49,9 @@ class ProjetTable extends Table
         $this->hasMany('Participant', [
             'foreignKey' => 'idp'
         ]);
+        $this->belongsTo('Matrice', [
+            'foreignKey' => 'idm'
+        ]);
     }
 
     /**
