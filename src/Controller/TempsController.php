@@ -89,6 +89,7 @@ class TempsController extends AppController
                     foreach ($arrayDay as $dataDay) {
                         $idc =explode('.',$arrayData['client'][$line])[1];
                         $arrayIdp = explode('.',$arrayData['projet'][$line]);
+                        $idp = $arrayIdp[2];
                         $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
                         //generate day
@@ -116,7 +117,7 @@ class TempsController extends AppController
                             $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
                             $verif = false;
                         }
-                        if ($idc==$arrayIdp[1] && $idc==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
+                        if ($idc==$arrayIdp[1] && $idp==$arrayIdprof[0] && $idp==$arrayIda[0]) {
                             //For deletion
                             if ($day->idt) {
                                 $arrayIdCurrent[] = $dataDay['id'];
@@ -126,14 +127,14 @@ class TempsController extends AppController
                             $day->n_ligne = $line;
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
-                            if ($day->idp != $arrayIdp[2]) {
+                            if ($day->idp != $idp) {
                                 $client  = $clientTable->get($idc);
                                 // $projet  = $projetTable->get($arrayIdp[2]);
-                                $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$arrayIdp[2]])->first();
+                                $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$idp])->first();
                                 $day->idm = $projet->idm;
                                 $day->prix = $client->prix;
                             }
-                            $day->idp = $arrayIdp[2];
+                            $day->idp = $idp;
                             $day->id_profil = $arrayIdprof[1];
                             $day->ida = $arrayIda[1];
                             $day->detail = $arrayData['detail'][$line];
