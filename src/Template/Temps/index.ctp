@@ -63,7 +63,7 @@
 <div class="col-xs-12 content">
     <div class="hidden">
         <?php pr($holidays);
-        echo $lundi->toUnixString(); ?>
+        echo $dimanche->toUnixString(); ?>
     </div>
     <?php if ($current == $semaine): ?>
         <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
@@ -114,7 +114,7 @@
                     <th class="semaine" scope="col"><?= h('Je') ?></th>
                     <th class="semaine" scope="col"><?= h('Ve') ?></th>
                     <th class="weekend" scope="col"><?= h('Sa') ?></th>
-                    <th class="holidays" scope="col"><?= h('Di') ?></th>
+                    <th class="weekend" scope="col"><?= h('Di') ?></th>
                 </tr>
             </thead>
             <tbody>

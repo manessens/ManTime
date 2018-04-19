@@ -517,9 +517,10 @@ class TempsController extends AppController
                 mktime(0, 0, 0, 12, 25, $year),// Noel
 
                 // Jour feries qui dependent de paques
-                mktime(0, 0, 0, $easterMonth, $easterDay + 1, $easterYear),// Lundi de paques
-                mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),// Ascension
-                mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear), // Pentecote
+                mktime(0, 0, 0, $easterMonth, $easterDay, $year),// Pâques
+                mktime(0, 0, 0, $easterMonth, $easterDay + 1, $year),// Lundi de paques
+                mktime(0, 0, 0, $easterMonth, $easterDay + 39, $year),// Ascension
+                mktime(0, 0, 0, $easterMonth, $easterDay + 50, $year), // Pentecote
         );
         sort($holidays);
         return $holidays;
