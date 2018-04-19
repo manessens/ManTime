@@ -434,7 +434,7 @@ class TempsController extends AppController
             foreach ($arrayDays as $day) {
                 $week[$key]['idc'] = $idu.'.'.$day->projet->idc;
                 $week[$key]['idp'] = $idu.'.'.$day->projet->idc.'.'.$day->idp;
-                $week[$key]['id_profil'] = $day->projet->idc.'.'.$day->id_profil;
+                $week[$key]['id_profil'] = $day->idp.'.'.$day->id_profil;
                 $week[$key]['ida'] = $day->idp.'.'.$day->ida;
                 if (!$validat) {
                     $validat=$day->validat;
@@ -615,7 +615,7 @@ class TempsController extends AppController
             $users[$user->idu] = $user->fullname;
         }
         if ($this->request->is(['post'])) {
-            // $this->clearDtb();
+            $this->clearDtb();
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
