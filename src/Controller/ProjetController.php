@@ -60,6 +60,13 @@ class ProjetController extends AppController
         $clientOption = $this->getClientOption();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
+        $matriceTable = TableRegistry::get('Matrice');
+        $query = $matriceTable->find('all');
+        $matrices = $query->toArray();
+        $matricesOption = [];
+        foreach ($matrices as $matrice) {
+            $matricesOption[$matrice->idm] = $matrice->nom_matrice;
+        }
         $projet = $this->Projet->newEntity();
         $myParticipants = array();
         $myActivities = array();
@@ -89,8 +96,10 @@ class ProjetController extends AppController
         asort($clientOption);
         asort($participantsOption);
         asort($activitiesOption);
+        asort($matricesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
+        $this->set('matrice', $matricesOption);
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
         $this->set('activities', $activitiesOption);

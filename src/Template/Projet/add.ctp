@@ -17,6 +17,12 @@
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('Matrice');
+            echo $this->Form->select('idm', $matricesOption);
+        ?>
+        </div>
         <?php echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']); ?>
         <?php echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']); ?>
         <div class="input text col-xs-6">
