@@ -98,13 +98,13 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
-                    <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="semaine"' : 'class="holidays"'; ?> scope="col"><?= h('Lu') ?></th>
+                    <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
                     <th class="semaine" scope="col"><?= h('Ma') ?></th>
                     <th class="semaine" scope="col"><?= h('Me') ?></th>
                     <th class="semaine" scope="col"><?= h('Je') ?></th>
                     <th class="semaine" scope="col"><?= h('Ve') ?></th>
                     <th class="weekend" scope="col"><?= h('Sa') ?></th>
-                    <th <?php echo (in_array($dimanche->toUnixString(), $holidays)) ? 'class="weekend"' : 'class="holidays"'; ?> scope="col"><?= h('Di') ?></th>
+                    <th <?php echo (in_array($dimanche->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
                 </tr>
             </thead>
             <tbody>
