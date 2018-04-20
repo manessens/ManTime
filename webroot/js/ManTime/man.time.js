@@ -347,7 +347,7 @@ function updateTotal() {
         }
         var identifier = '#t'+idDay;
         $(identifier).text(Math.round(totalLu * 100)/100);
-        if (totalLu>1) {
+        if (identifier > 1) {
             $(identifier).css({"color": "red"});
             noalert = false;
         }else{
