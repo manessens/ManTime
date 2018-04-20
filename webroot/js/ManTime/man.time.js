@@ -340,7 +340,7 @@ function updateTotal() {
         var totalLu = 0;
         for (var i = 0; i < arrayColLu.length-1; i++) {
             var value = $(arrayColLu[i]).children().find('input[type=text]').val();
-            if (value == "") {
+            if ( !isNumeric(value)) {
                 value = 0;
             }
             totalLu += parseFloat(value);
