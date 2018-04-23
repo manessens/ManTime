@@ -7,10 +7,18 @@ $(function() {
     });
 });
 
+var temp;
+
 $('.multiple option').mousedown(function(e) {
     e.preventDefault();
+    temp = $(this).scrollTop()
     $(this).prop('selected', !$(this).prop('selected'));
     return false;
+});
+
+$('.multiple option').mouseUp(function(e) {
+    e.preventDefault();
+    $(this).scrollTop(temp)
 });
 
 $( "#search_participant" ).on('keyup', function (e){
