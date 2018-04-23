@@ -185,7 +185,6 @@ function findLastId(){
 
 function addLine(that) {
     var id = findLastId();
-    console.log(id);
     id++;
     var tr = $('<tr>', {
         id: id
@@ -321,11 +320,7 @@ function addLine(that) {
         tr.append(tdDay);
     });
 
-    if (id == 0) {
-        tr.insertBefore('#total');
-    }else{
-        tr.insertAfter('#'+(id-1));
-    }
+    tr.insertBefore('#total');
 
     selectClient.change();
 }
