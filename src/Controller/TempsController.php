@@ -453,6 +453,7 @@ class TempsController extends AppController
 
     private function autoCompleteWeek($week) {
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
+        $entities = array();
         foreach ($week as $key => $arrayDays) {
             foreach ($modelWeek as $idDay) {
                 if (!array_key_exists($idDay, $week[$key]) ) {
