@@ -128,7 +128,7 @@ class TempsController extends AppController
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
                             if ($day->idp != $idp) {
-                                $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$idp])->first();
+                                $projet  = $projetTable->find('all', ['fields'=>['idm', 'prix']])->where(['idp ='=>$idp])->first();
                                 $day->idm = $projet->idm;
                                 $day->prix = $projet->prix;
                             }
@@ -318,7 +318,7 @@ class TempsController extends AppController
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
-                                    $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$arrayIdp[2]])->first();
+                                    $projet  = $projetTable->find('all', ['fields'=>['idm', 'prix']])->where(['idp ='=>$arrayIdp[2]])->first();
                                     $day->idm = $projet->idm;
                                     $day->prix = $projet->prix;
                                 }
