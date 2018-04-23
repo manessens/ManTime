@@ -16,7 +16,7 @@ $('.multiple option').mousedown(function(e) {
     return false;
 });
 
-$('.multiple option').mouseUp(function(e) {
+$('.multiple option').mouseup(function(e) {
     e.preventDefault();
     $(this).scrollTop(temp)
 });
