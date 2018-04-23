@@ -9,8 +9,14 @@ $(function() {
 
 $('.multiple option').mousedown(function(e) {
     e.preventDefault();
-    $(this).prop('selected', !$(this).prop('selected'));
-    return false;
+    var st = this.scrollTop;
+    e.target.selected = !e.target.selected;
+    setTimeout(() => this.scrollTop = st, 0);
+    this.focus();
+});
+
+$('.multiple option').onmousemove(function(e) {
+    e.preventDefault();
 });
 
 $( "#search_participant" ).on('keyup', function (e){
