@@ -87,6 +87,17 @@ function modifyUser (that) {
         var arrayTr = $('tr[user="'+idu+'"]');
         var arrayId = [];
         var idLine = 0;
+        var max = -1;
+        var new_val = -1;
+        arrayTr.each(function(){
+            new_val =  $(this).attr('id');
+            if ($.isNumeric(new_val) ) {
+                if (new_val > max) {
+                    max = new_val;
+                }
+            }
+        });
+        idLine = max;
         arrayTr.each(function(){
             arrayId.push(Number($(this).attr('idLine')));
         });
@@ -234,14 +245,10 @@ $( "#add" ).click(function(){
 });
 
 function addLine(that) {
-    var id = $('#semainier>tbody tr:last').prev().attr('idLine');
-    if (id == undefined) {
-        id = -1;
-    }
-    id = Number(id)+1;
+    var id = 0;
     idUser = optionUsers[0];
     var tr = $('<tr>', {
-        idLine: 0,
+        idLine: id,
         user: idUser
     });
     var tdButton = $('<td>',{
