@@ -432,6 +432,7 @@ class TempsController extends AppController
         ksort($buff);
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
+                $key = explode('.', $key)[1];
                 $week[$key]['idc'] = $idu.'.'.$day->projet->idc;
                 $week[$key]['idp'] = $idu.'.'.$day->projet->idc.'.'.$day->idp;
                 $week[$key]['id_profil'] = $day->idp.'.'.$day->id_profil;
