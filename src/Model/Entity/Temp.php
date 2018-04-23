@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  * @property int $idm
  * @property int $id_profil
  * @property int $ida
+ * @property int $modify
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Projet $projet
@@ -54,6 +55,7 @@ class Temp extends Entity
         'projet' => true,
         'matrice' => true,
         'profil' => true,
-        'activitie' => true
+        'activitie' => true,
+        'modify' => true
     ];
 }

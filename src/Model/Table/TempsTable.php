@@ -111,6 +111,10 @@ class TempsTable extends Table
             ->requirePresence('ida', 'create')
             ->notEmpty('ida');
 
+        $validator
+            ->integer('modify')
+            ->allowEmpty('modify');
+
         return $validator;
     }
 

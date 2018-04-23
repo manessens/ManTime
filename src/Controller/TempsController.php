@@ -125,6 +125,7 @@ class TempsController extends AppController
 
                             $day->date = clone $dayTime ;
                             $day->n_ligne = $line;
+                            $day->modify = true;
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
                             if ($day->idp != $idp) {
