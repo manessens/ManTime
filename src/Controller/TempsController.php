@@ -429,7 +429,7 @@ class TempsController extends AppController
     {
         $week = array();
         $validat = false;
-        asort($buff);
+        ksort($buff);
         foreach ($buff as $key => $arrayDays) {
             foreach ($arrayDays as $day) {
                 $week[$key]['idc'] = $idu.'.'.$day->projet->idc;
