@@ -91,6 +91,11 @@ class ProjetTable extends Table
             ->integer('idm')
             ->allowEmpty('idm');
 
+        $validator
+            ->decimal('prix')
+            ->requirePresence('prix', 'create')
+            ->notEmpty('prix');
+
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {

@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property int $idm
  * @property \Cake\I18n\FrozenTime $date_debut
  * @property \Cake\I18n\FrozenTime $date_fin
+ * @property float $prix
  *
  * @property \App\Model\Entity\Client $client
  * @property \App\Model\Entity\Activity[] $activities
@@ -39,6 +40,7 @@ class Projet extends Entity
         'activities' => true,
         'participant' => true,
         'idm' => true,
-        'matrice' => true
+        'matrice' => true,
+        'prix' => true
     ];
 }

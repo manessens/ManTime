@@ -10,7 +10,7 @@
         <legend><?= __('Edition du client') ?> <span class="text-danger"><?= h($client->nom_client) ?></span></legend>
         <?php
             echo $this->Form->control('nom_client');
-            echo $this->Form->control('prix');
+            // echo $this->Form->control('prix');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>

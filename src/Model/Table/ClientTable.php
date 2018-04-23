@@ -53,11 +53,6 @@ class ClientTable extends Table
             ->requirePresence('nom_client', 'create')
             ->notEmpty('nom_client');
 
-        $validator
-            ->decimal('prix')
-            ->requirePresence('prix', 'create')
-            ->notEmpty('prix');
-
         return $validator;
     }
     /**

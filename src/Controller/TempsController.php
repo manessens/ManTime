@@ -71,7 +71,6 @@ class TempsController extends AppController
             $verif = false;
             if (array_key_exists('day', $arrayData)) {
                 $verif = true;
-                $clientTable = TableRegistry::get('Client');
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;
@@ -129,11 +128,9 @@ class TempsController extends AppController
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
                             if ($day->idp != $idp) {
-                                $client  = $clientTable->get($idc);
-                                // $projet  = $projetTable->get($arrayIdp[2]);
                                 $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$idp])->first();
                                 $day->idm = $projet->idm;
-                                $day->prix = $client->prix;
+                                $day->prix = $projet->prix;
                             }
                             $day->idp = $idp;
                             $day->id_profil = $arrayIdprof[1];
@@ -263,7 +260,6 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
-                $clientTable = TableRegistry::get('Client');
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
@@ -322,10 +318,9 @@ class TempsController extends AppController
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
-                                    $client  = $clientTable->get($arrayIdc[1]);
                                     $projet  = $projetTable->find('all', ['fields'=>['idm']])->where(['idp ='=>$arrayIdp[2]])->first();
                                     $day->idm = $projet->idm;
-                                    $day->prix = $client->prix;
+                                    $day->prix = $projet->prix;
                                 }
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];

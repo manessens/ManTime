@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('nom_client','Client') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prix','prix UO (€)') ?></th>
+                <!-- <th scope="col"><?= $this->Paginator->sort('prix','prix UO (€)') ?></th> -->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -18,7 +18,6 @@
             <?php foreach ($client as $client): ?>
             <tr>
                 <td><?= h($client->nom_client) ?></td>
-                <td><?= $this->Number->format($client->prix) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$client->idc, 'entity'=>$client->nom_client]); ?>
                 </td>
