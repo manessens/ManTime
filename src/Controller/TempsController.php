@@ -465,7 +465,9 @@ class TempsController extends AppController
                 }
             }
         }
-        $this->Temps->saveMany($entities);
+        if (!empty($entities)) {
+            $this->Temps->saveMany($entities);
+        }
         return $week;
     }
 
