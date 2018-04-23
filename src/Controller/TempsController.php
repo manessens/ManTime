@@ -51,7 +51,7 @@ class TempsController extends AppController
 
         $buff = array();
         foreach ($arrayTemps as $temps) {
-            $buff[$temps->projet->client->nom_client.'.'.$temps->n_ligne][] = $temps;
+            $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
         }
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserAuth);
         $week = $retour[0];
@@ -236,7 +236,7 @@ class TempsController extends AppController
                     ->contain(['Projet' => ['Client']])->all();
             $buff = array();
             foreach ($arrayTemps as $temps) {
-                $buff[$temps->projet->client->nom_client.'.'.$temps->n_ligne][] = $temps;
+                $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
             }
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
             $week[$userAll->idu] = $retour[0];
@@ -432,8 +432,8 @@ class TempsController extends AppController
         ksort($buff);
         foreach ($buff as $key => $arrayDays) {
             $arrKey = explode('.', $key);
-            if (count($arrKey) > 1) {
-                $key = $arrKey[1];
+            if (count($arrKey) > 2) {
+                $key = $arrKey[2];
             }
             foreach ($arrayDays as $day) {
                 $week[$key]['idc'] = $idu.'.'.$day->projet->idc;
