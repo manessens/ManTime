@@ -86,7 +86,8 @@ function modifyUser (that) {
     if (first == false) {
         var arrayTr = $('tr[user="'+idu+'"]');
         var arrayId = [];
-        var idLine = 0;
+        var idLine;
+        
         var max = -1;
         var new_val = -1;
         arrayTr.each(function(){
