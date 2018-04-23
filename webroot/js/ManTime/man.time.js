@@ -169,12 +169,20 @@ $( "#add" ).click(function(){
     addLine(this);
 });
 
+function findLastId(){
+    var max = -1;
+    $('#semainier > tbody > tr ').each(function(){
+        var new_val =  Number($(this).attr('id'));
+        if (new_val > max) {
+            max = new_val;
+        }
+    });
+    return max;
+}
+
 function addLine(that) {
-    var id = $('#semainier>tbody tr:last').prev().attr('id');
-    if (id == undefined) {
-        id = -1;
-    }
-    id = Number(id)+1;
+    var id = findLastId();
+    id+=1;
     var tr = $('<tr>', {
         id: id
     });
