@@ -51,7 +51,7 @@ class TempsController extends AppController
 
         $buff = array();
         foreach ($arrayTemps as $temps) {
-            $buff[$temps->n_ligne][] = $temps;
+            $buff[$temps->projet->client->nom_client.'.'.$temps->n_ligne][] = $temps;
         }
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserAuth);
         $week = $retour[0];
