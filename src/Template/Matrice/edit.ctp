@@ -29,7 +29,7 @@
             </tbody>
         </table>
     </fieldset>
-    <div class="col-xs-6 left">
+    <div class="col-xs-5 left">
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning']) ?>
         <?= $this->Form->end() ?>
     </div>
