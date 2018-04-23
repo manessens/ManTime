@@ -186,7 +186,7 @@ function findLastId(){
 function addLine(that) {
     var id = findLastId();
     console.log(id);
-    id += 1;
+    id++;
     var tr = $('<tr>', {
         id: id
     });
