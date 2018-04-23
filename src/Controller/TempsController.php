@@ -101,6 +101,7 @@ class TempsController extends AppController
                             $day = $this->Temps->get($dataDay['id']);
                         }
                         $day->time = $dataDay['time'];
+                        $day->modify = true;
                         // add to $week to keep the data in case of error and redirect in the same page
                         $week[$line]['idc'] = $arrayData['client'][$line];
                         $week[$line]['idp'] = $arrayData['projet'][$line];
@@ -125,7 +126,6 @@ class TempsController extends AppController
 
                             $day->date = clone $dayTime ;
                             $day->n_ligne = $line;
-                            $day->modify = true;
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
                             if ($day->idp != $idp) {
