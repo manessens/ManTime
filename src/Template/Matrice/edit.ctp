@@ -30,7 +30,7 @@
         </table>
     </fieldset>
     <div class="col-xs-6 left">
-        <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning', $matrice->nom_matrice)]) ?>
+        <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning']) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>
