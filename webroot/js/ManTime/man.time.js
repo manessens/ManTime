@@ -172,9 +172,11 @@ $( "#add" ).click(function(){
 function findLastId(){
     var max = -1;
     $('#semainier > tbody > tr ').each(function(){
-        var new_val =  Number($(this).attr('id'));
-        if (new_val > max) {
-            max = new_val;
+        var new_val =  $(this).attr('id');
+        if ($.isNumeric(new_val) ) {
+            if (new_val > max) {
+                max = new_val;
+            }
         }
     });
     return max;
@@ -182,7 +184,7 @@ function findLastId(){
 
 function addLine(that) {
     var id = findLastId();
-    id+=1;
+    id += 1;
     var tr = $('<tr>', {
         id: id
     });
