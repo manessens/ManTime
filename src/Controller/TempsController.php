@@ -344,6 +344,7 @@ class TempsController extends AppController
                 if (is_null($isLocked)) {
                     $query = $this->Temps->find('all')
                         ->where(['validat =' => 1,
+                         'modify = ' => false,
                          'date >=' => $lundi,
                          'date <' => $dimanche]);
                     if (!empty($arrayIdCurrent)) {
@@ -456,9 +457,14 @@ class TempsController extends AppController
             foreach ($modelWeek as $idDay) {
                 if (!array_key_exists($idDay, $week[$key]) ) {
                     $week[$key][$idDay] = $this->Temps->newEntity();
+                }else{
+                    $day = $week[$key][$idDay];
+                    $day->modify = false;
+                    $entities[] = $day;
                 }
             }
         }
+        $this->Temps->saveMany($entities);
         return $week;
     }
 
