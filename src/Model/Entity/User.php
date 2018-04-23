@@ -43,7 +43,7 @@ class User extends Entity
 
     protected function _getFullname()
     {
-        return ucfirst($this->_properties['prenom']) . '  ' .
+        return ucfirst($this->_properties['prenom']) . ' ' .
             ucfirst($this->_properties['nom']);
     }
 
