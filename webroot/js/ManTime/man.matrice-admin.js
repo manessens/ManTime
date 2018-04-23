@@ -5,9 +5,11 @@ var modify;
 
 function init(){
     modify = false;
-    $('.input.number').each(function(){
-        var input = $( this ).children('input').prop('disabled', false);
-    })
+    $('#activate').on('click', function() {
+        $('.input.number').each(function(){
+            var input = $( this ).children('input').prop('disabled', false);
+        })
+    });
 }
 
 $('.input.number').on('input', function() {

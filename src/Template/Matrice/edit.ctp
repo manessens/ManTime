@@ -28,6 +28,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <button id='activate' class="btn left btn-danger" type="button">Activer édition</button>
     </fieldset>
     <div class="col-xs-5 left">
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'btn btn-warning']) ?>
