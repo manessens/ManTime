@@ -33,3 +33,6 @@
     Êtes vous sûr de vouloir effectuer des modifications sur {0} ?", $matrice->nom_matrice)]) ?>
     <?= $this->Form->end() ?>
 </div>
+<?php
+    echo $this->Html->script('ManTime/man.matrice-admin.js');
+?>
