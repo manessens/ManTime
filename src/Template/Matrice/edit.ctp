@@ -35,5 +35,6 @@
     </div>
 </div>
 <?php
+    echo $this->Html->script('ManTime/man.modal.js');
     echo $this->Html->script('ManTime/man.matrice-admin.js');
 ?>
