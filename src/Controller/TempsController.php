@@ -398,7 +398,7 @@ class TempsController extends AppController
 
         $arrayBuff=array();
         foreach ($week as $idu => $weekUser) {
-            $week[$idu] = $this->autoCompleteWeek($weekUser);
+            $week[$idu] = $this->autoCompleteWeek($weekUser, true);
 
             $arrayBuff = $this->getProjects($idu, $lundi, $dimanche);
             $arrayRetour['projets']   = array_merge($arrayRetour['projets'], $arrayBuff['projets']);
@@ -451,14 +451,14 @@ class TempsController extends AppController
         return [$week, $validat];
     }
 
-    private function autoCompleteWeek($week) {
+    private function autoCompleteWeek($week, $admin = false) {
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         $entities = array();
         foreach ($week as $key => $arrayDays) {
             foreach ($modelWeek as $idDay) {
                 if (!array_key_exists($idDay, $week[$key]) ) {
                     $week[$key][$idDay] = $this->Temps->newEntity();
-                }else{
+                }elseif($admin){
                     $day = $week[$key][$idDay];
                     $day->modify = false;
                     $entities[] = $day;
