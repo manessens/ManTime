@@ -663,7 +663,7 @@ class TempsController extends AppController
 
                 $andWhere = array();
                 $times=array();
-                $CheckQuery = true;
+                $queryError = false;
                 if (!empty($periodes)) {
                     foreach ($periodes as $periode) {
                         $lundi = new Date('now');
@@ -686,19 +686,19 @@ class TempsController extends AppController
                         if (!empty($arrayIdProjet)) {
                             $query->andWhere(['idp IN' => $arrayIdProjet]);
                         }else{
-                            $CheckQuery = false;
+                            $queryError = true;
                         }
                     }
                     if (!empty($arrayData['user']) ){
                         $query->andWhere(['idu =' => $arrayData['user']]);
                     }
 
-                    if ($CheckQuery) {
+                    if (!$queryError) {
                         $times = $query->toArray();
                     }
 
                 }
-                if (empty($times) && !$CheckQuery) {
+                if (empty($times) && $queryError) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
