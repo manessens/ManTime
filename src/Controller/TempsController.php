@@ -681,7 +681,9 @@ class TempsController extends AppController
                     if (!empty($arrayData['client'])) {
                         $ProjetTable = TableRegistry::get('Projet');
                         $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $arrayData['client']])->toArray();
-                        $query->andWhere(['idp IN' => $arrayIdProjet]);
+                        if (!empty($arrayIdProjet)) {
+                            $query->andWhere(['idp IN' => $arrayIdProjet]);
+                        }
                     }
                     if (!empty($arrayData['user']) ){
                         $query->andWhere(['idu =' => $arrayData['user']]);
@@ -782,7 +784,7 @@ class TempsController extends AppController
         $activitTable = TableRegistry::get('Activitie');
         $activits = $activitTable->find('list', ['fields'=>['ida', 'nom_activit']])->toArray();
 
-        $clientTable = TableRegistry::get('Client');
+        // $clientTable = TableRegistry::get('Client');
         $matriceTable = TableRegistry::get('Matrice');
         $arrayMatriceHard = $matriceTable->find('all')->contain(['LignMat'])->toArray();
         $arrayMatrice = array();
