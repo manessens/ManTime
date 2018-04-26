@@ -698,7 +698,7 @@ class TempsController extends AppController
                     }
 
                 }
-                if (empty($times) && $CheckQuery) {
+                if (empty($times) && !$CheckQuery) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
