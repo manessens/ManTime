@@ -175,7 +175,8 @@ function findLastId(){
     $('#semainier > tbody > tr ').each(function(){
         new_val =  $(this).attr('id');
         console.log(this);
-        if (Number.isInteger(new_val) ) {
+        console.log(new_val);
+        if ($.isNumeric(new_val) ) {
             if (new_val > max) {
                 console.log(new_val);
                 max = new_val;
