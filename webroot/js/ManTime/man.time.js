@@ -177,9 +177,9 @@ function findLastId(){
         console.log(this);
         console.log(new_val);
         if ($.isNumeric(new_val) ) {
+            console.log(max);
             console.log(new_val > max);
             if (new_val > max) {
-                console.log(new_val);
                 max = new_val;
             }
         }
