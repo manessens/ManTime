@@ -173,11 +173,11 @@ function findLastId(){
     var max = -1;
     var new_val = -1;
     $('#semainier > tbody > tr ').each(function(){
-        new_val =  $(this).attr('id');
+        new_val =  parseInt($(this).attr('id'), 10);
         console.log(this);
         console.log(new_val);
-        if ($.isNumeric(new_val) ) {
-            console.log(max);
+        if (!isNaN(new_val) ) {
+            console.log(new_val);
             console.log(new_val > max);
             if (new_val > max) {
                 max = new_val;
