@@ -176,6 +176,7 @@ function findLastId(){
         new_val =  $(this).attr('id');
         if ($.isNumeric(new_val) ) {
             if (new_val > max) {
+                console.log(new_val);
                 max = new_val;
             }
         }
@@ -185,6 +186,7 @@ function findLastId(){
 
 function addLine(that) {
     var id = findLastId();
+    console.log(id);
     id++;
     var tr = $('<tr>', {
         id: id
