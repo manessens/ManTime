@@ -860,6 +860,7 @@ class TempsController extends AppController
             ksort($data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]);
         }
         ksort($data);
+        pr($data);exit;
         $dataLine=array();
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
