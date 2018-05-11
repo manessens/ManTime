@@ -875,7 +875,7 @@ class TempsController extends AppController
                                 ];
                                 $timebuffer = array();
                                 foreach ($arrDate as $date => $arrTime) {
-                                    pr($buffer);
+                                    pr("--------------");
                                     if (!is_array($arrTime)) {
                                         $buffer['detail']=$arrTime;
                                         continue;
@@ -907,6 +907,7 @@ class TempsController extends AppController
                                                 break;
                                         }
                                     }
+                                    pr($dataLine);
                                 }
                                 $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                                 $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
