@@ -885,6 +885,7 @@ class TempsController extends AppController
                                     $timebufferMonth = $period;
                                     $UobufferMonth = $period;
                                     $CabufferMonth = $period;
+                                    pr($UobufferMonth);
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
                                         $monthKey = explode('-',$date)[1];
@@ -907,6 +908,7 @@ class TempsController extends AppController
                                                 break;
                                         }
                                     }
+                                    pr($UobufferMonth);
                                 }
                                 $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                                 $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
