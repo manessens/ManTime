@@ -881,6 +881,7 @@ class TempsController extends AppController
                                         continue;
                                     }
                                     pr($buffer);
+                                    pr("--------------");
                                     $timebufferMonth = $period;
                                     $UobufferMonth = $period;
                                     $CabufferMonth = $period;
