@@ -860,7 +860,6 @@ class TempsController extends AppController
             ksort($data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]);
         }
         ksort($data);
-        pr($data);exit;
         $dataLine=array();
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
@@ -876,10 +875,12 @@ class TempsController extends AppController
                                 ];
                                 $timebuffer = array();
                                 foreach ($arrDate as $date => $arrTime) {
+                                    pr($buffer);
                                     if (!is_array($arrTime)) {
                                         $buffer['detail']=$arrTime;
                                         continue;
                                     }
+                                    pr($buffer);
                                     $timebufferMonth = $period;
                                     $UobufferMonth = $period;
                                     $CabufferMonth = $period;
@@ -915,6 +916,7 @@ class TempsController extends AppController
                 }
             }
         }
+        pr($dataLine);exit;
         return $dataLine;
     }
     private function convertToIso($string = ''){
