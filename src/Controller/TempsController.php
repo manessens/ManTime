@@ -874,6 +874,9 @@ class TempsController extends AppController
                                     'activit'=>$this->convertToIso($activit)
                                 ];
                                 $timebuffer = array();
+                                $timebufferMonth = $period;
+                                $UobufferMonth = $period;
+                                $CabufferMonth = $period;
                                 foreach ($arrDate as $date => $arrTime) {
                                     pr("--------------");
                                     if (!is_array($arrTime)) {
@@ -882,9 +885,6 @@ class TempsController extends AppController
                                     }
                                     pr($buffer);
                                     pr("--------------");
-                                    $timebufferMonth = $period;
-                                    $UobufferMonth = $period;
-                                    $CabufferMonth = $period;
                                     pr($UobufferMonth);
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
