@@ -908,10 +908,10 @@ class TempsController extends AppController
                                         }
                                     }
                                 }
-                                pr($dataLine);
                                 $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                                 $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
                                 $dataLine[] = array_merge($buffer, $timebufferMonth);
+                                pr($dataLine);
                             }
                         }
                     }
