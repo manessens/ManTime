@@ -878,14 +878,10 @@ class TempsController extends AppController
                                 $UobufferMonth = $period;
                                 $CabufferMonth = $period;
                                 foreach ($arrDate as $date => $arrTime) {
-                                    pr("--------------");
                                     if (!is_array($arrTime)) {
                                         $buffer['detail']=$arrTime;
                                         continue;
                                     }
-                                    pr($buffer);
-                                    pr("--------------");
-                                    pr($UobufferMonth);
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
                                         $monthKey = explode('-',$date)[1];
@@ -908,19 +904,16 @@ class TempsController extends AppController
                                                 break;
                                         }
                                     }
-                                    pr($UobufferMonth);
                                 }
                                 $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                                 $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
                                 $dataLine[] = array_merge($buffer, $timebufferMonth);
-                                pr($dataLine);
                             }
                         }
                     }
                 }
             }
         }
-        pr($dataLine);exit;
         return $dataLine;
     }
     private function convertToIso($string = ''){
