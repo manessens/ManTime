@@ -517,7 +517,7 @@ class TempsController extends AppController
         $easterMonth = date('n', $easterDate);
 
         $holidays = array(
-                // Jours feries fixes
+                // Jours fériés fixes
                 mktime(0, 0, 0, 1, 1, $year),// 1er janvier
                 mktime(0, 0, 0, 5, 1, $year),// Fete du travail
                 mktime(0, 0, 0, 5, 8, $year),// Victoire des allies
@@ -527,11 +527,11 @@ class TempsController extends AppController
                 mktime(0, 0, 0, 11, 11, $year),// Armistice
                 mktime(0, 0, 0, 12, 25, $year),// Noel
 
-                // Jour feries qui dependent de paques
+                // Jour fériés qui dependent de paques
                 mktime(0, 0, 0, $easterMonth, $easterDay, $year),// Pâques
                 mktime(0, 0, 0, $easterMonth, $easterDay + 1, $year),// Lundi de paques
                 mktime(0, 0, 0, $easterMonth, $easterDay + 39, $year),// Ascension
-                mktime(0, 0, 0, $easterMonth, $easterDay + 50, $year), // Pentecote
+                // mktime(0, 0, 0, $easterMonth, $easterDay + 50, $year), // Pentecote => journée de solidarité (facturé en x1)
         );
         sort($holidays);
         return $holidays;
@@ -766,13 +766,13 @@ class TempsController extends AppController
         }
         //dimanche 2, samedi 1.5 default 1
         switch ($dateDay) {
-            case '6':
+            case '6': //Samedi
                 return 1.5;
                 break;
-            case '0':
+            case '0': //Dimanche
                 return 2;
                 break;
-            default:
+            default: // jour de la semaine
                 return 1;
                 break;
         }
