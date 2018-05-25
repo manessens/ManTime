@@ -623,10 +623,11 @@ class TempsController extends AppController
             $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
         }
         $userTable = TableRegistry::get('Users');
-        $arrayUser = $userTable->find('all')->toArray();
+        $arrayUser = $userTable->find('all')->contain(['Origine'])->toArray();
         $users = array();
         foreach ($arrayUser as $user) {
             $users[$user->idu] = $user->fullname;
+            $userOrigine[$user->idu] = $user->origine->nom_origine;
         }
         if ($this->request->is(['post'])) {
             $this->clearDtb();
@@ -732,7 +733,7 @@ class TempsController extends AppController
                             }
                         }
                     }
-                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient);
+                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient, $userOrigine);
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
@@ -781,7 +782,7 @@ class TempsController extends AppController
         }
     }
 
-    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient)
+    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient, $userOrigine)
     {
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
@@ -818,6 +819,7 @@ class TempsController extends AppController
             $keyProject = $projects[$time->idp];
             $keyFact = $projectFact[$time->idp];
             $keyUser = $users[$time->idu];
+            $keyOrigine = $userOrigine[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
             $nLine = $time->n_ligne;
@@ -831,6 +833,7 @@ class TempsController extends AppController
             }
             if (!array_key_exists($keyUser, $data[$keyClient][$keyProject])) {
                 $data[$keyClient][$keyProject][$keyUser] = array();
+                $data[$keyClient][$keyProject][$keyUser]['-1'] = $keyOrigine;
             }
             if (!array_key_exists($keyProfil, $data[$keyClient][$keyProject][$keyUser])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil] = array();
@@ -871,6 +874,7 @@ class TempsController extends AppController
         $dataLine=array();
         $bufferAgence = '';
         $bufferFact = '';
+        $bufferOrigine = '';
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 if (!is_array($arrUser)) {
@@ -883,11 +887,15 @@ class TempsController extends AppController
                         continue;
                     }
                     foreach ($arrProfil as $profil => $arrActiv) {
+                        if (!is_array($arrActiv)) {
+                            $bufferOrigine=$this->convertToIso($arrActiv);
+                            continue;
+                        }
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
                                 $buffer = ['client'=>$this->convertToIso($client), 'agence'=>$bufferAgence,
                                     'projet'=>$this->convertToIso($projet), 'facturable'=>$bufferFact,
-                                    'user'=>$this->convertToIso($user),
+                                    'user'=>$this->convertToIso($user), 'origine' => $bufferOrigine,
                                     'profil'=>$this->convertToIso($profil),
                                     'activit'=>$this->convertToIso($activit)
                                 ];
