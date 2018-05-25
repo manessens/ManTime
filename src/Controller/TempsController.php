@@ -872,6 +872,7 @@ class TempsController extends AppController
                 continue;
             }
             foreach ($arrProj as $projet => $arrUser) {
+                pr($arrUser);
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrLine) {
