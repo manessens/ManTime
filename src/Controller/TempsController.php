@@ -615,12 +615,12 @@ class TempsController extends AppController
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all', ['contain' => ['Origine']])->toArray();
+        $arrayClient = $clientTable->find('all', ['contain' => ['Agence']])->toArray();
         $clients = array();
-        $origineClient = array();
+        $agenceClient = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
-            $origineClient[$client->idc] = ucfirst($client->Origine->nom_origine);
+            $agenceClient[$client->idc] = ucfirst($client->agence->nom_origine);
         }
         $userTable = TableRegistry::get('Users');
         $arrayUser = $userTable->find('all')->toArray();
@@ -732,7 +732,7 @@ class TempsController extends AppController
                             }
                         }
                     }
-                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $origineClient);
+                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient);
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
@@ -781,7 +781,7 @@ class TempsController extends AppController
         }
     }
 
-    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $origineClient)
+    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient)
     {
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
@@ -813,7 +813,7 @@ class TempsController extends AppController
         $holidays = $this->getHolidays();
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
-            $keyOrigine = $origineClient[$projectClients[$time->idp]];
+            $keyOrigine = $agenceClient[$projectClients[$time->idp]];
             $keyProject = $projects[$time->idp];
             $keyUser = $users[$time->idu];
             $keyProfil = $profils[$time->id_profil];
@@ -868,7 +868,7 @@ class TempsController extends AppController
         $dataLine=array();
         foreach ($data as $client => $arrProj) {
             if (!is_array($arrProj)) {
-                $buffer['origine']=$arrProj;
+                $buffer['agence']=$arrProj;
                 continue;
             }
             foreach ($arrProj as $projet => $arrUser) {
