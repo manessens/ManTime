@@ -877,7 +877,7 @@ class TempsController extends AppController
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
-                                $buffer = ['client'=>$this->convertToIso($client), 'agence'=>$bufferAgence
+                                $buffer = ['client'=>$this->convertToIso($client), 'agence'=>$bufferAgence,
                                     'projet'=>$this->convertToIso($projet),
                                     'user'=>$this->convertToIso($user),
                                     'profil'=>$this->convertToIso($profil),
