@@ -10,12 +10,12 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Client.nom_client','Client') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('nom_projet','Projet') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Projet.nom_projet','Projet') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Facturable.nom_fact','Facturable') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Matrice.nom_matrice','Matrice') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prix','prix UO (€)') ?></th>
-                <th class="date" scope="col"><?= $this->Paginator->sort('date_debut','Date de début') ?></th>
-                <th class="date" scope="col"><?= $this->Paginator->sort('date_fin','Date de fin') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Projet.prix','prix UO (€)') ?></th>
+                <th class="date" scope="col"><?= $this->Paginator->sort('Projet.date_debut','Date de début') ?></th>
+                <th class="date" scope="col"><?= $this->Paginator->sort('Projet.date_fin','Date de fin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
