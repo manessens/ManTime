@@ -10,6 +10,9 @@
         <legend><?= __('Edition du projet') ?> <span class="text-danger"><?= h($projet->nom_projet) ?></span></legend>
         <div class="input text required">
         <?php
+            echo $this->Form->control('nom_projet');
+        ?>
+        <?php
             echo $this->Form->label('idc','Client');
             echo $this->Form->select('idc', $clientOption);
         ?>
