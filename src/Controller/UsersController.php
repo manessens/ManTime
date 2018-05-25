@@ -153,7 +153,7 @@ class UsersController extends AppController
 
     private function getOrigineOption()
     {
-        $origineTable = TableRegistry::get('Facturable');
+        $origineTable = TableRegistry::get('Origine');
         $origineOption = array();
         $origineOption = $origineTable->find('list',['fields'=>['ido', 'nom_origine']])->toArray();
         return $origineOption;
