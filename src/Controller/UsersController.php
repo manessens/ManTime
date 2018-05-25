@@ -111,7 +111,7 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
-        $origineOption = getOrigineOption();
+        $origineOption = $this->getOrigineOption();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['admin']) {
@@ -169,7 +169,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id);
-        $origineOption = getOrigineOption();
+        $origineOption = $this->getOrigineOption();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['prem_connect']) {
