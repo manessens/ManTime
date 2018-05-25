@@ -736,7 +736,9 @@ class TempsController extends AppController
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient, $userOrigine);
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
-                    $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
+                    if ( !$arrayData['fitnet']) {
+                        $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
+                    }
                     $headerFix = ['Client', 'Agence', 'Projet', 'Facturable', 'Consultant', 'Origine', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails')];
                     $_header = array_merge($headerFix, $arrayMonthBuffer);
             		$_serialize = 'data';
@@ -932,7 +934,9 @@ class TempsController extends AppController
                                     }
                                 }
                                 $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
-                                $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                                if (!$isFitnet) {
+                                    $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                                }
                                 $dataLine[] = array_merge($buffer, $timebufferMonth);
                             }
                         }
