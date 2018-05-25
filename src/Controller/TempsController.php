@@ -821,7 +821,7 @@ class TempsController extends AppController
             $nLine = $time->n_ligne;
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
-                $data[$keyClient]['agence'] = $keyOrigine;
+                $data[$keyClient]['-1'] = $keyOrigine;
             }
             if (!array_key_exists($keyProject, $data[$keyClient])) {
                 $data[$keyClient][$keyProject] = array();
