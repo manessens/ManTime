@@ -22,6 +22,10 @@ class ClientController extends AppController
     public function index()
     {
         $this->paginate =[
+            'contain'   => ['Agence'],
+            'sortWhitelist' => [
+                'nom_client', 'Agence.nom_agence'
+            ],
             'order'     => ['nom_client'=>'asc']
         ];
         $this->set('client', $this->paginate($this->Client));
@@ -37,7 +41,9 @@ class ClientController extends AppController
      */
     public function view($id = null)
     {
-        $client = $this->Client->get($id);
+        $client = $this->Client->get($id, [
+            'contain' => ['Agence']
+        ]);
 
         $this->set('client', $client);
     }
@@ -76,6 +82,9 @@ class ClientController extends AppController
     public function edit($id = null)
     {
         $client = $this->Client->get($id);
+        $agenceOption = array();
+        $agenceTable = TableRegistry::get('Agence');
+        $agenceOption = $agenceTable->find('list',['fields' =>['id_agence','nom_agence']])->toArray();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
@@ -86,6 +95,7 @@ class ClientController extends AppController
             $this->Flash->error(__("Le client n'a pus être sauvegardé. Merci de réessayer ultérieurement."));
         }
         $this->set(compact('client'));
+        $this->set(compact('agenceOption'));
     }
 
     /**

@@ -11,6 +11,10 @@
             <th scope="row"><?= __('Nom Client') ?></th>
             <td><?= h($client->nom_client) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('Agence') ?></th>
+            <td><?= h($client->agence->nom_agence) ?></td>
+        </tr>
     </table>
     <div class="right">
         <div class="btn btn-warning"><?= $this->Html->link(__('Edition'), ['action' => 'edit', $client->idc]) ?></div>
