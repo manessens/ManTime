@@ -12,11 +12,13 @@ use Cake\ORM\Entity;
  * @property string $nom
  * @property string $email
  * @property string $mdp
+ * @property int $ido
  * @property int $actif
  * @property int $admin
  * @property int $role
  * @property int $prem_connect
  *
+ * @property \App\Model\Entity\Origine $origine
  */
 class User extends Entity
 {
@@ -36,6 +38,8 @@ class User extends Entity
         'email' => true,
         'mdp' => true,
         'actif' => true,
+        'ido' => true,
+        'origine' => true,
         'prem_connect' => true,
         'admin' => true,
         'role' => true

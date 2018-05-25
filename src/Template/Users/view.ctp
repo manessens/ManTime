@@ -17,6 +17,10 @@
             <td><?= h($user->nom) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Origine') ?></th>
+            <td><?= h($user->origine->nom_origine) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Actif') ?></th>
             <td>
                 <?= $this->element('tagYN', ['test' => $this->Number->format($user->actif)]) ?>

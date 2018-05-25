@@ -13,6 +13,14 @@
             echo $this->Form->control('email');
             echo $this->Form->control('prenom');
             echo $this->Form->control('nom');
+        ?>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('ido','Origine');
+            echo $this->Form->select('ido', $origineOption);
+        ?>
+        </div>
+        <?php
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox']);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);

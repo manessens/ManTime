@@ -10,6 +10,8 @@ use Cake\Auth\DefaultPasswordHasher;
 /**
  * Users Model
  *
+ * @property \App\Model\Entity\Origine|\Cake\ORM\Association\BelongsTo $Origine
+ *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -35,6 +37,10 @@ class UsersTable extends Table
         $this->setDisplayField('idu');
         $this->setPrimaryKey('idu');
 
+        $this->belongsTo('Origine', [
+            'foreignKey' => 'ido'
+        ]);
+
     }
 
     /**
@@ -58,6 +64,11 @@ class UsersTable extends Table
             ->scalar('nom')
             ->maxLength('nom', 50)
             ->allowEmpty('nom');
+
+        $validator
+            ->integer('ido')
+            ->requirePresence('ido', 'create')
+            ->notEmpty('ido');
 
         $validator
             ->email('email')

@@ -18,6 +18,10 @@
                 <td><?= h($user->nom) ?></td>
             </tr>
             <tr>
+                <th scope="row"><?= __('Origine') ?></th>
+                <td><?= h($user->origine->nom_origine) ?></td>
+            </tr>
+            <tr>
                 <th scope="row"><?= __('Rôle') ?></th>
                 <td>
                     <?= $this->element('roleselect', ['role'=>$this->Number->format($user->role)]) ?>

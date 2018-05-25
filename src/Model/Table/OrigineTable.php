@@ -31,7 +31,7 @@ class OrigineTable extends Table
         parent::initialize($config);
 
         $this->setTable('origine');
-        $this->setDisplayField('ido');
+        $this->setDisplayField('nom_origine');
         $this->setPrimaryKey('ido');
     }
 

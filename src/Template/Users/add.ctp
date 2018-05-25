@@ -13,6 +13,14 @@
             echo $this->Form->control('prenom');
             echo $this->Form->control('nom');
             echo $this->Form->control('email');
+        ?>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('ido','Origine');
+            echo $this->Form->select('ido', $origineOption);
+        ?>
+        </div>
+        <?php
             echo $this->Form->control('mdp', ['value' => 'Welcome1!']);
             echo $this->Form->control('actif', ['type' => 'checkbox']);
             echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary']]);

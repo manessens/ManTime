@@ -22,6 +22,10 @@ class UsersController extends AppController
     public function index()
     {
         $this->paginate = [
+            'contain'   => ['Origine'],
+            'sortWhitelist' => [
+                'prenom', 'nom', 'email', 'Origine.nom_origine', 'actif', 'role'
+            ],
             'order' => [
                 'prenom' => 'asc'
             ]
@@ -93,7 +97,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => ['Origine']
         ]);
 
         $this->set('user', $user);
@@ -107,6 +111,7 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
+        $origineOption = getOrigineOption();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['admin']) {
@@ -124,6 +129,7 @@ class UsersController extends AppController
         $user->admin = $user->role >= 50;
         $user->role = $user->role >= 20;
         $this->set(compact('user'));
+        $this->set(compact('origineOption'));
     }
 
     public function test()
@@ -145,6 +151,14 @@ class UsersController extends AppController
         // $email->send();
     }
 
+    private function getOrigineOption()
+    {
+        $origineTable = TableRegistry::get('Facturable');
+        $origineOption = array();
+        $origineOption = $origineTable->find('list',['fields'=>['ido', 'nom_origine']])->toArray();
+        return $origineOption;
+    }
+
     /**
      * Edit method
      *
@@ -154,9 +168,8 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
+        $user = $this->Users->get($id);
+        $origineOption = getOrigineOption();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['prem_connect']) {
@@ -177,6 +190,7 @@ class UsersController extends AppController
         $user->admin = $user->role >= 50;
         $user->role = $user->role >= 20;
         $this->set(compact('user'));
+        $this->set(compact('origineOption'));
     }
 
     /**
@@ -190,7 +204,7 @@ class UsersController extends AppController
     {
         $idUserAuth = $this->Auth->user('idu');
         $user = $this->Users->get($idUserAuth, [
-            'contain' => []
+            'contain' => ['Origine']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
