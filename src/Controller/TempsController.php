@@ -784,12 +784,14 @@ class TempsController extends AppController
     private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient)
     {
         $projetTable = TableRegistry::get('Projet');
-        $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
+        $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
         foreach ($arrayprojects as $proj) {
             $projects[$proj->idp] = $proj->nom_projet;
+            $projectFact[$proj->idp] = $proj->facturable->nom_fact;
             $projectClients[$proj->idp] = $proj->idc;
         }
+        pr($projectFact);exit;
         $profilTable = TableRegistry::get('Profil');
         $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
         $activitTable = TableRegistry::get('Activitie');
@@ -815,6 +817,7 @@ class TempsController extends AppController
             $keyClient = $clients[$projectClients[$time->idp]];
             $keyOrigine = $agenceClient[$projectClients[$time->idp]];
             $keyProject = $projects[$time->idp];
+            $keyFact = '';
             $keyUser = $users[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
@@ -825,6 +828,7 @@ class TempsController extends AppController
             }
             if (!array_key_exists($keyProject, $data[$keyClient])) {
                 $data[$keyClient][$keyProject] = array();
+                $data[$keyClient][$keyProject]['-1'] = $keyFact;
             }
             if (!array_key_exists($keyUser, $data[$keyClient][$keyProject])) {
                 $data[$keyClient][$keyProject][$keyUser] = array();
@@ -858,7 +862,7 @@ class TempsController extends AppController
             $timeUO *= $this->getIncreaseDay($dateTime, $holidays);
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['detail']=$this->convertToIso($time->detail);
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['zdetail']=$this->convertToIso($time->detail);
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
