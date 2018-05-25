@@ -24,7 +24,7 @@ class UsersController extends AppController
         $this->paginate = [
             'contain'   => ['Origine'],
             'sortWhitelist' => [
-                'prenom', 'nom', 'email', 'Origine.nom_origine', 'actif', 'role'
+                'Users.prenom', 'Users.nom', 'Users.email', 'Origine.nom_origine', 'Users.actif', 'Users.role'
             ],
             'order' => [
                 'prenom' => 'asc'
