@@ -866,17 +866,18 @@ class TempsController extends AppController
         }
         ksort($data);
         $dataLine=array();
+        $bufferAgence = '';
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 if (!is_array($arrUser)) {
-                    $buffer['agence']=$arrUser;
+                    $bufferAgence=$this->convertToIso($arrUser);
                     continue;
                 }
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
-                                $buffer = ['client'=>$this->convertToIso($client),
+                                $buffer = ['client'=>$this->convertToIso($client), 'agence'=>$bufferAgence
                                     'projet'=>$this->convertToIso($projet),
                                     'user'=>$this->convertToIso($user),
                                     'profil'=>$this->convertToIso($profil),
