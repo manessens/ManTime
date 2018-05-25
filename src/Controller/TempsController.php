@@ -615,10 +615,12 @@ class TempsController extends AppController
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all')->toArray();
+        $arrayClient = $clientTable->find('all', ['contain' => ['Origine']])->toArray();
         $clients = array();
+        $origineClient = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
+            $origineClient[$client->idc] = ucfirst($client->Origine->nom_origine);
         }
         $userTable = TableRegistry::get('Users');
         $arrayUser = $userTable->find('all')->toArray();
@@ -730,11 +732,12 @@ class TempsController extends AppController
                             }
                         }
                     }
-                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period);
+                    $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $origineClient);
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
                     $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
-                    $_header = array_merge(['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails')], $arrayMonthBuffer);
+                    $headerFix = ['Client', 'Agence', 'Projet', 'Facturable', 'Consultant', 'Origine', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails')];
+                    $_header = array_merge($headerFix, $arrayMonthBuffer);
             		$_serialize = 'data';
                     $_delimiter = ';';
                		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
@@ -778,7 +781,7 @@ class TempsController extends AppController
         }
     }
 
-    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period)
+    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $origineClient)
     {
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet']])->toArray();
@@ -810,6 +813,7 @@ class TempsController extends AppController
         $holidays = $this->getHolidays();
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
+            $keyOrigine = $origineClient[$projectClients[$time->idp]];
             $keyProject = $projects[$time->idp];
             $keyUser = $users[$time->idu];
             $keyProfil = $profils[$time->id_profil];
@@ -817,6 +821,7 @@ class TempsController extends AppController
             $nLine = $time->n_ligne;
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
+                $data[$keyClient]['agence'] = $keyOrigine;
             }
             if (!array_key_exists($keyProject, $data[$keyClient])) {
                 $data[$keyClient][$keyProject] = array();
@@ -862,6 +867,10 @@ class TempsController extends AppController
         ksort($data);
         $dataLine=array();
         foreach ($data as $client => $arrProj) {
+            if (!is_array($arrProj)) {
+                $buffer['origine']=$arrProj;
+                continue;
+            }
             foreach ($arrProj as $projet => $arrUser) {
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
