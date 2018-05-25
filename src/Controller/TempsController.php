@@ -867,12 +867,13 @@ class TempsController extends AppController
         ksort($data);
         $dataLine=array();
         foreach ($data as $client => $arrProj) {
+            pr($arrProj);
             if (!is_array($arrProj)) {
                 $buffer['agence']=$arrProj;
+                pr("continue");
                 continue;
             }
             foreach ($arrProj as $projet => $arrUser) {
-                pr($arrUser);
                 foreach ($arrUser as $user => $arrProfil) {
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrLine) {
