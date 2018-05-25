@@ -620,7 +620,7 @@ class TempsController extends AppController
         $agenceClient = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
-            $agenceClient[$client->idc] = ucfirst($client->agence->nom_origine);
+            $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
         }
         pr($agenceClient);exit;
         $userTable = TableRegistry::get('Users');
