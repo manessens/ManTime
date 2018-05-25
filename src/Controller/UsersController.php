@@ -27,7 +27,7 @@ class UsersController extends AppController
                 'Users.prenom', 'Users.nom', 'Users.email', 'Origine.nom_origine', 'Users.actif', 'Users.role'
             ],
             'order' => [
-                'prenom' => 'asc'
+                'Users.prenom' => 'asc'
             ]
         ];
 
