@@ -21,6 +21,12 @@
         </div>
         <div class="input text required">
         <?php
+            echo $this->Form->label('idf','Facturable');
+            echo $this->Form->select('idf', $factOption);
+        ?>
+        </div>
+        <div class="input text required">
+        <?php
             echo $this->Form->label('Matrice');
             echo $this->Form->select('idm', $matricesOption, ['value'=>$projet->idm]);
         ?>

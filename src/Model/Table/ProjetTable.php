@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Projet Model
  *
  * @property \App\Model\Entity\Client|\Cake\ORM\Association\BelongsTo $Client
+ * @property \App\Model\Entity\Facturable|\Cake\ORM\Association\BelongsTo $Facturable
  * @property \App\Model\Table\ActivitiesTable|\Cake\ORM\Association\HasMany $Activity
  * @property \App\Model\Table\ParticipantTable|\Cake\ORM\Association\HasMany $Participant
  *
@@ -41,6 +42,9 @@ class ProjetTable extends Table
 
         $this->belongsTo('Client', [
             'foreignKey' => 'idc'
+        ]);
+        $this->belongsTo('Facturable', [
+            'foreignKey' => 'idf'
         ]);
 
         $this->hasMany('Activities', [
@@ -76,6 +80,11 @@ class ProjetTable extends Table
             ->integer('idc')
             ->requirePresence('idc', 'create')
             ->notEmpty('idc');
+
+        $validator
+            ->integer('idf')
+            ->requirePresence('idf', 'create')
+            ->notEmpty('idf');
 
         $validator
             ->dateTime('date_debut')

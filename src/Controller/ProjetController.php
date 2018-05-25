@@ -23,9 +23,9 @@ class ProjetController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain'   => ['Client', 'Matrice'],
+            'contain'   => ['Client', 'Matrice', 'Facturable'],
             'sortWhitelist' => [
-                'Client.nom_client', 'nom_projet', 'Matrice.nom_matrice', 'date_debut', 'date_fin'
+                'Client.nom_client', 'nom_projet', 'Facturable.nom_fact', 'Matrice.nom_matrice', 'date_debut', 'date_fin'
             ],
             'order' => [
                 'Client.nom_client' => 'asc'
@@ -44,7 +44,7 @@ class ProjetController extends AppController
     public function view($id = null)
     {
         $projet = $this->Projet->get($id, [
-            'contain' => ['Client', 'Activities' => ['Activitie'], 'Participant' => ['Users'], 'Matrice']
+            'contain' => ['Client', 'Activities' => ['Activitie'], 'Participant' => ['Users'], 'Matrice', 'Facturable']
         ]);
 
         $this->set('projet', $projet);
@@ -58,6 +58,7 @@ class ProjetController extends AppController
     public function add()
     {
         $clientOption = $this->getClientOption();
+        $factOption = $this->getFactOption();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
@@ -93,6 +94,7 @@ class ProjetController extends AppController
         asort($matricesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
+        $this->set(compact('factOption'));
         $this->set(compact('matricesOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
@@ -110,6 +112,7 @@ class ProjetController extends AppController
     public function edit($id = null)
     {
         $clientOption = $this->getClientOption();
+        $factOption = $this->getFactOption();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
@@ -139,8 +142,10 @@ class ProjetController extends AppController
         asort($clientOption);
         asort($participantsOption);
         asort($activitiesOption);
+        asort($matricesOption);
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
+        $this->set(compact('factOption'));
         $this->set(compact('matricesOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
@@ -214,6 +219,14 @@ class ProjetController extends AppController
             $clientOption[$client->idc] = $client->nom_client;
         }
         return $clientOption;
+    }
+
+    private function getFactOption()
+    {
+        $factTable = TableRegistry::get('Facturable');
+        $factOption = array();
+        $factOption = $factTable->find('list',['fields'=>['idf', 'nom_fact']])->toArray();
+        return $factOption;
     }
 
     private function getUserOption()

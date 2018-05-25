@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Activity[] $activities
  * @property \App\Model\Entity\Participant[] $participant
  * @property \App\Model\Entity\Matrice $matrice
+ * @property \App\Model\Entity\Facturable $facturable
  */
 class Projet extends Entity
 {
@@ -39,6 +40,8 @@ class Projet extends Entity
         'client' => true,
         'activities' => true,
         'participant' => true,
+        'idfact' => true,
+        'facturable' => true,
         'idm' => true,
         'matrice' => true,
         'prix' => true

@@ -31,6 +31,10 @@
             <td><?= h($projet->client->nom_client) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Facturable') ?></th>
+            <td><?= h($projet->facturable->nom_fact) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Matrice') ?></th>
             <td><?= h($projet->matrice->nom_matrice) ?></td>
         </tr>

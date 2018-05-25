@@ -31,7 +31,7 @@ class FacturableTable extends Table
         parent::initialize($config);
 
         $this->setTable('facturable');
-        $this->setDisplayField('idf');
+        $this->setDisplayField('nom_fact');
         $this->setPrimaryKey('idf');
     }
 
