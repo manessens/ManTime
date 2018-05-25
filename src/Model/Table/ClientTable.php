@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Client Model
  *
+ * @property \App\Model\Entity\Agence|\Cake\ORM\Association\BelongsTo $Agence
+ *
  * @method \App\Model\Entity\Client get($primaryKey, $options = [])
  * @method \App\Model\Entity\Client newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Client[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class ClientTable extends Table
         $this->setTable('client');
         $this->setDisplayField('idc');
         $this->setPrimaryKey('idc');
+
+        $this->belongsTo('Agence', [
+            'foreignKey' => 'id_agence'
+        ]);
     }
 
     /**
@@ -52,6 +58,11 @@ class ClientTable extends Table
             ->maxLength('nom_client', 50)
             ->requirePresence('nom_client', 'create')
             ->notEmpty('nom_client');
+
+        $validator
+            ->integer('id_agence')
+            ->requirePresence('id_agence', 'create')
+            ->notEmpty('id_agence');
 
         return $validator;
     }

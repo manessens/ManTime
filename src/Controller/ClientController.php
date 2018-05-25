@@ -50,6 +50,9 @@ class ClientController extends AppController
     public function add()
     {
         $client = $this->Client->newEntity();
+        $agenceOption = array();
+        $agenceTable = TableRegistry::get('Agence');
+        $agenceOption = $agenceTable->find('list',['fields' =>['id_agence','nom_agence']])->toArray();
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
@@ -60,6 +63,7 @@ class ClientController extends AppController
             $this->Flash->error(__("Le client n'a pus être sauvegardé. Merci de réessayer ultérieurement."));
         }
         $this->set(compact('client'));
+        $this->set(compact('agenceOption'));
     }
 
     /**

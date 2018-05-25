@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  * @property int $idc
  * @property string $nom_client
  *
- * @property \App\Model\Entity\Matrice $matrice
+ * @property \App\Model\Entity\Agence $agence
  */
 class Client extends Entity
 {
@@ -24,6 +24,8 @@ class Client extends Entity
      * @var array
      */
     protected $_accessible = [
-        'nom_client' => true
+        'nom_client' => true,
+        'id_agence' => true,
+        'agence'   => true
     ];
 }

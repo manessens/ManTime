@@ -10,8 +10,13 @@
         <legend><?= __('Ajouter un client') ?></legend>
         <?php
             echo $this->Form->control('nom_client');
-            // echo $this->Form->control('prix');
         ?>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('id_agence','Agence');
+            echo $this->Form->select('id_agence', $agenceOption);
+        ?>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>

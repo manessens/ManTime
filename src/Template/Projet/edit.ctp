@@ -12,6 +12,8 @@
         <?php
             echo $this->Form->control('nom_projet');
         ?>
+        </div>
+        <div class="input text required">
         <?php
             echo $this->Form->label('idc','Client');
             echo $this->Form->select('idc', $clientOption);

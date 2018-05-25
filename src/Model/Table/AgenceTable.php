@@ -31,8 +31,8 @@ class AgenceTable extends Table
         parent::initialize($config);
 
         $this->setTable('agence');
-        $this->setDisplayField('id_agence');
         $this->setPrimaryKey('id_agence');
+        $this->setDisplayField('nom_agence');
     }
 
     /**
