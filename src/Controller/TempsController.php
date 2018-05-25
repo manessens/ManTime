@@ -791,7 +791,6 @@ class TempsController extends AppController
             $projectFact[$proj->idp] = $proj->facturable->nom_fact;
             $projectClients[$proj->idp] = $proj->idc;
         }
-        pr($projectFact);exit;
         $profilTable = TableRegistry::get('Profil');
         $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
         $activitTable = TableRegistry::get('Activitie');
@@ -817,7 +816,7 @@ class TempsController extends AppController
             $keyClient = $clients[$projectClients[$time->idp]];
             $keyOrigine = $agenceClient[$projectClients[$time->idp]];
             $keyProject = $projects[$time->idp];
-            $keyFact = '';
+            $keyFact = $projectFact[$time->idp];
             $keyUser = $users[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
@@ -871,6 +870,7 @@ class TempsController extends AppController
         ksort($data);
         $dataLine=array();
         $bufferAgence = '';
+        $bufferFact = '';
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 if (!is_array($arrUser)) {
@@ -878,11 +878,15 @@ class TempsController extends AppController
                     continue;
                 }
                 foreach ($arrUser as $user => $arrProfil) {
+                    if (!is_array($arrProfil)) {
+                        $bufferFact=$this->convertToIso($arrProfil);
+                        continue;
+                    }
                     foreach ($arrProfil as $profil => $arrActiv) {
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
                                 $buffer = ['client'=>$this->convertToIso($client), 'agence'=>$bufferAgence,
-                                    'projet'=>$this->convertToIso($projet),
+                                    'projet'=>$this->convertToIso($projet), 'facturable'=>$bufferFact,
                                     'user'=>$this->convertToIso($user),
                                     'profil'=>$this->convertToIso($profil),
                                     'activit'=>$this->convertToIso($activit)
