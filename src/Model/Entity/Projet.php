@@ -40,7 +40,7 @@ class Projet extends Entity
         'client' => true,
         'activities' => true,
         'participant' => true,
-        'idfact' => true,
+        'idf' => true,
         'facturable' => true,
         'idm' => true,
         'matrice' => true,
