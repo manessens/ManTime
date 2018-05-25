@@ -615,7 +615,7 @@ class TempsController extends AppController
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all', ['contain' => ['Agence']])->toArray();
+        $arrayClient = $clientTable->find('all')->contain(['Agence'])->toArray();
         $clients = array();
         $agenceClient = array();
         foreach ($arrayClient as $client) {
