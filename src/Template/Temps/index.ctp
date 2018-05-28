@@ -69,8 +69,11 @@
     <?= $this->Form->create() ?>
         <div class="block col-xs-12">
             <div class="col-xs-2"><div class="left badge back-success"><?= h($fullNameUserAuth) ?></div></div>
-            <div class="controler right">
-                <div>
+            <div class="weeker right">
+                <div class="left">
+                    <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
+                </div>
+                <div class="right">
                     <?php if ($semaine-1 < 1 ): ?>
                         <?= $this->Html->link(__('<'), ['action' => 'index', 52, $annee-1], ['class' => 'btn btn-success']) ?>
                     <?php else: ?>
