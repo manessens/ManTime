@@ -817,7 +817,7 @@ class TempsController extends AppController
         $holidays = $this->getHolidays();
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
-            $keyOrigine = $agenceClient[$projectClients[$time->idp]];
+            $keyAgence = $agenceClient[$projectClients[$time->idp]];
             $keyProject = $projects[$time->idp];
             $keyFact = $projectFact[$time->idp];
             $keyUser = $users[$time->idu];
@@ -827,7 +827,7 @@ class TempsController extends AppController
             $nLine = $time->n_ligne;
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
-                $data[$keyClient]['-1'] = $keyOrigine;
+                $data[$keyClient]['-1'] = $keyAgence;
             }
             if (!array_key_exists($keyProject, $data[$keyClient])) {
                 $data[$keyClient][$keyProject] = array();
