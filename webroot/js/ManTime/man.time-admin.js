@@ -25,11 +25,11 @@ $( "form" ).on('submit',function (e){
             Message: "Vous avez coché la validation pour export, les consultants ne pourront plus modifier leur temps. Êtes-vous sûr de vouloir continuer ?",
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
-                if (result === 'false') {
+                if (result === 'true') {
+                    alertVerouillage = false;
+                }else{
                     $('#validat').prop('checked', false);
                     alertVerouillage = true;
-                }else{
-                    alertVerouillage = false;
                 }
                 $( "form" ).submit();
                 alertVerouillage = $('#validat').prop('checked');
@@ -87,7 +87,7 @@ function modifyUser (that) {
         var arrayTr = $('tr[user="'+idu+'"]');
         var arrayId = [];
         var idLine;
-        
+
         var max = -1;
         var new_val = -1;
         arrayTr.each(function(){

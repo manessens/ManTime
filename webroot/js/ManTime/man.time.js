@@ -23,11 +23,11 @@ $( "form" ).on('submit',function (e){
             Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
-                if (result === 'false') {
+                if (result === 'true') {
+                    alertVerouillage = false;
+                }else{
                     $('#validat').prop('checked', false);
                     alertVerouillage = true;
-                }else{
-                    alertVerouillage = false;
                 }
                 $( "form" ).submit();
                 alertVerouillage = $('#validat').prop('checked');
