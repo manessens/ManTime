@@ -26,10 +26,10 @@ $( "form" ).on('submit',function (e){
             Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'false') {
+                    alertVerouillage = false;
+                }else{
                     $('#validat').prop('checked', false);
                     alertVerouillage = true;
-                }else{
-                    alertVerouillage = false;
                 }
                 $( "form" ).submit();
                 alertVerouillage = $('#validat').prop('checked');
