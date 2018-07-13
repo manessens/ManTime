@@ -895,11 +895,10 @@ class TempsController extends AppController
                         }
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
-                                $buffer = ['client'=>$this->convertToIso($client), 'agence'=>$bufferAgence,
-                                    'projet'=>$this->convertToIso($projet), 'facturable'=>$bufferFact,
-                                    'user'=>$this->convertToIso($user), 'origine' => $bufferOrigine,
-                                    'profil'=>$this->convertToIso($profil),
-                                    'activit'=>$this->convertToIso($activit)
+                                $buffer = ['client'=>$this->convertToIso($client), 'projet'=>$this->convertToIso($projet),
+                                    'user'=>$this->convertToIso($user), 'profil'=>$this->convertToIso($profil),
+                                    'activit'=>$this->convertToIso($activit), 'detail'=>'', 'agence'=>$bufferAgence,
+                                    'facturable'=>$bufferFact, 'origine' => $bufferOrigine
                                 ];
                                 $timebuffer = array();
                                 $timebufferMonth = $period;
