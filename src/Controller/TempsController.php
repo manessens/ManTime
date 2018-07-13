@@ -739,7 +739,7 @@ class TempsController extends AppController
                     if ( !$arrayData['fitnet']) {
                         $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
                     }
-                    $headerFix = ['Client', 'Agence', 'Projet', 'Facturable', 'Consultant', 'Origine', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails')];
+                    $headerFix = ['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails'), 'Agence', 'Facturable', 'Origine'];
                     $_header = array_merge($headerFix, $arrayMonthBuffer);
             		$_serialize = 'data';
                     $_delimiter = ';';
