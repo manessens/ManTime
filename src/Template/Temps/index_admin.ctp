@@ -144,11 +144,7 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    if (array_key_exists($line['idc'], $clients)) {
-                                        echo $clients[$line['idc']];
-                                    }else{
-                                        echo $this->requestAction('Temps/getClientName/'.$line['idc']);
-                                    }
+                                    echo array_key_exists($line['idc'], $clients)?$clients[$line['idc']]:$this->requestAction('Temps/getClientName/'.$line['idc']);
                                 ?>
                             </div>
                             <?php else: ?>
@@ -161,11 +157,7 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    if (array_key_exists($line['idp'], $projects)) {
-                                        echo $projects[$line['idp']];
-                                    }else{
-                                        echo $this->requestAction('Temps/getProjectName/'.$line['idp']);
-                                    }
+                                    echo array_key_exists($line['idp'], $projects)?$projects[$line['idp']]:$this->requestAction('Temps/getProjectName/'.$line['idp']);
                                 ?>
                             </div>
                             <?php else: ?>
@@ -178,11 +170,7 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    if (array_key_exists($line['id_profil'], $profiles)) {
-                                        echo $profiles[$line['id_profil']];
-                                    }else{
-                                        echo $this->requestAction('Temps/getProfilName/'.$line['id_profil']);
-                                    }
+                                    echo array_key_exists($line['id_profil'], $profiles)?$profiles[$line['id_profil']]:$this->requestAction('Temps/getProfilName/'.$line['id_profil']);
                                 ?>
                             </div>
                             <?php else: ?>
@@ -195,11 +183,7 @@
                             <?php if ($validat): ?>
                             <div>
                                 <?php
-                                    if (array_key_exists($line['ida'], $activities)) {
-                                        echo $activities[$line['ida']];
-                                    }else{
-                                        echo $this->requestAction('Temps/getActivitieName/'.$line['ida']);
-                                    }
+                                    echo array_key_exists( $line['ida'] , $activities )?$activities[$line['ida']]:$this->requestAction('Temps/getActivitieName/'.$line['ida']);
                                 ?>
                             </div>
                             <?php else: ?>

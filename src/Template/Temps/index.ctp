@@ -124,7 +124,7 @@
                     <td scope="col" class="cel_client">
                         <?php if ($validat): ?>
                         <div>
-                            <?php echo $clients[$line['idc']]; ?>
+                            <?php echo array_key_exists($line['idc'], $clients)?$clients[$line['idc']]:$this->requestAction('Temps/getClientName/'.$line['idc']); ?>
                         </div>
                         <?php else: ?>
                         <?php
@@ -135,7 +135,7 @@
                     <td scope="col" class="cel_projet">
                         <?php if ($validat): ?>
                         <div>
-                            <?php echo $projects[$line['idp']]; ?>
+                            <?php echo array_key_exists($line['idp'], $projects)?$projects[$line['idp']]:$this->requestAction('Temps/getProjectName/'.$line['idp']); ?>
                         </div>
                         <?php else: ?>
                         <?php
@@ -146,7 +146,7 @@
                     <td scope="col" class="cel_profil">
                         <?php if ($validat): ?>
                         <div>
-                            <?php echo $profiles[$line['id_profil']]; ?>
+                            <?php echo array_key_exists($line['id_profil'], $profiles)?$profiles[$line['id_profil']]:$this->requestAction('Temps/getProfilName/'.$line['id_profil']); ?>
                         </div>
                         <?php else: ?>
                         <?php
