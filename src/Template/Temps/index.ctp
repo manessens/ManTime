@@ -157,7 +157,7 @@
                     <td scope="col" class="cel_activit">
                         <?php if ($validat): ?>
                         <div>
-                            <?php echo array_key_exists( $line['ida'] , $activities )?$activities[$line['ida']]:'???'; ?>
+                            <?php echo array_key_exists( $line['ida'] , $activities )?$activities[$line['ida']]:$this->requestAction('Temps/getActivitieName/'.$line['ida']); ?>
                         </div>
                         <?php else: ?>
                         <?php
