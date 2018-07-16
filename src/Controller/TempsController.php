@@ -857,8 +857,11 @@ class TempsController extends AppController
             }
             if ($time->time == 1) {
                 $timeUO =  $arrayMatrice[$time->idm][$keyProfil]['j'];
+            }elseif($time->time > 1){
+                $timeUO =  $arrayMatrice[$time->idm][$keyProfil]['j'];
+                $timeUO += round($time->time-1 * 8, 2, PHP_ROUND_HALF_ODD) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             }else{
-                $timeUO = round($time->time * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
+                $timeUO = round($time->time * 8,  2, PHP_ROUND_HALF_ODD) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             }
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
