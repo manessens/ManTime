@@ -815,6 +815,7 @@ class TempsController extends AppController
             return $data;
         }
         $holidays = $this->getHolidays();
+        var $nbDays = 0;
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
             $keyAgence = $agenceClient[$projectClients[$time->idp]];
@@ -855,14 +856,9 @@ class TempsController extends AppController
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine])) {
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
-            if ($time->time == 1) {
-                $timeUO =  $arrayMatrice[$time->idm][$keyProfil]['j'];
-            }elseif($time->time > 1){
-                $timeUO = round(($time->time-1) * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
-                $timeUO +=  $arrayMatrice[$time->idm][$keyProfil]['j'];
-            }else{
-                $timeUO = round($time->time * 8,  1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
-            }
+            $nbDays = intval($time->time);
+            $timeUO = round(($time->time-$nbDays) * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
+            $timeUO +=  $nbDays * $arrayMatrice[$time->idm][$keyProfil]['j'] ;
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
