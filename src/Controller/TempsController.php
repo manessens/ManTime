@@ -815,7 +815,7 @@ class TempsController extends AppController
             return $data;
         }
         $holidays = $this->getHolidays();
-        var $nbDays = 0;
+        $nbDays = 0;
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
             $keyAgence = $agenceClient[$projectClients[$time->idp]];
