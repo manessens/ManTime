@@ -129,8 +129,12 @@
 }
 
 .content{
-    margin-bottom: initial !important;
-    padding-bottom: initial !important;
+    margin-bottom: -10px !important;
+    padding-bottom: 10px !important;
+}
+#actions-sidebar{
+    margin-bottom: -10px !important;
+    padding-bottom: 100% !important;
 }
 
 .list-group-item{
