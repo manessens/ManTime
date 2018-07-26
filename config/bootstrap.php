@@ -215,8 +215,6 @@ if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
 
-DispatcherFilter::add('REST', ['priority' => 1]);
-
 Plugin::load('CsvView');
 
 Plugin::load('BootstrapUI');
