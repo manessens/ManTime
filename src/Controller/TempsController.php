@@ -611,19 +611,17 @@ class TempsController extends AppController
         );
         $context = stream_context_create($opts);
 
-        $url=$this->getFitnetLink("/FitnetManager/rest/roles");
+        $url=$this->getFitnetLink("/FitnetManager/rest/employees");
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
-        // $actTable = TableRegistry::get('Activitie');
-        // $ida = explode('.', $id)[1];
-        // $act = $actTable->get($ida);
 
-        $results = array_filter($vars, function($role) {
-            return array_search("MATTHIAS", array_column($role['users'], 'prenom'));
-        });
+        // $results = array_filter($vars, function($role) {
+        //     return array_search("MATTHIAS", array_column($role['users'], 'prenom'));
+        // });
 
-        pr($results);exit;
-        return $this->response->withStringBody($act->nom_activit);
+        pr($vars);exit;
+        // pr($results);exit;
+        return $this->response->withStringBody($results);
     }
 
     private function getFitnetLink( $url ){
