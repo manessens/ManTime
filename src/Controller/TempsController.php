@@ -617,8 +617,12 @@ class TempsController extends AppController
         // $actTable = TableRegistry::get('Activitie');
         // $ida = explode('.', $id)[1];
         // $act = $actTable->get($ida);
-        pr("show");
-        pr($vars);exit;
+
+        $results = array_filter($vars function($role) {
+            return array_search("MATTHIAS", array_column($role['users'], 'prenom'));
+        });
+
+        pr($results);exit;
         return $this->response->withStringBody($act->nom_activit);
     }
 
