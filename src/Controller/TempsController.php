@@ -604,16 +604,15 @@ class TempsController extends AppController
         $opts = array(
           'http'=>array(
                 'method'=>"GET",
-                'header'=>"Accept-language: en\r\n" .
-                          "Cookie: foo=bar\r\n"
+                'header'=>"Authorization:  Basic " . btoa("matthias.vincent@hotmail.fr" + ":" + "M@nV17!%")
               )
         );
 
         $context = stream_context_create($opts);
 
         $url="https://evaluation.fitnetmanager.com/FitnetManager/rest/roles";
-        $result = file_get_contents($url);
-        $vars = json_decode($result, true, $context);
+        $result = file_get_contents($url, false, $context);
+        $vars = json_decode($result, true);
         // $actTable = TableRegistry::get('Activitie');
         // $ida = explode('.', $id)[1];
         // $act = $actTable->get($ida);
