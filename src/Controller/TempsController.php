@@ -600,6 +600,19 @@ class TempsController extends AppController
         return $this->response->withStringBody($act->nom_activit);
     }
 
+    public function getRoleFitnet(){
+
+        $url="https://evaluation.fitnetmanager.com/FitnetManager/rest/roles";
+        $result = file_get_contents($url);
+        $vars = json_decode($result, true);
+        // $actTable = TableRegistry::get('Activitie');
+        // $ida = explode('.', $id)[1];
+        // $act = $actTable->get($ida);
+        pr("show");
+        pr($vars);exit;
+        return $this->response->withStringBody($act->nom_activit);
+    }
+
     private function clearDtb(){
         $currentYear = new Date('Now');
         $currentYear->modify('-2 years');
