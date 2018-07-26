@@ -601,10 +601,10 @@ class TempsController extends AppController
     }
 
     public function getRoleFitnet(){
-        $username = "matthias.vincent@hotmail.fr";
+        $username = "matthias.vincent@manessens.com";
         $password = "M@nV17!%";
         $opts = array(
-          'https'=>array(
+          'http'=>array(
                 'method'=>"GET",
                 'header'=>"Authorization: Basic " . base64_encode("$username:$password")
               )
