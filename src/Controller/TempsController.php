@@ -609,10 +609,9 @@ class TempsController extends AppController
                 'header'=>"Authorization: Basic " . base64_encode("$username:$password")
               )
         );
-
         $context = stream_context_create($opts);
 
-        $url="https://evaluation.fitnetmanager.com/FitnetManager/rest/roles";
+        $url=$this->getFitnetLink("/FitnetManager/rest/roles");
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
         // $actTable = TableRegistry::get('Activitie');
@@ -621,6 +620,14 @@ class TempsController extends AppController
         pr("show");
         pr($vars);exit;
         return $this->response->withStringBody($act->nom_activit);
+    }
+
+    private function getFitnetLink( $url ){
+        $base = "https://evaluation.fitnetmanager.com/";
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1, -1);
+        }
+        return $base . $url.
     }
 
     private function clearDtb(){
