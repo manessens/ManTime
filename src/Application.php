@@ -20,6 +20,9 @@ use Cake\Http\BaseApplication;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
+use Cake\Core\Exception\MissingPluginException;
+use Cake\Http\Middleware\CsrfProtectionMiddleware;
+
 /**
  * Application setup class.
  *
