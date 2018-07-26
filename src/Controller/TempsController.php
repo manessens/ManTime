@@ -614,13 +614,16 @@ class TempsController extends AppController
         $url=$this->getFitnetLink("/FitnetManager/rest/employees");
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
-
-        $results = array_filter($vars, function($role) use ($mail) {
-            return array_search("matthias.vincent@manessens.com", array_column($role, 'email'));
-        });
-
         // pr($vars);exit;
-        pr($results);exit;
+
+        // $results = array_filter($vars, function($role) {
+        //     return array_search("MATTHIAS", array_column($role['users'], 'email'));
+        // });
+
+        // pr($results);exit;
+
+        $key_found = array_search($mail, array_column($vars, 'email'));
+        pr($vars[$key_found]);exit;
         return $this->response->withStringBody($results);
     }
 
