@@ -615,15 +615,13 @@ class TempsController extends AppController
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
 
-        $results = array_filter($vars, array($this, 'FunctionName'));
+        $results = array_filter($vars, function($role) use ($mail) {
+            return array_search($mail, array_column($role, 'email'));
+        });
 
         pr($vars);exit;
         // pr($results);exit;
         return $this->response->withStringBody($results);
-    }
-
-    protected function FunctionName( $role ){
-        return array_search($mail, array_column($role, 'email'));
     }
 
     private function getFitnetLink( $url ){
