@@ -59,9 +59,6 @@
     });
 
 </script>
-<?php
-header("Access-Control-Allow-Origin: *");              // Tous les domaines
- ?>
 
 <div class="col-xs-12 content">
     <?php if ($current == $semaine): ?>
