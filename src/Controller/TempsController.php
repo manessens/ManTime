@@ -625,7 +625,7 @@ class TempsController extends AppController
     private function getFitnetLink( $url ){
         $base = "https://evaluation.fitnetmanager.com/";
         if (substr($url, 0, 1) == "/" ) {
-            $url = substr($url, 1, -1);
+            $url = substr($url, 1);
         }
         return $base . $url;
     }
