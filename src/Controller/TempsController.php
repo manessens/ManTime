@@ -627,7 +627,7 @@ class TempsController extends AppController
         if (substr($url, 0, 1) == "/" ) {
             $url = substr($url, 1, -1);
         }
-        return $base . $url.
+        return $base . $url;
     }
 
     private function clearDtb(){
