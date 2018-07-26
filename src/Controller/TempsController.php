@@ -619,8 +619,8 @@ class TempsController extends AppController
             return array_search($mail, array_column($role, 'email'));
         });
 
-        pr($vars);exit;
-        // pr($results);exit;
+        // pr($vars);exit;
+        pr($results);exit;
         return $this->response->withStringBody($results);
     }
 
