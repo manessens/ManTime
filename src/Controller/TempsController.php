@@ -35,7 +35,6 @@ class TempsController extends AppController
         $lundi = new Date('now');
         $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
-        pr($this->getDay($lundi, $lundi));exit;
         $dimanche = clone $lundi;
         $dimanche->modify('+7 days');
 
