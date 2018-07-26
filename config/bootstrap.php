@@ -220,3 +220,5 @@ Plugin::load('CsvView');
 Plugin::load('BootstrapUI');
 
 Plugin::load('Cake/Localized');
+
+Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);
