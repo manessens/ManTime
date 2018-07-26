@@ -600,7 +600,7 @@ class TempsController extends AppController
         return $this->response->withStringBody($act->nom_activit);
     }
 
-    public function getRoleFitnet(){
+    public function getRoleFitnet($mail){
         $username = "matthias.vincent@manessens.com";
         $password = "M@nV17!%";
         $opts = array(
@@ -615,9 +615,9 @@ class TempsController extends AppController
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
 
-        // $results = array_filter($vars, function($role) {
-        //     return array_search("MATTHIAS", array_column($role['users'], 'prenom'));
-        // });
+        $results = array_filter($vars, function($role) {
+            return array_search($mail, array_column($role, 'email'));
+        });
 
         pr($vars);exit;
         // pr($results);exit;
