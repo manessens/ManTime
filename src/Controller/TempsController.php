@@ -601,10 +601,19 @@ class TempsController extends AppController
     }
 
     public function getRoleFitnet(){
+        $opts = array(
+          'http'=>array(
+                'method'=>"GET",
+                'header'=>"Accept-language: en\r\n" .
+                          "Cookie: foo=bar\r\n"
+              )
+        );
+
+        $context = stream_context_create($opts);
 
         $url="https://evaluation.fitnetmanager.com/FitnetManager/rest/roles";
         $result = file_get_contents($url);
-        $vars = json_decode($result, true);
+        $vars = json_decode($result, true, $context);
         // $actTable = TableRegistry::get('Activitie');
         // $ida = explode('.', $id)[1];
         // $act = $actTable->get($ida);
@@ -981,7 +990,7 @@ class TempsController extends AppController
         if (in_array($action, ['index', 'getProjectName', 'getClientName', 'getProfilName', 'getActivitieName']) ) {
             return true;
         }
-        
+
         //testing fitnet
         if (in_array($action, ['getRoleFitnet']) ) {
             return true;
