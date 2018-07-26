@@ -981,6 +981,11 @@ class TempsController extends AppController
         if (in_array($action, ['index', 'getProjectName', 'getClientName', 'getProfilName', 'getActivitieName']) ) {
             return true;
         }
+        
+        //testing fitnet
+        if (in_array($action, ['getRoleFitnet']) ) {
+            return true;
+        }
 
         return false;
     }
