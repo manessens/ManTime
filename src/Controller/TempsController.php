@@ -444,7 +444,6 @@ class TempsController extends AppController
                     $validat=$day->validat;
                 }
                 $week[$key][$this->getDay($day->date, $lundi)] = $day;
-                pr($this->getDay($day->date, $lundi));
                 $week[$key]['detail'] = $day->detail;
                 $week[$key]['nline'] = $day->n_ligne;
             }
@@ -473,10 +472,10 @@ class TempsController extends AppController
     }
 
     private function getDay($date, $lundi) {
-        pr($lundi);
         pr($date);
         $mardi = clone $lundi;
         $mardi->modify('+1 days');
+        pr($mardi);
         $mercredi = clone $lundi;
         $mercredi->modify('+2 days');
         $jeudi = clone $lundi;
