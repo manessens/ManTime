@@ -618,7 +618,7 @@ class TempsController extends AppController
         // $ida = explode('.', $id)[1];
         // $act = $actTable->get($ida);
 
-        $results = array_filter($vars function($role) {
+        $results = array_filter($vars, function($role) {
             return array_search("MATTHIAS", array_column($role['users'], 'prenom'));
         });
 
