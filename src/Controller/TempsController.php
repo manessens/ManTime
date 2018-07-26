@@ -615,9 +615,7 @@ class TempsController extends AppController
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
 
-        $results = array_filter($vars, array($mail, 'FunctionName') {
-            return array_search($mail, array_column($role, 'email'));
-        });
+        $results = array_filter($vars, array($mail, 'FunctionName'));
 
         pr($vars);exit;
         // pr($results);exit;
