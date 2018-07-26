@@ -606,7 +606,7 @@ class TempsController extends AppController
         $opts = array(
           'http'=>array(
                 'method'=>"GET",
-                'header'=>'header' => "Authorization: Basic " . base64_encode("$username:$password")
+                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
               )
         );
 
