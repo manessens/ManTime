@@ -604,7 +604,7 @@ class TempsController extends AppController
         $username = "matthias.vincent@hotmail.fr";
         $password = "M@nV17!%";
         $opts = array(
-          'http'=>array(
+          'https'=>array(
                 'method'=>"GET",
                 'header'=>"Authorization: Basic " . base64_encode("$username:$password")
               )
