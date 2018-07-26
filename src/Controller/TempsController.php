@@ -472,7 +472,7 @@ class TempsController extends AppController
     }
 
     private function getDay($date, $lundi) {
-        $date = new Date($date),
+        $date = new Date($date);
         $mardi = clone $lundi;
         $mardi->modify('+1 days');
         $mercredi = clone $lundi;
