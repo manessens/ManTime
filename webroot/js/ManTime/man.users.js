@@ -25,13 +25,19 @@ function init(){
         xhr = $.ajax({
             type: "GET",
             url: "/users/getEmployeeFitnet/",
-            data: { mail: email }
+            data: { mail: email },
+            beforeSend: function( xhr ) {
+                $('#loader').show();
+                $('#linkModal').find(".modal-footer button#send").hide();
+            }
         }).done(function( data ) {
             if (data.lenght > 0 ) {
                 $('#linker').class('btn btn-success');
             }
         }).always(function(){
             $('#linkModal').modal('hide');
+            $('#loader').hide();
+            $('#linkModal').find(".modal-footer button#send").show();
         });
     });
 
