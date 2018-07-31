@@ -77,7 +77,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
         <button type="button" id="send" class="btn btn-primary">Rechercher</button>
-        <div class="loader btn" hidden="hidden" id="loader"> </div>
+        <div class="loader btn" style="display:none;" id="loader"> </div>
       </div>
     </div>
   </div>
