@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
+use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -250,6 +251,41 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function getEmployeeFitnet($mail){
+        $username = "matthias.vincent@manessens.com";
+        $password = "M@nV17!%";
+        $opts = array(
+          'http'=>array(
+                'method'=>"GET",
+                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
+              )
+        );
+        $context = stream_context_create($opts);
+
+        $url=$this->getFitnetLink("/FitnetManager/rest/employees");
+        $result = file_get_contents($url, false, $context);
+        $vars = json_decode($result, true);
+        // pr($vars);exit;
+
+        // $results = array_filter($vars, function($role) {
+        //     return array_search("MATTHIAS", array_column($role['users'], 'email'));
+        // });
+
+        // pr($results);exit;
+
+        $key_found = array_search($mail, array_column($vars, 'email'));
+        pr($vars[$key_found]);exit;
+        return $this->response->withStringBody($results);
+    }
+
+    private function getFitnetLink( $url ){
+        $base = Configure::read('fitnet.base');
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1);
+        }
+        return $base . $url;
+    }
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
@@ -268,7 +304,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= 50 ) {
             return true;
         }
 

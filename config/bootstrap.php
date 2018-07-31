@@ -78,6 +78,12 @@ try {
  * shared configuration.
  */
 //Configure::load('app_local', 'default');
+Configure::write(array(
+    'fitnet.login'=>'matthias.vincent@manessens.com',
+    'fitnet.password'=>'M@nV17!%',
+    'fitnet.base'=>'https://evaluation.fitnetmanager.com/'
+));
+
 
 /*
  * When debug = true the metadata cache should only last
@@ -207,6 +213,14 @@ Type::build('timestamp')
  *
  */
 
+ Plugin::load('CsvView');
+
+ Plugin::load('BootstrapUI');
+
+ Plugin::load('Cake/Localized');
+
+ Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);
+
 /*
  * Only try to load DebugKit in development mode
  * Debug Kit should not be installed on a production system
@@ -214,11 +228,3 @@ Type::build('timestamp')
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
-
-Plugin::load('CsvView');
-
-Plugin::load('BootstrapUI');
-
-Plugin::load('Cake/Localized');
-
-Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);

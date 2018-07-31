@@ -600,41 +600,6 @@ class TempsController extends AppController
         return $this->response->withStringBody($act->nom_activit);
     }
 
-    public function getRoleFitnet($mail){
-        $username = "matthias.vincent@manessens.com";
-        $password = "M@nV17!%";
-        $opts = array(
-          'http'=>array(
-                'method'=>"GET",
-                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
-              )
-        );
-        $context = stream_context_create($opts);
-
-        $url=$this->getFitnetLink("/FitnetManager/rest/employees");
-        $result = file_get_contents($url, false, $context);
-        $vars = json_decode($result, true);
-        // pr($vars);exit;
-
-        // $results = array_filter($vars, function($role) {
-        //     return array_search("MATTHIAS", array_column($role['users'], 'email'));
-        // });
-
-        // pr($results);exit;
-
-        $key_found = array_search($mail, array_column($vars, 'email'));
-        pr($vars[$key_found]);exit;
-        return $this->response->withStringBody($results);
-    }
-
-    private function getFitnetLink( $url ){
-        $base = "https://evaluation.fitnetmanager.com/";
-        if (substr($url, 0, 1) == "/" ) {
-            $url = substr($url, 1);
-        }
-        return $base . $url;
-    }
-
     private function clearDtb(){
         $currentYear = new Date('Now');
         $currentYear->modify('-2 years');
@@ -1001,11 +966,6 @@ class TempsController extends AppController
         }
 
         if (in_array($action, ['index', 'getProjectName', 'getClientName', 'getProfilName', 'getActivitieName']) ) {
-            return true;
-        }
-
-        //testing fitnet
-        if (in_array($action, ['getRoleFitnet']) ) {
             return true;
         }
 
