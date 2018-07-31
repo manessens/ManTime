@@ -10,13 +10,13 @@ $('#linkModal').on('show.bs.modal', function (event) {
 
   var modal = $(this);
 
-  modal.find('.modal-footer button#send').on('click',function(event){
-	  console.log(modal.find('.modal-body input').val());
-
-
-	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  })
-
   modal.find('.modal-title').text('Chercher le consultant ' + recipient)
   modal.find('.modal-body input').val(recipient)
+})
+
+
+$('#linkModal').on('click',function(e){
+    console.log(modal.find('.modal-body input').val());
+
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 })
