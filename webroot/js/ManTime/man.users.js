@@ -21,14 +21,14 @@ function init(){
 
     $('#linkModal').find(".modal-footer button#send").on('click',function(e){
         var email = $('#linkModal').find('.modal-body input').val();
-
-        $('#loader').show();
-        $('#linkModal').find(".modal-footer button#send").hide();
-
         xhr = $.ajax({
             type: "GET",
             url: "/users/getEmployeeFitnet/",
             data: { mail: email },
+            beforeSend: function( xhr ) {
+                $('#loader').show();
+                $('#linkModal').find(".modal-footer button#send").hide();
+            }
         }).done(function( data ) {
             if (data.lenght > 0 ) {
                 $('#linker').class('btn btn-success');
