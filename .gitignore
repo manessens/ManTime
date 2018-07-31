@@ -9,6 +9,9 @@
 /webroot/.htaccess
 .htaccess
 
+# cakePHP perso files #
+/src/Application.php
+
 # OS generated files #
 ######################
 .DS_Store
