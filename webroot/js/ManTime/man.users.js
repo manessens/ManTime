@@ -22,9 +22,9 @@ function init(){
         console.log($('#linkModal').find('.modal-body input').val());
         var email = $('#linkModal').find('.modal-body input').val();
         $.ajax({
-            method: "GET",
+            type: "GET",
             url: "/users/getEmployeeFitnet/",
-            data: { 'mail': email }
+            data: { mail: email }
         }).done(function( data ) {
             console.log( data );
         }).always(function(){

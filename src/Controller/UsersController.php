@@ -254,6 +254,10 @@ class UsersController extends AppController
     public function getEmployeeFitnet(){
         $json_found = "";
 
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false;
+        }
+        
         if ($this->request->is(['get'])) {
 
             pr($this->request);exit;
