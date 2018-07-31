@@ -22,11 +22,11 @@
         </div>
         <?php
             // echo $this->Form->control('mdp');
-            echo $this->Form->control('actif', ['type' => 'checkbox']);
-            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>'Réinitialisation mot de passe']);
+            echo $this->Form->control('actif', ['type' => 'checkbox', 'class'=>'checkboxU' ]);
+            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset checkboxU', 'label'=>'Réinitialisation mot de passe']);
 
-            echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary']]);
-            echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
+            echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
+            echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
