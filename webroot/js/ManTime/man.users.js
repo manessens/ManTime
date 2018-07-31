@@ -30,8 +30,7 @@ function init(){
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
-            console.log(data);
-            if (data.lenght > 0 ) {
+            if ( jQuery.isEmptyObject(data) ) {
                 $('#linker').removeClass('btn-primary');
                 $('#linker').addClass('btn-success');
             }
