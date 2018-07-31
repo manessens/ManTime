@@ -24,7 +24,7 @@ function init(){
         $.ajax({
             method: "GET",
             url: "/users/getEmployeeFitnet/",
-            data: { mail: email }
+            data: { 'mail': email }
         }).done(function( data ) {
             console.log( data );
         }).always(function(){
