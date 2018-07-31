@@ -22,8 +22,8 @@
         </div>
         <?php
             // echo $this->Form->control('mdp');
-            echo $this->Form->control('actif', ['type' => 'checkbox', 'class'=>'checkboxU' ]);
-            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset checkboxU', 'label'=>'Réinitialisation mot de passe']);
+            echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
+            echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
 
             echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
