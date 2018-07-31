@@ -265,17 +265,17 @@ class UsersController extends AppController
         $url=$this->getFitnetLink("/FitnetManager/rest/employees");
         $result = file_get_contents($url, false, $context);
         $vars = json_decode($result, true);
-        // pr($vars);exit;
 
         // $results = array_filter($vars, function($role) {
         //     return array_search("MATTHIAS", array_column($role['users'], 'email'));
         // });
 
-        // pr($results);exit;
-
         $key_found = array_search($mail, array_column($vars, 'email'));
-        pr($vars[$key_found]);exit;
-        return $this->response->withStringBody($results);
+        $json_found = json_encode($vars[$key_found]);
+
+        $this->response->type('json');
+        $this->response->body($json_found);
+        return $this->response;
     }
 
     private function getFitnetLink( $url ){

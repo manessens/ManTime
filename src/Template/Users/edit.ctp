@@ -31,10 +31,14 @@
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php $user->email ?>">Lier à fitnet</button>
+
 </div>
 
 
 <?php echo $this->Html->script('ManTime/man.users.js'); ?>
+<!-- modal reset password -->
 <div class="modal" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -50,4 +54,29 @@
             </div>
         </div>
     </div>
+</div>
+<!-- modal link with fitnet -->
+<div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" id="send" class="btn btn-primary">Rechercher</button>
+      </div>
+    </div>
+  </div>
 </div>
