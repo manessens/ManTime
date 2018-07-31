@@ -257,10 +257,10 @@ class UsersController extends AppController
         if( $this->request->is('ajax') ) {
             $this->autoRender = false;
         }
-        
+
         if ($this->request->is(['get'])) {
 
-            pr($this->request);exit;
+            pr($this->request->query);exit;
             // $mail = $data["mail"];
 
             //récupération des lgoin/mdp du compte admin de fitnet
