@@ -251,13 +251,12 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function getEmployeeFitnet($mail){
+    public function getEmployeeFitnet(){
         $json_found = "";
 
         if ($this->request->is(['get'])) {
 
             $data = $this->request->getData();
-            pr($mail);
             pr($data);exit;
             // $mail = $data["mail"];
 
