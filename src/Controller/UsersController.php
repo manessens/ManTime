@@ -251,27 +251,38 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function getEmployeeFitnet($mail){
-        $username = Configure::read('fitnet.login');
-        $password = Configure::read('fitnet.password');
-        $opts = array(
-          'http'=>array(
-                'method'=>"GET",
-                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
-              )
-        );
-        $context = stream_context_create($opts);
+    public function getEmployeeFitnet(){
+        $json_found = "";
 
-        $url=$this->getFitnetLink("/FitnetManager/rest/employees");
-        $result = file_get_contents($url, false, $context);
-        $vars = json_decode($result, true);
+        if ($this->request->is(['get'])) {
 
-        // $results = array_filter($vars, function($role) {
-        //     return array_search("MATTHIAS", array_column($role['users'], 'email'));
-        // });
+            $data = $this->request->getData();
+            $mail = $data["mail"];
 
-        $key_found = array_search($mail, array_column($vars, 'email'));
-        $json_found = json_encode($vars[$key_found]);
+            //récupération des lgoin/mdp du compte admin de fitnet
+            $username = Configure::read('fitnet.login');
+            $password = Configure::read('fitnet.password');
+
+            // préparation de l'en-tête pour la vbasic auth de fitnet
+            $opts = array(
+              'http'=>array(
+                    'method'=>"GET",
+                    'header'=>"Authorization: Basic " . base64_encode("$username:$password")
+                  )
+            );
+            // ajout du header dans le contexte
+            $context = stream_context_create($opts);
+            // création de l'ul d ela requête
+            $url=$this->getFitnetLink("/FitnetManager/rest/employees");
+            // appel de la requête
+            $result = file_get_contents($url, false, $context);
+            // décode du résultat json
+            $vars = json_decode($result, true);
+            $key_found = array_search($mail, array_column($vars, 'email'));
+
+            // réencodage pour renvoie au script ajax
+            $json_found = json_encode($vars[$key_found]);
+        }
 
         $this->response->type('json');
         $this->response->body($json_found);

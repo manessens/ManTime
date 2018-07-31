@@ -16,11 +16,19 @@ function init(){
 
       modal.find('.modal-title').text('Chercher le consultant ' + recipient)
       modal.find('.modal-body input').val(recipient)
-    })
+    });
 
     $('#linkModal').find(".modal-footer button#send").on('click',function(e){
         console.log($('#linkModal').find('.modal-body input').val());
-
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    })
+        var email = $('#linkModal').find('.modal-body input').val();
+        $.ajax({
+            method: "GET",
+            url: "/user/getEmployeeFitnet/",
+            data: { mail: email }
+        }).done(function( data ) {
+            console.log( data );
+        }).always(function(){
+            $('#linkModal').modal('hide');
+        });
+    });
 }
