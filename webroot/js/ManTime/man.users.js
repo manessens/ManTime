@@ -29,7 +29,7 @@ function init(){
                 $('#loader').show();
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
-        }).done(function( data ) {
+        }).success(function( data ) {
             if ( jQuery.isEmptyObject(data) ) {
                 $('#linker').removeClass('btn-primary');
                 $('#linker').addClass('btn-success');
