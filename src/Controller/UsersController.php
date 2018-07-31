@@ -260,8 +260,7 @@ class UsersController extends AppController
 
         if ($this->request->is(['get'])) {
 
-            pr($this->request->query);exit;
-            // $mail = $data["mail"];
+            $mail = $this->request->query["mail"];
 
             //récupération des lgoin/mdp du compte admin de fitnet
             $username = Configure::read('fitnet.login');
