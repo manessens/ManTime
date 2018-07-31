@@ -23,7 +23,7 @@ function init(){
         var email = $('#linkModal').find('.modal-body input').val();
         $.ajax({
             method: "GET",
-            url: "/user/getEmployeeFitnet/",
+            url: "/users/getEmployeeFitnet/",
             data: { mail: email }
         }).done(function( data ) {
             console.log( data );
