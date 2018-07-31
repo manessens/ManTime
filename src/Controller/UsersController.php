@@ -252,8 +252,8 @@ class UsersController extends AppController
     }
 
     public function getEmployeeFitnet($mail){
-        $username = "matthias.vincent@manessens.com";
-        $password = "M@nV17!%";
+        $username = Configure::read('fitnet.login');
+        $password = Configure::read('fitnet.password');
         $opts = array(
           'http'=>array(
                 'method'=>"GET",
