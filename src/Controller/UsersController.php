@@ -256,8 +256,7 @@ class UsersController extends AppController
 
         if ($this->request->is(['get'])) {
 
-            $data = $this->request->getData();
-            pr($data);exit;
+            pr($this->request->data['mail']);exit;
             // $mail = $data["mail"];
 
             //récupération des lgoin/mdp du compte admin de fitnet
