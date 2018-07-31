@@ -251,13 +251,15 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function getEmployeeFitnet(){
+    public function getEmployeeFitnet($mail){
         $json_found = "";
 
         if ($this->request->is(['get'])) {
 
             $data = $this->request->getData();
-            $mail = $data["mail"];
+            pr($mail);
+            pr($data);exit;
+            // $mail = $data["mail"];
 
             //récupération des lgoin/mdp du compte admin de fitnet
             $username = Configure::read('fitnet.login');
