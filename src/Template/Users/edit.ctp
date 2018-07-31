@@ -32,7 +32,7 @@
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php $user->email ?>">Lier à Fitnet</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php $user["email"] ?>">Lier à Fitnet</button>
 
 </div>
 
