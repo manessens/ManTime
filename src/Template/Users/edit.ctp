@@ -32,12 +32,13 @@
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
+    <button type="button" id="linker" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
 
 </div>
 
 
 <?php echo $this->Html->script('ManTime/man.users.js'); ?>
+<?php echo $this->Html->css('ManTime/man.loader.css'); ?>
 <!-- modal reset password -->
 <div class="modal" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
@@ -76,6 +77,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
         <button type="button" id="send" class="btn btn-primary">Rechercher</button>
+        <div class="loader" hidden="hidden" id="loader" </div>
       </div>
     </div>
   </div>
