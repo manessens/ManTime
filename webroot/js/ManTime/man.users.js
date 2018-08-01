@@ -30,6 +30,8 @@ function init(){
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
+            console.log(data.employee_id);
+            console.log(jQuery.isEmptyObject(data));
             if ( !jQuery.isEmptyObject(data) ) {
                 $('#id-fité').val(data.employee_id);
                 $('#linker').removeClass('btn-primary');
