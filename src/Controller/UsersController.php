@@ -255,7 +255,7 @@ class UsersController extends AppController
     }
 
     public function getEmployeeFitnet(){
-        $json_found = "";
+        $json_found = [];
 
         if( $this->request->is('ajax') ) {
             $this->autoRender = false;
@@ -291,14 +291,15 @@ class UsersController extends AppController
                 }else{
                     $found = $vars[$key_found];
                 }
-
-                // réencodage pour renvoie au script ajax
-                $json_found = json_encode($found);
             }
         }
-
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($found);
+        // type de réponse : objet json
         $this->response->type('json');
+        // contenue de la réponse
         $this->response->body($json_found);
+        
         return $this->response;
     }
 
