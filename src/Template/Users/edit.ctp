@@ -28,14 +28,14 @@
             echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
 
-            echo $this->Form->control('id_fit', ['readonly', "type" => 'text', 'label' => ['text'=>'Id Fitnet', 'class'=> 'idf']]);
 
          ?>
-    </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 
     <button type="button" id="linker" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
+                <?php echo $this->Form->control('id_fit', ['readonly', 'class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
+</fieldset>
 
 </div>
 
