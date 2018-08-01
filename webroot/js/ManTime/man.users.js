@@ -34,7 +34,7 @@ function init(){
                 $('#id-fit').val(data.employee_id);
                 $('#linker').removeClass('btn-primary').addClass('btn-success');
             }else{                                  // fail
-                $('#id-fité').val("");
+                $('#id-fit').val(null);
                 $('#linker').removeClass('btn-success').addClass('btn-primary');
             }
         }).always(function(){
