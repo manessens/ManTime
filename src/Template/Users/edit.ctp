@@ -29,6 +29,7 @@
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
 
             echo $this->Form->control('id_fit', ['readonly']);
+            
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
