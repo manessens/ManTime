@@ -30,12 +30,12 @@ function init(){
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data) ) {
+            if ( !jQuery.isEmptyObject(data) ) {    //success
                 $('#id-fit').val(data.employee_id);
-                $('#linker').removeClass('btn-primary');
-                $('#linker').addClass('btn-success');
-            }else{
+                $('#linker').removeClass('btn-primary').addClass('btn-success');
+            }else{                                  // fail
                 $('#id-fité').val("");
+                $('#linker').removeClass('btn-success').addClass('btn-primary');
             }
         }).always(function(){
             $('#linkModal').modal('hide');

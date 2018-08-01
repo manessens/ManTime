@@ -292,7 +292,6 @@ class UsersController extends AppController
                 $found = $vars[$key_found];
             }
 
-
             // réencodage pour renvoie au script ajax
             $json_found = json_encode($found);
         }
