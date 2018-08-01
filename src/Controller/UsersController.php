@@ -182,9 +182,6 @@ class UsersController extends AppController
             }elseif ($user['role']) {
                 $user['role'] = 20;
             }
-            pr($user);
-            $user['id_fit'] = $this->request->getData()['id_fit'];
-            pr($user);exit;
             if ($this->Users->save($user)) {
                 // if ($user['prem_connect']) {
                 //     $this->test();
