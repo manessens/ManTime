@@ -904,7 +904,6 @@ class TempsController extends AppController
                                     'activit'=>$this->convertToIso($activit), 'detail'=>$zdetail, 'agence'=>$bufferAgence,
                                     'facturable'=>$bufferFact, 'origine' => $bufferOrigine
                                 ];
-                                pr($buffer);exit;
                                 $timebuffer = array();
                                 $timebufferMonth = $period;
                                 $UobufferMonth = $period;
