@@ -897,7 +897,8 @@ class TempsController extends AppController
                                 $KLine = explode('.',$line);
                                 $zdetail = "";
                                 if (count($KLine) > 1) {
-                                    $zdetail = $KLine[1];
+                                    array_shift($KLine);
+                                    $zdetail = implode('.', $KLine);
                                 }
                                 $buffer = ['client'=>$this->convertToIso($client), 'projet'=>$this->convertToIso($projet),
                                     'user'=>$this->convertToIso($user), 'profil'=>$this->convertToIso($profil),
