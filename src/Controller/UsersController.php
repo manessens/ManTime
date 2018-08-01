@@ -286,12 +286,15 @@ class UsersController extends AppController
             $vars = json_decode($result, true);
             $key_found = array_search($mail, array_column($vars, 'email'));
 
-            if (false === 0) {
-                pr('rip');exit;
+            if ($key_found === false) {
+                $found = [];
+            }else{
+                $found = $vars[$key_found];
             }
 
+
             // réencodage pour renvoie au script ajax
-            $json_found = json_encode($vars[$key_found]);
+            $json_found = json_encode($found);
         }
 
         $this->response->type('json');
