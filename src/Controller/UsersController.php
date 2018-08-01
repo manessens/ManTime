@@ -322,6 +322,10 @@ class UsersController extends AppController
             return true;
         }
 
+        if (in_array($action, ['test']) && $user['role'] >= 50 ) {
+            return true;
+        }
+
         return false;
     }
 }
