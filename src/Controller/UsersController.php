@@ -264,39 +264,37 @@ class UsersController extends AppController
         if ($this->request->is(['get'])) {
 
             $mail = $this->request->query["mail"];
-            if ($mail == "") {
-                break;
+            if ($mail != "") {
+                //récupération des lgoin/mdp du compte admin de fitnet
+                $username = Configure::read('fitnet.login');
+                $password = Configure::read('fitnet.password');
+
+                // préparation de l'en-tête pour la vbasic auth de fitnet
+                $opts = array(
+                  'http'=>array(
+                        'method'=>"GET",
+                        'header'=>"Authorization: Basic " . base64_encode("$username:$password")
+                      )
+                );
+                // ajout du header dans le contexte
+                $context = stream_context_create($opts);
+                // création de l'ul d ela requête
+                $url=$this->getFitnetLink("/FitnetManager/rest/employees");
+                // appel de la requête
+                $result = file_get_contents($url, false, $context);
+                // décode du résultat json
+                $vars = json_decode($result, true);
+                $key_found = array_search($mail, array_column($vars, 'email'));
+
+                if ($key_found === false) {
+                    $found = [];
+                }else{
+                    $found = $vars[$key_found];
+                }
+
+                // réencodage pour renvoie au script ajax
+                $json_found = json_encode($found);
             }
-
-            //récupération des lgoin/mdp du compte admin de fitnet
-            $username = Configure::read('fitnet.login');
-            $password = Configure::read('fitnet.password');
-
-            // préparation de l'en-tête pour la vbasic auth de fitnet
-            $opts = array(
-              'http'=>array(
-                    'method'=>"GET",
-                    'header'=>"Authorization: Basic " . base64_encode("$username:$password")
-                  )
-            );
-            // ajout du header dans le contexte
-            $context = stream_context_create($opts);
-            // création de l'ul d ela requête
-            $url=$this->getFitnetLink("/FitnetManager/rest/employees");
-            // appel de la requête
-            $result = file_get_contents($url, false, $context);
-            // décode du résultat json
-            $vars = json_decode($result, true);
-            $key_found = array_search($mail, array_column($vars, 'email'));
-
-            if ($key_found === false) {
-                $found = [];
-            }else{
-                $found = $vars[$key_found];
-            }
-
-            // réencodage pour renvoie au script ajax
-            $json_found = json_encode($found);
         }
 
         $this->response->type('json');
