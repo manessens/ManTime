@@ -8,7 +8,7 @@
 <div class="users form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->getFullname()); ?></span></legend>
+        <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->fullname()); ?></span></legend>
         <?php
             echo $this->Form->control('email');
             echo $this->Form->control('prenom');
