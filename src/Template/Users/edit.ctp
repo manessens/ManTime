@@ -71,7 +71,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="ajax">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Email:</label>
             <input type="text" class="form-control" id="recipient-name">
@@ -80,7 +80,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" id="send" class="btn btn-primary">Rechercher</button>
+        <button type="submit" id="send" class="btn btn-primary">Rechercher</button>
         <div class="loader btn" style="display:none;" id="loader"> </div>
       </div>
     </div>

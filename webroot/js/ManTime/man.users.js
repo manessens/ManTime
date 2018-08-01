@@ -19,7 +19,7 @@ function init(){
       modal.find('.modal-body input').val(recipient)
     });
 
-    $('#linkModal').find(".modal-footer button#send").on('click',function(e){
+    $('#ajax').on('submit',function(e){
         var email = $('#linkModal').find('.modal-body input').val();
         xhr = $.ajax({
             type: "GET",
