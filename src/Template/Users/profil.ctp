@@ -8,7 +8,11 @@
 <div class="col-xs-12 new_content content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Profil de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend><table class="vertical-table">
+        <legend>
+            <?= __('Profil de : ');?> <span class="text-danger"><?=  h($user->fullname); ?> </span>
+            <?= $this->element('link2fitnet', ['idf'=>$user->id_fit]) ?>
+        </legend>
+        <table class="vertical-table">
             <tr>
                 <th scope="row"><?= __('Prenom') ?></th>
                 <td><?= h($user->prenom) ?></td>
