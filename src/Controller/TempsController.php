@@ -826,7 +826,7 @@ class TempsController extends AppController
             $keyOrigine = $userOrigine[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
-            $nLine = $this->convertToIso($time->detail) == ""?$time->n_ligne:$time->n_ligne.'.'.$this->convertToIso($time->detail);
+            $nLine = $time->n_ligne;
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
                 $data[$keyClient]['-1'] = $keyAgence;
@@ -866,6 +866,7 @@ class TempsController extends AppController
             $timeUO *= $this->getIncreaseDay($dateTime, $holidays);
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine]['zdetail']=$this->convertToIso($time->detail);
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
@@ -894,22 +895,20 @@ class TempsController extends AppController
                         }
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
-                                $KLine = explode('.',$line);
-                                $zdetail = "";
-                                if (count($KLine) > 1) {
-                                    $zdetail = $KLine[1];
-                                }
                                 $buffer = ['client'=>$this->convertToIso($client), 'projet'=>$this->convertToIso($projet),
                                     'user'=>$this->convertToIso($user), 'profil'=>$this->convertToIso($profil),
-                                    'activit'=>$this->convertToIso($activit), 'detail'=>$zdetail, 'agence'=>$bufferAgence,
+                                    'activit'=>$this->convertToIso($activit), 'detail'=>'', 'agence'=>$bufferAgence,
                                     'facturable'=>$bufferFact, 'origine' => $bufferOrigine
                                 ];
-                                pr($buffer);exit;
                                 $timebuffer = array();
                                 $timebufferMonth = $period;
                                 $UobufferMonth = $period;
                                 $CabufferMonth = $period;
                                 foreach ($arrDate as $date => $arrTime) {
+                                    if (!is_array($arrTime)) {
+                                        $buffer['detail']=$arrTime;
+                                        continue;
+                                    }
                                     foreach ($arrTime as $type => $time) {
                                         $yearKey = explode('-',$date)[0];
                                         $monthKey = explode('-',$date)[1];
