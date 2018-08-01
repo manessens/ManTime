@@ -183,9 +183,9 @@ class UsersController extends AppController
                 $user['role'] = 20;
             }
             if ($this->Users->save($user)) {
-                if ($user['prem_connect']) {
-                    $this->test();
-                }
+                // if ($user['prem_connect']) {
+                //     $this->test();
+                // }
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
