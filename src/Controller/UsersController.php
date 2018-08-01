@@ -134,7 +134,7 @@ class UsersController extends AppController
         $this->set(compact('origineOption'));
     }
 
-    public function test()
+    private function test()
     {
         $userAuth = $this->Auth->identify();
         $email = new Email('default');
@@ -183,6 +183,9 @@ class UsersController extends AppController
                 $user['role'] = 20;
             }
             if ($this->Users->save($user)) {
+                if ($user['prem_connect']) {
+                    $this->test();
+                }
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -319,10 +322,6 @@ class UsersController extends AppController
         }
 
         if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= 50 ) {
-            return true;
-        }
-
-        if (in_array($action, ['test']) && $user['role'] >= 50 ) {
             return true;
         }
 
