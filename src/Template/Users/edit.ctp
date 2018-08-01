@@ -30,12 +30,14 @@
 
 
          ?>
-    <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
-    <?= $this->Form->end() ?>
+        <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
+        <?= $this->Form->end() ?>
 
-    <button type="button" id="linker" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
-                <?php echo $this->Form->control('id_fit', ['readonly', 'class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
-</fieldset>
+        <div style="display:inline-block;">
+            <button type="button" id="linker" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
+            <?php echo $this->Form->control('id_fit', ['readonly', 'class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
+        </div>
+    </fieldset>
 
 </div>
 
