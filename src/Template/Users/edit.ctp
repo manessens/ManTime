@@ -28,8 +28,8 @@
             echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
 
-            echo $this->Form->control('id_fit', ['readonly']);
-            
+            echo $this->Form->control('id_fit', ['readonly', "type" => 'text']);
+
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
