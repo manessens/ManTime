@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  * User Entity
  *
  * @property int $idu
+ * @property int $id_fit
  * @property string $prenom
  * @property string $nom
  * @property string $email
@@ -33,6 +34,7 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
+        'if_fit' => true,
         'prenom' => true,
         'nom' => true,
         'email' => true,

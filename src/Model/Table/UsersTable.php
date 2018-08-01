@@ -56,6 +56,10 @@ class UsersTable extends Table
             ->allowEmpty('idu', 'create');
 
         $validator
+            ->integer('id_fit')
+            ->allowEmpty('id_fit');
+
+        $validator
             ->scalar('prenom')
             ->maxLength('prenom', 50)
             ->allowEmpty('prenom');

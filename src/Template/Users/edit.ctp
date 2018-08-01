@@ -8,7 +8,7 @@
 <div class="users form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend>
+        <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->getFullname); ?></span></legend>
         <?php
             echo $this->Form->control('email');
             echo $this->Form->control('prenom');
@@ -27,6 +27,8 @@
 
             echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
+
+            echo $this->Form->control('id_fit', ['readonly']);
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
