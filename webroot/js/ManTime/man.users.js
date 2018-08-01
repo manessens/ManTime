@@ -20,6 +20,7 @@ function init(){
     });
 
     $('#ajax').on('submit',function(e){
+        e.preventDefault();
         var email = $('#linkModal').find('.modal-body input').val();
         xhr = $.ajax({
             type: "GET",
