@@ -28,7 +28,7 @@
             echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
             echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
 
-            echo $this->Form->control('id_fit', ['readonly', "type" => 'text']);
+            echo $this->Form->control('id_fit', ['readonly', "type" => 'text', 'label' => ['text'=>'Id Fitnet', 'class'=> 'idf']]);
 
          ?>
     </fieldset>

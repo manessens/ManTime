@@ -22,6 +22,11 @@
 .new_content{
     padding-left: 15% !important
 }
+
+.idf{
+    width: 100px;
+}
+
 .header{
     font-size: 0.875rem !important;
     font-weight: bold !important;

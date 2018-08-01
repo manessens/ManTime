@@ -31,8 +31,11 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {
+                $('#id-fité').val(data.employee_id);
                 $('#linker').removeClass('btn-primary');
                 $('#linker').addClass('btn-success');
+            }else{
+                $('#id-fité').val("");
             }
         }).always(function(){
             $('#linkModal').modal('hide');
