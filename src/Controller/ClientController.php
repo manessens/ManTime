@@ -152,6 +152,10 @@ class ClientController extends AppController
                 }
             }
         }
+        //remise en forme du tableau
+
+        //@TODO:remise en forme du tableau
+
         // réencodage pour renvoie au script ajax
         $json_found = json_encode($found);
         // type de réponse : objet json

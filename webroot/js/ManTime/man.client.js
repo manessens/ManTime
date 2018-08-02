@@ -1,7 +1,7 @@
 $(function() {
     init();
     $( "#id_agence" ).change();
-    $('#user-select2').select2();
+    $('#liste_fitnet').select2();
 });
 var xhr;
 
@@ -10,13 +10,17 @@ $( "#id_agence" ).change(function (){
     $('#linker').attr('data-whatever',val);
 });
 
+$("#liste_fitnet").on("change", function(e) {
+
+});
+
 function init(){
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
       var recipient = button.attr('data-whatever')// Extract info from data-* attributes
       var modal = $(this);
 
-      modal.find('.modal-title').text('Chercher le consultant ' + recipient)
+      modal.find('.modal-title').text('Obtenir la liste fitnet des clients')
       modal.find('.modal-body select option[value='+recipient+']').prop('selected', true);
     });
 
@@ -53,13 +57,13 @@ function init(){
 
 
 function updateSelect(data){
-    $('#user-select2').select2({
+    $('#liste_fitnet').select2({
         data: data
     });
     console.log(data);
 }
 
 function eraseSelect(){
-    $('#user-select2').select2("destroy");
+    $('#liste_fitnet').select2("destroy");
     console.log("erased");
 }

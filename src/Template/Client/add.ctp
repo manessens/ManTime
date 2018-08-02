@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Form->label('select_fit','Liste Fitnet');
                 ?>
-                <select name="select_fit" class="col-xs-8" type="text" id="user-select2"></select>
+                <select name="select_fit" class="col-xs-8" type="text" id="liste_fitnet"></select>
          </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
