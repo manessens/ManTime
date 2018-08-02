@@ -53,14 +53,23 @@ class User extends Entity
             ucfirst($this->_properties['nom']);
     }
 
-    protected function _isAdmin()
+    protected function _getIsAdmin()
     {
         return $this->_properties['role'] >= 50;
     }
 
-    protected function _isProject()
+    protected function _setIsAdmin()
+    {
+        return $this->_properties['role'] = 50;
+    }
+
+    protected function _getIsProject()
     {
         return $this->_properties['role'] >= 20;
+    }
+    protected function _setIsProject()
+    {
+        return $this->_properties['role'] = 20;
     }
 
     protected function _setMdp($value)

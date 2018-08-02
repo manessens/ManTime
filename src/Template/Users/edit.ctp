@@ -25,8 +25,8 @@
             echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
 
-            echo $this->Form->control('role',  ['value'=> $user->isProject,'type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
-            echo $this->Form->control('admin', ['value'=> $user->isAdmin,'type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
+            echo $this->Form->control('isProject',  ['value'=> $user->isProject,'type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
+            echo $this->Form->control('isAdmin', ['value'=> $user->isAdmin,'type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
 
             echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
 
