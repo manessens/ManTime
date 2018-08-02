@@ -14,6 +14,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Users.nom','Nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Users.email','Adresse email') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Origine.nom_origine','Origine') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Users.id_fit','Fitnet') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.actif','Actif') ?></th>
                 <th class="tag_role" scope="col"><?= $this->Paginator->sort('Users.role','Rôle') ?></th>
                 <!-- <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th> -->
@@ -27,6 +28,7 @@
                 <td><?= h($user->nom) ?></td>
                 <td><?= h($user->email) ?></td>
                 <td><?= h($user->origine->nom_origine) ?></td>
+                <td><?= $this->element('link2fitnet', ['idf'=>$user->id_fit]) ?></td>
                 <td>
                     <?= $this->element('tagYN', ['test' => $this->Number->format($user->actif)]) ?>
                 </td>
