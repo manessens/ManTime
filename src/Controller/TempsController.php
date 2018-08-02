@@ -135,7 +135,7 @@ class TempsController extends AppController
                             $day->idp = $idp;
                             $day->id_profil = $arrayIdprof[1];
                             $day->ida = $arrayIda[1];
-                            $day->detail = $arrayData['detail'][$line];
+                            $day->detail = trim($arrayData['detail'][$line]);
                             $entities[] = $day;
 
                             $dayTime->modify('+1 days');
@@ -325,7 +325,7 @@ class TempsController extends AppController
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
                                 $day->ida = $arrayIda[1];
-                                $day->detail = $arrayData['detail'][$idUser][$line];
+                                $day->detail = trim( $arrayData['detail'][$idUser][$line] );
                                 $entities[] = $day;
 
                                 $dayTime->modify('+1 days');
@@ -899,6 +899,7 @@ class TempsController extends AppController
                                 if (count($KLine) > 1) {
                                     array_shift($KLine);
                                     $zdetail = implode('.', $KLine);
+                                    $zdetail = trim($zdetail);
                                 }
                                 $buffer = ['client'=>$this->convertToIso($client), 'projet'=>$this->convertToIso($projet),
                                     'user'=>$this->convertToIso($user), 'profil'=>$this->convertToIso($profil),
