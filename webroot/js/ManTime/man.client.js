@@ -33,10 +33,10 @@ function init(){
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
                 // $('#id-fit').val(data.employee_id);
-                $('#linker').removeClass('btn-primary').addClass('btn-success');
+                // $('#linker').removeClass('btn-primary').addClass('btn-success');
             }else{                                  // fail
                 // $('#id-fit').val(null);
-                $('#linker').removeClass('btn-success').addClass('btn-primary');
+                // $('#linker').removeClass('btn-success').addClass('btn-primary');
             }
         }).always(function(){
             $('#linkModal').modal('hide');
