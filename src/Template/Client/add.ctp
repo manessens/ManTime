@@ -24,12 +24,10 @@
         ?>
         </div>
         <div class="left col-xs-10">
-            <div class="col-xs-8">
                 <?php
                     echo $this->Form->label('select_fit','Liste Fitnet');
                 ?>
-                <select name="select_fit" class="select2Height col-xs-8" type="text" id="user-select2"></select>
-            </div>
+                <select name="select_fit" class="col-xs-8" type="text" id="user-select2"></select>
          </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
