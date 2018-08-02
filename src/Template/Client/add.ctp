@@ -18,7 +18,7 @@
 
         ?>
         </div>
-        <div class="left">
+        <div class="left col-xs-12">
             <div class="col-xs-2">
             <?php
                 echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
