@@ -6,7 +6,10 @@
 ?>
 
 <div class="users view large-10 large-10bis medium-8 columns content">
-    <legend class="text-danger"><?= h($user->email) ?></legend>
+    <legend class="text-danger">
+        <?=  h($user->fullname); ?> </span>
+        <?= $this->element('link2fitnet', ['idf'=>$user->id_fit]) ?>
+    </legend>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Prenom') ?></th>

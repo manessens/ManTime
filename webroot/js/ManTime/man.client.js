@@ -1,10 +1,10 @@
 $(function() {
     init();
-    $( "#id_gence" ).change();
+    $( "#id_agence" ).change();
 });
 var xhr;
 
-$( "#id_gence" ).change(function (){
+$( "#id_agence" ).change(function (){
     var val = $(this).find('option:selected').val();
     $('#linker').attr('data-whatever',val);
 });
@@ -32,11 +32,9 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
-                // $('#id-fit').val(data.employee_id);
-                // $('#linker').removeClass('btn-primary').addClass('btn-success');
+                updateSelect(data);
             }else{                                  // fail
-                // $('#id-fit').val(null);
-                // $('#linker').removeClass('btn-success').addClass('btn-primary');
+                eraseSelect();
             }
         }).always(function(){
             $('#linkModal').modal('hide');
@@ -50,4 +48,14 @@ function init(){
             xhr.abort();
         }
     });
+}
+function updateSelect(data){
+    $('#liste_fitnet option').removeAttr('readonly');
+    console.log(data);
+}
+
+function eraseSelect(){
+    $('#liste_fitnet option').remove();
+    $('#liste_fitnet option').attr('readonly','readonly');
+    console.log("erased");
 }
