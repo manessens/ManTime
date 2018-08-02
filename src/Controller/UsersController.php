@@ -304,8 +304,9 @@ class UsersController extends AppController
             $url = substr($url, 1);
         }
         $url = $base . $url;
-
+        // appel de la requête
         $result = file_get_contents($url, false, $context);
+        // résultat
         return $result;
     }
 
