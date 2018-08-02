@@ -55,12 +55,13 @@ class User extends Entity
 
     protected function _getIsAdmin()
     {
+        pr($this->_properties);exit;
         return $this->_properties['role'] >= 50;
     }
 
     protected function _setIsAdmin()
     {
-        return $this->_properties['role'] = 50;
+        $this->_properties['role'] = 50;
     }
 
     protected function _getIsProject()
@@ -69,7 +70,7 @@ class User extends Entity
     }
     protected function _setIsProject()
     {
-        return $this->_properties['role'] = 20;
+        $this->_properties['role'] = 20;
     }
 
     protected function _setMdp($value)
