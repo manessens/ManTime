@@ -16,12 +16,21 @@
             echo $this->Form->label('id_agence','Agence');
             echo $this->Form->select('id_agence', $agenceOption, ['id'=> 'id_agence']);
 
-            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
-
-            echo $this->Form->label('liste_fit','Liste Fitnet');
-            echo $this->Form->select('liste_fit', array(), ['id'=> 'liste_fitnet']);
         ?>
         </div>
+        <?php
+            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+        ?>
+        <div class="left">
+            <div class="col-xs-2">
+            <?php
+                echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+            ?>
+            </div>
+            <div class="col-xs-8">
+                <select type="text" id="user-select2"></select>
+            </div>
+         </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
@@ -29,6 +38,8 @@
          data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
 </div>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <?php echo $this->Html->script('ManTime/man.client.js'); ?>
 <?php echo $this->Html->css('ManTime/man.loader.css'); ?>
 <!-- modal link with fitnet -->

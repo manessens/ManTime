@@ -1,6 +1,7 @@
 $(function() {
     init();
     $( "#id_agence" ).change();
+    $('#user-select2').select2();
 });
 var xhr;
 
