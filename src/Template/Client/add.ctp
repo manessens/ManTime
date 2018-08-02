@@ -26,6 +26,8 @@
          data-toggle="modal" data-target="#linkModal" data-whatever="">Liste Fitnet</button>
 </div>
 
+<?php echo $this->Html->script('ManTime/man.client.js'); ?>
+<?php echo $this->Html->css('ManTime/man.loader.css'); ?>
 <!-- modal link with fitnet -->
 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
