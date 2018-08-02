@@ -119,6 +119,68 @@ class ClientController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
+    public function getCustomerFitnet(){
+        $found = [];
+
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+
+        if ($this->request->is(['get'])) {
+
+            $agences = $this->request->query["agence"];
+            if ($agences != "") {
+                // récupération des id agence
+                $ids = explode(';', $agences);
+                foreach($ids as $id){
+                    if ($id != "") {
+                        // appel de la requête
+                        $result = $this->getFitnetLink("/FitnetManager/rest/customers/".$id);
+                        // décode du résultat json
+                        $vars = json_decode($result, true);
+                        // sauvegarde des résultats trouvés
+                        $found = array_merge($found, $vars);
+                    }
+                }
+            }
+        }
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($found);
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
+    }
+
+    private function getFitnetLink( $url ){
+        //récupération des lgoin/mdp du compte admin de fitnet
+        $username = Configure::read('fitnet.login');
+        $password = Configure::read('fitnet.password');
+
+        // préparation de l'en-tête pour la basic auth de fitnet
+        $opts = array(
+          'http'=>array(
+                'method'=>"GET",
+                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
+              )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+        // construction de l'url fitnet
+        $base = Configure::read('fitnet.base');
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1);
+        }
+        $url=$base . $url ;
+        // appel de la requête
+        $result = file_get_contents($url, false, $context);
+        // résultat
+        return $result;
+    }
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
@@ -127,8 +189,7 @@ class ClientController extends AppController
             return false;
         }
 
-        // if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= 50 ) {
-        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete', 'getCustomerFitnet']) && $user['role'] >= 50 ) {
             return true;
         }
 

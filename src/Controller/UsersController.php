@@ -261,23 +261,8 @@ class UsersController extends AppController
 
             $mail = $this->request->query["mail"];
             if ($mail != "") {
-                //récupération des lgoin/mdp du compte admin de fitnet
-                $username = Configure::read('fitnet.login');
-                $password = Configure::read('fitnet.password');
-
-                // préparation de l'en-tête pour la vbasic auth de fitnet
-                $opts = array(
-                  'http'=>array(
-                        'method'=>"GET",
-                        'header'=>"Authorization: Basic " . base64_encode("$username:$password")
-                      )
-                );
-                // ajout du header dans le contexte
-                $context = stream_context_create($opts);
-                // création de l'ul d ela requête
-                $url=$this->getFitnetLink("/FitnetManager/rest/employees");
                 // appel de la requête
-                $result = file_get_contents($url, false, $context);
+                $result = $this->getFitnetLink("/FitnetManager/rest/employees");
                 // décode du résultat json
                 $vars = json_decode($result, true);
                 $key_found = array_search($mail, array_column($vars, 'email'));
@@ -300,11 +285,28 @@ class UsersController extends AppController
     }
 
     private function getFitnetLink( $url ){
+        //récupération des lgoin/mdp du compte admin de fitnet
+        $username = Configure::read('fitnet.login');
+        $password = Configure::read('fitnet.password');
+
+        // préparation de l'en-tête pour la vbasic auth de fitnet
+        $opts = array(
+          'http'=>array(
+                'method'=>"GET",
+                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
+              )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+
         $base = Configure::read('fitnet.base');
         if (substr($url, 0, 1) == "/" ) {
             $url = substr($url, 1);
         }
-        return $base . $url;
+        $url = $base . $url;
+
+        $result = file_get_contents($url, false, $context);
+        return $result;
     }
 
     public function isAuthorized($user)
