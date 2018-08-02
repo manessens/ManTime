@@ -16,7 +16,7 @@ function init(){
       var modal = $(this);
 
       modal.find('.modal-title').text('Chercher le consultant ' + recipient)
-      modal.find('.modal-body select option[id="'+recipient+'"]').prop('selected', true);
+      modal.find('.modal-body select option[value='+recipient+']').prop('selected', true);
     });
 
     $('#ajax').on('submit',function(e){
