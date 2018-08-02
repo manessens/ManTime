@@ -4,8 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
-use Cake\Core\Configure;
-
 /**
  * Users Controller
  *
@@ -282,32 +280,6 @@ class UsersController extends AppController
         $this->response->body($json_found);
 
         return $this->response;
-    }
-
-    private function getFitnetLink( $url ){
-        //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('fitnet.login');
-        $password = Configure::read('fitnet.password');
-
-        // préparation de l'en-tête pour la vbasic auth de fitnet
-        $opts = array(
-          'http'=>array(
-                'method'=>"GET",
-                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
-              )
-        );
-        // ajout du header dans le contexte
-        $context = stream_context_create($opts);
-
-        $base = Configure::read('fitnet.base');
-        if (substr($url, 0, 1) == "/" ) {
-            $url = substr($url, 1);
-        }
-        $url = $base . $url;
-        // appel de la requête
-        $result = file_get_contents($url, false, $context);
-        // résultat
-        return $result;
     }
 
     public function isAuthorized($user)
