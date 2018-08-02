@@ -5,9 +5,14 @@
 .checkboxU{
     width: 220px !important;
 }
+/*  Adjustement for select2 */
 .select2-selection{
     height: 37px !important;
 }
+.select2-selection__arrow{
+    height: 35px !important;
+}
+/* ///////////////////// */
 
 .height-input{
     height: 2.3125rem !important;

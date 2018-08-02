@@ -50,13 +50,16 @@ function init(){
         }
     });
 }
+
+
 function updateSelect(data){
-    $('#liste_fitnet option').removeAttr('readonly');
+    $('#user-select2').select2({
+        data: data
+    });
     console.log(data);
 }
 
 function eraseSelect(){
-    $('#liste_fitnet option').remove();
-    $('#liste_fitnet option').attr('readonly','readonly');
+    $('#user-select2').select2("destroy");
     console.log("erased");
 }
