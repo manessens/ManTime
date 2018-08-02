@@ -16,7 +16,7 @@ function init(){
       var modal = $(this);
 
       modal.find('.modal-title').text('Chercher le consultant ' + recipient)
-      modal.find('.modal-body input').val(recipient)
+      modal.find('.modal-body select option[id="'+recipient+'"]').prop('selected', true);
     });
 
     $('#ajax').on('submit',function(e){
@@ -32,10 +32,10 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
-                $('#id-fit').val(data.employee_id);
+                // $('#id-fit').val(data.employee_id);
                 $('#linker').removeClass('btn-primary').addClass('btn-success');
             }else{                                  // fail
-                $('#id-fit').val(null);
+                // $('#id-fit').val(null);
                 $('#linker').removeClass('btn-success').addClass('btn-primary');
             }
         }).always(function(){
