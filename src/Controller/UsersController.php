@@ -116,6 +116,7 @@ class UsersController extends AppController
         $origineOption = $this->getOrigineOption();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            pr($user);exit;
             if ($user['admin']) {
                 $user['role'] = 50;
             }elseif ($user['role']) {
