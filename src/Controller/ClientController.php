@@ -129,10 +129,16 @@ class ClientController extends AppController
 
         if ($this->request->is(['get'])) {
 
-            $agences = $this->request->query["agence"];
-            if ($agences != "") {
-                // récupération des id agence
-                $ids = explode(';', $agences);
+            $id_agence = $this->request->query["agence"];
+            if ($id_agence != "") {
+
+                // récupération des id company fitnet
+                $agenceTable = TableRegistry::get('Agence');
+                $agence = $agenceTable->get($id_agence);
+                $id_fit = $agence->id_fit;
+
+                // séparation des id_agence fitnet
+                $ids = explode(';', $id_fit);
                 foreach($ids as $id){
                     if ($id != "") {
                         // appel de la requête

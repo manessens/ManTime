@@ -41,8 +41,8 @@
       <form id="ajax">
         <div class="modal-body">
             <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Email:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="recipient-name" class="col-form-label">Agence:</label>
+              <?php echo $this->Form->select('id_agence', $agenceOption); ?>
             </div>
         </div>
         <div class="modal-footer">

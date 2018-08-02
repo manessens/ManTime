@@ -5,9 +5,7 @@ $(function() {
 var xhr;
 
 $( "#id_gence" ).change(function (){
-    console.log(this);
     var val = $(this).find('option:selected').val();
-    console.log(val);
     $('#linker').attr('data-whatever',val);
 });
 
@@ -23,11 +21,11 @@ function init(){
 
     $('#ajax').on('submit',function(e){
         e.preventDefault();
-        var email = $('#linkModal').find('.modal-body input').val();
+        var id_agence = $('#linkModal').find('.modal-body select option:selected').val();
         xhr = $.ajax({
             type: "GET",
-            url: "/users/getEmployeeFitnet/",
-            data: { mail: email },
+            url: "/client/getCustomerFitnet/",
+            data: { agence: id_agence },
             beforeSend: function( xhr ) {
                 $('#loader').show();
                 $('#linkModal').find(".modal-footer button#send").hide();
