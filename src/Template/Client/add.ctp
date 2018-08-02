@@ -18,9 +18,6 @@
 
         ?>
         </div>
-        <?php
-            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
-        ?>
         <div class="left">
             <div class="col-xs-2">
             <?php
@@ -28,7 +25,7 @@
             ?>
             </div>
             <div class="col-xs-8">
-                <select type="text" id="user-select2"></select>
+                <select class="col-xs-8" type="text" id="user-select2"></select>
             </div>
          </div>
     </fieldset>
