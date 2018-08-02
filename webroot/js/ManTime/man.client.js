@@ -1,5 +1,6 @@
 $(function() {
     init();
+    $( "#id_gence" ).change();
 });
 var xhr;
 
