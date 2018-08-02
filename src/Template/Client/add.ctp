@@ -18,15 +18,15 @@
 
         ?>
         </div>
-        <div class="left col-xs-12">
-            <div class="col-xs-2">
-            <?php
-                echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
-            ?>
-            </div>
+        <div class="left">
+        <?php
+            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+        ?>
+        </div>
+        <div class="left col-xs-10">
             <div class="col-xs-8">
                 <?php
-                    echo $this->Form->label('select_fit','liste Fitnet');
+                    echo $this->Form->label('select_fit','Liste Fitnet');
                 ?>
                 <select name="select_fit" class="select2Height col-xs-8" type="text" id="user-select2"></select>
             </div>
