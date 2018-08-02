@@ -16,6 +16,8 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Core\Configure;
+
 
 /**
  * Application Controller
@@ -27,6 +29,32 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+
+    protected function getFitnetLink( $url ){
+        //récupération des lgoin/mdp du compte admin de fitnet
+        $username = Configure::read('fitnet.login');
+        $password = Configure::read('fitnet.password');
+
+        // préparation de l'en-tête pour la basic auth de fitnet
+        $opts = array(
+          'http'=>array(
+                'method'=>"GET",
+                'header'=>"Authorization: Basic " . base64_encode("$username:$password")
+              )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+        // construction de l'url fitnet
+        $base = Configure::read('fitnet.base');
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1);
+        }
+        $url=$base . $url ;
+        // appel de la requête
+        $result = file_get_contents($url, false, $context);
+        // résultat
+        return $result;
+    }
 
     /**
      * Initialization hook method.
