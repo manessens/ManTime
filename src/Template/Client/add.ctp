@@ -25,7 +25,10 @@
             ?>
             </div>
             <div class="col-xs-8">
-                <select class="col-xs-8" type="text" id="user-select2"></select>
+                <?php
+                    echo $this->Form->label('select_fit','liste Fitnet');
+                ?>
+                <select name="select_fit" class="select2Height col-xs-8" type="text" id="user-select2"></select>
             </div>
          </div>
     </fieldset>

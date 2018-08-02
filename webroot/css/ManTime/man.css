@@ -5,6 +5,9 @@
 .checkboxU{
     width: 220px !important;
 }
+.select2Height{
+    height: 35px;
+}
 
 .height-input{
     height: 2.3125rem !important;
