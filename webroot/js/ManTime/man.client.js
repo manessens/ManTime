@@ -1,6 +1,5 @@
 $(function() {
     init();
-    $( "#id_agence" ).change();
     $('#liste_fitnet').select2();
 });
 var xhr;
@@ -9,7 +8,7 @@ function changeAgence(){
     $( "#id_agence" ).change(function (){
         var val = $(this).find('option:selected').val();
         $('#linker').attr('data-whatever',val);
-    });
+    }).change();
 }
 
 function changeSelect2(){
