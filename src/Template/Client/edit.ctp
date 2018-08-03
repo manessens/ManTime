@@ -16,7 +16,7 @@
         <div class="input text required">
         <?php
             echo $this->Form->label('id_agence','Agence');
-            echo $this->Form->select('id_agence', $agenceOption);
+            echo $this->Form->select('id_agence', $agenceOption, ['id'=> 'id_agence']);
         ?>
         </div>
         <div class="left">
