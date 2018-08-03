@@ -11,6 +11,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Client.nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Agence.nom_agence','Agence') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Client.id_fit','Fitnet') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
             <tr>
                 <td><?= h($client->nom_client) ?></td>
                 <td><?= h($client->agence->nom_agence) ?></td>
+                <td><?= $this->element('link2fitnet', ['idf'=>$user->id_fit]) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$client->idc, 'entity'=>$client->nom_client]); ?>
                 </td>
