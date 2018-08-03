@@ -21,7 +21,7 @@ function changeSelect2(){
 function init(){
     changeSelect2();
     changeAgence();
-    $('resetter').on('click', resetSelect());
+    // $('resetter').on('click', resetSelect());
 
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
