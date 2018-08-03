@@ -11,7 +11,7 @@ $( "#id_agence" ).change(function (){
 });
 
 $("#liste_fitnet").on("change", function(e) {
-    console.log(this);
+    console.log($("#liste_fitnet").find(':selected'));
 });
 
 function init(){
@@ -38,6 +38,7 @@ function init(){
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
                 updateSelect(data);
+                $("#liste_fitnet").change();
             }else{                                  // fail
                 eraseSelect();
             }
