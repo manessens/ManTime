@@ -55,7 +55,7 @@ class ClientTable extends Table
 
         $validator
             ->integer('id_fit')
-            ->allowEmpty('id_fit', 'create');
+            ->allowEmpty('id_fit');
 
         $validator
             ->scalar('nom_client')
