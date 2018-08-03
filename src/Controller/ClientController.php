@@ -152,12 +152,14 @@ class ClientController extends AppController
                 }
             }
         }
+        $select2 = array();
         //remise en forme du tableau
-
-        //@TODO:remise en forme du tableau
+        foreach ($found as $value) {
+            $select2[]=array('id'=>$value['clientId'], 'text'=>$value['name']);
+        }
 
         // réencodage pour renvoie au script ajax
-        $json_found = json_encode($found);
+        $json_found = json_encode($select2);
         // type de réponse : objet json
         $this->response->type('json');
         // contenue de la réponse

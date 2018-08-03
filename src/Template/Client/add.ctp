@@ -36,10 +36,12 @@
          data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
 </div>
 
+<!-- addtional style and script for this page only -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <?php echo $this->Html->script('ManTime/man.client.js'); ?>
 <?php echo $this->Html->css('ManTime/man.loader.css'); ?>
+
 <!-- modal link with fitnet -->
 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
