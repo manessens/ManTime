@@ -5,16 +5,24 @@ $(function() {
 });
 var xhr;
 
-$( "#id_agence" ).change(function (){
-    var val = $(this).find('option:selected').val();
-    $('#linker').attr('data-whatever',val);
-});
+function changeAgence(){
+    $( "#id_agence" ).change(function (){
+        var val = $(this).find('option:selected').val();
+        $('#linker').attr('data-whatever',val);
+    });
+}
 
-$("#liste_fitnet").on("change", function(e) {
-    console.log($("#liste_fitnet").find(':selected'));
-});
+function changeSelect2(){
+    $("#liste_fitnet").on("change", function(e) {
+        $('#id-fit').val($("#liste_fitnet").find(':selected').val());
+    });
+}
+
 
 function init(){
+    changeSelect2();
+    changeAgence();
+
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
       var recipient = button.attr('data-whatever')// Extract info from data-* attributes
@@ -61,10 +69,8 @@ function updateSelect(data){
     $('#liste_fitnet').select2({
         data: data
     });
-    console.log(data);
 }
 
 function eraseSelect(){
     $('#liste_fitnet').select2("destroy");
-    console.log("erased");
 }
