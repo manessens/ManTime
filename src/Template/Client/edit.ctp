@@ -35,7 +35,7 @@
     <?= $this->Form->end() ?>
     <button type="button" id="linker" class="btn <?php echo $client->id_fit>0?"btn-success":"btn-primary"; ?>"
          data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
-    <button type="button" id="resetter" class="btn btn-warning">Supprimer Id</button>
+    <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
 </div>
 
 <!-- addtional style and script for this page only -->

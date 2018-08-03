@@ -15,6 +15,7 @@ function changeAgence(){
 function changeSelect2(){
     $("#liste_fitnet").on("change", function(e) {
         $('#id-fit').val($("#liste_fitnet").find(':selected').val());
+        $('#linker').removeClass('btn-primary').addClass('btn-success');
     });
 }
 
@@ -22,6 +23,7 @@ function changeSelect2(){
 function resetSelect(){
     $('#resetter').on('click',function(e){
         $("#liste_fitnet").val(null).trigger("change");
+        $('#linker').removeClass('btn-success').addClass('btn-primary');
     });
 }
 
