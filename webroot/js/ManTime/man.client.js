@@ -14,8 +14,11 @@ function changeAgence(){
 
 function changeSelect2(){
     $("#liste_fitnet").on("change", function(e) {
-        $('#id-fit').val($("#liste_fitnet").find(':selected').val());
-        $('#linker').removeClass('btn-primary').addClass('btn-success');
+        var val = $("#liste_fitnet").find(':selected').val();
+        $('#id-fit').val(val);
+        if (val != null) {
+            $('#linker').removeClass('btn-primary').addClass('btn-success');
+        }
     });
 }
 
