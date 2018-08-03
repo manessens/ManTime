@@ -20,7 +20,7 @@
             <tr>
                 <td><?= h($client->nom_client) ?></td>
                 <td><?= h($client->agence->nom_agence) ?></td>
-                <td><?= $this->element('link2fitnet', ['idf'=>$user->id_fit]) ?></td>
+                <td><?= $this->element('link2fitnet', ['idf'=>$client->id_fit]) ?></td>
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' =>$client->idc, 'entity'=>$client->nom_client]); ?>
                 </td>
