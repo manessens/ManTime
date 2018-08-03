@@ -78,5 +78,5 @@ function updateSelect(data){
 }
 
 function eraseSelect(){
-    $('#liste_fitnet').select2("destroy");
+    $('#liste_fitnet option').remove();
 }
