@@ -64,6 +64,7 @@ function init(){
 
 
 function updateSelect(data){
+    eraseSelect();
     $('#liste_fitnet').select2({
         data: data
     });
