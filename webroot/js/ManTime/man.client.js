@@ -11,7 +11,7 @@ $( "#id_agence" ).change(function (){
 });
 
 $("#liste_fitnet").on("change", function(e) {
-
+    console.log(this);
 });
 
 function init(){

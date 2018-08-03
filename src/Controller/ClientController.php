@@ -152,6 +152,7 @@ class ClientController extends AppController
                 }
             }
         }
+        
         $select2 = array();
         //remise en forme du tableau
         foreach ($found as $value) {
