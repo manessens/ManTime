@@ -9,7 +9,7 @@ function changeAgence(){
     $( "#id_agence" ).on('change', function (e){
         var val = $(this).find('option:selected').val();
         $('#linker').attr('data-whatever',val);
-    });
+    }).change();
 }
 
 function changeSelect2(){
