@@ -21,6 +21,7 @@ function changeSelect2(){
 function init(){
     changeSelect2();
     changeAgence();
+    $('resetter').on('click', resetSelect(e));
 
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
@@ -79,4 +80,8 @@ function updateSelect(data){
 
 function eraseSelect(){
     $('#liste_fitnet option').remove();
+}
+
+function resetSelect(e){
+    $("#liste_fitnet").val(null).trigger("change");
 }
