@@ -5,7 +5,10 @@
  */
 ?>
 <div class="client view large-10 large-10bis medium-8 columns content">
-    <h3><?= h($client->nom_client) ?></h3>
+    <legend>
+        <span class="text-danger"><?= h($client->nom_client) ?></span>
+        <?= $this->element('link2fitnet', ['idf'=>$client->id_fit]) ?>
+    </legend>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Nom Client') ?></th>

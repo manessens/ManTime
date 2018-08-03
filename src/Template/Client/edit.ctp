@@ -9,7 +9,6 @@
     <fieldset>
         <legend>
             <?= __('Edition du client') ?> <span class="text-danger"><?= h($client->nom_client) ?></span>
-            <?= $this->element('link2fitnet', ['idf'=>$client->id_fit]) ?>
         </legend>
         <?php
             echo $this->Form->control('nom_client');
