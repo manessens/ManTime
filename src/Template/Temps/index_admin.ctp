@@ -77,27 +77,29 @@
         <div class="block col-xs-12">
             <div class="left badge back-danger"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
-                <div class="left">
+                <div class="left col-xs-4">
                     <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
                 </div>
-                <div>
-                    <?php if ($semaine-1 < 1 ): ?>
-                        <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', 52, $annee-1], ['class' => 'btn btn-success']) ?>
-                    <?php else: ?>
-                        <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', $semaine-1, $annee], ['class' => 'btn btn-success']) ?>
-                    <?php endif; ?>
-                    <?php
-                        $dimanche->modify('-1 day');
-                        echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM'));
-                    ?>
-                    <?php if ($semaine+1 > 52 ): ?>
-                        <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', 1, $annee+1], ['class' => 'btn btn-success']) ?>
-                    <?php else: ?>
-                        <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', $semaine+1, $annee], ['class' => 'btn btn-success']) ?>
-                    <?php endif; ?>
-                </div>
-                <div>
-                    <a href="#top"><button id="top" type="button" class="btn btn-info">&darr;</button></a>
+                <div class="right col-xs-8">
+                    <div class="left col-xs-10">
+                        <?php if ($semaine-1 < 1 ): ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', 52, $annee-1], ['class' => 'btn btn-success']) ?>
+                        <?php else: ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', $semaine-1, $annee], ['class' => 'btn btn-success']) ?>
+                        <?php endif; ?>
+                        <?php
+                            $dimanche->modify('-1 day');
+                            echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM'));
+                        ?>
+                        <?php if ($semaine+1 > 52 ): ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', 1, $annee+1], ['class' => 'btn btn-success']) ?>
+                        <?php else: ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', $semaine+1, $annee], ['class' => 'btn btn-success']) ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="right col-xs-2">
+                        <a href="#top"><button id="top" type="button" class="btn btn-info">&darr;</button></a>
+                    </div>
                 </div>
             </div>
         </div>
