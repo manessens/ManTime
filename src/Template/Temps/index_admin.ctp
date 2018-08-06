@@ -80,7 +80,7 @@
                 <div class="left">
                     <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
                 </div>
-                <div class="right weeker-admin">
+                <div class="right weeker_admin">
                     <div class="left">
                         <?php if ($semaine-1 < 1 ): ?>
                             <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', 52, $annee-1], ['class' => 'btn btn-success']) ?>
