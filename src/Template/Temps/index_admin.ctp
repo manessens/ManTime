@@ -261,7 +261,7 @@
             ?>
             </div>
             <div class = 'right col-xs-1'>
-                <a href="#top"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
+                <a href="#topofpage"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
             </div>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>
