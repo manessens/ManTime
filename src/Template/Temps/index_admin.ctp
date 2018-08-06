@@ -69,7 +69,7 @@
 
 <div class="col-xs-12 content">
     <?php if ($current == $semaine): ?>
-        <h3><?= __('Validation de la semaine courante #') ?><?= $semaine ?></h3>
+        <legend><span class="text-danger"><?= __('Validation de la semaine courante #') ?><?= $semaine ?></span></legend>
     <?php else: ?>
         <legend><?= __('Validation de la semaine #') ?><?= $semaine ?><?= __(" de l'année ") ?><?= $annee ?></legend>
     <?php endif; ?>
@@ -77,6 +77,9 @@
         <div class="block col-xs-12">
             <div class="left badge back-danger"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
+                <div class="left">
+                    <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
+                </div>
                 <div>
                     <?php if ($semaine-1 < 1 ): ?>
                         <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', 52, $annee-1], ['class' => 'btn btn-success']) ?>
@@ -92,6 +95,9 @@
                     <?php else: ?>
                         <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', $semaine+1, $annee], ['class' => 'btn btn-success']) ?>
                     <?php endif; ?>
+                </div>
+                <div>
+                    <a href="#top"><button id="top" type="button" class="btn btn-info">&darr;</button></a>
                 </div>
             </div>
         </div>
@@ -253,7 +259,7 @@
             ?>
             </div>
             <div class = 'right col-xs-1'>
-                <a href="#topofpage"><button id="top" type="button" class="btn btn-info">^</button></a>
+                <a href="#topofpage"><button id="top" type="button" class="btn btn-info">&uarr;</button></a>
             </div>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>

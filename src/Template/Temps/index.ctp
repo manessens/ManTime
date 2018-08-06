@@ -62,7 +62,7 @@
 
 <div class="col-xs-12 content">
     <?php if ($current == $semaine): ?>
-        <h3><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></h3>
+        <legend><span class="text-danger"><?= __('Saisie de la semaine courante #') ?><?= $semaine ?></span></legend>
     <?php else: ?>
         <legend><?= __('Saisie de la semaine #') ?><?= $semaine ?><?= __(" de l'année ") ?><?= $annee ?></legend>
     <?php endif; ?>
