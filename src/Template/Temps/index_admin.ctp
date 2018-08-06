@@ -77,11 +77,11 @@
         <div class="block col-xs-12">
             <div class="left badge back-danger"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
-                <div class="left col-xs-4">
+                <div class="left">
                     <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
                 </div>
-                <div class="right col-xs-8">
-                    <div class="left col-xs-10">
+                <div class="right weeker-admin">
+                    <div class="left">
                         <?php if ($semaine-1 < 1 ): ?>
                             <?= $this->Html->link(__('<'), ['action' => 'indexAdmin', 52, $annee-1], ['class' => 'btn btn-success']) ?>
                         <?php else: ?>
@@ -97,7 +97,7 @@
                             <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', $semaine+1, $annee], ['class' => 'btn btn-success']) ?>
                         <?php endif; ?>
                     </div>
-                    <div class="right col-xs-2">
+                    <div class="right">
                         <a href="#top"><button id="top" type="button" class="btn btn-info">&darr;</button></a>
                     </div>
                 </div>
