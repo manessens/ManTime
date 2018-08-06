@@ -1,18 +1,19 @@
 $(function() {
     init();
     $('#liste_fitnet').select2();
-    resetSelect();
+    initResetSelect();
 });
 var xhr;
 
-function changeAgence(){
+// **INITIALISATION**
+function initcChangeAgence(){
     $( "#id_agence" ).on('change', function (e){
         var val = $(this).find('option:selected').val();
         $('#linker').attr('data-whatever',val);
     }).change();
 }
 
-function changeSelect2(){
+function initChangeSelect2(){
     $("#liste_fitnet").on("change", function(e) {
         var val = $("#liste_fitnet").find(':selected').val();
         $('#id-fit').val(val);
@@ -22,8 +23,7 @@ function changeSelect2(){
     });
 }
 
-
-function resetSelect(){
+function initResetSelect(){
     $('#resetter').on('click',function(e){
         $("#liste_fitnet").val(null).trigger("change");
         $('#linker').removeClass('btn-success').addClass('btn-primary');
@@ -31,8 +31,8 @@ function resetSelect(){
 }
 
 function init(){
-    changeSelect2();
-    changeAgence();
+    initChangeSelect2();
+    initcChangeAgence();
 
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
@@ -74,7 +74,7 @@ function init(){
     });
 }
 
-
+// **FUNCION**
 function updateSelect(data){
     eraseSelect();
     $('#liste_fitnet').select2({

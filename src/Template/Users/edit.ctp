@@ -37,6 +37,7 @@
 
     <button type="button" id="linker" class="btn <?php echo $user->id_fit>0?"btn-success":"btn-primary"; ?>"
          data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
+    <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
 
 </div>
 

@@ -2,14 +2,30 @@ $(function() {
     init();
 });
 var xhr;
+// **INITIALISATION **
+function initResetPswd(){
+    $( ".reset" ).click(function (){
+        if ($(this).is(':checked')) {
+            $('#myModal').modal('show');
+        };
+    });
+}
 
-$( ".reset" ).click(function (){
-    if ($(this).is(':checked')) {
-        $('#myModal').modal('show');
-    };
-});
+function initResetFitnet(){
+    $( "#resetter" ).click(resetFitnet);
+}
+
+function initEmailModal(){
+    $('#email').on('change',function(e){
+        var input = $('#email')
+        $('#linker').attr('data-whatever',input.val());
+    })
+}
 
 function init(){
+    initResetPswd();
+    initResetFitnet();
+    initEmailModal();
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
       var recipient = button.attr('data-whatever')// Extract info from data-* attributes
@@ -35,8 +51,7 @@ function init(){
                 $('#id-fit').val(data.employee_id);
                 $('#linker').removeClass('btn-primary').addClass('btn-success');
             }else{                                  // fail
-                $('#id-fit').val(null);
-                $('#linker').removeClass('btn-success').addClass('btn-primary');
+                resetFitnet();
             }
         }).always(function(){
             $('#linkModal').modal('hide');
@@ -50,4 +65,10 @@ function init(){
             xhr.abort();
         }
     });
+}
+
+// **FUNCTION**
+function resetFitnet(){
+    $('#id-fit').val(null);
+    $('#linker').removeClass('btn-success').addClass('btn-primary');
 }
