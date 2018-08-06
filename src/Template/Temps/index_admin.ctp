@@ -266,13 +266,14 @@
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>
     <?= $this->Form->end() ?>
-    <div class ='bottom-fix'>
-        <a href="#topofpage"><button style='display:none;' id="bottom-fix" type="button" class="btn btn-info">&uarr;</button></a>
+    <div class ='bottom_fix'>
+        <a href="#topofpage"><button id="bottom_fix" type="button" class="btn btn-info">&uarr;</button></a>
     </div>
 </div>
 
 <?php
     echo $this->Html->script('ManTime/man.top.js');
+    echo $this->Html->style('ManTime/man.top.css');
     if (!$validat){
         echo $this->Html->script('ManTime/man.modal.js');
         echo $this->Html->script('ManTime/man.time-admin.js');

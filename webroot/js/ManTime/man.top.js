@@ -8,9 +8,9 @@ function init(){
 }
 
 function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        $("#bottom-fix").style.display = "block";
+    if (window.scrollY > 20 ) {
+        $("#bottom_fix").style.display = "block";
     } else {
-        $("#bottom-fix").style.display = "none";
+        $("#bottom_fix").style.display = "none";
     }
 }
