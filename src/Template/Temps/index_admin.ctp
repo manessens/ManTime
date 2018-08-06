@@ -98,7 +98,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="right">
-                        <a href="#top"><button id="top" type="button" class="btn btn-info">&darr;</button></a>
+                        <a href="#bottom"><button id="top" type="button" class="btn btn-info">&darr;</button></a>
                     </div>
                 </div>
             </div>
@@ -261,7 +261,7 @@
             ?>
             </div>
             <div class = 'right col-xs-1'>
-                <a href="#topofpage"><button id="top" type="button" class="btn btn-info">&uarr;</button></a>
+                <a href="#top"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
             </div>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>
