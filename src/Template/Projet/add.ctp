@@ -23,7 +23,7 @@
                 <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
                 <select name="select_fit" type="text" id="liste_fitnet"></select>
             </div>
-            <div class="left">
+            <div class="left control_fitnet">
                 <button type="button" id="linker" class="btn <?php echo $projet->id_fit>0?"btn-success":"btn-primary"; ?>"
                      data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
                 <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
@@ -84,6 +84,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <?php echo $this->Html->script('ManTime/man.projet.js'); ?>
 <?php echo $this->Html->css('ManTime/man.loader.css'); ?>
+<?php echo $this->Html->css('ManTime/man.projet.css'); ?>
 <!-- modal link with fitnet -->
 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
