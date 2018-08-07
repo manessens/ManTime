@@ -243,10 +243,10 @@ class ProjetController extends AppController
             }
         }
 
-        $select2 = ['retour' => array(), 'projects' => array()];
+        $select2 = ['select' => array(), 'projects' => array()];
         //remise en forme du tableau
         foreach ($found as $value) {
-            $select2['retour'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
+            $select2['select'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
             $select2['projects'][]=$value;
         }
 
