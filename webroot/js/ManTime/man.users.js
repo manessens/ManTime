@@ -29,13 +29,11 @@ function initSelectRole(){
     $('select[name="role"]').on('change',function(){
         var select = $(this);
         switch (select.val()) {
-            case 50:
-                select.removeClass()
-                select.addClass('text-danger')
+            case '50':
+                select.removeClass().addClass('text-danger')
                 break;
-            case 20:
-                select.removeClass()
-                select.addClass('text-primary')
+            case '20':
+                select.removeClass().addClass('text-primary')
                 break;
             default:
                 select.removeClass()
