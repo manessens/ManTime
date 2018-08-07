@@ -209,6 +209,57 @@ class ProjetController extends AppController
         return true;
     }
 
+    public function getProjectFitnet(){
+        $found = [];
+
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+
+        if ($this->request->is(['get'])) {
+
+            $id_client = $this->request->query["client"];
+            if ($id_client != "") {
+
+                // récupération des id company fitnet
+                $clientTable = TableRegistry::get('Client');
+                $client = $clientTable->get($id_client, [
+                    'contain' => ['Agence']
+                ]);
+                $id_fit = $client->agence->id_fit;
+
+                // séparation des id_agence fitnet
+                $ids = explode(';', $id_fit);
+                foreach($ids as $id){
+                    if ($id != "") {
+                        // appel de la requête
+                        $result = $this->getFitnetLink("/FitnetManager/rest/projects/".$id);
+                        // décode du résultat json
+                        $vars = json_decode($result, true);
+                        // sauvegarde des résultats trouvés
+                        $found = array_merge($found, $vars);
+                    }
+                }
+            }
+        }
+
+        $select2 = ['retour' => array(), 'projects' => array()];
+        //remise en forme du tableau
+        foreach ($found as $value) {
+            $select2['retour'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
+            $select2['projects'][]=$value;
+        }
+
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($select2);
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
+    }
+
     private function getClientOption()
     {
         $clientTable = TableRegistry::get('Client');

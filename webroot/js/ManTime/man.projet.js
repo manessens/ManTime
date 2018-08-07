@@ -27,10 +27,23 @@ function initResetSelect(){
     });
 }
 
+function initChangeSelect2(){
+    $("#liste_fitnet").on("change", function(e) {
+        var val = $("#liste_fitnet").find(':selected').val();
+        $('#id-fit').val(val);
+        if (val != null) {
+            $('#linker').removeClass('btn-primary').addClass('btn-success');
+            $('#date-debut').attr('readonly','readonly');
+            $('#date-fin').attr('readonly','readonly');
+        }
+    });
+}
+
 function init(){
     initDatePicker();
     initMultiple();
     initcChangeClient();
+    initChangeSelect2();
     initResetSelect();
 
     $('#linkModal').on('show.bs.modal', function (event) {
@@ -73,6 +86,16 @@ function init(){
     });
 }
 
+function updateSelect(data){
+
+}
+
+function eraseSelect(){
+    $('#liste_fitnet option').remove();
+    $('#date-debut').removeAttr('readonly');
+    $('#date-fin').removeAttr('readonly');
+}
+
 function initMultiple(){
     $('.multiple option').mousedown(function(e) {
         e.preventDefault();
@@ -106,6 +129,4 @@ function initMultiple(){
         $(this).parent().prev().val('');
         $(this).parent().prev().keyup();
     });
-
-
 }

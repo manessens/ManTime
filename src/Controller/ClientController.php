@@ -120,7 +120,6 @@ class ClientController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-
     public function getCustomerFitnet(){
         $found = [];
 
@@ -152,7 +151,7 @@ class ClientController extends AppController
                 }
             }
         }
-        
+
         $select2 = array();
         //remise en forme du tableau
         foreach ($found as $value) {
