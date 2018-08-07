@@ -12,6 +12,13 @@ function initDatePicker(){
     });
 }
 
+function initcChangeClient(){
+    $( "#id_client" ).on('change', function (e){
+        var val = $(this).find('option:selected').val();
+        $('#linker').attr('data-whatever',val);
+    }).change();
+}
+
 function initResetSelect(){
     $('#resetter').on('click',function(e){
         $("#liste_fitnet").val(null).trigger("change");
@@ -22,6 +29,7 @@ function initResetSelect(){
 function init(){
     initDatePicker();
     initMultiple();
+    initcChangeClient();
     initResetSelect();
 
     $('#linkModal').on('show.bs.modal', function (event) {
@@ -35,11 +43,11 @@ function init(){
 
     $('#ajax').on('submit',function(e){
         e.preventDefault();
-        var id_agence = $('#linkModal').find('.modal-body select option:selected').val();
+        var id_client = $('#linkModal').find('.modal-body select option:selected').val();
         xhr = $.ajax({
             type: "GET",
-            url: "/client/getCustomerFitnet/",
-            data: { agence: id_agence },
+            url: "/projet/getProjectFitnet/",
+            data: { client: id_client },
             beforeSend: function( xhr ) {
                 $('#loader').show();
                 $('#linkModal').find(".modal-footer button#send").hide();

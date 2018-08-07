@@ -11,7 +11,7 @@
         <div class="input text required">
         <?php
             echo $this->Form->label('idc','Client');
-            echo $this->Form->select('idc', $clientOption);
+            echo $this->Form->select('idc', $clientOption, ['id'=>'id_client']);
         ?>
         </div>
         <!-- FITNET -->
