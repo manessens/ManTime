@@ -15,6 +15,8 @@
 
 $content = explode("\n", $content);
 
+echo "<h3>".$title."</h3>";
+
 foreach ($content as $line) :
     echo '<p> ' . $line . "</p>\n";
 endforeach;

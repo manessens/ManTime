@@ -115,15 +115,9 @@ class UsersController extends AppController
         $role = $this->getRole();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            pr($user['role']);exit;
-            // if ($user['admin']) {
-            //     $user['role'] = 50;
-            // }elseif ($user['role']) {
-            //     $user['role'] = 20;
-            // }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
-
+                $this->test();
                 return $this->redirect(['action' => 'edit', $user->idu]);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
@@ -149,10 +143,11 @@ class UsersController extends AppController
     {
         $userAuth = $this->Auth->identify();
         $email = new Email('default');
-        $email->from([ 'matthias.vincent@manessens.com' => 'My Site'])
+        $email->from([ 'matthias.vincent@manessens.com' => 'ManTime'])
             ->to('matthias.vincent@manessens.com')
-            ->subject('About')
-            ->send('My message');
+            ->subject('Bienvenu sur ManTime')
+            ->viewVars([ 'content' => 'Bienvenu, ceci est un test', 'title'=>'Bienvenu' ])
+            ->send();
         // $email = new Email();
         // $email->transport('default')
         //       ->template('test')
@@ -183,15 +178,11 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id);
         $origineOption = $this->getOrigineOption();
+        $role = $this->getRole();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['prem_connect']) {
                 $user['mdp'] = 'Welcome1!';
-            }
-            if ($user['admin']) {
-                $user['role'] = 50;
-            }elseif ($user['role']) {
-                $user['role'] = 20;
             }
             if ($this->Users->save($user)) {
                 // if ($user['prem_connect']) {
@@ -204,6 +195,7 @@ class UsersController extends AppController
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
+        $this->set(compact('role'));
         $this->set(compact('origineOption'));
     }
 
