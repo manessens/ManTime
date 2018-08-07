@@ -2,6 +2,7 @@ $(function() {
     init();
     $('#liste_fitnet').select2();
 });
+var xhr;
 
 function initDatePicker(){
     $( ".datepicker" ).each(function() {
