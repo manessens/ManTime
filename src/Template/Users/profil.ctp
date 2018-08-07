@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="col-xs-12 new_content content">
+<div class="col-xs-10 new_content content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend>

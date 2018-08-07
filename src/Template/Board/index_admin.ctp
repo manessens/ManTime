@@ -1,6 +1,6 @@
 
 <div class="col-xs-12 new_content content">
-    <h3 class="text-danger"><?= __('Tableau de bord administrateur de ') ?><?=  h($user->fullname); ?></h3>
+    <legend><?= __('Tableau de bord administrateur de ') ?><?=  h($user->fullname); ?></legend>
     <div class="col-xs-10">
         <?= $this->Html->link($this->element(
             'block',

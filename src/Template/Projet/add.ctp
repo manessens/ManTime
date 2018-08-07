@@ -8,6 +8,15 @@
     <?= $this->Form->create($projet) ?>
     <fieldset>
         <legend><?= __('Ajouter un projet') ?></legend>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('idf','Facturable');
+            echo $this->Form->select('idf', $factOption);
+        ?>
+        </div>
+
+        <!-- ADD FITNET -->
+
         <?php
             echo $this->Form->control('nom_projet');
         ?>
@@ -15,12 +24,6 @@
         <?php
             echo $this->Form->label('idc','Client');
             echo $this->Form->select('idc', $clientOption);
-        ?>
-        </div>
-        <div class="input text required">
-        <?php
-            echo $this->Form->label('idf','Facturable');
-            echo $this->Form->select('idf', $factOption);
         ?>
         </div>
         <div class="input text required">

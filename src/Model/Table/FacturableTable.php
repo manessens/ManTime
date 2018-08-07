@@ -48,6 +48,10 @@ class FacturableTable extends Table
             ->allowEmpty('idf', 'create');
 
         $validator
+            ->integer('id_fit')
+            ->allowEmpty('idf', 'create');
+
+        $validator
             ->scalar('nom_fact')
             ->maxLength('nom_fact', 20)
             ->requirePresence('nom_fact', 'create')
