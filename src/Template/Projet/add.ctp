@@ -9,23 +9,33 @@
     <fieldset>
         <legend><?= __('Ajouter un projet') ?></legend>
         <div class="input text required">
-        <?php
-            echo $this->Form->label('idf','Facturable');
-            echo $this->Form->select('idf', $factOption);
-        ?>
         </div>
-
-        <!-- ADD FITNET -->
-
-        <?php
-            echo $this->Form->control('nom_projet');
-        ?>
         <div class="input text required">
         <?php
             echo $this->Form->label('idc','Client');
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
+        <!-- FITNET -->
+        <div class="left">
+            <?php
+                echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+            ?>
+        </div>
+        <div class="left col-xs-10">
+            <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
+            <select name="select_fit" class="col-xs-8" type="text" id="liste_fitnet"></select>
+         </div>
+         <!-- /FITNET/ -->
+        <?php
+            echo $this->Form->control('nom_projet');
+        ?>
+         <?php
+             echo $this->Form->label('idf','Facturable');
+             echo $this->Form->select('idf', $factOption);
+             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
+             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
+         ?>
         <div class="input text required">
         <?php
             echo $this->Form->label('Matrice');
@@ -34,8 +44,6 @@
         </div>
         <?php
             echo $this->Form->control('prix');
-            echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
-            echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
         <div class="input text col-xs-6">
         <?php
@@ -70,4 +78,34 @@
     <?= $this->Form->end() ?>
 </div>
 
+<!-- addtional style and script for this page only -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <?php echo $this->Html->script('ManTime/man.projet.js'); ?>
+<?php echo $this->Html->css('ManTime/man.loader.css'); ?>
+<!-- modal link with fitnet -->
+<div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="ajax">
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Agence:</label>
+              <?php echo $this->Form->select('id_agence', $agenceOption); ?>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+          <button type="submit" id="send" class="btn btn-primary">Rechercher</button>
+          <div class="loader btn" style="display:none;" id="loader"> </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

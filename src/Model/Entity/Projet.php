@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $idp
  * @property string $nom_projet
+ * @property int $id_fit
  * @property int $idc
  * @property int $idm
  * @property \Cake\I18n\FrozenTime $date_debut
@@ -34,6 +35,7 @@ class Projet extends Entity
      */
     protected $_accessible = [
         'nom_projet' => true,
+        'id_fit' => true,
         'idc' => true,
         'date_debut' => true,
         'date_fin' => true,

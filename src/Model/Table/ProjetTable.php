@@ -71,6 +71,10 @@ class ProjetTable extends Table
             ->allowEmpty('idp', 'create');
 
         $validator
+            ->integer('id_fit')
+            ->allowEmpty('id_fit');
+
+        $validator
             ->scalar('nom_projet')
             ->maxLength('nom_projet', 50)
             ->requirePresence('nom_projet', 'create')

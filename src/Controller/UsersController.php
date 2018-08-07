@@ -117,7 +117,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
-                $this->test();
+                // $this->test();
                 return $this->redirect(['action' => 'edit', $user->idu]);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
