@@ -397,7 +397,7 @@ class ProjetController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete','getProjectFitnet']) && $user['role'] >= 50 ) {
             return true;
         }
 
