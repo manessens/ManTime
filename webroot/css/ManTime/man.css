@@ -77,6 +77,9 @@
 .text-warning{
     color: #f0ad4e !important;
 }
+.text-default{
+    color: #111111 !important;
+}
 
 .tag_role{
     width: 130px !important;

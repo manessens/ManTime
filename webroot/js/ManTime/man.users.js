@@ -22,10 +22,33 @@ function initEmailModal(){
     })
 }
 
+function initSelectRole(){
+    $('select[name="role"] option').addClass('text-default');
+    $('select[name="role"] option[value="20"]').removeClass('text-default').addClass('text-primary');
+    $('select[name="role"] option[value="50"]').removeClass('text-default').addClass('text-danger');
+    $('select[name="role"]').on('change',function(){
+        var select = $(this);
+        switch (select.val()) {
+            case 50:
+                select.removeClass()
+                select.addClass('text-danger')
+                break;
+            case 20:
+                select.removeClass()
+                select.addClass('text-primary')
+                break;
+            default:
+                select.removeClass()
+        }
+    })
+}
+
 function init(){
     initResetPswd();
     initResetFitnet();
     initEmailModal();
+    initSelectRole();
+
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
       var recipient = button.attr('data-whatever')// Extract info from data-* attributes
