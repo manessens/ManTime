@@ -2,7 +2,7 @@
 .bottom_fix{
   display: none;
   position: fixed;
-  bottom: 107px;
+  bottom: 57px;
   right: 60px;
   z-index: 99;
 }
