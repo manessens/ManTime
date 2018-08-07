@@ -40,7 +40,7 @@ function initSelectRole(){
             default:
                 select.removeClass()
         }
-    })
+    }).change()
 }
 
 function init(){
