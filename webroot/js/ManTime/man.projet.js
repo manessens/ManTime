@@ -1,5 +1,6 @@
 $(function() {
     init();
+    $('#liste_fitnet').select2();
 });
 
 function initDatePicker(){
@@ -11,9 +12,17 @@ function initDatePicker(){
     });
 }
 
+function initResetSelect(){
+    $('#resetter').on('click',function(e){
+        $("#liste_fitnet").val(null).trigger("change");
+        $('#linker').removeClass('btn-success').addClass('btn-primary');
+    });
+}
+
 function init(){
     initDatePicker();
     initMultiple();
+    initResetSelect();
 
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal

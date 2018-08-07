@@ -9,15 +9,13 @@
     <fieldset>
         <legend><?= __('Ajouter un projet') ?></legend>
         <div class="input text required">
-        </div>
-        <div class="input text required">
         <?php
             echo $this->Form->label('idc','Client');
             echo $this->Form->select('idc', $clientOption);
         ?>
         </div>
         <!-- FITNET -->
-        <div class="block">
+        <div class="col-xs-12">
             <div class="left">
                 <?php echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
             </div>
@@ -25,36 +23,34 @@
                 <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
                 <select name="select_fit" type="text" id="liste_fitnet"></select>
             </div>
-            <div class="right">
+            <div class="left">
                 <button type="button" id="linker" class="btn <?php echo $projet->id_fit>0?"btn-success":"btn-primary"; ?>"
                      data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
                 <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
             </div>
          </div>
          <!-- /FITNET/ -->
-        <?php
-            echo $this->Form->control('nom_projet');
-        ?>
          <?php
-             echo $this->Form->label('idf','Facturable');
-             echo $this->Form->select('idf', $factOption);
-             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
-             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
+            echo $this->Form->control('nom_projet');
+            echo $this->Form->label('idf','Facturable');
+            echo $this->Form->select('idf', $factOption);
+            echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
+            echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
          ?>
         <div class="input text required">
-        <?php
-            echo $this->Form->label('Matrice');
-            echo $this->Form->select('idm', $matricesOption, ['value'=>10]);
-        ?>
+            <?php
+                echo $this->Form->label('Matrice');
+                echo $this->Form->select('idm', $matricesOption, ['value'=>10]);
+            ?>
         </div>
         <?php
             echo $this->Form->control('prix');
         ?>
         <div class="input text col-xs-6">
-        <?php
-            echo $this->Form->label('participant','Participants');
-            echo $this->Form->select('participant', $participants, ['multiple' => true , 'value' => $myParticipants, 'class' => 'multiple form-control']);
-        ?>
+            <?php
+                echo $this->Form->label('participant','Participants');
+                echo $this->Form->select('participant', $participants, ['multiple' => true , 'value' => $myParticipants, 'class' => 'multiple form-control']);
+            ?>
             <div class="input-group">
                 <input type="text" id='search_participant' class="form-control" placeholder="Search">
                 <div class="input-group-btn">
@@ -65,10 +61,10 @@
             </div>
         </div>
         <div class="input text col-xs-6">
-        <?php
-            echo $this->Form->label('activities','Activités');
-            echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple form-control']);
-        ?>
+            <?php
+                echo $this->Form->label('activities','Activités');
+                echo $this->Form->select('activities', $activities, ['multiple' => true , 'value' => $myActivities, 'class' => 'multiple form-control']);
+            ?>
             <div class="input-group">
                 <input type="text" id='search_activit' class="form-control" placeholder="Search">
                 <div class="input-group-btn">
@@ -102,7 +98,7 @@
         <div class="modal-body">
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Agence:</label>
-              <?php echo $this->Form->select('id_agence', $agenceOption); ?>
+              <?php echo $this->Form->select('idc', $clientOption); ?>
             </div>
         </div>
         <div class="modal-footer">
