@@ -17,12 +17,14 @@
         ?>
         </div>
         <!-- FITNET -->
-        <div class="left col-xs-11">
+        <div class="block">
             <div class="left">
                 <?php echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
             </div>
-            <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
-            <select name="select_fit" class="col-xs-8" type="text" id="liste_fitnet"></select>
+            <div class="col-xs-8">
+                <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
+                <select name="select_fit" type="text" id="liste_fitnet"></select>
+            </div>
          </div>
          <!-- /FITNET/ -->
         <?php
