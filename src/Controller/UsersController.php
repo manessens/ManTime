@@ -140,7 +140,7 @@ class UsersController extends AppController
             1 => 'Sous-traitant',
             20 => 'Chef de projet',
             50 => 'Admin'
-        ]
+        ];
 
         return $roles;
     }
