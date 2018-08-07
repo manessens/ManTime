@@ -146,6 +146,7 @@ class UsersController extends AppController
         $email->from([ 'matthias.vincent@manessens.com' => 'ManTime'])
             ->to('matthias.vincent@manessens.com')
             ->subject('Bienvenu sur ManTime')
+            ->template('default')
             ->viewVars([ 'content' => 'Bienvenu, ceci est un test', 'title'=>'Bienvenu' ])
             ->send();
         // $email = new Email();
