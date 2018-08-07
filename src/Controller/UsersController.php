@@ -112,13 +112,15 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         $origineOption = $this->getOrigineOption();
+        $role = $this->getRole();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($user['admin']) {
-                $user['role'] = 50;
-            }elseif ($user['role']) {
-                $user['role'] = 20;
-            }
+            pr($user['role']);exit;
+            // if ($user['admin']) {
+            //     $user['role'] = 50;
+            // }elseif ($user['role']) {
+            //     $user['role'] = 20;
+            // }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
@@ -127,7 +129,20 @@ class UsersController extends AppController
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
         $this->set(compact('user'));
+        $this->set(compact('role'));
         $this->set(compact('origineOption'));
+    }
+
+    private function getRole(){
+        $roles = array();
+        $roles = [
+            0 => 'Consultant',
+            1 => 'Sous-traitant',
+            20 => 'Chef de projet',
+            50 => 'Admin'
+        ]
+
+        return $roles;
     }
 
     private function test()
