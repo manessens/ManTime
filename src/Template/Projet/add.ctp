@@ -25,6 +25,11 @@
                 <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
                 <select name="select_fit" type="text" id="liste_fitnet"></select>
             </div>
+            <div class="right">
+                <button type="button" id="linker" class="btn <?php echo $client->id_fit>0?"btn-success":"btn-primary"; ?>"
+                     data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
+                <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
+            </div>
          </div>
          <!-- /FITNET/ -->
         <?php
