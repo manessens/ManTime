@@ -87,7 +87,17 @@ function init(){
 }
 
 function updateSelect(data){
-
+    eraseSelect();
+    $('#liste_fitnet').select2({
+        data: data
+    });
+    var id_fit = $('#id-fit').val();
+    if (id_fit != null) {
+        $('#liste_fitnet').val(id_fit);
+        $('#liste_fitnet').trigger('change'); // Notify any JS components that the value changed
+    }else{
+        $("#liste_fitnet").change();
+    }
 }
 
 function eraseSelect(){
