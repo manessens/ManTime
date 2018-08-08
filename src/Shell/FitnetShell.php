@@ -22,7 +22,7 @@ class FitnetShell extends Shell
         }
 
         $projet = new ProjetController();
-        $projet->constructClasses();
+        // $projet->constructClasses();
         $found = $projet->getProjectFitnet();
 
         // $this->out(print_r($found, true));
