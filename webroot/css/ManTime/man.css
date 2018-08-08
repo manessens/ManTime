@@ -47,7 +47,7 @@
 .weeker{
     width: 420px;
 }
-
+/* BOOTSTRAP ++ */
 .back-basic{
     background-color: #e0e0e0 !important;
 }
@@ -65,6 +65,27 @@
 }
 .back-primary{
     background-color: #337ab7 !important;
+}
+
+.alert-success{
+    color: #3c763d !important;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6 !important;
+}
+.alert-danger{
+    color: #a94442 !important;
+    background-color: #f2dede !important;
+    border-color: #ebccd1 !important;
+}
+.alert-info{
+    color: #31708f !important;
+    background-color: #d9edf7 !important;
+    border-color: #bce8f1 !important;
+}
+.alert-warning{
+    color: #8a6d3b !important;
+    background-color: #fcf8e3 !important;
+    border-color: #faebcc !important;
 }
 
 .text-danger{
