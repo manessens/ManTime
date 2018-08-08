@@ -11,7 +11,7 @@ function inti(){
         $( this ).attr('type', 'date');
     });
 
-    $('#export_fitnet').on('click', fucntion(e){
+    $('#export_fitnet').on('click', function(e){
         $('form').attr('action','/index.php/exportFitnet/exportFitnet');
         $('form').submit();
     })
