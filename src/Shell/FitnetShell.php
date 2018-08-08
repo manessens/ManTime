@@ -2,6 +2,7 @@
 namespace App\Shell;
 
 use Cake\Console\Shell;
+use Cake\Core\App;
 
 App::import('Controller', 'Temps');
 
