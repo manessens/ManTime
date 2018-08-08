@@ -1,6 +1,7 @@
 $(function() {
     init();
     $('#liste_fitnet').select2();
+    initSelectEdit();
 });
 var xhr;
 
@@ -29,6 +30,14 @@ function initResetSelect(){
         $("#liste_fitnet").val(null).trigger("change");
         $('#linker').removeClass('btn-success').addClass('btn-primary');
     });
+}
+
+function initSelectEdit(){
+    if ($('#id-fit').val() != null) {
+        var value = $('#linker').attr('data-whatever');
+        $('#linkModal').find('.modal-body select option[value='+value+']').prop('selected', true);
+        $('#ajax').submit();
+    }
 }
 
 function initChangeSelect2(){
