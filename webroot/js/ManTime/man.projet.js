@@ -40,8 +40,9 @@ function initChangeSelect2(){
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
 
-            $('#date-debut').val(moment(extandData[val], "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
-            $('#date-fin').val(moment(extandData[val], "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#date-debut').val(moment(extandData[val].beginDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#date-fin').val(moment(extandData[val].endDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#nom-projet').val(extandData[val].title);
         }
     });
 }
