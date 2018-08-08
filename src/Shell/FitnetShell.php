@@ -24,7 +24,8 @@ class FitnetShell extends Shell
         $projet = new ProjetController();
         $found = $projet->getProjectFitnet($this->args[0]);
 
-        // $this->out(print_r($found, true));
+        $this->out(print_r($this->args[0], true));
+        $this->out(print_r($found, true));
         $this->createFile('report.json', $found);
 
         // $user = $this->Users->findByEmail($this->args[0])->first();
