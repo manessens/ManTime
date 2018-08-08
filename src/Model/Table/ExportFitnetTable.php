@@ -70,16 +70,11 @@ class ExportFitnetTable extends Table
             ->maxLength('etat', 10)
             ->requirePresence('etat', 'create')
             ->notEmpty('etat');
-
-        $validator
-            ->dateTime('date_create')
-            ->requirePresence('date_create', 'create')
-            ->notEmpty('date_create');
-
-        $validator
-            ->dateTime('date_update')
-            ->requirePresence('date_update', 'create')
-            ->notEmpty('date_update');
+        // 
+        // $validator
+        //     ->dateTime('date_create')
+        //     ->requirePresence('date_create', 'create')
+        //     ->notEmpty('date_create');
 
         return $validator;
     }

@@ -13,95 +13,50 @@ use App\Controller\AppController;
 class ExportFitnetController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|void
-     */
-    public function index()
-    {
-        $exportFitnet = $this->paginate($this->ExportFitnet);
+    public function getProjectFitnetShell($id = null){
+        $found = [];
 
-        $this->set(compact('exportFitnet'));
-    }
+        $id_client = $id;
+        if ($id_client != null) {
 
-    /**
-     * View method
-     *
-     * @param string|null $id Export Fitnet id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $exportFitnet = $this->ExportFitnet->get($id, [
-            'contain' => []
-        ]);
+            // récupération des id company fitnet
+            $clientTable = TableRegistry::get('Client');
+            $client = $clientTable->get($id_client, [
+                'contain' => ['Agence']
+            ]);
+            $id_fit = $client->agence->id_fit;
 
-        $this->set('exportFitnet', $exportFitnet);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $exportFitnet = $this->ExportFitnet->newEntity();
-        if ($this->request->is('post')) {
-            $exportFitnet = $this->ExportFitnet->patchEntity($exportFitnet, $this->request->getData());
-            if ($this->ExportFitnet->save($exportFitnet)) {
-                $this->Flash->success(__('The export fitnet has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            // séparation des id_agence fitnet
+            $ids = explode(';', $id_fit);
+            foreach($ids as $id){
+                if ($id != "") {
+                    // appel de la requête
+                    $result = $this->getFitnetLink("/FitnetManager/rest/projects/".$id);
+                    // décode du résultat json
+                    $vars = json_decode($result, true);
+                    // sauvegarde des résultats trouvés
+                    $found = array_merge($found, $vars);
+                }
             }
-            $this->Flash->error(__('The export fitnet could not be saved. Please, try again.'));
         }
-        $this->set(compact('exportFitnet'));
-    }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Export Fitnet id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $exportFitnet = $this->ExportFitnet->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $exportFitnet = $this->ExportFitnet->patchEntity($exportFitnet, $this->request->getData());
-            if ($this->ExportFitnet->save($exportFitnet)) {
-                $this->Flash->success(__('The export fitnet has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+        $select2 = ['select' => array(), 'projects' => array()];
+        //remise en forme du tableau
+        foreach ($found as $value) {
+            if ($value['customer'] == $client->id_fit or $client->id_fit == null) {
+                $select2['select'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
+                $select2['projects'][$value['forfaitId']]=$value;
             }
-            $this->Flash->error(__('The export fitnet could not be saved. Please, try again.'));
-        }
-        $this->set(compact('exportFitnet'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Export Fitnet id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $exportFitnet = $this->ExportFitnet->get($id);
-        if ($this->ExportFitnet->delete($exportFitnet)) {
-            $this->Flash->success(__('The export fitnet has been deleted.'));
-        } else {
-            $this->Flash->error(__('The export fitnet could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($select2);
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
     }
+
 }

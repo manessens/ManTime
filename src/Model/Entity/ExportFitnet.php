@@ -12,8 +12,6 @@ use Cake\ORM\Entity;
  * @property int $idc
  * @property int $idu
  * @property string $etat
- * @property \Cake\I18n\FrozenTime $date_create
- * @property \Cake\I18n\FrozenTime $date_update
  */
 class ExportFitnet extends Entity
 {
@@ -32,8 +30,6 @@ class ExportFitnet extends Entity
         'date_fin' => true,
         'idc' => true,
         'idu' => true,
-        'etat' => true,
-        'date_create' => true,
-        'date_update' => true
+        'etat' => true
     ];
 }

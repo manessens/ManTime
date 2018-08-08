@@ -2,7 +2,7 @@
 namespace App\Shell;
 
 use Cake\Console\Shell;
-use App\Controller\ProjetController;
+use App\Controller\ExportFitnetController;
 
 class FitnetShell extends Shell
 {
@@ -10,7 +10,7 @@ class FitnetShell extends Shell
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Users');
+        // $this->loadModel('Users');
         $this->loadModel('Client');
     }
 
@@ -21,11 +21,9 @@ class FitnetShell extends Shell
             return $this->abort("Merci de saisir un id de projet.");
         }
 
-        $projet = new ProjetController();
+        $projet = new ExportFitnetController();
         $found = $projet->getProjectFitnetShell($this->args[0]);
 
-        $this->out(print_r($this->args[0], true));
-        $this->out(print_r($found, true));
         $this->createFile('report.json', $found);
 
         // $user = $this->Users->findByEmail($this->args[0])->first();
