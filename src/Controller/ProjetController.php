@@ -222,6 +222,7 @@ class ProjetController extends AppController
             if ($id_client == null && $id != null) {
                 $id_client = $id;
             }
+            return $id_client;
             if ($id_client != "") {
 
                 // récupération des id company fitnet
