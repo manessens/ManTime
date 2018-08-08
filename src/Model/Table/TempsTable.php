@@ -49,6 +49,14 @@ class TempsTable extends Table
         $this->belongsTo('Matrice', [
             'foreignKey' => 'idm'
         ]);
+        
+        $this->addBehavior('Timestamp', [
+           'events' => [
+               'Model.beforeSave' => [
+                   'last_update' => 'always',
+               ]
+           ]
+       ]);
     }
 
     /**
