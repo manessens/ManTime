@@ -14,7 +14,11 @@ class ExportFitnetController extends AppController
 {
 
     public function exportFitnet(){
-        $this->Flash->info(__('Export vers fitnet programmer, vous pouvez suivre son avancement depuis le suivie des exports.'));
+
+        if ($this->request->is(['post'])) {
+            
+        }
+        $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
         return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
     }
 
