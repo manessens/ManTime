@@ -24,7 +24,9 @@ function initcChangeClient(){
 }
 
 function initResetSelect(){
-    $('#resetter').on('click',resetFitnet);
+    $('#resetter').on('click',function(e){
+        $("#liste_fitnet").val(null).trigger("change");
+    });
 }
 
 function initSelectEdit(){
@@ -56,7 +58,6 @@ function initChangeSelect2(){
 function resetFitnet(){
     $('#date-debut').removeAttr('readonly');
     $('#date-fin').removeAttr('readonly');
-    $("#liste_fitnet").val(null).trigger("change");
     $('#linker').removeClass('btn-success').addClass('btn-primary');
 }
 
