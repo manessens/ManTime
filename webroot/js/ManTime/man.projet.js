@@ -4,6 +4,8 @@ $(function() {
 });
 var xhr;
 
+var extandData;
+
 function initDatePicker(){
     $( ".datepicker" ).each(function() {
         if ($( this ).attr('value').length > 10) {
@@ -21,6 +23,8 @@ function initcChangeClient(){
 }
 
 function initResetSelect(){
+    $('#date-debut').removeAttr('readonly');
+    $('#date-fin').removeAttr('readonly');
     $('#resetter').on('click',function(e){
         $("#liste_fitnet").val(null).trigger("change");
         $('#linker').removeClass('btn-success').addClass('btn-primary');
@@ -35,6 +39,9 @@ function initChangeSelect2(){
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
+
+            $('#date-debut').val(moment(extandData[val], "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#date-fin').val(moment(extandData[val], "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
         }
     });
 }
@@ -47,12 +54,12 @@ function init(){
     initResetSelect();
 
     $('#linkModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.attr('data-whatever')// Extract info from data-* attributes
-      var modal = $(this);
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.attr('data-whatever')// Extract info from data-* attributes
+        var modal = $(this);
 
-      modal.find('.modal-title').text('Obtenir la liste fitnet des projets')
-      modal.find('.modal-body select option[value='+recipient+']').prop('selected', true);
+        modal.find('.modal-title').text('Obtenir la liste fitnet des projets')
+        modal.find('.modal-body select option[value='+recipient+']').prop('selected', true);
     });
 
     $('#ajax').on('submit',function(e){
@@ -67,8 +74,9 @@ function init(){
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data) ) {    //success
+            if ( !jQuery.isEmptyObject(data['select'])) ) {    //success
                 updateSelect(data['select']);
+                extandData = data['projects'];
             }else{                                  // fail
                 eraseSelect();
             }
@@ -102,8 +110,7 @@ function updateSelect(data){
 
 function eraseSelect(){
     $('#liste_fitnet option').remove();
-    $('#date-debut').removeAttr('readonly');
-    $('#date-fin').removeAttr('readonly');
+    extandData = [];
 }
 
 function initMultiple(){

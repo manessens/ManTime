@@ -246,8 +246,10 @@ class ProjetController extends AppController
         $select2 = ['select' => array(), 'projects' => array()];
         //remise en forme du tableau
         foreach ($found as $value) {
-            $select2['select'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
-            $select2['projects'][]=$value;
+            if ($value['customer'] == $client->id_fit or $client->id_fit == null) {
+                $select2['select'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
+                $select2['projects'][$value['forfaitId']]=$value;
+            }
         }
 
         // réencodage pour renvoie au script ajax
