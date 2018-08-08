@@ -3,6 +3,9 @@ namespace App\Shell;
 
 use Cake\Console\Shell;
 
+App::import('Controller', 'Temps');
+
+
 class FitnetShell extends Shell
 {
 
@@ -16,10 +19,13 @@ class FitnetShell extends Shell
     {
         // $this->out('Hello world.');
         if (empty($this->args[0])) {
-            // Utilisez error() avant CakePHP 3.2
             return $this->abort("Merci de rentrer un nom d'utilisateur.");
         }
         $user = $this->Users->findByEmail($this->args[0])->first();
-        $this->out(print_r($user, true));
+        // $this->out(print_r($user, true));
+        $tempsController = new TempsController();
+        $tempsController->constructClasses(); //I needed this in here for more complicated requiring component loads etc in the Controller
+        $tempsController->test();
+        $this->createFile('report.json', json_encode($user));
     }
 }

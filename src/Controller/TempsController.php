@@ -949,6 +949,10 @@ class TempsController extends AppController
         return mb_convert_encoding($string, "ISO-8859-1");
     }
 
+    public function test(){
+        echo "mon test à moi";
+    }
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
