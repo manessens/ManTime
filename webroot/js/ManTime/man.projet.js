@@ -24,12 +24,7 @@ function initcChangeClient(){
 }
 
 function initResetSelect(){
-    $('#date-debut').removeAttr('readonly');
-    $('#date-fin').removeAttr('readonly');
-    $('#resetter').on('click',function(e){
-        $("#liste_fitnet").val(null).trigger("change");
-        $('#linker').removeClass('btn-success').addClass('btn-primary');
-    });
+    $('#resetter').on('click',resetFitnet);
 }
 
 function initSelectEdit(){
@@ -52,8 +47,17 @@ function initChangeSelect2(){
             $('#date-debut').val(moment(extandData[val].beginDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
             $('#date-fin').val(moment(extandData[val].endDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
             $('#nom-projet').val(extandData[val].title);
+        }else{
+            resetFitnet();
         }
     });
+}
+
+function resetFitnet(){
+    $('#date-debut').removeAttr('readonly');
+    $('#date-fin').removeAttr('readonly');
+    $("#liste_fitnet").val(null).trigger("change");
+    $('#linker').removeClass('btn-success').addClass('btn-primary');
 }
 
 function init(){
