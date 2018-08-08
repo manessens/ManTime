@@ -33,7 +33,7 @@
         <div class="col-xs-6">
             <div class="right control_export">
                 <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
-                <?= $this->Form->button(__('Export Fitnet'), ['type'=>'button', 'class'=>'right btn btn-warning']) ?>
+                <?= $this->Form->button(__('Export Fitnet'), ['type'=>'button', 'class'=>'right btn btn-warning', 'id'=>'export_fitnet']) ?>
             </div>
         </div>
     </fieldset>
