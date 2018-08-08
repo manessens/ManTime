@@ -74,7 +74,7 @@ function init(){
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data['select'])) ) {    //success
+            if ( !jQuery.isEmptyObject(data['select']) ) {    //success
                 updateSelect(data['select']);
                 extandData = data['projects'];
             }else{                                  // fail
