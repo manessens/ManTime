@@ -27,7 +27,6 @@ class FitnetShell extends Shell
         $found = [];
 
         // récupération des id company fitnet
-        $clientTable = TableRegistry::get('Client');
         $client = $this->Client->findByIdc($id_client, [
             'contain' => ['Agence']
         ]);
