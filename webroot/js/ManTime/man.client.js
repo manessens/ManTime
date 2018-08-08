@@ -33,7 +33,8 @@ function initResetSelect(){
 
 function initSelectEdit(){
     if ($('#liste_fitnet').val() != null) {
-        $('#linkModal').find('.modal-body select option[value='+$('#linker').attr('data-whatever')+']').prop('selected', true);
+        var value = $('#linker').attr('data-whatever');
+        $('#linkModal').find('.modal-body select option[value='+value+']').prop('selected', true);
         $('#ajax').submit();
     }
 }
