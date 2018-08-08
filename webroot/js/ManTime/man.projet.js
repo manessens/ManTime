@@ -76,8 +76,8 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data['select']) ) {    //success
-                updateSelect(data['select']);
                 extandData = data['projects'];
+                updateSelect(data['select']);
             }else{                                  // fail
                 eraseSelect();
             }
