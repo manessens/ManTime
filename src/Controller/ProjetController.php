@@ -242,6 +242,8 @@ class ProjetController extends AppController
                 }
             }
         }
+        pr($result);
+        pr($vars);exit;
 
         $select2 = ['select' => array(), 'projects' => array()];
         //remise en forme du tableau
