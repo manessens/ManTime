@@ -92,6 +92,8 @@ function init(){
         if (xhr != undefined) {
             xhr.abort();
         }
+        $('#loader').hide();
+        $('#linkModal').find(".modal-footer button#send").show();
     });
 }
 
