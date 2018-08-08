@@ -64,4 +64,15 @@ class ExportFitnetController extends AppController
         return $this->response;
     }
 
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+
+        if (in_array($action, ['exportFitnet']) && $user['role'] >= 50 ) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
