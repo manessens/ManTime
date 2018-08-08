@@ -76,8 +76,7 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data['select']) ) {    //success
-                extandData = data['projects'];
-                updateSelect(data['select']);
+                updateSelect(data);
             }else{                                  // fail
                 eraseSelect();
             }
@@ -100,8 +99,9 @@ function init(){
 function updateSelect(data){
     eraseSelect();
     $('#liste_fitnet').select2({
-        data: data
+        data: data['select']
     });
+    extandData = data['projects'];
     var id_fit = $('#id-fit').val();
     if (id_fit != null) {
         $('#liste_fitnet').val(id_fit);
