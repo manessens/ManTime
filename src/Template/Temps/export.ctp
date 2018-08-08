@@ -31,7 +31,7 @@
         ?>
         </div>
         <div class="col-xs-6">
-            <div class="control_export">
+            <div class="right control_export">
                 <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
                 <?= $this->Form->button(__('Export Fitnet'), ['type'=>'button', 'class'=>'right btn btn-warning']) ?>
             </div>
