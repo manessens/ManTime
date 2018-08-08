@@ -104,11 +104,6 @@ class ProjetTable extends Table
             ->notEmpty('date_debut');
 
         $validator
-            ->dateTime('last_update')
-            ->requirePresence('last_update', 'create')
-            ->allowEmpty('last_update');
-
-        $validator
             ->dateTime('date_fin')
             ->requirePresence('date_fin', 'create')
             ->notEmpty('date_fin');
