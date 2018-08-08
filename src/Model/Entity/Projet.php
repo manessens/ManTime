@@ -46,6 +46,7 @@ class Projet extends Entity
         'facturable' => true,
         'idm' => true,
         'matrice' => true,
-        'prix' => true
+        'prix' => true,
+        'last_update' => true
     ];
 }

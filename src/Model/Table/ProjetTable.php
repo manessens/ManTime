@@ -56,6 +56,14 @@ class ProjetTable extends Table
         $this->belongsTo('Matrice', [
             'foreignKey' => 'idm'
         ]);
+
+        $this->addBehavior('Timestamp', [
+           'events' => [
+               'Model.beforeSave' => [
+                   'last_update' => 'always',
+               ]
+           ]
+       ]);
     }
 
     /**
@@ -94,6 +102,11 @@ class ProjetTable extends Table
             ->dateTime('date_debut')
             ->requirePresence('date_debut', 'create')
             ->notEmpty('date_debut');
+
+        $validator
+            ->dateTime('last_update')
+            ->requirePresence('last_update', 'create')
+            ->allowEmpty('last_update');
 
         $validator
             ->dateTime('date_fin')
