@@ -3,7 +3,7 @@ namespace App\Shell;
 
 use Cake\Console\Shell;
 
-class HelloShell extends Shell
+class FitnetShell extends Shell
 {
 
     public function initialize()
@@ -14,10 +14,7 @@ class HelloShell extends Shell
 
     public function main()
     {
-        $this->out('Hello world.');
-    }
-
-    public function show(){
+        // $this->out('Hello world.');
         if (empty($this->args[0])) {
             // Utilisez error() avant CakePHP 3.2
             return $this->abort("Merci de rentrer un nom d'utilisateur.");
