@@ -25,7 +25,7 @@ class ProjetController extends AppController
         $this->paginate = [
             'contain'   => ['Client', 'Matrice', 'Facturable'],
             'sortWhitelist' => [
-                'Client.nom_client', 'Projet.nom_projet', 'Facturable.nom_fact', 'Matrice.nom_matrice', 'Projet.prix', 'Projet.date_debut', 'Projet.date_fin'
+                'Client.nom_client', 'Projet.nom_projet', 'Projet.id_fit', 'Facturable.nom_fact', 'Matrice.nom_matrice', 'Projet.prix', 'Projet.date_debut', 'Projet.date_fin'
             ],
             'order' => [
                 'Client.nom_client' => 'asc'

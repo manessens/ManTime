@@ -25,7 +25,7 @@ class ClientController extends AppController
         $this->paginate =[
             'contain'   => ['Agence'],
             'sortWhitelist' => [
-                'Client.nom_client', 'Agence.nom_agence'
+                'Client.nom_client', 'Client.id_fit','Agence.nom_agence'
             ],
             'order'     => ['Client.nom_client'=>'asc']
         ];

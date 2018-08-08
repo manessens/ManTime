@@ -11,9 +11,10 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Client.nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Projet.nom_projet','Projet') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Projet.id_fit','Fitnet') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Facturable.nom_fact','Facturable') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Matrice.nom_matrice','Matrice') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Projet.prix','prix UO (€)') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Projet.prix','prix UO (€)') ?></th>
                 <th class="date" scope="col"><?= $this->Paginator->sort('Projet.date_debut','Date de début') ?></th>
                 <th class="date" scope="col"><?= $this->Paginator->sort('Projet.date_fin','Date de fin') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -24,6 +25,7 @@
             <tr>
                 <td><?= h($projet->client->nom_client) ?></td>
                 <td><?= h($projet->nom_projet) ?></td>
+                <td><?= $this->element('link2fitnet', ['idf'=>$projet->id_fit]) ?></td>
                 <td><?= h($projet->facturable->nom_fact) ?></td>
                 <td><?= h($projet->matrice->nom_matrice) ?></td>
                 <td><?= $this->Number->format($projet->prix) ?></td>
