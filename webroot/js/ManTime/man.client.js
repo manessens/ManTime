@@ -35,7 +35,9 @@ function initSelectEdit(){
     if ($('#liste_fitnet').val() != null) {
         var value = $('#linker').attr('data-whatever');
         $('#linkModal').find('.modal-body select option[value='+value+']').prop('selected', true);
+        console.log("before ajax");
         $('#ajax').submit();
+        console.log("after ajax");
     }
 }
 
