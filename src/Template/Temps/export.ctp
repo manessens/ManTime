@@ -30,7 +30,7 @@
             echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export avec niveau de détail au jour']);
         ?>
         </div>
-        <div class="right col-xs-4">
+        <div class="right control_export">
             <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
             <?= $this->Form->button(__('Export Fitnet'), ['type'=>'button', 'class'=>'right btn btn-warning']) ?>
         </div>

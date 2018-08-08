@@ -5,6 +5,11 @@
 .checkboxU{
     width: 220px !important;
 }
+
+.control_export{
+    width: 260px;
+}
+
 /*  Adjustement for select2 */
 .select2-selection{
     height: 37px !important;
