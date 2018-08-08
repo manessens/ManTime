@@ -2,6 +2,7 @@
 namespace App\Shell;
 
 use Cake\Console\Shell;
+use Cake\Controller\TempsController;
 
 class FitnetShell extends Shell
 {
@@ -10,7 +11,6 @@ class FitnetShell extends Shell
     {
         parent::initialize();
         $this->loadModel('Users');
-        $this->loadController('Temps');
     }
 
     public function main()
