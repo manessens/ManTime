@@ -17,6 +17,7 @@ class ExportFitnetController extends AppController
 
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
+            pr($arrayData);exit;
         }
         $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
         return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
