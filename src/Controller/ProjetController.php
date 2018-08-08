@@ -209,7 +209,7 @@ class ProjetController extends AppController
         return true;
     }
 
-    public function getProjectFitnet(){
+    public function getProjectFitnet($id = null){
         $found = [];
 
         if( $this->request->is('ajax') ) {
@@ -219,6 +219,9 @@ class ProjetController extends AppController
         if ($this->request->is(['get'])) {
 
             $id_client = $this->request->query["client"];
+            if ($id_client == null && $id != null) {
+                $id_client = $id;
+            }
             if ($id_client != "") {
 
                 // récupération des id company fitnet
