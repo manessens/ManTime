@@ -12,6 +12,17 @@ use App\Controller\AppController;
  */
 class ExportFitnetController extends AppController
 {
+    public function index(){
+    //     $this->paginate =[
+    //         'contain'   => ['Agence'],
+    //         'sortWhitelist' => [
+    //             'Client.nom_client', 'Client.id_fit','Agence.nom_agence'
+    //         ],
+    //         'order'     => ['Client.nom_client'=>'asc']
+    //     ];
+    //     $this->set('client', $this->paginate($this->Client));
+    //     $this->set(compact('client'));
+    }
 
     public function exportFitnet(){
 
