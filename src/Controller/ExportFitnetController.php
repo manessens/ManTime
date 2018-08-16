@@ -52,8 +52,8 @@ class ExportFitnetController extends AppController
             }
 
         }
-        
-        $this -> render('Temps/export');
+
+        $this->viewBuilder()->template('Temps/export');
         $this->set(compact('export'));
         // return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
     }
