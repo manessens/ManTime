@@ -12,7 +12,7 @@ function inti(){
     });
 
     $('#export_fitnet').on('click', function(e){
-        $('form').attr('action','/index.php/exportFitnet/exportFitnet');
+        $('form').attr('action','/exportFitnet/export');
         $('form').submit();
     })
 }

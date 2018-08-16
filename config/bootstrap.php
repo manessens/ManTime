@@ -84,6 +84,13 @@ Configure::write(array(
     'fitnet.base'=>'https://evaluation.fitnetmanager.com/'
 ));
 
+Configure::write([
+    'fitnet.wait'=>'En attente',
+    'fitnet.end'=>'Terminé',
+    'fitnet.run'=>'En cours',
+    'fitnet.err'=>'En erreur'
+]);
+
 
 /*
  * When debug = true the metadata cache should only last

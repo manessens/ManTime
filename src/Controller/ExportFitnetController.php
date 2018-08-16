@@ -31,9 +31,24 @@ class ExportFitnetController extends AppController
         return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
     }
 
-    public function exportFitnet(){
+    public function export(){
 
         $form = new ExportForm();
+        $clientTable = TableRegistry::get('Client');
+        $arrayClient = $clientTable->find('all')->contain(['Agence'])->toArray();
+        $clients = array();
+        $agenceClient = array();
+        foreach ($arrayClient as $client) {
+            $clients[$client->idc] = ucfirst($client->nom_client);
+            $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
+        }
+        $userTable = TableRegistry::get('Users');
+        $arrayUser = $userTable->find('all')->contain(['Origine'])->toArray();
+        $users = array();
+        foreach ($arrayUser as $user) {
+            $users[$user->idu] = $user->fullname;
+            $userOrigine[$user->idu] = $user->origine->nom_origine;
+        }
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
 
@@ -45,8 +60,10 @@ class ExportFitnetController extends AppController
 
                 $export = $this->ExportFitnet->newEntity();
                 $export = $this->ExportFitnet->patchEntity($export, $arrayData);
-                pr($export);exit;
-                $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
+                if ($this->Temps->save($export)) {
+                    $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
+                }
+
             }else{
                 $this->Flash->error(__('Une erreur est survenu. Merci de vérifier la saisie ou de retenter ultérieurement.'));
             }
@@ -56,8 +73,36 @@ class ExportFitnetController extends AppController
         $this->viewBuilder()->template('/Temps/export');
         $this->set('export',$form);
         $this->set('controller', false);
+        $this->set(compact('clients'));
+        $this->set(compact('users'));
         // $this->render('/Temps/export');
         // return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
+    }
+
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Client id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $export = $this->ExportFitnet->get($id);
+        if ($export->etat == Configure::read('fitnet.wait') ) {
+            try {
+                $this->ExportFitnet->delete($export);
+                $this->Flash->success(__('Le client a été supprimé avec succés.'));
+            } catch (\PDOException $e) {
+                $this->Flash->error(__("La demande d'export n'a pus être supprimé. Assurez-vous qu'il ne soit pas utilisé avant de réessayer."));
+            }
+        }else{
+            $this->Flash->error(__("La demande d'export n'a pus être supprimé, celle-ci est soit terminée soit en cours de traitement."));
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 
     public function getProjectFitnetShell($id = null){
@@ -110,7 +155,7 @@ class ExportFitnetController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['exportFitnet', 'index', 'add']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['exportFitnet', 'index', 'add', 'delete']) && $user['role'] >= 50 ) {
             return true;
         }
 
