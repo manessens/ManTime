@@ -25,9 +25,9 @@
                     <td><?php echo $export->user != null?$export->user->fullname:'/' ; ?></td>
                     <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
                     <td class="actions">
-                        <?php if ($export->etat == 'En attente'): ?>
+                        <?php if ($export->etat == \Cake\Core\Configure::read('fitnet.wait')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
-                        <?php elseif($export->etat == 'En cours' || $export->etat == 'Terminé' || $export->etat == 'En erreur'): ?>
+                        <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.run') || $export->etat == 'Terminé' || $export->etat == 'En erreur'): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
                         <?php endif; ?>
                     </td>
