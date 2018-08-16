@@ -101,19 +101,22 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
-                    <?php
-                    pr($lundi->toUnixString());
-                    pr($this->getHolidays($annee));exit;
-
-
-                     ?>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Je') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ve') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Sa') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
+                    <?php pr($lundi->toUnixString()); ?>
+                    <?php  pr($holidays);exit; ?>
                 </tr>
             </thead>
             <tbody>
