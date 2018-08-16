@@ -91,7 +91,7 @@ class ExportFitnetController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['exportFitnet', 'index']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['exportFitnet', 'index', 'add']) && $user['role'] >= 50 ) {
             return true;
         }
 
