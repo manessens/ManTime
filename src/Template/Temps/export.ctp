@@ -5,7 +5,7 @@
  */
 ?>
 <div class="col-xs-12 new_content content">
-    <?= $this->Form->create($export) ?>
+    <?= $this->Form->create($export, ['url'=> ['controller' => 'Temps', 'action' => 'export']]) ?>
     <fieldset>
         <legend><?= __('Export') ?></legend>
 
