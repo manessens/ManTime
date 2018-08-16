@@ -512,7 +512,6 @@ class TempsController extends AppController
         if ($year === null){
                 $year = intval(strftime('%Y'));
         }
-        pr($year);exit;
 
         $easterDate = easter_date($year);
         $easterDay = date('j', $easterDate) + 1;
