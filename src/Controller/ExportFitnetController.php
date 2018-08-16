@@ -24,6 +24,7 @@ class ExportFitnetController extends AppController
         $this->set('exports', $this->paginate($this->ExportFitnet));
         $this->set(compact('exports'));
     }
+
     public function add(){
         return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
     }
@@ -32,13 +33,23 @@ class ExportFitnetController extends AppController
 
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
-            
-            $export = $this->ExportFitnet->newEntity();
-            $export = $this->ExportFitnet->patchEntity($export, $this->request->getData());
-            pr($export);exit;
+
+            $form = new ExportForm();
+            $isValid = $form->validate($arrayData);
+            if ($isValid){
+                $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
+                $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
+
+                $export = $this->ExportFitnet->newEntity();
+                $export = $this->ExportFitnet->patchEntity($export, $arrayData);
+                pr($export);exit;
+                $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
+            }else{
+                $this->Flash->error(__('Une erreur est survenu. Merci de vérifier la saisie ou de retenter ultérieurement.'));
+            }
 
         }
-        $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
+        $this->set(compact('export'));
         return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
     }
 
