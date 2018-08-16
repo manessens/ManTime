@@ -23,6 +23,7 @@
                     <td><?= h($export->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
                     <td><?php echo $export->client != null?$export->client->nom_client:'/' ; ?></td>
                     <td><?php echo $export->users != null?$export->users->fullname:'/' ; ?></td>
+                    <<?php pr($export);exit; ?>
                     <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
                     <td class="actions">
                         <?php if ($export->etat == 'En attente'): ?>
