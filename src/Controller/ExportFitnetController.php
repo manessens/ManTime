@@ -41,6 +41,7 @@ class ExportFitnetController extends AppController
             if ($isValid){
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
+                $arrayData['etat'] = 'En attente';
 
                 $export = $this->ExportFitnet->newEntity();
                 $export = $this->ExportFitnet->patchEntity($export, $arrayData);
