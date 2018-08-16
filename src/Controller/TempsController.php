@@ -195,6 +195,7 @@ class TempsController extends AppController
         $this->set('clients', array_merge($arrayEmpty, $arrayRetour['clients']));
         $this->set('profiles', array_merge($arrayEmpty, $arrayRetour['profiles']));
         $this->set('activities', array_merge($arrayEmpty, $arrayRetour['activities']));
+        pr($this->getHolidays($annee));exit;
         $this->set('holidays',   $this->getHolidays($annee));
         $this->set('controller', false);
 
