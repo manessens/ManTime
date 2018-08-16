@@ -106,19 +106,19 @@
                     pr($holidays[7]); ?>
                     <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
                     <?php pr('$lundi'); ?>
-                    <?php pr($lundi); ?>
                     <?php pr($lundi->setTime(0,0,0)->toUnixString()); ?>
+                    <?php pr($lundi); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
                     <?php pr('mardi'); ?>
-                    <?php pr($lundi); ?>
                     <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
+                    <?php pr($lundi); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
                     <?php pr('$mercredi'); ?>
-                    <?php pr($lundi); ?>
                     <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
+                    <?php pr($lundi); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Je') ?></th>
-                    <?php pr($lundi); ?>
                     <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
+                    <?php pr($lundi); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ve') ?></th>
                     <?php pr($lundi); ?>
                     <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
