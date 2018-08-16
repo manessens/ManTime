@@ -101,7 +101,8 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
-                    <?php pr($lundi->toUnixString()); ?>
+                    <?php pr($lundi->toUnixString());
+                    pr(date('c', $holidays[4]) ); ?>
                     <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
                     <?php pr($lundi->toUnixString()); ?>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
