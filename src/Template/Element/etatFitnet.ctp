@@ -1,4 +1,4 @@
-<?php if ($etat == Configure::read('fitnet.wait')): ?>
+<?php if ($etat == ?> <?= Configure::read('fitnet.wait'); ?> <?php ): ?>
     <span class="badge back-info" ><?php echo $etat ?></span>
 <?php elseif($etat == Configure::read('fitnet.run')): ?>
     <span class="badge back-warning" ><?php echo $etat ?></span>
