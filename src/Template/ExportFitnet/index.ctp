@@ -1,11 +1,10 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Projet[]|\Cake\Collection\CollectionInterface $projet
  */
 ?>
 <div class="projet index large-10 large-10bis medium-8 columns content">
-    <h3><?= __('Exports Fitnet') ?></h3>
+    <Legend><span class="text-danger"><?= __('Exports Fitnet') ?></span></legend>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
