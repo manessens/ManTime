@@ -32,10 +32,10 @@ class ExportFitnetController extends AppController
 
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
-            pr($arrayData);exit;
-
+            
             $export = $this->ExportFitnet->newEntity();
-            // $export->date_debut =
+            $export = $this->ExportFitnet->patchEntity($export, $this->request->getData());
+            pr($export);exit;
 
         }
         $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
