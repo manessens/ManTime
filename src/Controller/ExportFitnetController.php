@@ -55,13 +55,13 @@ class ExportFitnetController extends AppController
             if ($isValid){
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
-                $arrayData['etat'] = 'En attente';
+                $arrayData['etat'] = Configure::read('fitnet.wait');
+                $arrayData['idc'] = $arrayData['client'];
+                $arrayData['idu'] = $arrayData['user'];
 
                 $export = $this->ExportFitnet->newEntity();
                 $export = $this->ExportFitnet->patchEntity($export, $arrayData);
-                $export->idc = $arrayData['idc'];
-                $export->idu = $arrayData['idu'];
-                pr($arrayData);exit;
+                
                 if ($this->ExportFitnet->save($export)) {
                     $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
                 }
