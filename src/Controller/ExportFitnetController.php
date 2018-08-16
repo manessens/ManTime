@@ -41,14 +41,12 @@ class ExportFitnetController extends AppController
         $agenceClient = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
-            $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
         }
         $userTable = TableRegistry::get('Users');
         $arrayUser = $userTable->find('all')->contain(['Origine'])->toArray();
         $users = array();
         foreach ($arrayUser as $user) {
             $users[$user->idu] = $user->fullname;
-            $userOrigine[$user->idu] = $user->origine->nom_origine;
         }
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
@@ -61,6 +59,8 @@ class ExportFitnetController extends AppController
 
                 $export = $this->ExportFitnet->newEntity();
                 $export = $this->ExportFitnet->patchEntity($export, $arrayData);
+                $export->idc = $arrayData['idc'];
+                $export->idu = $arrayData['idu'];
                 pr($export);exit;
                 if ($this->ExportFitnet->save($export)) {
                     $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
