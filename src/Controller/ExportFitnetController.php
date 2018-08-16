@@ -80,7 +80,7 @@ class ExportFitnetController extends AppController
 
     public function view($id=null){
         if ($id == null) {
-            return $this->redirect($this->referer());
+            return $this->redirect(['action' => 'index']);
         }
 
     }
