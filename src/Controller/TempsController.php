@@ -519,19 +519,19 @@ class TempsController extends AppController
 
         $holidays = array(
                 // Jours fériés fixes
-                mktime(0, 0, 0, 1, 1, $year),// 1er janvier
-                mktime(0, 0, 0, 5, 1, $year),// Fete du travail
-                mktime(0, 0, 0, 5, 8, $year),// Victoire des allies
-                mktime(0, 0, 0, 7, 14, $year),// Fete nationale
-                mktime(0, 0, 0, 8, 15, $year),// Assomption
-                mktime(0, 0, 0, 11, 1, $year),// Toussaint
-                mktime(0, 0, 0, 11, 11, $year),// Armistice
-                mktime(0, 0, 0, 12, 25, $year),// Noel
+                date('d-m-Y',mktime(0, 0, 0, 1, 1, $year)),// 1er janvier
+                date('d-m-Y',mktime(0, 0, 0, 5, 1, $year)),// Fete du travail
+                date('d-m-Y',mktime(0, 0, 0, 5, 8, $year)),// Victoire des allies
+                date('d-m-Y',mktime(0, 0, 0, 7, 14, $year)),// Fete nationale
+                date('d-m-Y',mktime(0, 0, 0, 8, 15, $year)),// Assomption
+                date('d-m-Y',mktime(0, 0, 0, 11, 1, $year)),// Toussaint
+                date('d-m-Y',mktime(0, 0, 0, 11, 11, $year)),// Armistice
+                date('d-m-Y',mktime(0, 0, 0, 12, 25, $year)),// Noel
 
                 // Jour fériés qui dependent de paques
-                mktime(0, 0, 0, $easterMonth, $easterDay, $year),// Pâques
-                mktime(0, 0, 0, $easterMonth, $easterDay + 1, $year),// Lundi de paques
-                mktime(0, 0, 0, $easterMonth, $easterDay + 39, $year),// Ascension
+                date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay, $year)),// Pâques
+                date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay + 1, $year)),// Lundi de paques
+                date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay + 39, $year)),// Ascension
                 // mktime(0, 0, 0, $easterMonth, $easterDay + 50, $year), // Pentecote => journée de solidarité (facturé en x1)
         );
         sort($holidays);
@@ -764,11 +764,12 @@ class TempsController extends AppController
     private function getIncreaseDay($day, $holidays = array())
     {
         $dateDay = date('w', $day->toUnixString());
+        $year = $day->i18nFormat('yyyy');
         if (empty($holidays)) {
-            $holidays = $this->getHolidays();
+            $holidays = $this->getHolidays($year);
         }
         // contrôle jour férié : return 2;
-        if (in_array($day->toUnixString() ,$holidays)) {
+        if (in_array($day->i18nFormat('dd-MM-yyyy') ,$holidays)) {
             return 2;
         }
         //dimanche 2, samedi 1.5 default 1
@@ -815,7 +816,6 @@ class TempsController extends AppController
         if (empty($times) || !is_array($times)) {
             return $data;
         }
-        $holidays = $this->getHolidays();
         $nbDays = 0;
         foreach ($times as $time) {
             $keyClient = $clients[$projectClients[$time->idp]];
@@ -863,7 +863,7 @@ class TempsController extends AppController
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
-            $timeUO *= $this->getIncreaseDay($dateTime, $holidays);
+            $timeUO *= $this->getIncreaseDay($dateTime);
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
 

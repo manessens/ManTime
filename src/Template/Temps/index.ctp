@@ -102,32 +102,21 @@
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
                     <?php
-                    pr(date('c',$holidays[7]) );
                     pr($holidays[7]); ?>
-                    <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
+                    <th <?php echo (in_array($lundi->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
                     <?php pr('$lundi'); ?>
-                    <?php pr($lundi->setTime(0,0,0)->toUnixString()); ?>
-                    <?php pr($lundi); ?>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
+                    <?php pr($lundi->i18nFormat('dd-MM-yyyy')); ?>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
                     <?php pr('mardi'); ?>
-                    <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
-                    <?php pr($lundi); ?>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
+                    <?php pr($lundi->i18nFormat('dd-MM-yyyy')); ?>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
                     <?php pr('$mercredi'); ?>
-                    <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
-                    <?php pr($lundi); ?>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Je') ?></th>
-                    <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
-                    <?php pr($lundi); ?>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ve') ?></th>
-                    <?php pr($lundi); ?>
-                    <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Sa') ?></th>
-                    <?php pr($lundi); ?>
-                    <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
-                    <?php pr($lundi); ?>
-                    <?php pr($lundi->setTime(2,0,0)->toUnixString()); ?>
+                    <?php pr($lundi->i18nFormat('dd-MM-yyyy')); ?>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Je') ?></th>
+                    <?php pr($lundi->i18nFormat('dd-MM-yyyy')); ?>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ve') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Sa') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
                     <?php  pr($holidays);exit; ?>
                 </tr>
             </thead>
