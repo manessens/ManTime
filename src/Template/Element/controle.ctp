@@ -12,10 +12,10 @@
         <?php endif; ?>
     <?php endif; ?>
 
-    <?php if ($restrict != '%show%'):?>
+    <?php if ($restrict == ''):?>
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de supprimer l'entité : {0}?", $entity)]) ?>
-    <?php elseif($restrict == '%show%'): ?>
+    <?php elseif($restrict == '%delete%'): ?>
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de supprimer la ligne ?")]) ?>
     <?php endif; ?>
