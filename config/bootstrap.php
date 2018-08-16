@@ -85,10 +85,10 @@ Configure::write(array(
 ));
 
 Configure::write([
-    'fitnet.wait'=>'En attente',
+    'fitnet.wait'=>'Attente',
     'fitnet.end'=>'Terminé',
-    'fitnet.run'=>'En cours',
-    'fitnet.err'=>'En erreur'
+    'fitnet.run'=>'Lancé',
+    'fitnet.err'=>'Erreur'
 ]);
 
 
