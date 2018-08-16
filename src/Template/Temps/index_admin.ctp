@@ -114,13 +114,13 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
-                    <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Je') ?></th>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ve') ?></th>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Sa') ?></th>
-                    <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
+                    <th <?php echo (in_array($lundi->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Je') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ve') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Sa') ?></th>
+                    <th <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : 'class="weekend"'; ?> scope="col"><?= h('Di') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -245,7 +245,7 @@
                     <td scope="col"></td>
                     <?php $lundi->modify('-7 days'); ?>
                     <?php foreach ($weekDays as $idDay => $value): ?>
-                        <td <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : ( ($idDay == 'Sa' || $idDay == 'Di') ? 'class="weekend"':''); ?> scope="col">
+                        <td <?php echo (in_array($lundi->modify('+1 days')->i18nFormat('dd-MM-yyyy'), $holidays)) ? 'class="holidays"' : ( ($idDay == 'Sa' || $idDay == 'Di') ? 'class="weekend"':''); ?> scope="col">
                             <div id="t<?php echo $idDay ?>" style="text-align:center;" >
                             <?php if ($validat){ echo $value; } ?>
                             </div>
