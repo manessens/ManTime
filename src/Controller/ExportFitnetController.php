@@ -34,6 +34,7 @@ class ExportFitnetController extends AppController
     public function exportFitnet(){
 
         $form = new ExportForm();
+        pr($form);exit;
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
 
