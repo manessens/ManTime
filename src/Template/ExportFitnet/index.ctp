@@ -18,7 +18,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($exports as $export): ?>
+            <?php foreach ($exports as $export):
+                pr($export);exit; ?>
+
             <tr>
                 <td><?= h($export->date_debut) ?></td>
                 <td><?= h($export->date_fin) ?></td>

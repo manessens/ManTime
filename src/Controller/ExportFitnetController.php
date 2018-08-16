@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
 use Cake\I18n\Time;
+use Cake\Core\Configure;
 
 /**
  * ExportFitnet Controller
