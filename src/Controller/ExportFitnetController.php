@@ -33,10 +33,10 @@ class ExportFitnetController extends AppController
 
     public function exportFitnet(){
 
+        $form = new ExportForm();
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
 
-            $form = new ExportForm();
             $isValid = $form->validate($arrayData);
             if ($isValid){
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
@@ -54,7 +54,7 @@ class ExportFitnetController extends AppController
         }
 
         $this->viewBuilder()->template('/Temps/export');
-        $this->set(compact('export'));
+        $this->set('export',$form);
         $this->set('controller', false);
         // $this->render('/Temps/export');
         // return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
