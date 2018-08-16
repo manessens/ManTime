@@ -23,7 +23,7 @@ class ExportFitnetController extends AppController
         ];
         $this->set('exports', $this->paginate($this->ExportFitnet));
         $this->set(compact('exports'));
-        $this->set($controller,'ExportFitnet');
+        $this->set('controller','ExportFitnet');
     }
 
     public function exportFitnet(){
