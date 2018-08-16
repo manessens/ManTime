@@ -18,23 +18,21 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($exports as $export):
-                pr($export);exit; ?>
-
-            <tr>
-                <td><?= h($export->date_debut) ?></td>
-                <td><?= h($export->date_fin) ?></td>
-                <td><?php echo $export->client != null?$export->client->nom_client:'/' ; ?></td>
-                <td><?= h($export->users->fullname) ?></td>
-                <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
-                <td class="actions">
-                    <?php if ($export->etat == 'En attente'): ?>
-                        <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
-                    <?php elseif($export->etat == 'En cours' || $export->etat == 'Terminé' || $export->etat == 'En erreur'): ?>
-                        <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
-                    <?php endif; ?>
-                </td>
-            </tr>
+            <?php foreach ($exports as $export):?>
+                <tr>
+                    <td><?= h($export->date_debut) ?></td>
+                    <td><?= h($export->date_fin) ?></td>
+                    <td><?php echo $export->client != null?$export->client->nom_client:'/' ; ?></td>
+                    <td><?= h($export->users->fullname) ?></td>
+                    <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
+                    <td class="actions">
+                        <?php if ($export->etat == 'En attente'): ?>
+                            <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
+                        <?php elseif($export->etat == 'En cours' || $export->etat == 'Terminé' || $export->etat == 'En erreur'): ?>
+                            <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
