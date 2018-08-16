@@ -101,6 +101,12 @@
                     <th scope="col"><?= h('Profil') ?></th>
                     <th scope="col"><?= h('Activité') ?></th>
                     <th scope="col"><?= h('Détails') ?></th>
+                    <?php
+                    pr($lundi->toUnixString());
+                    pr($this->getHolidays($annee));exit;
+
+
+                     ?>
                     <th <?php echo (in_array($lundi->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Lu') ?></th>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Ma') ?></th>
                     <th <?php echo (in_array($lundi->modify('+1 days')->toUnixString(), $holidays)) ? 'class="holidays"' : 'class="semaine"'; ?> scope="col"><?= h('Me') ?></th>
