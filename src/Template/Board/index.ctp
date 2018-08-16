@@ -50,7 +50,7 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Fitnet', 'content'=>'Export fitnet', 'img'=>'Export.png', 'user'=>$user, 'auth'=>50]),
+            ['title' => 'Fitnet', 'content'=>'Export fitnet', 'img'=>'Fitnet.png', 'user'=>$user, 'auth'=>50]),
             ['controller' => 'ExportFitnet', 'action' => 'index'],
             ['escape' => false]); ?>
     </div>
