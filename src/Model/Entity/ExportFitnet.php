@@ -12,6 +12,9 @@ use Cake\ORM\Entity;
  * @property int $idc
  * @property int $idu
  * @property string $etat
+ *
+ * @property \App\Model\Entity\Client $client
+ * @property \App\Model\Entity\User $users
  */
 class ExportFitnet extends Entity
 {
@@ -29,7 +32,9 @@ class ExportFitnet extends Entity
         'date_debut' => true,
         'date_fin' => true,
         'idc' => true,
+        'client' => true,
         'idu' => true,
+        'users' => true,
         'etat' => true
     ];
 }

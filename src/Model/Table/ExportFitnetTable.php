@@ -9,6 +9,9 @@ use Cake\Validation\Validator;
 /**
  * ExportFitnet Model
  *
+ * @property \App\Model\Entity\Client|\Cake\ORM\Association\BelongsTo $Client
+ * @property \App\Model\Entity\User|\Cake\ORM\Association\BelongsTo $Users
+ *
  * @method \App\Model\Entity\ExportFitnet get($primaryKey, $options = [])
  * @method \App\Model\Entity\ExportFitnet newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ExportFitnet[] newEntities(array $data, array $options = [])
@@ -33,6 +36,13 @@ class ExportFitnetTable extends Table
         $this->setTable('export_fitnet');
         $this->setDisplayField('id_fit');
         $this->setPrimaryKey('id_fit');
+
+        $this->belongsTo('Client', [
+            'foreignKey' => 'idc'
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'idu'
+        ]);
     }
 
     /**
@@ -70,7 +80,7 @@ class ExportFitnetTable extends Table
             ->maxLength('etat', 10)
             ->requirePresence('etat', 'create')
             ->notEmpty('etat');
-        // 
+        //
         // $validator
         //     ->dateTime('date_create')
         //     ->requirePresence('date_create', 'create')

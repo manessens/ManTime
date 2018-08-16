@@ -14,21 +14,25 @@ use Cake\ORM\TableRegistry;
 class ExportFitnetController extends AppController
 {
     public function index(){
-    //     $this->paginate =[
-    //         'contain'   => ['Agence'],
-    //         'sortWhitelist' => [
-    //             'Client.nom_client', 'Client.id_fit','Agence.nom_agence'
-    //         ],
-    //         'order'     => ['Client.nom_client'=>'asc']
-    //     ];
-    //     $this->set('client', $this->paginate($this->Client));
-    //     $this->set(compact('client'));
+        $this->paginate =[
+            'contain'   => ['Client', 'Users'],
+            'sortWhitelist' => [
+                'ExportFitnet.date_debut','ExportFitnet.date_fin','Client.nom_client', 'Users.prenom','ExportFitnet.etat'
+            ],
+            'order'     => ['ExportFitnet.etat'=>'asc']
+        ];
+        $this->set('exports', $this->paginate($this->ExportFitnet));
+        $this->set(compact('exports'));
     }
 
     public function exportFitnet(){
 
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
+
+            $export = $this->ExportFitnet->newEntity();
+
+
         }
         $this->Flash->info(__('Export vers fitnet programmé, vous pouvez suivre son avancement depuis le suivie des exports.'));
         return $this->redirect(['controller'=> 'Temps' ,'action' => 'export']);
@@ -84,7 +88,7 @@ class ExportFitnetController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['exportFitnet']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['exportFitnet', 'index']) && $user['role'] >= 50 ) {
             return true;
         }
 
