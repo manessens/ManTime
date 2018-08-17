@@ -271,6 +271,8 @@ class ExportFitnetController extends AppController
     private function endExport($export, $count, $total){
         if ($count != $total) {
             $export=$this->inError($export, 'nombre de saisie échoué :'.($total-$count));
+        }elseif (empty($this->error_log)) {
+            $export->etat = Configure::read('fitnet.end');
         }
 
         $line = ['<< Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
