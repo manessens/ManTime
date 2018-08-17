@@ -162,7 +162,7 @@ class ExportFitnetController extends AppController
     private function inError($export, $cause){
         // Notification d'erreur de traitement
         $line = ['ERREUR -- EXPORT FITNET #'.$export->id_fit.' : '.$cause];
-        $this->insertLog($export->id_fit, $line, true);
+        $this->insertLog($line, true);
 
         if ($export->etat != Configure::read('fitnet.err')) {
             $export->etat = Configure::read('fitnet.err');
@@ -173,7 +173,7 @@ class ExportFitnetController extends AppController
     }
     private function inProcess($export){
 
-        $filename = Configure::read('fitnet.logname') . $id . '.csv';
+        $filename = Configure::read('fitnet.logname') . $export->id_fit . '.csv';
         if (file_exists ( $filename ) ) {
             unlink($filename);
         }
@@ -182,7 +182,7 @@ class ExportFitnetController extends AppController
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
         $line = ['>> Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
-        $this->insertLog($export->id_fit, $line);
+        $this->insertLog($line);
 
         $this->ExportFitnet->save($export);
         return $export;
@@ -208,14 +208,16 @@ class ExportFitnetController extends AppController
     	fclose($fichier_csv);
     }
 
-    private function insertLog($id, $lines = array(), $error = false){
+    private function insertLog( $line = array(), $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
         if ( empty($line) ) {
             return;
         }
 
         foreach ($lines as $line) {
-            $line = $line.'\n';
+            if (!is_array($line)) {
+                $line = [$line];
+            }
     		fputcsv($this->file_log, $line, $this->delimiteur);
         }
 
@@ -270,7 +272,7 @@ class ExportFitnetController extends AppController
         }
 
         $line = ['<< Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
-        $this->insertLog($export->id_fit, $line);
+        $this->insertLog($line);
 
         fclose($this->log_file);
 
