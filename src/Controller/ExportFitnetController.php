@@ -192,6 +192,9 @@ class ExportFitnetController extends AppController
             }
             $this->data_log = array_merge($this->error_log, $this->data_log);
         	foreach( $this->data_log as $output){
+                if (!is_array($output)) {
+                    $output = [$output];
+                }
         		fputcsv($fichier_csv, $output, $this->delimiteur);
         	}
         	fclose($fichier_csv);
@@ -210,9 +213,9 @@ class ExportFitnetController extends AppController
         }
 
         if ($error) {
-            $this->error_log[] = $line;
+            $this->error_log[] = $lines;
         }else{
-            $this->data_log[] = $line;
+            $this->data_log[] = $lines;
         }
 
     }
