@@ -225,6 +225,7 @@ class ExportFitnetController extends AppController
     }
 
     private function processExport($export){
+        $export = $this->inError($export, 'Ceci est un test');
         if ($export == null) {
             return;
         }
@@ -276,7 +277,12 @@ class ExportFitnetController extends AppController
     public function launchExport(){
         $exports = $this->getExportActif();
         foreach ($exports as $export) {
+
+            $this->data_log = array();
+            $this->error_log = array();
+
             $this->processExport($export);
+
             $this->writeLog($export->id_fit);
         }
     }
