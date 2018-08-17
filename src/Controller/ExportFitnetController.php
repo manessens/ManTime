@@ -276,7 +276,7 @@ class ExportFitnetController extends AppController
         $line = ['<< Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
-        fclose($this->log_file);
+        fclose($this->file_log);
 
         $this->ExportFitnet->save($export);
 
