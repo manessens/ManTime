@@ -6,7 +6,7 @@
 ?>
 
 <div class="users index large-10 large-10bis medium-8 columns content">
-    <legend><?= __('Consultants') ?></legend>
+    <legend><span class="text-danger"><?= __('Consultants') ?></span></legend>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
