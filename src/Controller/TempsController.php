@@ -668,7 +668,7 @@ class TempsController extends AppController
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client == null) {
                 $ProjetTable = TableRegistry::get('Projet');
-                $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $arrayData['client']])->toArray();
+                $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
                 if (!empty($arrayIdProjet)) {
                     $query->andWhere(['idp IN' => $arrayIdProjet]);
                 }else{
@@ -676,7 +676,7 @@ class TempsController extends AppController
                 }
             }
             if ($data_user == null ){
-                $query->andWhere(['idu =' => $arrayData['user']]);
+                $query->andWhere(['idu =' => $data_user]);
             }
 
             if (!$queryError) {
@@ -708,7 +708,7 @@ class TempsController extends AppController
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
-                
+
                 $times = $this->getTimes($arrayData['date_debut'], $arrayData['date_fin'], $arrayData['client'], $arrayData['user']);
                 if (empty($times) || $queryError) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
