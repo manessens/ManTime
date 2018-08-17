@@ -191,7 +191,7 @@ class ExportFitnetController extends AppController
                 $this->error_log[] = "Erreur : 0 - Aucune erreur détecté";
             }
             $this->data_log = array_merge($this->error_log, $this->data_log);
-        	foreach( as $output){
+        	foreach( $this->data_log as $output){
         		fputcsv($fichier_csv, $output, $this->delimiteur);
         	}
         	fclose($fichier_csv);
