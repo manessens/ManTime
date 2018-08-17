@@ -23,13 +23,10 @@
         <?php
             echo $this->Form->label('role','Rôle');
             echo $this->Form->select('role', $role, ['value' => $user->role]);
-            
+
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
-
-            // echo $this->Form->control('role',  ['checked'=> $user->role >= 20,'type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
-            // echo $this->Form->control('admin', ['checked'=> $user->role >= 50,'type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
 
             echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
 

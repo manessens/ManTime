@@ -130,10 +130,10 @@ class UsersController extends AppController
     private function getRole(){
         $roles = array();
         $roles = [
-            0 => 'Consultant',
-            1 => 'Sous-traitant',
-            20 => 'Chef de projet',
-            50 => 'Admin'
+            \Cake\Core\Configure::read('role.intern') => 'Consultant',
+            \Cake\Core\Configure::read('role.extern') => 'Sous-traitant',
+            \Cake\Core\Configure::read('role.cp') => 'Chef de projet',
+            \Cake\Core\Configure::read('role.admin') => 'Admin'
         ];
 
         return $roles;
@@ -308,7 +308,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 

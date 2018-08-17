@@ -56,7 +56,7 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="clearfix">
-        <?php if( $this->request->session()->read('Auth.User.role') >= 50 && !isset($controller) ): ?>
+        <?php if( $this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.admin') && !isset($controller) ): ?>
             <?= $this->element('menuleft') ?>
         <?php endif; ?>
         <?= $this->fetch('content') ?>

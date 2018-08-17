@@ -17,7 +17,6 @@
                 <th scope="col"><?= $this->Paginator->sort('Origine.nom_origine','Origine') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.actif','Actif') ?></th>
                 <th class="tag_role" scope="col"><?= $this->Paginator->sort('Users.role','Rôle') ?></th>
-                <!-- <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th> -->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -35,9 +34,6 @@
                 <td>
                     <?= $this->element('roleselect', ['role' => $this->Number->format($user->role)]) ?>
                 </td>
-                <!-- <td>
-                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
-                </td> -->
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' => $user->idu, 'entity'=>$user->email]); ?>
                 </td>
