@@ -613,13 +613,9 @@ class TempsController extends AppController
         }
     }
 
-    public function getTimes($date_debut, $date_fin, $data_client = null, $data_user = null ){
+    public function getTimes(Cake\I18n\Time $date_debut, Cake\I18n\Time $date_fin, $data_client = null, $data_user = null ){
 
         $times = array();
-
-        $date_debut = Time::parse($date_debut);
-        $date_fin = Time::parse($date_fin);
-
         $data = array();
         $periodes = array();
         $exportableTable = TableRegistry::get('Exportable');
@@ -710,7 +706,8 @@ class TempsController extends AppController
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
-
+                $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
+                $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
                 $times = $this->getTimes($arrayData['date_debut'], $arrayData['date_fin'], $arrayData['client'], $arrayData['user']);
                 if ( empty($times) ) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
