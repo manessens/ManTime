@@ -35,7 +35,7 @@ class ExportFitnetController extends AppController
         $this->paginate =[
             'contain'   => ['Client', 'Users'],
             'sortWhitelist' => [
-                'ExportFitnet.date_debut','ExportFitnet.date_fin','Client.nom_client', 'Users.prenom','ExportFitnet.etat'
+                'ExportFitnet.id_fit','ExportFitnet.date_debut','ExportFitnet.date_fin','Client.nom_client', 'Users.prenom','ExportFitnet.etat'
             ],
             'order'     => ['ExportFitnet.etat'=>'asc']
         ];
@@ -179,11 +179,9 @@ class ExportFitnetController extends AppController
         }
     	$this->file_log = fopen($filename, 'w+');
 
-            		fputcsv($this->file_log, ['blaqsdf'], $this->delimiteur);
-
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
-        $line = [">> Début du traitement EXPORT FITNET pour la demande d'export #".$export->id_fit];
+        $line = ['>> Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
         $this->ExportFitnet->save($export);
@@ -247,14 +245,15 @@ class ExportFitnetController extends AppController
             $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
             $this->ExportFitnet->save($export);
             return;
-        }
-        //traitement des Temps
-        $count = 0;
-        foreach ($times as $time) {
-            if ($this->exportTime($time)) {
-                $count++;
-            }else{
-                $export = $this->inError($export, 'id : #'.$id.' - Consultant : '.$time->idu.' - date : '.$time->date);
+        }else{
+            //traitement des Temps
+            $count = 0;
+            foreach ($times as $time) {
+                if ($this->exportTime($time)) {
+                    $count++;
+                }else{
+                    $export = $this->inError($export, 'id : #'.$id.' - Consultant : '.$time->idu.' - date : '.$time->date);
+                }
             }
         }
 

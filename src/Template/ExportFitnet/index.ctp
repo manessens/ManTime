@@ -8,6 +8,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('ExportFitnet.id_fit','#') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ExportFitnet.date_debut','Du') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ExportFitnet.date_fin','Au') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Client.nom_client','Client') ?></th>
@@ -19,6 +20,7 @@
         <tbody>
             <?php foreach ($exports as $export):?>
                 <tr>
+                    <td><?= h($export->id_fit) ?></td>
                     <td><?= h($export->date_debut->i18nFormat('dd-MM-yyyy')) ?></td>
                     <td><?= h($export->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
                     <td><?php echo $export->client != null?$export->client->nom_client:'/' ; ?></td>
