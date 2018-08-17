@@ -18,6 +18,7 @@ use App\Controller\TempsController;
 class ExportFitnetController extends AppController
 {
 
+    var $file_log;
     var $data_log;
     var $error_log;
     var $delimiteur;
@@ -208,12 +209,11 @@ class ExportFitnetController extends AppController
         }
 
         if (!file_exists ( $filename ) ) {
-            $file = fopen($filename, 'w+');
-            fclose($file);
+            $this->log_file = fopen($filename, 'w+');
         }
         foreach ($lines as $line) {
             $line = $line.'\n';
-	        // file_put_contents($filename, $line, FILE_APPEND);
+    		fputcsv($this->file_log, $line, $this->delimiteur);
         }
 
         if ($error) {
@@ -225,7 +225,6 @@ class ExportFitnetController extends AppController
     }
 
     private function processExport($export){
-        $this->insertLog($export->id_fit, ['test']);
         if ($export == null) {
             return;
         }
@@ -269,6 +268,8 @@ class ExportFitnetController extends AppController
 
         $line = ['<< Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($export->id_fit, $line);
+
+        fclose($this->log_file);
 
         $this->ExportFitnet->save($export);
 
