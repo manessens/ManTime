@@ -10,6 +10,6 @@ return [
         'err'=>'Erreur',
         'nerr'=>'Vérifié',
         'logname'=>'fitnet_log/Log_export_fitnet_',
-        'logname_end'=>'fitnet_log/Log_final_export_fitnet_'
+        'logname_end'=>'fitnet_log/final/Log_final_export_fitnet_'
     ],
 ];
