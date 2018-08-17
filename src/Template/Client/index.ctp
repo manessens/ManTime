@@ -5,7 +5,7 @@
  */
 ?>
 <div class="client index large-10 large-10bis medium-8 columns content">
-    <h3><?= __('Clients') ?></h3>
+    <legend><span class="text-danger"><?= __('Clients') ?></span></legend>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
