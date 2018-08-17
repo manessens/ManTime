@@ -17,9 +17,9 @@ class FitnetShell extends Shell
     public function main()
     {
         // $this->out('Hello world.');
-        if (empty($this->args[0])) {
-            return $this->abort("Merci de saisir un id de projet.");
-        }
+        // if (empty($this->args[0])) {
+        //     return $this->abort("Merci de saisir un id de projet.");
+        // }
 
         $exportFitnet = new ExportFitnetController();
         $found = $exportFitnet->launchExport();
