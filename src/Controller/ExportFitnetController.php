@@ -19,12 +19,14 @@ class ExportFitnetController extends AppController
 {
 
     var $data_log;
+    var $error_log;
     var $delimiteur;
 
     public function initialize()
     {
         parent::initialize();
         $data_log = array();
+        $error_log = array();
         $delimiteur = ';';
     }
 
@@ -127,10 +129,14 @@ class ExportFitnetController extends AppController
         if ($export->etat == Configure::read('fitnet.wait') ) {
             try {
                 $this->ExportFitnet->delete($export);
-                $this->Flash->success(__('Le client a été supprimé avec succés.'));
+                $this->Flash->success(__('La demande d\'export a été supprimé avec succés.'));
             } catch (\PDOException $e) {
                 $this->Flash->error(__("La demande d'export n'a pus être supprimé. Assurez-vous qu'il ne soit pas utilisé avant de réessayer."));
             }
+        }elseif ($export->etat == Configure::read('fitnet.err')) {
+            $export->etat = Configure::read('fitnet.nerr');
+            $this->ExportFitnet->save($export);
+            $this->Flash->success(__('La demande d\'export en erreur à été fixé.'));
         }else{
             $this->Flash->error(__("La demande d'export n'a pus être supprimé, celle-ci est soit terminée soit en cours de traitement."));
         }
@@ -153,30 +159,38 @@ class ExportFitnetController extends AppController
     }
 
     private function inError($export, $cause){
-        $export->etat = Configure::read('fitnet.err');
         // Notification d'erreur de traitement
-        $line = 'ERREUR -- EXPORT FITNET #'.$export->id_fit.' : '.$cause.' \n';
-        insertLog($export->id_fit, $line);
+        $line = ['ERREUR -- EXPORT FITNET #'.$export->id_fit.' : '.$cause];
+        $this->insertLog($export->id_fit, $line, true);
 
-        $this->ExportFitnet->save($export);
+        if ($export->etat != Configure::read('fitnet.err')) {
+            $export->etat = Configure::read('fitnet.err');
+        }
+
+        return $export;
 
     }
     private function inProcess($export){
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
-        $line = 'Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit.'\n';
-        insertLog($export->id_fit, $line);
+        $line = ['>> Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        $this->insertLog($export->id_fit, $line);
 
         $this->ExportFitnet->save($export);
+        return $export;
     }
 
     private function writeLog($id){
         // Ecrit une nouveau log pour l'export #$id
-        $filename = Configure::read('fitnet.logname') . $id . '.csv';
+        $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
         if (file_exists ( $filename ) ) {
             unlink($filename);
         }else{
         	$fichier_csv = fopen($filename, 'w+');
+            if (empty($error_log)) {
+                $error_log[] = "Erreur : 0 - Aucune erreur détecté";
+            }
+            $data_log = array_merge($error_log, $data_log);
         	foreach($data_log as $output){
         		fputcsv($fichier_csv, $output, $delimiteur);
         	}
@@ -184,15 +198,22 @@ class ExportFitnetController extends AppController
         }
     }
 
-    private function insertLog($id, $line = array()){
+    private function insertLog($id, $lines = array(), $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
         $filename = Configure::read('fitnet.logname') . $id . '.csv';
         if ( empty($line) ) {
             return;
         }
-    	file_put_contents($filename, $line, FILE_APPEND);
+        foreach ($lines as $line) {
+            $line = $line.'\n';
+	        file_put_contents($filename, $line, FILE_APPEND);
+        }
 
-        $data_log[] = $line;
+        if ($error) {
+            $error_log[] = $line;
+        }else{
+            $data_log[] = $line;
+        }
 
     }
 
@@ -201,21 +222,47 @@ class ExportFitnetController extends AppController
             return;
         }
 
+        // notif export : etat = In process
+        $export = $this->inProcess($export);
+
+        // Récupération des temps
         $times = $this->getTimesFromExport($export);
         if (empty($times)) {
-            // notif export : erreur
-            $this->inError($export, 'Aucun temps trouvé sur la sélection');
+            // notif export : erreur si 0 temps - FIN de traitement
+            $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
+            $this->ExportFitnet->save($export);
             return;
         }
-
-        // notif export : etat = In process
-        $this->inProcess($export);
-
         //traitement des Temps
-        foreach ($times as $key => $value) {
-            // @TODO:code...
+        $count = 0;
+        foreach ($times as $time) {
+            if ($this->exportTime($time)) {
+                $count++;
+            }else{
+                $export = $this->inError($export, 'id : #'.$id.' - Consultant : '.$time->idu.' - date : '.$time->date);
+            }
         }
 
+        $export=$this->endExport($export, $count, count($times));
+
+    }
+    private function exportTime($time){
+        $error = false;
+
+
+
+        return !$error;
+    }
+
+    private function endExport($export, $count, $total){
+        if ($count != $total) {
+            $export=$this->inError($export, 'nombre de saisie échoué :'.($total-$count));
+        }
+
+        $line = ['<< Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        insertLog($export->id_fit, $line);
+
+        $this->ExportFitnet->save($export);
 
     }
 
@@ -223,7 +270,7 @@ class ExportFitnetController extends AppController
         $exports = $this->getExportActif();
         foreach ($exports as $export) {
             $this->processExport($export);
-
+            $this->writeLog($export->id_fit);
         }
     }
 

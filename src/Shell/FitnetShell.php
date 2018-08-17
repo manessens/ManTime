@@ -22,9 +22,10 @@ class FitnetShell extends Shell
         }
 
         $exportFitnet = new ExportFitnetController();
-        $found = $exportFitnet->getProjectFitnetShell($this->args[0]);
+        $found = $exportFitnet->launchExport();
+        // $found = $exportFitnet->getProjectFitnetShell($this->args[0]);
 
-        $this->createFile('fitnet_log/report.json', $found);
+        // $this->createFile('fitnet_log/report.json', $found);
 
         // $user = $this->Users->findByEmail($this->args[0])->first();
         // $this->out(print_r($user, true));

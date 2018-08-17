@@ -8,6 +8,8 @@ return [
         'end'=>'Terminé',
         'run'=>'Lancé',
         'err'=>'Erreur',
-        'logname'=>'fitnet_log/Log_export_fitnet_'
+        'nerr'=>'Vérifié',
+        'logname'=>'fitnet_log/Log_export_fitnet_',
+        'logname_end'=>'fitnet_log/Log_final_export_fitnet_'
     ],
 ];

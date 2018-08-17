@@ -6,4 +6,6 @@
     <span class="badge back-success" ><?php echo $etat ?></span>
 <?php elseif($etat == \Cake\Core\Configure::read('fitnet.err')): ?>
     <span class="badge back-danger" ><?php echo $etat ?></span>
+<?php elseif($etat == \Cake\Core\Configure::read('fitnet.nerr')): ?>
+    <span class="badge back-default" ><?php echo $etat ?></span>
 <?php endif; ?>
