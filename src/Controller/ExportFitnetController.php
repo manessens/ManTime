@@ -214,10 +214,13 @@ class ExportFitnetController extends AppController
             return;
         }
 
+        $now = Time::now();
+
         foreach ($lines as $line) {
             if (!is_array($line)) {
                 $line = [$line];
             }
+            $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss').' -- '],$line);
 
             if ($error) {
                 $this->error_log[] = $line;
