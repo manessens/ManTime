@@ -613,7 +613,7 @@ class TempsController extends AppController
         }
     }
 
-    public function getTimes(Cake\I18n\Time $date_debut, Cake\I18n\Time $date_fin, $data_client = null, $data_user = null ){
+    public function getTimes(\Cake\I18n\Time $date_debut, \Cake\I18n\Time $date_fin, $data_client = null, $data_user = null ){
 
         $times = array();
         $data = array();
