@@ -681,6 +681,7 @@ class TempsController extends AppController
 
             if ($queryError) {
                 $times=array();
+                pr('error');exit;
                 return $times;
             }
             $times = $query->toArray();
