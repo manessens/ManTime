@@ -78,20 +78,7 @@ try {
  * shared configuration.
  */
 //Configure::load('app_local', 'default');
-Configure::write(array(
-    'fitnet.login'=>'matthias.vincent@manessens.com',
-    'fitnet.password'=>'M@nV17!%',
-    'fitnet.base'=>'https://evaluation.fitnetmanager.com/'
-));
-
-Configure::write([
-    'fitnet.wait'=>'Attente',
-    'fitnet.end'=>'Terminé',
-    'fitnet.run'=>'Lancé',
-    'fitnet.err'=>'Erreur',
-    'fitnet.logname'=>'Log_export_fitnet_'
-]);
-
+Configure::load('fitnet', 'default', false);
 Configure::write(['role' => [
         'admin' => 50,
         'cp' => 20,
