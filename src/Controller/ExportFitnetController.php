@@ -177,7 +177,7 @@ class ExportFitnetController extends AppController
         if (file_exists ( $filename ) ) {
             unlink($filename);
         }
-    	$fichier_csv = fopen($filename, 'w+');
+    	$this->file_log = fopen($filename, 'w+');
 
             		fputcsv($this->file_log, ['bla', 'sdf'], $this->delimiteur);
 
