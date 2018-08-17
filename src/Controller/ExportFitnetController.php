@@ -208,7 +208,7 @@ class ExportFitnetController extends AppController
     	fclose($fichier_csv);
     }
 
-    private function insertLog( $line = array(), $error = false){
+    private function insertLog( $lines = array(), $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
         if ( empty($line) ) {
             return;
@@ -224,7 +224,7 @@ class ExportFitnetController extends AppController
             }else{
                 $this->data_log[] = $line;
             }
-            
+
     		fputcsv($this->file_log, $line, $this->delimiteur);
         }
 
