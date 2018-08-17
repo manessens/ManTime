@@ -667,6 +667,8 @@ class TempsController extends AppController
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client == null) {
+                pr('$data_client');
+                pr($data_client);exit;
                 $ProjetTable = TableRegistry::get('Projet');
                 $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
                 if (!empty($arrayIdProjet)) {
@@ -681,7 +683,6 @@ class TempsController extends AppController
 
             if ($queryError) {
                 $times=array();
-                pr('error');exit;
                 return $times;
             }
             $times = $query->toArray();
