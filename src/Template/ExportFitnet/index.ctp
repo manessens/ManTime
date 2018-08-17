@@ -27,7 +27,7 @@
                     <td class="actions">
                         <?php if ($export->etat == \Cake\Core\Configure::read('fitnet.wait')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
-                        <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.run') || $export->etat == 'Terminé' || $export->etat == 'En erreur'): ?>
+                        <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.end') || $export->etat == \Cake\Core\Configure::read('fitnet.err') || $export->etat == \Cake\Core\Configure::read('fitnet.nerr')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
                         <?php endif; ?>
                     </td>
