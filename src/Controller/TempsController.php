@@ -679,9 +679,11 @@ class TempsController extends AppController
                 $query->andWhere(['idu =' => $data_user]);
             }
 
-            if (!$queryError) {
-                $times = $query->toArray();
+            if ($queryError) {
+                $times=array();
+                return $times;
             }
+            $times = $query->toArray();
         }
         return $times;
     }
@@ -710,7 +712,7 @@ class TempsController extends AppController
             if ($isValid){
 
                 $times = $this->getTimes($arrayData['date_debut'], $arrayData['date_fin'], $arrayData['client'], $arrayData['user']);
-                if (empty($times) || $queryError) {
+                if ( empty($times) ) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{
                     $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
