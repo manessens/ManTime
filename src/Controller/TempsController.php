@@ -964,11 +964,11 @@ class TempsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['export']) && $user['role'] >= 20 ) {
+        if (in_array($action, ['export']) && $user['role'] >= Configure::read('role.cp') ) {
             return true;
         }
 
-        if (in_array($action, ['indexAdmin']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['indexAdmin']) && $user['role'] >= Configure::read('role.admin') ) {
             return true;
         }
 
