@@ -185,20 +185,19 @@ class ExportFitnetController extends AppController
         $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
         if (file_exists ( $filename ) ) {
             unlink($filename);
-        }else{
-        	$fichier_csv = fopen($filename, 'w+');
-            if (empty($this->error_log)) {
-                $this->error_log[] = "Erreur : 0 - Aucune erreur détecté";
-            }
-            $this->data_log = array_merge($this->error_log, $this->data_log);
-        	foreach( $this->data_log as $output){
-                if (!is_array($output)) {
-                    $output = [$output];
-                }
-        		fputcsv($fichier_csv, $output, $this->delimiteur);
-        	}
-        	fclose($fichier_csv);
         }
+    	$fichier_csv = fopen($filename, 'w+');
+        if (empty($this->error_log)) {
+            $this->error_log[] = "Erreur : 0 - Aucune erreur détecté";
+        }
+        $this->data_log = array_merge($this->error_log, $this->data_log);
+    	foreach( $this->data_log as $output){
+            if (!is_array($output)) {
+                $output = [$output];
+            }
+    		fputcsv($fichier_csv, $output, $this->delimiteur);
+    	}
+    	fclose($fichier_csv);
     }
 
     private function insertLog($id, $lines = array(), $error = false){
@@ -206,6 +205,11 @@ class ExportFitnetController extends AppController
         $filename = Configure::read('fitnet.logname') . $id . '.csv';
         if ( empty($line) ) {
             return;
+        }
+
+        if (!file_exists ( $filename ) ) {
+            $file = fopen($filename, 'w+');
+            fclose($file);
         }
         foreach ($lines as $line) {
             $line = $line.'\n';
