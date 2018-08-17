@@ -225,7 +225,7 @@ class ExportFitnetController extends AppController
     }
 
     private function processExport($export){
-        $this->insertLog($export->id_fit, ['test'])
+        $this->insertLog($export->id_fit, ['test']);
         if ($export == null) {
             return;
         }
