@@ -218,13 +218,14 @@ class ExportFitnetController extends AppController
             if (!is_array($line)) {
                 $line = [$line];
             }
-    		fputcsv($this->file_log, $line, $this->delimiteur);
-        }
 
-        if ($error) {
-            $this->error_log[] = $lines;
-        }else{
-            $this->data_log[] = $lines;
+            if ($error) {
+                $this->error_log[] = $line;
+            }else{
+                $this->data_log[] = $line;
+            }
+            
+    		fputcsv($this->file_log, $line, $this->delimiteur);
         }
 
     }
