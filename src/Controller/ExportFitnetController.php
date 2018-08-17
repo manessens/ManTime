@@ -183,7 +183,7 @@ class ExportFitnetController extends AppController
 
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
-        $line = ['>> Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        $line = [">> Début du traitement EXPORT FITNET pour la demande d'export #".$export->id_fit];
         $this->insertLog($line);
 
         $this->ExportFitnet->save($export);
@@ -212,7 +212,7 @@ class ExportFitnetController extends AppController
 
     private function insertLog( $lines = array(), $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
-        if ( empty($line) ) {
+        if ( empty($lines) ) {
             return;
         }
 
