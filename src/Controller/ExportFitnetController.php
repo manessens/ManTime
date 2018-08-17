@@ -25,9 +25,9 @@ class ExportFitnetController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $data_log = array();
-        $error_log = array();
-        $delimiteur = ';';
+        $this->data_log = array();
+        $this->error_log = array();
+        $this->delimiteur = ';';
     }
 
     public function index(){
@@ -187,12 +187,12 @@ class ExportFitnetController extends AppController
             unlink($filename);
         }else{
         	$fichier_csv = fopen($filename, 'w+');
-            if (empty($error_log)) {
-                $error_log[] = "Erreur : 0 - Aucune erreur détecté";
+            if (empty($this->error_log)) {
+                $this->error_log[] = "Erreur : 0 - Aucune erreur détecté";
             }
-            $data_log = array_merge($error_log, $data_log);
-        	foreach($data_log as $output){
-        		fputcsv($fichier_csv, $output, $delimiteur);
+            $this->data_log = array_merge($this->error_log, $this->data_log);
+        	foreach( as $output){
+        		fputcsv($fichier_csv, $output, $this->delimiteur);
         	}
         	fclose($fichier_csv);
         }
@@ -210,9 +210,9 @@ class ExportFitnetController extends AppController
         }
 
         if ($error) {
-            $error_log[] = $line;
+            $this->error_log[] = $line;
         }else{
-            $data_log[] = $line;
+            $this->data_log[] = $line;
         }
 
     }
