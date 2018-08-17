@@ -18,5 +18,8 @@
     <?php elseif($restrict == '%delete%'): ?>
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de supprimer la ligne ?")]) ?>
+    <?php elseif($restrict == '%mod%'): ?>
+        <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
+            'confirm' => __("Êtes vous sûr de vouloir supprimer le marquage d'erreur ?")]) ?>
     <?php endif; ?>
 </div>

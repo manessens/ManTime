@@ -29,8 +29,10 @@
                     <td class="actions">
                         <?php if ($export->etat == \Cake\Core\Configure::read('fitnet.wait')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
-                        <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.end') || $export->etat == \Cake\Core\Configure::read('fitnet.err') || $export->etat == \Cake\Core\Configure::read('fitnet.nerr')): ?>
+                        <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.end') || $export->etat == \Cake\Core\Configure::read('fitnet.nerr')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
+                        <?php elseif( $export->etat == \Cake\Core\Configure::read('fitnet.err') ): ?>
+                            <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%mod%']); ?>
                         <?php endif; ?>
                     </td>
                 </tr>
