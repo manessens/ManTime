@@ -209,7 +209,6 @@ class ExportFitnetController extends AppController
 
         if (!file_exists ( $filename ) ) {
             $file = fopen($filename, 'w+');
-            fclose($file);
         }
         foreach ($lines as $line) {
             $line = $line.'\n';
@@ -225,7 +224,6 @@ class ExportFitnetController extends AppController
     }
 
     private function processExport($export){
-        $export = $this->inError($export, 'Ceci est un test');
         if ($export == null) {
             return;
         }
