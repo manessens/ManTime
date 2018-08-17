@@ -17,6 +17,17 @@ use App\Controller\TempsController;
  */
 class ExportFitnetController extends AppController
 {
+
+    var $data_log;
+    var $delimiteur;
+
+    public function initialize()
+    {
+        parent::initialize();
+        $data_log = array();
+        $delimiteur = ';';
+    }
+
     public function index(){
         $this->paginate =[
             'contain'   => ['Client', 'Users'],
@@ -80,11 +91,26 @@ class ExportFitnetController extends AppController
     }
 
     public function view($id=null){
+
         if ($id == null) {
             return $this->redirect(['action' => 'index']);
         }
-        //lecture du json
 
+        $export = $this->ExportFitnet->get($id);
+
+        $log_array = $this->readLog($id);
+
+        $this->set(compact('export'));
+        $this->set(compact('log_array'));
+    }
+
+    private function readLog($id = null){
+        $log = array();
+        if ($id == null) {
+            return;
+        }
+
+        // @TODO : Lecture du log
     }
 
     /**
@@ -115,17 +141,58 @@ class ExportFitnetController extends AppController
     private function getExportActif(){
         return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait')])->toArray();
     }
+
     private function getTimesFromExport($export){
 
         $temps = new TempsController();
-        $times = $temps->getTimes($export->date_debut, $export->date_fin, $export->idc, $export->idu );
+        $date_debut = Time::parse($export->date_debut);
+        $date_fin = Time::parse($export->date_fin);
+        $times = $temps->getTimes($date_debut, $date_fin, $export->idc, $export->idu );
+        return $times;
 
     }
 
-    private function inError($export){
+    private function inError($export, $cause){
+        $export->etat = Configure::read('fitnet.err');
+        // Notification d'erreur de traitement
+        $line = 'ERREUR -- EXPORT FITNET #'.$export->id_fit.' : '.$cause.' \n';
+        insertLog($export->id_fit, $line);
+
+        $this->ExportFitnet->save($export);
 
     }
     private function inProcess($export){
+        $export->etat = Configure::read('fitnet.run');
+        // Notification de lancement du traitemnt
+        $line = 'Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit.'\n';
+        insertLog($export->id_fit, $line);
+
+        $this->ExportFitnet->save($export);
+    }
+
+    private function writeLog($id){
+        // Ecrit une nouveau log pour l'export #$id
+        $filename = Configure::read('fitnet.logname') . $id . '.csv';
+        if (file_exists ( $filename ) ) {
+            unlink($filename);
+        }else{
+        	$fichier_csv = fopen($filename, 'w+');
+        	foreach($data_log as $output){
+        		fputcsv($fichier_csv, $output, $delimiteur);
+        	}
+        	fclose($fichier_csv);
+        }
+    }
+
+    private function insertLog($id, $line = array()){
+        // Ecrit une nouvelle ligne dans un log d'export #$id
+        $filename = Configure::read('fitnet.logname') . $id . '.csv';
+        if ( empty($line) ) {
+            return;
+        }
+    	file_put_contents($filename, $line, FILE_APPEND);
+
+        $data_log[] = $line;
 
     }
 
@@ -137,7 +204,7 @@ class ExportFitnetController extends AppController
         $times = $this->getTimesFromExport($export);
         if (empty($times)) {
             // notif export : erreur
-            $this->inError($export);
+            $this->inError($export, 'Aucun temps trouvé sur la sélection');
             return;
         }
 
@@ -146,7 +213,7 @@ class ExportFitnetController extends AppController
 
         //traitement des Temps
         foreach ($times as $key => $value) {
-            // code...
+            // @TODO:code...
         }
 
 

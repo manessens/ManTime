@@ -88,7 +88,16 @@ Configure::write([
     'fitnet.wait'=>'Attente',
     'fitnet.end'=>'Terminé',
     'fitnet.run'=>'Lancé',
-    'fitnet.err'=>'Erreur'
+    'fitnet.err'=>'Erreur',
+    'fitnet.logname'=>'Log_export_fitnet_'
+]);
+
+Configure::write(['role' => [
+        'admin' => 50,
+        'cp' => 20,
+        'extern' => 1,
+        'intern' => 0
+    ]
 ]);
 
 
