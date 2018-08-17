@@ -172,6 +172,13 @@ class ExportFitnetController extends AppController
 
     }
     private function inProcess($export){
+
+        $filename = Configure::read('fitnet.logname') . $id . '.csv';
+        if (file_exists ( $filename ) ) {
+            unlink($filename);
+        }
+    	$fichier_csv = fopen($filename, 'w+');
+
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
         $line = ['>> Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
@@ -203,14 +210,10 @@ class ExportFitnetController extends AppController
 
     private function insertLog($id, $lines = array(), $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
-        $filename = Configure::read('fitnet.logname') . $id . '.csv';
         if ( empty($line) ) {
             return;
         }
 
-        if (!file_exists ( $filename ) ) {
-            $this->log_file = fopen($filename, 'w+');
-        }
         foreach ($lines as $line) {
             $line = $line.'\n';
     		fputcsv($this->file_log, $line, $this->delimiteur);
