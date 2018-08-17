@@ -613,6 +613,79 @@ class TempsController extends AppController
         }
     }
 
+    public function getTimes($date_debut, $date_fin, $data_client = null, $data_user = null ){
+
+        $times = array();
+
+        $date_debut = Time::parse($date_debut);
+        $date_fin = Time::parse($date_fin);
+
+        $data = array();
+        $periodes = array();
+        $exportableTable = TableRegistry::get('Exportable');
+        $semaineDebut = (int)date('W', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
+        $anneeDebut = (int)date('Y', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
+        $semaineFin = (int)date('W', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
+        $anneeFin =   (int)date('Y', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
+        $arraNSem = array($anneeDebut => array());
+        $y=$anneeDebut;
+        for ($i=$semaineDebut; ($i <= $semaineFin || $y < $anneeFin) ; $i++) {
+            if ($i > 52) {
+                $i = 1;
+                $y++;
+            }
+            $arraNSem[$y][] = $i;
+        }
+        $query = null;
+        $query = $exportableTable->find('all');
+        $andWhere = array();
+        foreach ($arraNSem as $an => $sem) {
+            if (!empty($sem)) {
+                $andWhere[] = ['n_sem IN' => $sem, 'annee =' => $an];
+            }
+        }
+        $query->where(['OR' => $andWhere]);
+        $periodes = $query->toArray();
+
+        $andWhere = array();
+        $times=array();
+        $queryError = false;
+        if (!empty($periodes)) {
+            foreach ($periodes as $periode) {
+                $lundi = new Date('now');
+                $lundi->setTime(00, 00, 00);
+                $lundi->setISOdate($periode->annee, $periode->n_sem);
+                $dimanche = clone $lundi;
+                $dimanche->modify('+7 days');
+
+                $andWhere[] = [ 'date >=' => $lundi,
+                                'date <' => $dimanche,
+                            ];
+            }
+            $query = null;
+            $query = $this->Temps->find('all')
+                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
+                ->andwhere(['OR' => $andWhere]);
+            if ( $data_client == null) {
+                $ProjetTable = TableRegistry::get('Projet');
+                $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $arrayData['client']])->toArray();
+                if (!empty($arrayIdProjet)) {
+                    $query->andWhere(['idp IN' => $arrayIdProjet]);
+                }else{
+                    $queryError = true;
+                }
+            }
+            if ($data_user == null ){
+                $query->andWhere(['idu =' => $arrayData['user']]);
+            }
+
+            if (!$queryError) {
+                $times = $query->toArray();
+            }
+        }
+        return $times;
+    }
+
     public function export(){
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
@@ -635,73 +708,8 @@ class TempsController extends AppController
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
             if ($isValid){
-                $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
-                $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
-
-                $data = array();
-                $periodes = array();
-                $exportableTable = TableRegistry::get('Exportable');
-                $semaineDebut = (int)date('W', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-YYYY')));
-                $anneeDebut = (int)date('Y', strtotime($arrayData['date_debut']->i18nFormat('dd-MM-YYYY')));
-                $semaineFin = (int)date('W', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-YYYY')));
-                $anneeFin = (int)date('Y', strtotime($arrayData['date_fin']->i18nFormat('dd-MM-YYYY')));
-                $arraNSem = array($anneeDebut => array());
-                $y=$anneeDebut;
-                for ($i=$semaineDebut; ($i <= $semaineFin || $y < $anneeFin) ; $i++) {
-                    if ($i > 52) {
-                        $i = 1;
-                        $y++;
-                    }
-                    $arraNSem[$y][] = $i;
-                }
-                $query = null;
-                $query = $exportableTable->find('all');
-                $andWhere = array();
-                foreach ($arraNSem as $an => $sem) {
-                    if (!empty($sem)) {
-                        $andWhere[] = ['n_sem IN' => $sem, 'annee =' => $an];
-                    }
-                }
-                $query->where(['OR' => $andWhere]);
-                $periodes = $query->toArray();
-
-                $andWhere = array();
-                $times=array();
-                $queryError = false;
-                if (!empty($periodes)) {
-                    foreach ($periodes as $periode) {
-                        $lundi = new Date('now');
-                        $lundi->setTime(00, 00, 00);
-                        $lundi->setISOdate($periode->annee, $periode->n_sem);
-                        $dimanche = clone $lundi;
-                        $dimanche->modify('+7 days');
-
-                        $andWhere[] = [ 'date >=' => $lundi,
-                                        'date <' => $dimanche,
-                                    ];
-                    }
-                    $query = null;
-            		$query = $this->Temps->find('all')
-                        ->where(['date >=' => $arrayData['date_debut'], 'date <=' => $arrayData['date_fin'], 'validat =' => 1])
-                        ->andwhere(['OR' => $andWhere]);
-                    if (!empty($arrayData['client'])) {
-                        $ProjetTable = TableRegistry::get('Projet');
-                        $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $arrayData['client']])->toArray();
-                        if (!empty($arrayIdProjet)) {
-                            $query->andWhere(['idp IN' => $arrayIdProjet]);
-                        }else{
-                            $queryError = true;
-                        }
-                    }
-                    if (!empty($arrayData['user']) ){
-                        $query->andWhere(['idu =' => $arrayData['user']]);
-                    }
-
-                    if (!$queryError) {
-                        $times = $query->toArray();
-                    }
-
-                }
+                
+                $times = $this->getTimes($arrayData['date_debut'], $arrayData['date_fin'], $arrayData['client'], $arrayData['user']);
                 if (empty($times) || $queryError) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
                 }else{

@@ -21,8 +21,8 @@ class FitnetShell extends Shell
             return $this->abort("Merci de saisir un id de projet.");
         }
 
-        $projet = new ExportFitnetController();
-        $found = $projet->getProjectFitnetShell($this->args[0]);
+        $exportFitnet = new ExportFitnetController();
+        $found = $exportFitnet->getProjectFitnetShell($this->args[0]);
 
         $this->createFile('report.json', $found);
 

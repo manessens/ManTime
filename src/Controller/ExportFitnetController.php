@@ -6,6 +6,7 @@ use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
+use App\Controller\TempsController;
 
 /**
  * ExportFitnet Controller
@@ -82,6 +83,7 @@ class ExportFitnetController extends AppController
         if ($id == null) {
             return $this->redirect(['action' => 'index']);
         }
+        //lecture du json
 
     }
 
@@ -108,6 +110,54 @@ class ExportFitnetController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    private function getExportActif(){
+        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait')])->toArray();
+    }
+    private function getTimesFromExport($export){
+
+        $temps = new TempsController();
+        $times = $temps->getTimes($export->date_debut, $export->date_fin, $export->idc, $export->idu );
+
+    }
+
+    private function inError($export){
+
+    }
+    private function inProcess($export){
+
+    }
+
+    private function processExport($export){
+        if ($export == null) {
+            return;
+        }
+
+        $times = $this->getTimesFromExport($export);
+        if (empty($times)) {
+            // notif export : erreur
+            $this->inError($export);
+            return;
+        }
+
+        // notif export : etat = In process
+        $this->inProcess($export);
+
+        //traitement des Temps
+        foreach ($times as $key => $value) {
+            // code...
+        }
+
+
+    }
+
+    public function launchExport(){
+        $exports = $this->getExportActif();
+        foreach ($exports as $export) {
+            $this->processExport($export);
+
+        }
     }
 
     public function getProjectFitnetShell($id = null){
