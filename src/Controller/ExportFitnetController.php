@@ -179,7 +179,7 @@ class ExportFitnetController extends AppController
         }
     	$this->file_log = fopen($filename, 'w+');
 
-            		fputcsv($this->file_log, ['bla', 'sdf'], $this->delimiteur);
+            		fputcsv($this->file_log, ['blaqsdf'], $this->delimiteur);
 
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
