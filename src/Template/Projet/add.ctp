@@ -11,8 +11,7 @@
 
     $(function() {
     <?php foreach ($factOptionJS as $key => $value): ?>
-        nfArray['<?php echo $key; ?>'][0] = '<?php echo $value[0]; ?>';
-        nfArray['<?php echo $key; ?>'][1] = '<?php echo $value[1]; ?>';
+        nfArray[<?php echo $key; ?>] = {0 : '<?php echo $value[0]; ?>', 1 : '<?php echo $value[1]; ?>'};
     <?php endforeach; ?>
     });
 
