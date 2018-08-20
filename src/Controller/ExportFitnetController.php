@@ -397,17 +397,30 @@ class ExportFitnetController extends AppController
         }
 
         foreach ($assignementTable as $assignement) {
+            switch ($activityType) {
+                case 2:
+                    if ($assignement['employeeID'] == $time->user->id_fit
+                    && $assignement['customerID'] == $time->client->id_fit
+                    && $assignement['projectID'] == $time->projet->id_fit) {
+                        insertLog(null, 'assignement found');
 
-            $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
-            $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
+                        return $assignement[$assignementIdName[$activityType]];
+                    }
+                    break;
+                case 1:
+                case 3:
+                    $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
+                    $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
 
-            if ($assignement['employeeID'] == $time->user->id_fit
-            && $assignement['customerID'] == $time->client->id_fit
-            && $assignement['projectID'] == $time->projet->id_fit
-            && $date_debut <= $time->date && $date_fin >= $time->date ) {
-                insertLog(null, 'assignement found');
+                    if ($assignement['employeeID'] == $time->user->id_fit
+                    && $assignement['customerID'] == $time->client->id_fit
+                    && $assignement['projectID'] == $time->projet->id_fit
+                    && $date_debut <= $time->date && $date_fin >= $time->date ) {
+                        insertLog(null, 'assignement found');
 
-                return $assignement[$assignementIdName[$activityType]];
+                        return $assignement[$assignementIdName[$activityType]];
+                    }
+                    break;
             }
         }
         return;
