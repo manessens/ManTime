@@ -61,13 +61,18 @@ function initChangeFact() {
             $('#linker').attr('disabled', 'disabled');
             $('#resetter').attr('disabled', 'disabled');
             $('#liste_fitnet').attr('disabled', 'disabled');
+            $('#resetter').click();
+            $('#id-fit').val(nfArray[$(this).val()][1]);
         }else{
             $('#linker').removeAttr('disabled');
             $('#resetter').removeAttr('disabled');
             $('#liste_fitnet').removeAttr('disabled');
+            $('#resetter').click();
         }
-    }).change();
-
+    });
+    if ($('#id-fit').val() == "" || nfArray[$('select[name="idf"]').val()][0] == '2' {
+        $('select[name="idf"]').change();
+    }
 }
 
 function resetFitnet(){
