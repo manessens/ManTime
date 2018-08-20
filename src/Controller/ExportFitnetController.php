@@ -202,7 +202,7 @@ class ExportFitnetController extends AppController
         $queryError = false;
         if (!empty($periodes)) {
             foreach ($periodes as $periode) {
-                $lundi = new Date('now');
+                $lundi = new Time('now');
                 $lundi->setTime(00, 00, 00);
                 $lundi->setISOdate($periode->annee, $periode->n_sem);
                 $dimanche = clone $lundi;
