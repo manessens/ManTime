@@ -305,9 +305,6 @@ class ExportFitnetController extends AppController
             $line = [$line];
         }
 
-        if ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
-            $line = array_merge(['--'], $line);
-        }
         $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')], $line);
 
         if ($error) {
@@ -381,8 +378,6 @@ class ExportFitnetController extends AppController
 
         $activityType = $time->projet->facturable->id_fit;
 
-        $this->insertLog(['--', $activityType]);
-
         return $assignement;
     }
 
@@ -396,9 +391,14 @@ class ExportFitnetController extends AppController
         $line = ['<<', ' Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
-        fclose($this->file_log);
 
-        $this->ExportFitnet->save($export);
+        try {
+            $this->ExportFitnet->save($export);
+        } catch (\PDOException $e) {
+            $this->inError($export, 'Erreur à la sauvegarde final');
+        }
+        
+        fclose($this->file_log);
 
     }
 
