@@ -49,7 +49,7 @@ class ProjetController extends AppController
 
         $this->set('projet', $projet);
     }
-    
+
     /**
      * Add method
      *
@@ -296,7 +296,7 @@ class ProjetController extends AppController
         $factOption = $factTable->find('all')->toArray();
         $retour = array();
         foreach ($factOption as $fact) {
-            $retour[$fact->idf][0] = $fact->if_fit;
+            $retour[$fact->idf][0] = $fact->id_fit;
             $retour[$fact->idf][1] = $fact->id_nf;
         }
         return $retour;
