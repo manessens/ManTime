@@ -2,6 +2,7 @@ $(function() {
     init();
     $('#liste_fitnet').select2();
     initSelectEdit();
+    initChangeFact();
 });
 var xhr;
 
@@ -87,7 +88,6 @@ function init(){
     initcChangeClient();
     initChangeSelect2();
     initResetSelect();
-    initChangeFact();
 
     $('#linkModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
