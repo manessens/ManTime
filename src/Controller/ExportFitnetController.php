@@ -231,12 +231,13 @@ class ExportFitnetController extends AppController
         }
 
         $now = Time::now();
+        // sécu
         if (!is_array($line)) {
             $line = [$line];
         }
 
         if ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
-            $line = array_merge('--', $line);
+            $line = array_merge(['--'], $line);
         }
         $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')], $line);
 
@@ -309,7 +310,7 @@ class ExportFitnetController extends AppController
 
         $assignement = null;
 
-        $activityType = $time->projet->facturable->id_fit;
+        // $activityType = $time->projet->facturable->id_fit;
 
         $this->insertLog(['--', $activityType]);
 
