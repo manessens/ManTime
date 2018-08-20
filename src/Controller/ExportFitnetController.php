@@ -6,7 +6,6 @@ use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
-use App\Controller\TempsController;
 
 /**
  * ExportFitnet Controller
@@ -163,10 +162,79 @@ class ExportFitnetController extends AppController
 
     private function getTimesFromExport($export){
 
-        $temps = new TempsController();
         $date_debut = Time::parse($export->date_debut);
         $date_fin = Time::parse($export->date_fin);
-        $times = $temps->getTimes($date_debut, $date_fin, $export->idc, $export->idu );
+        $data_client = $export->idc;
+        $data_user =  $export->idu;
+
+        $times = array();
+        $data = array();
+        $periodes = array();
+        $exportableTable = TableRegistry::get('Exportable');
+        $semaineDebut = (int)date('W', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
+        $anneeDebut = (int)date('Y', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
+        $semaineFin = (int)date('W', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
+        $anneeFin =   (int)date('Y', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
+
+        $arraNSem = array($anneeDebut => array());
+
+        $y=$anneeDebut;
+        for ($i=$semaineDebut; ($i <= $semaineFin || $y < $anneeFin) ; $i++) {
+            if ($i > 52) {
+                $i = 1;
+                $y++;
+            }
+            $arraNSem[$y][] = $i;
+        }
+        $query = null;
+        $query = $exportableTable->find('all');
+        $andWhere = array();
+        foreach ($arraNSem as $an => $sem) {
+            if (!empty($sem)) {
+                $andWhere[] = ['n_sem IN' => $sem, 'annee =' => $an];
+            }
+        }
+        $query->where(['OR' => $andWhere]);
+        $periodes = $query->toArray();
+
+        $andWhere = array();
+        $times=array();
+        $queryError = false;
+        if (!empty($periodes)) {
+            foreach ($periodes as $periode) {
+                $lundi = new Date('now');
+                $lundi->setTime(00, 00, 00);
+                $lundi->setISOdate($periode->annee, $periode->n_sem);
+                $dimanche = clone $lundi;
+                $dimanche->modify('+7 days');
+
+                $andWhere[] = [ 'date >=' => $lundi,
+                                'date <' => $dimanche,
+                            ];
+            }
+            $query = null;
+            $query = $this->Temps->find('all')->contain(['Projet'=>['Client', 'Facturable'], 'User', 'Profil'])
+                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
+                ->andwhere(['OR' => $andWhere]);
+            if ( $data_client != null) {
+                $ProjetTable = TableRegistry::get('Projet');
+                $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
+                if (!empty($arrayIdProjet)) {
+                    $query->andWhere(['idp IN' => $arrayIdProjet]);
+                }else{
+                    $queryError = true;
+                }
+            }
+            if ($data_user != null ){
+                $query->andWhere(['idu =' => $data_user]);
+            }
+
+            if ($queryError) {
+                $times=array();
+                return $times;
+            }
+            $times = $query->toArray();
+        }
         return $times;
 
     }
@@ -310,7 +378,7 @@ class ExportFitnetController extends AppController
 
         $assignement = null;
 
-        // $activityType = $time->projet->facturable->id_fit;
+        $activityType = $time->projet->facturable->id_fit;
 
         $this->insertLog(['--', $activityType]);
 
