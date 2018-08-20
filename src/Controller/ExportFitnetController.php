@@ -400,7 +400,7 @@ class ExportFitnetController extends AppController
             switch ($activityType) {
                 case 2:
                     if ($assignement['employeeID'] == $time->user->id_fit
-                    && $assignement['customerID'] == $time->client->id_fit
+                    && $assignement['customerID'] == $time->projet->client->id_fit
                     && $assignement['projectID'] == $time->projet->id_fit) {
                         $this->insertLog(['--','assignement found']);
 
