@@ -402,7 +402,7 @@ class ExportFitnetController extends AppController
                     if ($assignement['employeeID'] == $time->user->id_fit
                     && $assignement['customerID'] == $time->client->id_fit
                     && $assignement['projectID'] == $time->projet->id_fit) {
-                        $this->insertLog(null, 'assignement found');
+                        $this->insertLog(['--','assignement found']);
 
                         return $assignement[$assignementIdName[$activityType]];
                     }
@@ -416,7 +416,7 @@ class ExportFitnetController extends AppController
                     && $assignement['customerID'] == $time->client->id_fit
                     && $assignement['projectID'] == $time->projet->id_fit
                     && $date_debut <= $time->date && $date_fin >= $time->date ) {
-                        $this->insertLog(null, 'assignement found');
+                        $this->insertLog(['--','assignement found']);
 
                         return $assignement[$assignementIdName[$activityType]];
                     }
