@@ -223,7 +223,7 @@ class ExportFitnetController extends AppController
     	fclose($fichier_csv);
     }
 
-    private function insertLog( $line = array(), $error = false){
+    private function insertLog( Array $line, $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
         if ( empty($line) ) {
             return;
@@ -234,7 +234,7 @@ class ExportFitnetController extends AppController
         if ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
             $line = array_merge('--', $line);
         }
-        $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')],$line);
+        $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')], $line);
 
         if ($error) {
             $this->error_log[] = $line;
