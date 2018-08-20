@@ -348,7 +348,7 @@ class ExportFitnetController extends AppController
         //@TODO:  recherche du assignement
         $assignement = $this->getAssignement($time);
         if ($assignement == null) {
-            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->idu.
+            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->email.
                                  ' projet : '.$time->projet->nom_projet.
                                  ' date : '. $time->date->i18nFormat('dd-MM-yy') );
         }
@@ -394,7 +394,7 @@ class ExportFitnetController extends AppController
         try {
             $this->ExportFitnet->save($export);
         } catch (\PDOException $e) {
-            $this->inError($export, 'Erreur à la sauvegarde final');
+            $this->inError($export, 'Erreur à la sauvegarde de l\'état final de l\'export');
         }
 
         fclose($this->file_log);
