@@ -244,10 +244,6 @@ class ExportFitnetController extends AppController
         // Notification d'erreur de traitement
         if ($export != null) {
             $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
-
-            if ($export->etat != Configure::read('fitnet.err')) {
-                $export->etat = Configure::read('fitnet.err');
-            }
         }else{
             $line = ['##', ' ERREUR -- time : ', $cause];
         }
@@ -384,8 +380,11 @@ class ExportFitnetController extends AppController
     private function endExport($export, $count, $total){
         if ($count != $total) {
             $export=$this->inError($export, 'nombre de saisie échoué :'.($total-$count));
-        }elseif (empty($this->error_log)) {
+        }
+        if (empty($this->error_log)) {
             $export->etat = Configure::read('fitnet.end');
+        }else{
+            $export->etat = Configure::read('fitnet.err');
         }
 
         $line = ['<<', ' Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
@@ -397,7 +396,7 @@ class ExportFitnetController extends AppController
         } catch (\PDOException $e) {
             $this->inError($export, 'Erreur à la sauvegarde final');
         }
-        
+
         fclose($this->file_log);
 
     }
