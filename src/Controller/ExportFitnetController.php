@@ -283,7 +283,12 @@ class ExportFitnetController extends AppController
     private function exportTime($time){
         $error = false;
         //@TODO:  recherche du assignement
-        $this->getAssignement($time);
+        $assignement = $this->getAssignement($time);
+        if ($assignement = null) {
+            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->idu.
+                                 ' projet : '.$time->projet->nom_projet.
+                                 ' date : '. $time->date->i18nFormat('dd-MM-yy') );
+        }
         // activityType
         // Récupération des assignement
         // employeeID
@@ -302,11 +307,13 @@ class ExportFitnetController extends AppController
             return;
         }
 
+        $assignement = null;
+
         $activityType = $time->projet->facturable->id_fit;
 
         $this->insertLog(['--', $activityType]);
 
-
+        return $assignement;
     }
 
     private function endExport($export, $count, $total){
