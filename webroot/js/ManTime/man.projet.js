@@ -70,7 +70,7 @@ function initChangeFact() {
             $('#resetter').click();
         }
     });
-    if ($('#id-fit').val() == "" || nfArray[$('select[name="idf"]').val()][0] == '2' {
+    if ($('#id-fit').val() == "" || nfArray[$('select[name="idf"]').val()][0] == '2') {
         $('select[name="idf"]').change();
     }
 }
