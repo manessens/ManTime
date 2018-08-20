@@ -173,15 +173,16 @@ class ExportFitnetController extends AppController
 
     private function inError($export, $cause){
         // Notification d'erreur de traitement
-        if ($export == null) {
+        if ($export != null) {
+            $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
+
+            if ($export->etat != Configure::read('fitnet.err')) {
+                $export->etat = Configure::read('fitnet.err');
+            }
+        }else{
             $line = ['##', ' ERREUR -- time : ', $cause];
         }
-        $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
         $this->insertLog($line, true);
-
-        if ($export->etat != Configure::read('fitnet.err')) {
-            $export->etat = Configure::read('fitnet.err');
-        }
 
         return $export;
 
@@ -230,6 +231,9 @@ class ExportFitnetController extends AppController
         }
 
         $now = Time::now();
+        if (!is_array($line)) {
+            $line = [$line];
+        }
 
         if ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
             $line = array_merge('--', $line);
