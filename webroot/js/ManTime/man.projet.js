@@ -41,7 +41,7 @@ var load = 0;
 function initChangeSelect2(){
     $("#liste_fitnet").on("change", function(e) {
         var val = $("#liste_fitnet").find(':selected').val();
-        if (load != 1) {
+        if (load > 1) {
             $('#id-fit').val(val);
         }else{
             load++;
