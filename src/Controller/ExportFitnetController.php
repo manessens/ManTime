@@ -223,30 +223,26 @@ class ExportFitnetController extends AppController
     	fclose($fichier_csv);
     }
 
-    private function insertLog( $lines = array(), $error = false){
+    private function insertLog( $line = array(), $error = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
-        if ( empty($lines) ) {
+        if ( empty($line) ) {
             return;
         }
 
         $now = Time::now();
 
-        foreach ($lines as $line) {
-            if (!is_array($line)) {
-                $line = ['--', $line];
-            }elseif ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
-                $line = array_merge('--', $line);
-            }
-            $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')],$line);
-
-            if ($error) {
-                $this->error_log[] = $line;
-            }else{
-                $this->data_log[] = $line;
-            }
-
-    		fputcsv($this->file_log, $line, $this->delimiteur);
+        if ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
+            $line = array_merge('--', $line);
         }
+        $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')],$line);
+
+        if ($error) {
+            $this->error_log[] = $line;
+        }else{
+            $this->data_log[] = $line;
+        }
+
+		fputcsv($this->file_log, $line, $this->delimiteur);
 
     }
 
@@ -284,7 +280,7 @@ class ExportFitnetController extends AppController
         $error = false;
         //@TODO:  recherche du assignement
         $assignement = $this->getAssignement($time);
-        if ($assignement = null) {
+        if ($assignement == null) {
             $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->idu.
                                  ' projet : '.$time->projet->nom_projet.
                                  ' date : '. $time->date->i18nFormat('dd-MM-yy') );
