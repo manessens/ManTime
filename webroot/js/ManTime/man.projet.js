@@ -57,7 +57,7 @@ function initChangeSelect2(){
 
 function initChangeFact() {
     $('select[name="idf"]').on('change',function(e){
-        if ( "2" == nfArray[$(this).val()] ) {
+        if ( "2" == nfArray[$(this).val()][0] ) {
             $('#linker').attr('disabled', 'disabled');
             $('#resetter').attr('disabled', 'disabled');
             $('#liste_fitnet').attr('disabled', 'disabled');

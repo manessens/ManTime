@@ -49,16 +49,7 @@ class ProjetController extends AppController
 
         $this->set('projet', $projet);
     }
-
-    private function getIdFit($projet){
-        $factTable = TableRegistry::get('Facturable');
-        $fact->get($projet->idf);
-        if ($fact->id_fit == 2) {
-            $projet->id_fit = $fact->id_nf;
-        }
-        return $projet;
-    }
-
+    
     /**
      * Add method
      *
@@ -85,8 +76,6 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
-
-            $projet = $this->getIdFit($projet);
 
             //sauvegarde initial
             if ($this->Projet->save($projet)) {
@@ -143,8 +132,6 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
-
-            $projet = $this->getIdFit($projet);
 
             // mise à jour des relation hasMany
             if ($this->updateParticipant($projet, $data['participant'])
@@ -309,7 +296,8 @@ class ProjetController extends AppController
         $factOption = $factTable->find('all')->toArray();
         $retour = array();
         foreach ($factOption as $fact) {
-            $retour[$fact->idf] = $fact->id_nf;
+            $retour[$fact->idf][0] = $fact->if_fit;
+            $retour[$fact->idf][1] = $fact->id_nf;
         }
         return $retour;
     }
