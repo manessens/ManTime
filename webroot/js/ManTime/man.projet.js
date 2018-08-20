@@ -55,6 +55,21 @@ function initChangeSelect2(){
     });
 }
 
+function initChangeFact() {
+    $('select[name="idf"]').on('change',function(e){
+        if ( "2" == nfArray[$(this).val()] ) {
+            $('#linker').attr('disabled', 'disabled');
+            $('#resetter').attr('disabled', 'disabled');
+            $('#liste_fitnet').attr('disabled', 'disabled');
+        }else{
+            $('#linker').removeAttr('disabled');
+            $('#resetter').removeAttr('disabled');
+            $('#liste_fitnet').removeAttr('disabled');
+        }
+    }).change();
+
+}
+
 function resetFitnet(){
     $('#date-debut').removeAttr('readonly');
     $('#date-fin').removeAttr('readonly');
@@ -67,6 +82,7 @@ function init(){
     initcChangeClient();
     initChangeSelect2();
     initResetSelect();
+    initChangeFact();
 
     $('#linkModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal

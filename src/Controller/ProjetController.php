@@ -50,6 +50,15 @@ class ProjetController extends AppController
         $this->set('projet', $projet);
     }
 
+    private function getIdFit($projet){
+        $factTable = TableRegistry::get('Facturable');
+        $fact->get($projet->idf);
+        if ($fact->id_fit == 2) {
+            $projet->id_fit = $fact->id_nf;
+        }
+        return $projet;
+    }
+
     /**
      * Add method
      *
@@ -59,6 +68,7 @@ class ProjetController extends AppController
     {
         $clientOption = $this->getClientOption();
         $factOption = $this->getFactOption();
+        $factOptionJS = $this->getFactOptionJS();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
@@ -75,6 +85,9 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
+
+            $projet = $this->getIdFit($projet);
+
             //sauvegarde initial
             if ($this->Projet->save($projet)) {
                 if ($this->updateParticipant($projet, $data['participant'])
@@ -95,6 +108,7 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
+        $this->set(compact('factOptionJS'));
         $this->set(compact('matricesOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
@@ -113,6 +127,7 @@ class ProjetController extends AppController
     {
         $clientOption = $this->getClientOption();
         $factOption = $this->getFactOption();
+        $factOptionJS = $this->getFactOptionJS();
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
@@ -128,6 +143,9 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
+
+            $projet = $this->getIdFit($projet);
+
             // mise à jour des relation hasMany
             if ($this->updateParticipant($projet, $data['participant'])
             && $this->updateActivities($projet, $data['activities']) ){
@@ -146,6 +164,7 @@ class ProjetController extends AppController
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
+        $this->set(compact('factOptionJS'));
         $this->set(compact('matricesOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
@@ -281,6 +300,18 @@ class ProjetController extends AppController
         $factOption = array();
         $factOption = $factTable->find('list',['fields'=>['idf', 'nom_fact']])->toArray();
         return $factOption;
+    }
+
+    private function getFactOptionJS()
+    {
+        $factTable = TableRegistry::get('Facturable');
+        $factOption = array();
+        $factOption = $factTable->find('all')->toArray();
+        $retour = array();
+        foreach ($factOption as $fact) {
+            $retour[$fact->idf] = $fact->id_nf;
+        }
+        return $retour;
     }
 
     private function getUserOption()

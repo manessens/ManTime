@@ -4,6 +4,17 @@
  * @var \App\Model\Entity\Projet $projet
  */
 ?>
+<script  type="text/javascript">
+
+    var nfArray =  [];
+
+    $(function() {
+    <?php foreach ($factOptionJS as $key => $value): ?>
+        nfArray['<?php echo $key; ?>'] = '<?php echo $value; ?>';
+    <?php endforeach; ?>
+    });
+
+</script>
 <div class="projet form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($projet) ?>
     <fieldset>

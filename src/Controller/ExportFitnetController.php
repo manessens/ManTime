@@ -214,7 +214,7 @@ class ExportFitnetController extends AppController
             }
             $query = null;
             $tempsTable = TableRegistry::get('Temps');
-            $query = $tempsTable->find('all')->contain(['Projet'=>['Client', 'Facturable'], 'Users', 'Profil'])
+            $query = $tempsTable->find('all')->contain(['Projet'=>['Client', 'Facturable'], 'Users'=>['Origine'], 'Profil'])
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client != null) {
@@ -378,13 +378,13 @@ class ExportFitnetController extends AppController
 
         switch ($activityType) {
             case 2:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/offContract/".$activityType);
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/offContract/".$time->user->origine->id_fit);
                 break;
             case 1:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$activityType.'/'.$month.'/'.$year);
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year);
                 break;
             case 3:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/training/".$activityType.'/'.$month.'/'.$year);
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/training/".$time->user->origine->id_fit.'/'.$month.'/'.$year);
                 break;
 
             default:
@@ -398,17 +398,16 @@ class ExportFitnetController extends AppController
 
         foreach ($assignementTable as $assignement) {
             switch ($activityType) {
-                case 2:
+                case 2: // Off contract
                     if ($assignement['employeeID'] == $time->user->id_fit
-                    && $assignement['customerID'] == $time->projet->client->id_fit
-                    && $assignement['projectID'] == $time->projet->id_fit) {
+                    && $assignement['offContractActivityID'] == $time->projet->id_fit) {
                         $this->insertLog(['--','assignement found']);
 
                         return $assignement[$assignementIdName[$activityType]];
                     }
                     break;
-                case 1:
-                case 3:
+                case 1: // On contract
+                case 3: // "training"
                     $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
                     $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
 

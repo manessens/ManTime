@@ -49,13 +49,17 @@ class FacturableTable extends Table
 
         $validator
             ->integer('id_fit')
-            ->allowEmpty('idf', 'create');
+            ->allowEmpty('id_fit', 'create');
 
         $validator
             ->scalar('nom_fact')
             ->maxLength('nom_fact', 20)
             ->requirePresence('nom_fact', 'create')
             ->notEmpty('nom_fact');
+
+        $validator
+            ->integer('id_nf')
+            ->allowEmpty('id_nf');
 
         return $validator;
     }
