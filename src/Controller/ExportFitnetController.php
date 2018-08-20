@@ -213,7 +213,8 @@ class ExportFitnetController extends AppController
                             ];
             }
             $query = null;
-            $query = $this->Temps->find('all')->contain(['Projet'=>['Client', 'Facturable'], 'User', 'Profil'])
+            $tempsTable = TableRegistry::get('Temps');
+            $query = $tempsTable->find('all')->contain(['Projet'=>['Client', 'Facturable'], 'User', 'Profil'])
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client != null) {
