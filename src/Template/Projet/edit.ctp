@@ -6,7 +6,7 @@
 ?>
 <script  type="text/javascript">
 
-    var nfArray =  [];
+    var nfArray =  [][];
 
     $(function() {
     <?php foreach ($factOptionJS as $key => $value): ?>
