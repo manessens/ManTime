@@ -43,6 +43,8 @@ function initChangeSelect2(){
         var val = $("#liste_fitnet").find(':selected').val();
         if (load != 0) {
             $('#id-fit').val(val);
+        }else{
+            load++;
         }
         if (val != null) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
