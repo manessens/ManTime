@@ -55,6 +55,10 @@ class ProfilTable extends Table
             ->allowEmpty('id_profil', 'create');
 
         $validator
+            ->integer('id_fit')
+            ->allowEmpty('id_fit');
+
+        $validator
             ->scalar('nom_profil')
             ->maxLength('nom_profil', 50)
             ->requirePresence('nom_profil', 'create')

@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id_profil
  * @property string $nom_profil
+ * @property int $id_fit
  *
  * @property \App\Model\Entity\LignMat[] $lignes
  */
@@ -25,6 +26,7 @@ class Profil extends Entity
      */
     protected $_accessible = [
         'nom_profil' => true,
-        'lign_mat' => true
+        'lign_mat' => true,
+        'id_fit' => true
     ];
 }

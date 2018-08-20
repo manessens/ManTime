@@ -99,6 +99,18 @@ class ExportFitnetController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
+        $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
+        if (!file_exists ( $filename ) ) {
+            $filename = Configure::read('fitnet.logname') . $id . '.csv';
+            if (!file_exists ( $filename )) {
+                $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
+                return $this->redirect(['action' => 'index']);
+            }
+        }
+        $file = fopen($filename);
+        //  @TODO : traitement du fichier de log
+        fclose($file);
+
         $export = $this->ExportFitnet->get($id);
 
         $log_array = $this->readLog($id);
@@ -161,7 +173,10 @@ class ExportFitnetController extends AppController
 
     private function inError($export, $cause){
         // Notification d'erreur de traitement
-        $line = ['ERREUR -- EXPORT FITNET #'.$export->id_fit.' : '.$cause];
+        if ($export == null) {
+            $line = ['##', ' ERREUR -- time : ', $cause];
+        }
+        $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
         $this->insertLog($line, true);
 
         if ($export->etat != Configure::read('fitnet.err')) {
@@ -181,7 +196,7 @@ class ExportFitnetController extends AppController
 
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
-        $line = ['>> Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        $line = ['>>', ' Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
         $this->ExportFitnet->save($export);
@@ -196,7 +211,7 @@ class ExportFitnetController extends AppController
         }
     	$fichier_csv = fopen($filename, 'w+');
         if (empty($this->error_log)) {
-            $this->error_log[] = "Erreur : 0 - Aucune erreur détecté";
+            $this->error_log[] = ["--"," Nb erreur : 0 - Aucune erreur détectée"];
         }
         $this->data_log = array_merge($this->error_log, $this->data_log);
     	foreach( $this->data_log as $output){
@@ -218,9 +233,11 @@ class ExportFitnetController extends AppController
 
         foreach ($lines as $line) {
             if (!is_array($line)) {
-                $line = [$line];
+                $line = ['--', $line];
+            }elseif ($line[0] != '##' || $line[0] != '<<' || $line[0] != '>>' || $line[0] != '--'){
+                $line = array_merge('--', $line);
             }
-            $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss').' -- '],$line);
+            $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')],$line);
 
             if ($error) {
                 $this->error_log[] = $line;
@@ -265,10 +282,31 @@ class ExportFitnetController extends AppController
     }
     private function exportTime($time){
         $error = false;
+        //@TODO:  recherche du assignement
+        $this->getAssignement($time);
+        // activityType
+        // Récupération des assignement
+        // employeeID
+        // customerID
+        // proectID
+        // StartDate/EndDate
 
 
 
         return !$error;
+    }
+
+    private function getAssignement($time = null){
+        if (empty($time)) {
+            $this->inError(null, 'Null-pointer sur un traitement Temps');
+            return;
+        }
+
+        $activityType = $time->projet->facturable->id_fit;
+
+        $this->insertLog(['--', $activityType]);
+
+
     }
 
     private function endExport($export, $count, $total){
@@ -278,7 +316,7 @@ class ExportFitnetController extends AppController
             $export->etat = Configure::read('fitnet.end');
         }
 
-        $line = ['<< Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        $line = ['<<', ' Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
         fclose($this->file_log);
