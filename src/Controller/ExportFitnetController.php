@@ -359,8 +359,6 @@ class ExportFitnetController extends AppController
         // proectID
         // StartDate/EndDate
 
-
-
         return !$error;
     }
 
@@ -370,11 +368,48 @@ class ExportFitnetController extends AppController
             return;
         }
 
-        $assignement = null;
+        $assignementIdName = [1 => 'assignmentOnContractID', 2 => 'assignmentOffContractID', 3 => 'assignmentTrainingID'];
+        $assignementFind = null;
+        $assignementJsonTable = array();
+        $month = $time->date->i18nFormat('MM');
+        $year = $time->date->i18nFormat('YYYY');
 
         $activityType = $time->projet->facturable->id_fit;
 
-        return $assignement;
+        switch ($activityType) {
+            case 2:
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/offContract/".$activityType);
+                break;
+            case 1:
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$activityType.'/'.$month.'/'.$year);
+                break;
+            case 3:
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/training/".$activityType.'/'.$month.'/'.$year);
+                break;
+
+            default:
+                $this->inError(null, 'activityType éroné' );
+                break;
+        }
+        $assignementTable = json_decode($assignementJsonTable, true);
+        if ( empty($assignementTable) ) {
+            return;
+        }
+
+        foreach ($assignementTable as $assignement) {
+            $date_debut = new Time($assignement['assignmentStartDate']);
+            $date_fin = new Time($assignement['assignmentEndDate']);
+            if ($assignement['employeeID'] == $time->user->id_fit
+            && $assignement['customerID'] == $time->client->id_fit
+            && $assignement['projectID'] == $time->projet->id_fit
+            && $date_debut <= $time->date && $date_fin >= $time->date ) {
+                insertLog(null, 'assignement found');
+
+                return $assignement[$assignementIdName[$activityType]];
+            }
+        }
+        return;
+
     }
 
     private function endExport($export, $count, $total){
