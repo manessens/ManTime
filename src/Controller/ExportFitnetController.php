@@ -397,8 +397,10 @@ class ExportFitnetController extends AppController
         }
 
         foreach ($assignementTable as $assignement) {
-            $date_debut = new Time($assignement['assignmentStartDate']);
-            $date_fin = new Time($assignement['assignmentEndDate']);
+
+            $date_debut = new Time(str_replace('/', ',', $assignement['assignmentStartDate']));
+            $date_fin = new Time(str_replace('/', ',', $assignement['assignmentEndDate']));
+            
             if ($assignement['employeeID'] == $time->user->id_fit
             && $assignement['customerID'] == $time->client->id_fit
             && $assignement['projectID'] == $time->projet->id_fit
