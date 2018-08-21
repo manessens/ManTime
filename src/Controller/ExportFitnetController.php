@@ -116,9 +116,9 @@ class ExportFitnetController extends AppController
         }
 
         $contents = $file->read();
-        $file->close();
-
         $log_array = $this->readLog($contents);
+
+        $file->close();
 
         $export = $this->ExportFitnet->get($id);
 
