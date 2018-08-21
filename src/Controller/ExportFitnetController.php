@@ -99,6 +99,7 @@ class ExportFitnetController extends AppController
         }
 
         $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
+        pr($filename);exit;
         if (!file_exists ( $filename ) ) {
             $filename = Configure::read('fitnet.logname') . $id . '.csv';
             if (!file_exists ( $filename )) {
