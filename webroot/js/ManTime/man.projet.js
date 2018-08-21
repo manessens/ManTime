@@ -46,7 +46,7 @@ function initChangeSelect2(){
         }else{
             load++;
         }
-        if (val != null) {
+        if (val != null && "2" == nfArray[$(this).val()][0]) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
@@ -67,7 +67,7 @@ function initChangeFact() {
             $('#resetter').attr('disabled', 'disabled');
             $('#liste_fitnet').attr('disabled', 'disabled');
             $('#resetter').click();
-            $('#id-fit').val(nfArray[$(this).val()][1]);
+            $('#id-fit').val(nfArray[$('select[name="idf"]').val()][1]);
         }else{
             $('#linker').removeAttr('disabled');
             $('#resetter').removeAttr('disabled');

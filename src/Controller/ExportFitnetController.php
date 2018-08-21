@@ -214,7 +214,7 @@ class ExportFitnetController extends AppController
             }
             $query = null;
             $tempsTable = TableRegistry::get('Temps');
-            $query = $tempsTable->find('all')->contain(['Projet'=>['Client', 'Facturable'], 'Users'=>['Origine'], 'Profil'])
+            $query = $tempsTable->find('all')->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil'])
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client != null) {
@@ -400,7 +400,7 @@ class ExportFitnetController extends AppController
             switch ($activityType) {
                 case 2: // Off contract
                     if ($assignement['employeeID'] == $time->user->id_fit
-                    && $assignement['offContractActivityID'] == $time->projet->id_fit) {
+                    && $assignement['offContractActivityID'] == Configure::read('fitnet.NF.'.$time->projet->client->agence->id_fit.$time->projet->id_fit)) {
                         $this->insertLog(['--','assignement found']);
 
                         return $assignement[$assignementIdName[$activityType]];
