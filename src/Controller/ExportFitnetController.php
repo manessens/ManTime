@@ -6,6 +6,8 @@ use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 /**
  * ExportFitnet Controller
@@ -93,6 +95,10 @@ class ExportFitnetController extends AppController
     }
 
     public function view($id=null){
+
+        $dir = new Folder('fitnet_log');
+        $files = $dir->find('.*\.csv');
+        pr($files);exit;
 
         if ($id == null) {
             return $this->redirect(['action' => 'index']);
