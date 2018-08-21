@@ -10,6 +10,20 @@
         <legend>
             <span class="text-danger">Erreur</span>
         </legend>
+        <table>
+            <thead>
+                <tr>
+                    <th class="medium-1">date</th>
+                    <th class="medium-1">Erreur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tbody>
+        </table>
         <legend>
             <span class="text-info">Information</span>
         </legend>
