@@ -252,13 +252,13 @@ class ExportFitnetController extends AppController
                 $ProjetTable = TableRegistry::get('Projet');
                 $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
                 if (!empty($arrayIdProjet)) {
-                    $query->andWhere(['idp IN' => $arrayIdProjet]);
+                    $query->andWhere(['Projet.idp IN' => $arrayIdProjet]);
                 }else{
                     $queryError = true;
                 }
             }
             if ($data_user != null ){
-                $query->andWhere(['idu =' => $data_user]);
+                $query->andWhere(['ExportFitnet.idu =' => $data_user]);
             }
 
             if ($queryError) {
