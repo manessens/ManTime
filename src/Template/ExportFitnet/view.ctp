@@ -7,7 +7,7 @@
 
 <div class="projet view large-10 large-10bis medium-8 columns content">
     <legend>Rapport d'éxécution de l'export <span class="text-danger">#<?= h($export->id_fit) ?></span></legend>
-    <form action="/exportFitnet/view/<?php echo $export->id_fit ?>"><button type="submit" class="btn btn-info">Télécharger le log au format CSV</button></form>
+    <form method="post" action="/exportFitnet/view/<?php echo $export->id_fit ?>"><button type="submit" class="btn btn-info">Télécharger le log au format CSV</button></form>
     <fieldset>
         <legend>
             <span class="text-danger">Erreur</span>
