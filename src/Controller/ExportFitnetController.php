@@ -99,8 +99,8 @@ class ExportFitnetController extends AppController
         }
 
         $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
-        pr(file_exists ( $filename ));exit;
-        if (!file_exists ( $filename ) ) {
+        pr(file_exists( $filename ));exit;
+        if (!file_exists( $filename ) ) {
             $filename = Configure::read('fitnet.logname') . $id . '.csv';
             if (!file_exists ( $filename )) {
                 $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
