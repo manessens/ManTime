@@ -46,7 +46,7 @@ function initChangeSelect2(){
         }else{
             load++;
         }
-        if (val != null && "2" == nfArray[$('select[name="idf"]') {
+        if (val != null && "2" == nfArray[$('select[name="idf"]')][0] ) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
