@@ -292,8 +292,8 @@ class ExportFitnetController extends AppController
         $filename = Configure::read('fitnet.logname') . $export->id_fit . '.csv';
 
         $folder = new Folder(Configure::read('fitnet.logdir'));
-        $file_log = new File($folder->pwd() . DS . $filename);
-        $file_log->delete();
+        $this->file_log = new File($folder->pwd() . DS . $filename);
+        $this->file_log->delete();
 
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
@@ -346,7 +346,7 @@ class ExportFitnetController extends AppController
             $this->data_log[] = $line;
         }
 
-        $file_log->append(implode($this->delimiteur, $line));
+        $this->file_log->append(implode($this->delimiteur, $line));
 
     }
 
@@ -483,7 +483,7 @@ class ExportFitnetController extends AppController
             $this->inError($export, 'Erreur à la sauvegarde de l\'état final de l\'export');
         }
 
-        $file_log->close();
+        $this->file_log->close();
 
     }
 
