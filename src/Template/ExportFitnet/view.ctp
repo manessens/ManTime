@@ -13,14 +13,18 @@
         </legend>
         <pre class="pr">
             <table>
-                <tbody class="pr">
-                    <tr>
-                        <?php foreach ($log_array['error'] as $logerror): ?>
-                            <td><?php $logerror[0] ?></td>
-                            <td><?php $logerror[2] ?></td>
-                            <td><?php $logerror[3] ?></td>
-                        <?php endforeach; ?>
-                    </tr>
+                <tbody>
+                        <?php if (empty($log_array['error'])): ?>
+                            <tr><td>Aucune Erreur</td></tr>
+                        <?php else: ?>
+                            <?php foreach ($log_array['error'] as $logerror): ?>
+                                <tr>
+                                    <td><?php echo $logerror[0] ?></td>
+                                    <td><?php echo $logerror[2] ?></td>
+                                    <td><?php echo $logerror[3] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                 </tbody>
             </table>
         </pre>
@@ -29,17 +33,31 @@
         </legend>
         <pre class="pr">
             <table>
-                <tbody class="pr">
+                <thead>
+                    <tr>
+                        <th><?php echo $log_array['info']['start'][0] ?></th>
+                        <th><?php echo $log_array['info']['start'][2] ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Aucune Erreur</td></tr>
                     <tr>
                         <?php foreach ($log_array['info'] as $key => $log): ?>
                             <?php if ($key != 'start' && $key != 'end'): ?>
-                                <td><?php $log[0] ?></td>
-                                <td><?php $log[2] ?></td>
-                                <td><?php $log[3] ?></td>
+                                <td><?php echo $log[0] ?></td>
+                                <td><?php echo $log[2] ?></td>
+                                <td><?php echo $log[3] ?></td>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </tr>
+                    <tr><td>Aucune Erreur</td></tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td><?php echo $log_array['info']['start'][0] ?></td>
+                        <th><?php echo $log_array['info']['start'][2] ?></th>
+                    </tr>
+                </tfoot>
             </table>
         </pre>
     </fieldset>
