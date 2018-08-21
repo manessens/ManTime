@@ -9,8 +9,10 @@ return [
         'run'=>'Lancé',
         'err'=>'Erreur',
         'nerr'=>'Vérifié',
-        'logname'=>'fitnet_log/Log_export_fitnet_',
-        'logname_end'=>'fitnet_log/final/Log_final_export_fitnet_',
+        'logdir'=>'fitnet_log',
+        'logdir_end'=>'fitnet_log/final',
+        'logname'=>'Log_export_fitnet_',
+        'logname_end'=>'Log_final_export_fitnet_',
         'NF'=>[
             '1'=>[
                 '1'=>'4',

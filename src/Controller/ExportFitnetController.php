@@ -96,42 +96,29 @@ class ExportFitnetController extends AppController
 
     public function view($id=null){
 
-        $folder = new Folder();
-        if ($folder->create('fitnet_log' . DS . 'final')) {
-            pr('ok');exit;
-        }
-
-        $dir = new Folder('/fitnet_log');
-
-        $files = $dir->find('.*\.csv');
-        // foreach ($files as $file) {
-        //     $file = new File($dir->pwd() . DS . $file);
-        //     $contents = $file->read();
-        //     // $file->write('J'écris dans ce fichier');
-        //     // $file->append('J'ajoute à la fin de ce fichier.');
-        //     // $file->delete(); // Je supprime ce fichier
-        //     $file->close(); // Assurez-vous de fermer le fichier quand c'est fini
-        // }
-        pr($files);exit;
-
         if ($id == null) {
             return $this->redirect(['action' => 'index']);
         }
 
-        $filename = Configure::read('fitnet.logname_end') . $id . '1.csv';
+        $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
 
-    	$fichier_csv = fopen($filename, 'w+');
-        fputcsv($fichier_csv, ['$output','end'], $this->delimiteur);
-    	fclose($fichier_csv);
-        pr(file_exists ( $filename ) );exit;
-        if (!file_exists ( $filename ) ) {
+        $folder = new Folder(Configure::read('fitnet.logdir_end'));
+        $file = new File($folder->pwd() . DS . $filename);
+        if ($file == null) {
             $filename = Configure::read('fitnet.logname') . $id . '.csv';
-            if (!file_exists ( $filename )) {
+
+            $folder = new Folder(Configure::read('fitnet.logdir'));
+            $file = new File($folder->pwd() . DS . $filename);
+            if ($file == null) {
                 $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
                 return $this->redirect(['action' => 'index']);
             }
         }
-        $log_array = $this->readLog($filename);
+
+        $contents = $file->read();
+        $file->close();
+
+        $log_array = $this->readLog($contents);
 
         $export = $this->ExportFitnet->get($id);
 
@@ -139,16 +126,16 @@ class ExportFitnetController extends AppController
         $this->set(compact('log_array'));
     }
 
-    private function readLog($filename = null){
+    private function readLog($contents = array()){
         $log = array();
         $log['error'] = array();
         $log['info'] = array();
-        if ($filename == null) {
+        if (empty($contents)) {
             return;
         }
-        $lines = file($filename);
-        foreach($lines as $n => $line){
-            $arrayLine = \explode(';', $line);
+
+        foreach($contents as $n => $line){
+            $arrayLine = explode(';', $line);
             switch ($arrayLine[1]) {
                 case '##':
                     unset($arrayLine[1]);
@@ -303,10 +290,10 @@ class ExportFitnetController extends AppController
     private function inProcess($export){
 
         $filename = Configure::read('fitnet.logname') . $export->id_fit . '.csv';
-        if (file_exists ( $filename ) ) {
-            unlink($filename);
-        }
-    	$this->file_log = fopen($filename, 'w+');
+
+        $folder = new Folder(Configure::read('fitnet.logdir'));
+        $file_log = new File($folder->pwd() . DS . $filename);
+        $file_log->delete();
 
         $export->etat = Configure::read('fitnet.run');
         // Notification de lancement du traitemnt
@@ -320,21 +307,23 @@ class ExportFitnetController extends AppController
     private function writeLog($id){
         // Ecrit une nouveau log pour l'export #$id
         $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
-        if (file_exists ( $filename ) ) {
-            unlink($filename);
-        }
-    	$fichier_csv = fopen($filename, 'w+');
+
+        $folder = new Folder(Configure::read('fitnet.logdir_end'));
+        $file = new File($folder->pwd() . DS . $filename);
+        $file->delete();
+
         if (empty($this->error_log)) {
             $this->error_log[] = ["--"," Nb erreur : 0 - Aucune erreur détectée"];
         }
+
         $this->data_log = array_merge($this->error_log, $this->data_log);
     	foreach( $this->data_log as $output){
             if (!is_array($output)) {
                 $output = [$output];
             }
-    		fputcsv($fichier_csv, $output, $this->delimiteur);
+            $file->write(implode($this->delimiteur, $output));
     	}
-    	fclose($fichier_csv);
+        $file->close();
     }
 
     private function insertLog( Array $line, $error = false){
@@ -357,7 +346,7 @@ class ExportFitnetController extends AppController
             $this->data_log[] = $line;
         }
 
-		fputcsv($this->file_log, $line, $this->delimiteur);
+        $file_log->append(implode($this->delimiteur, $line));
 
     }
 
@@ -494,7 +483,7 @@ class ExportFitnetController extends AppController
             $this->inError($export, 'Erreur à la sauvegarde de l\'état final de l\'export');
         }
 
-        fclose($this->file_log);
+        $file_log->close();
 
     }
 
