@@ -96,7 +96,13 @@ class ExportFitnetController extends AppController
 
     public function view($id=null){
 
+        $folder = new Folder();
+        if ($folder->create('fitnet_log' . DS . 'final')) {
+            pr('ok');exit;
+        }
+
         $dir = new Folder('/fitnet_log');
+
         $files = $dir->find('.*\.csv');
         // foreach ($files as $file) {
         //     $file = new File($dir->pwd() . DS . $file);
