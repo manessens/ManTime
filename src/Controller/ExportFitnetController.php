@@ -118,7 +118,7 @@ class ExportFitnetController extends AppController
 
         if ($this->request->is(['post'])) {
             $response = $this->response->withFile(
-                $lines,
+                $absFileName,
                 ['download' => true]
             );
             return $response;
