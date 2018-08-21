@@ -258,7 +258,7 @@ class ExportFitnetController extends AppController
                 }
             }
             if ($data_user != null ){
-                $query->andWhere(['ExportFitnet.idu =' => $data_user]);
+                $query->andWhere(['export_fitnet.idu =' => $data_user]);
             }
 
             if ($queryError) {
