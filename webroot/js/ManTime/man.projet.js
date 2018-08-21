@@ -37,16 +37,14 @@ function initSelectEdit(){
         $('#ajax').submit();
     }
 }
-var load = 0;
+
 function initChangeSelect2(){
     $("#liste_fitnet").on("change", function(e) {
         var val = $("#liste_fitnet").find(':selected').val();
-        if (load > 1) {
+        if ( isFacturable() ) {
             $('#id-fit').val(val);
-        }else{
-            load++;
         }
-        if (val != null) {
+        if (val != null && isFacturable()) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
@@ -144,10 +142,9 @@ function updateSelect(data){
     var id_fit = $('#id-fit').val();
     if ( id_fit != null  && isFacturable() ) {
         $('#liste_fitnet').val(id_fit);
-        console.log("bladldl");
         $('#liste_fitnet').trigger('change'); // Notify any JS components that the value changed
     }else{
-        $("#liste_fitnet").change();
+        $("#liste_fitnet").val(null).trigger("change");
     }
 }
 
