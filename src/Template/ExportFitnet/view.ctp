@@ -7,6 +7,7 @@
 
 <div class="projet view large-10 large-10bis medium-8 columns content">
     <legend>Rapport d'éxécution de l'export <span class="text-danger">#<?= h($export->id_fit) ?></span></legend>
+    <button type="button" class="btn btn-info">Télécharger le log au format CSV</button>
     <fieldset>
         <legend>
             <span class="text-danger">Erreur</span>
@@ -48,7 +49,6 @@
                             <?php if ($key != 'start' && $key != 'end'): ?>
                                 <td><?php echo $log[0] ?></td>
                                 <td><?php echo $log[2] ?></td>
-                                <td><?php echo $log[3] ?></td>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </tr>

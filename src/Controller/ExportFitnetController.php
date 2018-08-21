@@ -376,7 +376,7 @@ class ExportFitnetController extends AppController
                 if ($this->exportTime($time)) {
                     $count++;
                 }else{
-                    $export = $this->inError($export, '#'.$time->idt.' - Consultant : '.$time->idu.' - date : '.$time->date);
+                    $export = $this->inError($export, '#'.$time->idt.' - Consultant : #'.$time->idu.' - date : '.$time->date);
                 }
             }
         }
@@ -386,6 +386,7 @@ class ExportFitnetController extends AppController
     }
     private function exportTime($time){
         $error = false;
+
         // Récupération des assignement
         $assignementID = $this->getAssignement($time);
         if ($assignementID == null) {
@@ -394,10 +395,64 @@ class ExportFitnetController extends AppController
             $error = true;
             return !$error;
         }
+
+        // activityType
+        $activityType = $time->projet->facturable->id_fit;
+        if ($activityType == null) {
+            // @TODO: $this->inError();
+            $error = true;
+        }
+
+        // total temps travaillé
+        $amount = $time->time;
+
+        // Date
+        $assignementDate = $time->date->i18nFormat('dd/MM/yyyy');
+
         // employeeID
-        // customerID
-        // projectID
-        // StartDate/EndDate
+        $employeeID = $time->user->id_fit;
+        if ($employeeID == null) {
+            // @TODO: $this->inError();
+            $error = true;
+        }
+
+        // companyID
+        $companyID = $time->projet->client->agence->id_fit;
+        if ($companyID == null) {
+            // @TODO: $this->inError();
+            $error = true;
+        }
+
+        // employeeID
+        $projectID = $time->user->id_fit;
+        if ($projectID == null) {
+            // @TODO: $this->inError();
+            $error = true;
+        }
+
+        if ($error) {
+            return !$error;
+        }
+
+        $timesheet = [
+            "activity" => "",
+            "activityID" => 0,
+            "activityType" => $activityType,
+            "amount" => $amount,
+            "assignmentDate" => $assignementDate,
+            "assignmentID" => $assignementID,
+            "company" => "",
+            "companyID" => $companyID,
+            "employee" => "",
+            "employeeID" => $employeeID,
+            "remark" => "",
+            "timesheetAssignmentID" => 0,
+            "typeOfService" => "",
+            "typeOfServiceID" => 0 // @TODO read config pour obtenir le bon profilID
+        ];
+
+        $timesheetJS = json_encode($timesheet);
+
 
         return !$error;
     }
@@ -472,6 +527,8 @@ class ExportFitnetController extends AppController
         }
         if (empty($this->error_log)) {
             $export->etat = Configure::read('fitnet.end');
+            $this->insertLog(['--', ' Total de temps traité : '.$total]);
+            $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
         }else{
             $export->etat = Configure::read('fitnet.err');
         }
