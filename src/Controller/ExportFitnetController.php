@@ -379,8 +379,8 @@ class ExportFitnetController extends AppController
         $assignement = $this->getAssignement($time);
         if ($assignement == null) {
             $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
-                                 ' projet : '.$time->projet->nom_projet.
-                                 ' date : '. $time->date->i18nFormat('dd-MM-yy') );
+                                 ' |Projet : '.$time->projet->nom_projet.
+                                 ' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
         }
         // activityType
         // Récupération des assignement
