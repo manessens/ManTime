@@ -15,20 +15,33 @@
             <table>
                 <tbody class="pr">
                     <tr>
-                        <?php foreach ($log_array['erreur'] as $logerror): ?>
-                            <td><?php $logerror[1] ?></td>
+                        <?php foreach ($log_array['error'] as $logerror): ?>
+                            <td><?php $logerror[0] ?></td>
                             <td><?php $logerror[2] ?></td>
                             <td><?php $logerror[3] ?></td>
                         <?php endforeach; ?>
                     </tr>
                 </tbody>
             </table>
-            <!-- <?php pr($log_array['erreur']); ?> -->
         </pre>
         <legend>
             <span class="text-info">Information</span>
         </legend>
-        <?php pr($log_array['info']); ?>
+        <pre class="pr">
+            <table>
+                <tbody class="pr">
+                    <tr>
+                        <?php foreach ($log_array['info'] as $key => $log): ?>
+                            <?php if ($key != 'start' || $key != 'end'): ?>
+                            <td><?php $log[0] ?></td>
+                            <td><?php $log[2] ?></td>
+                            <td><?php $log[3] ?></td>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
+        </pre>
     </fieldset>
 
 </div>
