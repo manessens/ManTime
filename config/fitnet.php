@@ -13,7 +13,7 @@ return [
         'logdir_end'=>'fitnet_log/final',
         'logname'=>'Log_export_fitnet_',
         'logname_end'=>'Log_final_export_fitnet_',
-        'abs_path'=>'/var/www/html/preprod/ManTime/tmp',
+        'abs_path'=>'/var/www/html/preprod/ManTime/tmp/',
         'NF'=>[
             '1'=>[
                 '1'=>'4',
