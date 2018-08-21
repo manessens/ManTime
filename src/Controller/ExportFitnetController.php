@@ -103,24 +103,24 @@ class ExportFitnetController extends AppController
         $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
 
         $folder = new Folder(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end'));
-        $file = $folder->find($filename);
-        pr($folder);
-        pr($file);exit;
-        if ($file == null) {
+        $files = $folder->find($filename);
+        if (empty($files) || count($files) > 1) {
             $filename = Configure::read('fitnet.logname') . $id . '.csv';
 
-            $folder = new Folder(Configure::read('fitnet.logdir'));
-            $file = new File($folder->pwd() . DS . $filename);
-            if ($file == null) {
+            $folder = new Folder(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end'));
+            $files = $folder->find($filename);
+            if (empty($files) || count($files) > 1) {
                 $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
                 return $this->redirect(['action' => 'index']);
             }
         }
 
-        $contents = $file->read();
-        $log_array = $this->readLog($contents);
+        $file = new File($folder->pwd() . DS . $files[0]);
 
+        $contents = $file->read();
         $file->close();
+
+        $log_array = $this->readLog($contents);
 
         $export = $this->ExportFitnet->get($id);
 
