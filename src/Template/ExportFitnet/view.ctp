@@ -10,24 +10,22 @@
         <legend>
             <span class="text-danger">Erreur</span>
         </legend>
-        <table>
-            <thead>
-                <tr>
-                    <th class="medium-1">date</th>
-                    <th class="medium-1">Erreur</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </tbody>
-        </table>
+        <pre class="pr">
+            <table>
+                <tbody class="pr">
+                    <tr>
+                        <td>date</td>
+                        <td>err</td>
+                        <td>cause</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <?php pr($log_array['erreur']); ?> -->
+        </pre>
         <legend>
             <span class="text-info">Information</span>
         </legend>
-        <?php pr($log_array); ?>
+        <?php pr($log_array['info']); ?>
     </fieldset>
 
 </div>
