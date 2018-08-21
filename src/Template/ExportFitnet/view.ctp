@@ -52,7 +52,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th><?php echo $log_array['info']['end'][0] ?></td>
+                        <th><?php echo $log_array['info']['end'][0] ?></th>
                         <th><?php echo $log_array['info']['end'][2] ?></th>
                     </tr>
                 </tfoot>
