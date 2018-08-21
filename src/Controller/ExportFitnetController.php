@@ -322,7 +322,7 @@ class ExportFitnetController extends AppController
         $file->close();
     }
 
-    private function insertLog( Array $line, $error = false){
+    private function insertLog( Array $line, $error = false, $first = false){
         // Ecrit une nouvelle ligne dans un log d'export #$id
         if ( empty($line) ) {
             return;
@@ -337,13 +337,21 @@ class ExportFitnetController extends AppController
         $line = array_merge([$now->i18nFormat('dd-MM-yy HH:mm:ss')], $line);
 
         if ($error) {
-            $this->error_log[] = $line;
+            $this->error_log = $this->appendArray($this->error_log, $line, $first);
         }else{
-            $this->data_log[] = $line;
+            $this->data_log = $this->appendArray($this->data_log, $line, $first);
         }
 
         $this->file_log->append(implode($this->delimiteur, $line)."\n");
 
+    }
+    private function appendArray($array = array(), $line, $first){
+        if ($first) {
+            array_unshift($array, $line);
+        }else{
+            $array[] = $line;
+        }
+        return $array;
     }
 
     private function processExport($export){
@@ -373,7 +381,7 @@ class ExportFitnetController extends AppController
             }
         }
 
-        $export=$this->endExport($export, $count, count($times));
+        $export=$this->endProcess($export, $count, count($times));
 
     }
     private function exportTime($time){
@@ -456,9 +464,11 @@ class ExportFitnetController extends AppController
 
     }
 
-    private function endExport($export, $count, $total){
+    private function endProcess($export, $count, $total){
         if ($count != $total) {
-            $export=$this->inError($export, 'nombre de saisie échoué : '.($total-$count));
+            $cause = 'nombre de saisie échoué : '.($total-$count);
+            $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit, $cause];
+            $this->insertLog($line,true,true);
         }
         if (empty($this->error_log)) {
             $export->etat = Configure::read('fitnet.end');
