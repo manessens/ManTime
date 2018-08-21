@@ -111,7 +111,7 @@ class ExportFitnetController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
         }
-
+        pr($lines);exit;
         $log_array = $this->readLog($lines);
 
         $export = $this->ExportFitnet->get($id);
