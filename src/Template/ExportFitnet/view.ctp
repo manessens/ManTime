@@ -11,5 +11,6 @@
         <?= $this->element('link2fitnet', ['idf'=>$projet->id_fit]) ?> -->
     </legend>
 
+    <?php pr($log_array); ?>
 
 </div>

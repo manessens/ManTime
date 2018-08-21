@@ -106,25 +106,48 @@ class ExportFitnetController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
         }
-        $file = fopen($filename);
-        //  @TODO : traitement du fichier de log
-        fclose($file);
+        $log_array = $this->readLog($filename);
 
         $export = $this->ExportFitnet->get($id);
-
-        $log_array = $this->readLog($id);
 
         $this->set(compact('export'));
         $this->set(compact('log_array'));
     }
 
-    private function readLog($id = null){
+    private function readLog($filename = null){
         $log = array();
-        if ($id == null) {
+        $log['error'] = array();
+        $log['info'] = array();
+        if ($filename == null) {
             return;
         }
+        $lines = file($filename);
+        foreach($lines as $n => $line){
+            $arrayLine = \explode(';', $line);
+            switch ($arrayLine[1]) {
+                case '##':
+                    unset($arrayLine[1]);
+                    $log['error'][] = $arrayLine;
+                    break;
+                case '>>':
+                    unset($arrayLine[1]);
+                    $log['info']['start'] = $arrayLine;
+                    break;
+                case '<<':
+                    unset($arrayLine[1]);
+                    $log['info']['end'] = $arrayLine;
+                    break;
+                case '--':
+                    unset($arrayLine[1]);
+                    $log['info'][] = $arrayLine;
+                    break;
 
-        // @TODO : Lecture du log
+                default:
+                    $log['info'][] = $arrayLine;
+                    break;
+            }
+        }
+        return $log;
     }
 
     /**
@@ -401,7 +424,7 @@ class ExportFitnetController extends AppController
                 case 2: // Off contract
                     if ($assignement['employeeID'] == $time->user->id_fit
                     && $assignement['offContractActivityID'] == Configure::read('fitnet.NF.'.$time->projet->client->agence->id_fit.$time->projet->id_fit)) {
-                        $this->insertLog(['--','assignement found']);
+                        $this->insertLog(['--','assignement found '.Configure::read('fitnet.NF.'.$time->projet->client->agence->id_fit.$time->projet->id_fit) ]);
 
                         return $assignement[$assignementIdName[$activityType]];
                     }
