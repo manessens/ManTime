@@ -118,7 +118,9 @@ class ExportFitnetController extends AppController
         $file = new File($folder->pwd() . DS . $files[0]);
 
         $contents = $file->read();
+        pr($contents);
         $file->close();
+        pr($contents);exit;
 
         $log_array = $this->readLog($contents);
 
