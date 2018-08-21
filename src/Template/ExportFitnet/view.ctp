@@ -15,9 +15,11 @@
             <table>
                 <tbody class="pr">
                     <tr>
-                        <td>date</td>
-                        <td>err</td>
-                        <td>cause</td>
+                        <?php foreach ($log_array['erreur'] as $logerror): ?>
+                            <td><?php $logerror[1] ?></td>
+                            <td><?php $logerror[2] ?></td>
+                            <td><?php $logerror[3] ?></td>
+                        <?php endforeach; ?>
                     </tr>
                 </tbody>
             </table>
