@@ -102,22 +102,18 @@ class ExportFitnetController extends AppController
 
         $line=array();
         $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
-        try {
-            $lines = file(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end').DS.$filename, FILE_SKIP_EMPTY_LINES);
-        } catch (\E_WARNING $e) {
-            $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
-            return $this->redirect(['action' => 'index']);
+        $absFileName = Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end').DS.$filename;
+        if (!file_exists($absFileName)) {
+            $filename = Configure::read('fitnet.logname') . $id . '.csv';
+            $absFileName = Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir').DS.$filename;
+            if (!file_exists($absFileName)) {
+                $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
+                return $this->redirect(['action' => 'index']);
+            }
         }
 
-        // $lines = file(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end').DS.$filename, FILE_SKIP_EMPTY_LINES);
-        // if (empty($lines) ) {
-        //     $filename = Configure::read('fitnet.logname') . $id . '.csv';
-        //     $lines = file(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end').DS.$filename, FILE_SKIP_EMPTY_LINES);
-        //     if (empty($lines) ) {
-        //         $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
-        //         return $this->redirect(['action' => 'index']);
-        //     }
-        // }
+        $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
+        
         $log_array = $this->readLog($lines);
 
         $export = $this->ExportFitnet->get($id);
