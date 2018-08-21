@@ -14,17 +14,20 @@
         <pre class="pr">
             <table>
                 <tbody>
-                        <?php if (empty($log_array['error'])): ?>
-                            <tr><td>Aucune Erreur</td></tr>
-                        <?php else: ?>
-                            <?php foreach ($log_array['error'] as $logerror): ?>
-                                <tr>
-                                    <td class="table_date"><?php echo $logerror[0] ?></td>
-                                    <td class="table_error"><?php echo $logerror[2] ?></td>
-                                    <td><?php echo $logerror[3] ?></td>
-                                </tr>
-                            <?php endforeach; ?>
+                    <?php if ( empty($log_array['error']) && key_exists('end', $log_array['info']) ): ?>
+                        <tr><td>Aucune Erreur</td></tr>
+                    <?php else: ?>
+                        <?php if (!key_exists('end', $log_array['info'])): ?>
+                            <tr><td>Erreur probable : Traitement non terminé (marqueur de fin de traitement manquant)</td></tr>
                         <?php endif; ?>
+                        <?php foreach ($log_array['error'] as $logerror): ?>
+                            <tr>
+                                <td class="table_date"><?php echo $logerror[0] ?></td>
+                                <td class="table_error"><?php echo $logerror[2] ?></td>
+                                <td><?php echo $logerror[3] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </pre>
@@ -50,15 +53,16 @@
                         <?php endforeach; ?>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th><?php echo $log_array['info']['end'][0] ?></th>
-                        <th><?php echo $log_array['info']['end'][2] ?></th>
-                    </tr>
-                </tfoot>
+                <?php if (key_exists('end', $log_array['info'])): ?>
+                    <tfoot>
+                        <tr>
+                            <th><?php echo $log_array['info']['end'][0] ?></th>
+                            <th><?php echo $log_array['info']['end'][2] ?></th>
+                        </tr>
+                    </tfoot>
+                <?php endif; ?>
             </table>
         </pre>
     </fieldset>
-    <?php pr($log_array); ?>
 
 </div>

@@ -38,7 +38,7 @@ class ExportFitnetController extends AppController
             'sortWhitelist' => [
                 'ExportFitnet.id_fit','ExportFitnet.date_debut','ExportFitnet.date_fin','Client.nom_client', 'Users.prenom','ExportFitnet.etat'
             ],
-            'order'     => ['ExportFitnet.etat'=>'asc']
+            'order'     => ['ExportFitnet.etat'=>'asc', 'ExportFitnet.id_fit'=>'desc']
         ];
         $this->set('exports', $this->paginate($this->ExportFitnet));
         $this->set(compact('exports'));
@@ -107,13 +107,13 @@ class ExportFitnetController extends AppController
             $filename = Configure::read('fitnet.logname') . $id . '.csv';
             $absFileName = Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir').DS.$filename;
             if (!file_exists($absFileName)) {
-                $this->Flash->error(__("Aucun fichier de log trouvés, veuillez contacter un administrateur."));
+                $this->Flash->error(__("Aucun fichier log trouvé, veuillez contacter un administrateur."));
                 return $this->redirect(['action' => 'index']);
             }
         }
 
         $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
-        
+
         $log_array = $this->readLog($lines);
 
         $export = $this->ExportFitnet->get($id);
@@ -378,18 +378,17 @@ class ExportFitnetController extends AppController
     }
     private function exportTime($time){
         $error = false;
-        //@TODO:  recherche du assignement
-        $assignement = $this->getAssignement($time);
-        if ($assignement == null) {
-            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
-                                 ' |Projet : '.$time->projet->nom_projet.
-                                 ' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
-        }
-        // activityType
         // Récupération des assignement
+        $assignementID = $this->getAssignement($time);
+        if ($assignementID == null) {
+            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
+                        ' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
+            $error = true;
+            return !$error;
+        }
         // employeeID
         // customerID
-        // proectID
+        // projectID
         // StartDate/EndDate
 
         return !$error;
@@ -448,8 +447,6 @@ class ExportFitnetController extends AppController
                     && $assignement['customerID'] == $time->client->id_fit
                     && $assignement['projectID'] == $time->projet->id_fit
                     && $date_debut <= $time->date && $date_fin >= $time->date ) {
-                        $this->insertLog(['--','assignement found']);
-
                         return $assignement[$assignementIdName[$activityType]];
                     }
                     break;
