@@ -291,7 +291,7 @@ class ExportFitnetController extends AppController
 
         $filename = Configure::read('fitnet.logname') . $export->id_fit . '.csv';
 
-        $folder = new Folder(Configure::read('fitnet.logdir'));
+        $folder = new Folder(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir'));
         $this->file_log = new File($folder->pwd() . DS . $filename);
         $this->file_log->delete();
 
