@@ -10,6 +10,18 @@
     width: 220px;
 }
 
+table tfoot tr th{
+    border-bottom: 0px solid #1798A5;
+    border-top: 2px solid #1798A5;
+}
+
+.table_date{
+    width: 180px;
+}
+.table_error{
+    width: 400px;
+}
+
 /*  Adjustement for select2 */
 .select2-selection{
     height: 37px !important;

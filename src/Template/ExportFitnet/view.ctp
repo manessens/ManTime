@@ -19,8 +19,8 @@
                         <?php else: ?>
                             <?php foreach ($log_array['error'] as $logerror): ?>
                                 <tr>
-                                    <td><?php echo $logerror[0] ?></td>
-                                    <td><?php echo $logerror[2] ?></td>
+                                    <td class="table_date"><?php echo $logerror[0] ?></td>
+                                    <td class="table_error"><?php echo $logerror[2] ?></td>
                                     <td><?php echo $logerror[3] ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -35,12 +35,11 @@
             <table>
                 <thead>
                     <tr>
-                        <th><?php echo $log_array['info']['start'][0] ?></th>
+                        <th class="table_date"><?php echo $log_array['info']['start'][0] ?></th>
                         <th><?php echo $log_array['info']['start'][2] ?></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Aucune Erreur</td></tr>
                     <tr>
                         <?php foreach ($log_array['info'] as $key => $log): ?>
                             <?php if ($key != 'start' && $key != 'end'): ?>
@@ -50,12 +49,11 @@
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </tr>
-                    <tr><td>Aucune Erreur</td></tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td><?php echo $log_array['info']['start'][0] ?></td>
-                        <th><?php echo $log_array['info']['start'][2] ?></th>
+                        <th><?php echo $log_array['info']['end'][0] ?></td>
+                        <th><?php echo $log_array['info']['end'][2] ?></th>
                     </tr>
                 </tfoot>
             </table>
