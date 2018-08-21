@@ -368,7 +368,7 @@ class ExportFitnetController extends AppController
                 if ($this->exportTime($time)) {
                     $count++;
                 }else{
-                    $export = $this->inError($export, 'id : #'.$export->id_fit.' - Consultant : '.$time->idu.' - date : '.$time->date);
+                    $export = $this->inError($export, '#'.$time->idt.' - Consultant : '.$time->idu.' - date : '.$time->date);
                 }
             }
         }
@@ -458,7 +458,7 @@ class ExportFitnetController extends AppController
 
     private function endExport($export, $count, $total){
         if ($count != $total) {
-            $export=$this->inError($export, 'nombre de saisie échoué :'.($total-$count));
+            $export=$this->inError($export, 'nombre de saisie échoué : '.($total-$count));
         }
         if (empty($this->error_log)) {
             $export->etat = Configure::read('fitnet.end');
