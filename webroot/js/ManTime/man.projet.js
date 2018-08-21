@@ -144,6 +144,7 @@ function updateSelect(data){
     var id_fit = $('#id-fit').val();
     if ( id_fit != null  && isFacturable() ) {
         $('#liste_fitnet').val(id_fit);
+        console.log("bladldl");
         $('#liste_fitnet').trigger('change'); // Notify any JS components that the value changed
     }else{
         $("#liste_fitnet").change();
