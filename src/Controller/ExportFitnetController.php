@@ -368,7 +368,7 @@ class ExportFitnetController extends AppController
                 if ($this->exportTime($time)) {
                     $count++;
                 }else{
-                    $export = $this->inError($export, 'id : #'.$id.' - Consultant : '.$time->idu.' - date : '.$time->date);
+                    $export = $this->inError($export, 'id : #'.$export->id_fit.' - Consultant : '.$time->idu.' - date : '.$time->date);
                 }
             }
         }
