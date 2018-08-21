@@ -98,7 +98,7 @@ class ExportFitnetController extends AppController
 
         $dir = new Folder('fitnet_log');
         $files = $dir->find('.*\.csv');
-        pr($dir->pwd());exit;
+        pr($dir->pwd() . DS . $file);exit;
         foreach ($files as $file) {
             $file = new File($dir->pwd() . DS . $file);
             $contents = $file->read();
