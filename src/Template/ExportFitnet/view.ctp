@@ -32,10 +32,10 @@
                 <tbody class="pr">
                     <tr>
                         <?php foreach ($log_array['info'] as $key => $log): ?>
-                            <?php if ($key != 'start' || $key != 'end'): ?>
-                            <td><?php $log[0] ?></td>
-                            <td><?php $log[2] ?></td>
-                            <td><?php $log[3] ?></td>
+                            <?php if ($key != 'start' && $key != 'end'): ?>
+                                <td><?php $log[0] ?></td>
+                                <td><?php $log[2] ?></td>
+                                <td><?php $log[3] ?></td>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </tr>
@@ -43,5 +43,6 @@
             </table>
         </pre>
     </fieldset>
+    <?php pr($log_array); ?>
 
 </div>
