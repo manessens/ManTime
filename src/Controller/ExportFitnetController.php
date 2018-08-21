@@ -315,7 +315,7 @@ class ExportFitnetController extends AppController
             if (!is_array($output)) {
                 $output = [$output];
             }
-            $file->write(implode($this->delimiteur, $output));
+            $file->write(implode($this->delimiteur, $output).'\n');
     	}
         $file->close();
     }
@@ -340,7 +340,7 @@ class ExportFitnetController extends AppController
             $this->data_log[] = $line;
         }
 
-        $this->file_log->append(implode($this->delimiteur, $line));
+        $this->file_log->append(implode($this->delimiteur, $line).'\n');
 
     }
 
