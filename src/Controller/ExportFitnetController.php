@@ -596,6 +596,7 @@ class ExportFitnetController extends AppController
         }
         $url=$base . $url ;
         $result = $http->post($url, $object, [ 'auth'=>['username' => $username, 'password' => $password], 'type' => 'json' ]);
+        $result = json_decode($result);
 
         // appel de la requête
         // $result = file_get_contents($url, false, $context);
