@@ -16,19 +16,28 @@ class FitnetShell extends Shell
 
     public function main()
     {
-        // $this->out('Hello world.');
-        // if (empty($this->args[0])) {
-        //     return $this->abort("Merci de saisir un id de projet.");
-        // }
-
+        // Appel du controller FitnetController
         $exportFitnet = new ExportFitnetController();
-        // $found = $exportFitnet->launchExport();
-        $found = $exportFitnet->setTimeFitnetShell();
-        // $found = $exportFitnet->getProjectFitnetShell($this->args[0]);
+        // Lancement de l'export
+        $found = $exportFitnet->launchExport();
 
-        $this->createFile('fitnet_log/report.json', $found);
+        // test d'échange fitnet :
+        // $found = $exportFitnet->setTimeFitnetShell();
 
-        // $user = $this->Users->findByEmail($this->args[0])->first();
-        // $this->out(print_r($user, true));
     }
+
+    // public function test(){
+    //     // Test de la présence d'un argument
+    //     // $this->out('Hello world.');
+    //     // if (empty($this->args[0])) {
+    //     //     return $this->abort("Merci de saisir un id de projet.");
+    //     // }
+    //
+    //     // écriture dans le bash
+    //     // $this->out(print_r($user, true));
+    //
+    //     //  Ecriture dans un fichier
+    //     // $this->createFile('fitnet_log/report.json', $found);
+    //
+    // }
 }
