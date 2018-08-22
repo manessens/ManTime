@@ -382,13 +382,13 @@ class ExportFitnetController extends AppController
 
         // Récupération des temps
         $times = $this->getTimesFromExport($export);
+        $count = 0;
         if (empty($times)) {
             // notif export : erreur si 0 temps - FIN de traitement
             $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
             $this->ExportFitnet->save($export);
         }else{
             //traitement des Temps
-            $count = 0;
             foreach ($times as $time) {
                 if ($this->exportTime($time)) {
                     $count++;
