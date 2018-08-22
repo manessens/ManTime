@@ -628,12 +628,13 @@ class ExportFitnetController extends AppController
         $url = '/FitnetManager/rest/timesheet';
         $result = $this->setFitnetLink($url, $timesheetJS);
 
+        debug($result);
         // type de réponse : objet json
-        // $this->response->type('json');
-        // // contenue de la réponse
-        // $this->response->body($result);
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($result);
 
-        return $result;
+        return $this->response;
     }
 
     public function isAuthorized($user)
