@@ -258,11 +258,12 @@ class ExportFitnetController extends AppController
                 ->where([
                     'date >=' => $date_debut, 'date <=' => $date_fin,
                     'validat =' => 1,
-                    'Projet.id_fit !=' => null,
-                    'Client.id_fit !=' => null,
-                    'Users.id_fit !=' => null
+                    'Projet.id_fit  IS NOT' => null,
+                    'Client.id_fit  IS NOT' => null,
+                    'Users.id_fit IS NOT' => null
                  ] )
                 ->andwhere(['OR' => $andWhere]);
+                // debug($query);
             if ( $data_client != null) {
                 $ProjetTable = TableRegistry::get('Projet');
                 $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
@@ -385,7 +386,6 @@ class ExportFitnetController extends AppController
             // notif export : erreur si 0 temps - FIN de traitement
             $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
             $this->ExportFitnet->save($export);
-            return;
         }else{
             //traitement des Temps
             $count = 0;
