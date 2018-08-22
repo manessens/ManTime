@@ -618,10 +618,10 @@ class ExportFitnetController extends AppController
             "typeOfServiceID" => 0 // @TODO read config pour obtenir le bon profilID
         ];
 
-        // $timesheetJS = json_encode($timesheet);
+        $timesheetJS = json_encode($timesheet);
 
         $url = '/FitnetManager/rest/timesheet';
-        $result = $this->setFitnetLink($url, $timesheet);
+        $result = $this->setFitnetLink($url, $timesheetJS);
 
         // type de réponse : objet json
         $this->response->type('json');
