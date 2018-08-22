@@ -632,8 +632,8 @@ class ExportFitnetController extends AppController
         // $this->response->type('json');
         // // contenue de la réponse
         // $this->response->body($result);
-        //
-        // return $this->response;
+
+        return $result;
     }
 
     public function isAuthorized($user)
