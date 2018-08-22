@@ -404,37 +404,20 @@ class ExportFitnetController extends AppController
     private function exportTime($time){
         $noError = true;
 
+        // Contrôle Projet
         if ($time->projet->id_fit == null) {
             $this->insertLog(['--','Le projet '.$time->projet->nom_projet."n'est pas lié à une affaire fitnet : pas d'export"]);
-            return $noError;
-        }
-
-        // Récupération des assignement
-        $assignementID = $this->getAssignement($time);
-        if ($assignementID == null) {
-            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
-                        ' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
-            $noError = false;
-            return $noError;
-        }
-
-        // activityType
-        $activityType = $time->projet->facturable->id_fit;
-        if ($activityType == null) {
-            $this->inError(null, 'ID_FIT de la table Facturable est éronné pour la ligne #'. $time->projet->facturable->idf );
             $noError = false;
         }
-
-        // total temps travaillé
-        $amount = $time->time;
-
-        // Date
-        $assignementDate = $time->date->i18nFormat('dd/MM/yyyy');
-
-        // employeeID
+        // Contrôle Client
+        if ($time->client->id_fit == null) {
+            $this->insertLog(['--', 'Client non lié : '. $time->client->nom_client] );
+            $noError = false;
+        }
+        // Contrôle Utilisateur
         $employeeID = $time->user->id_fit;
         if ($employeeID == null) {
-            // @TODO: $this->inError();
+            $this->insertLog(['--', 'Utilisateur non lié : '. $time->user->fullname] );
             $noError = false;
         }
 
@@ -444,10 +427,30 @@ class ExportFitnetController extends AppController
             $this->inError(null, 'ID_FIT de la table Agence est éronné pour la ligne #'. $time->projet->client->agence->id_agence );
             $noError = false;
         }
+        // Contrôle activityType
+        $activityType = $time->projet->facturable->id_fit;
+        if ($activityType == null) {
+            $this->inError(null, 'ID_FIT de la table Facturable est éronné pour la ligne #'. $time->projet->facturable->idf );
+            $noError = false;
+        }
 
+        // Récupération des assignement
+        $assignementID = $this->getAssignement($time);
+        if ($assignementID == null) {
+            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
+                        ' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
+            $noError = false;
+        }
+
+        // Contrôle d'erreur
         if (!$noError) {
             return $noError;
         }
+
+        // total temps travaillé
+        $amount = $time->time;
+        // Date
+        $assignementDate = $time->date->i18nFormat('dd/MM/yyyy');
 
         $timesheet = [
             "activity" => "",
@@ -568,17 +571,17 @@ class ExportFitnetController extends AppController
         // instance Client pour gestin des appel ajax
         $http = new Client();
         // construction de l'url fitnet
-        $base = Configure::read('fitnet.base');
         if (substr($url, 0, 1) == "/" ) {
             $url = substr($url, 1);
         }
+        $base = Configure::read('fitnet.base');
         $url=$base . $url ;
 
         // appel de la requête
         $response = $http->post($url, $object, [ 'auth'=>['username' => $username, 'password' => $password], 'type' => 'json' ]);
         if ($response->isOk()) {
-            $result = $response->json;
-            // $result = true;
+            $result = true;
+            // $result = $response->json;
         }else {
             $this->inError(null, 'Erreur sur requête fitnet, code erreur : '.$response->getStatusCode(), $response->getStatusCode());
         }
