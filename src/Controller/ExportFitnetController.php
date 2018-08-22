@@ -8,6 +8,7 @@ use Cake\I18n\Time;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
+use Cake\Http\Client;
 
 /**
  * ExportFitnet Controller
@@ -577,23 +578,27 @@ class ExportFitnetController extends AppController
         $password = Configure::read('fitnet.password');
 
         // préparation de l'en-tête pour la basic auth de fitnet
-        $opts = array(
-          'http'=>array(
-                'method'=>"POST",
-                'header'=>"Authorization: Basic " . base64_encode("$username:$password"),
-                'content' => $object
-              )
-        );
-        // ajout du header dans le contexte
-        $context = stream_context_create($opts);
+        // $opts = array(
+        //   'http'=>array(
+        //         'method'=>"POST",
+        //         'header'=>"Authorization: Basic " . base64_encode("$username:$password"),
+        //         'content' => $object
+        //       )
+        // );
+        // // ajout du header dans le contexte
+        // $context = stream_context_create($opts);
+
+        $http = new Client();
         // construction de l'url fitnet
         $base = Configure::read('fitnet.base');
         if (substr($url, 0, 1) == "/" ) {
             $url = substr($url, 1);
         }
         $url=$base . $url ;
+        $result = $http->post($url, $object, [ 'headers'=>["Authorization: Basic " . base64_encode("$username:$password")], 'type' => 'json' ]);
+
         // appel de la requête
-        $result = file_get_contents($url, false, $context);
+        // $result = file_get_contents($url, false, $context);
         // résultat
         return $result;
     }
