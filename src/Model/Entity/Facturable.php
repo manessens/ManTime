@@ -9,7 +9,6 @@ use Cake\ORM\Entity;
  * @property int $idf
  * @property int $id_fit
  * @property string $nom_fact
- * @property int $id_nf
  */
 class Facturable extends Entity
 {
@@ -25,7 +24,6 @@ class Facturable extends Entity
      */
     protected $_accessible = [
         'nom_fact' => true,
-        'id_fit' => true,
-        'id_nf' => true
+        'id_fit' => true
     ];
 }

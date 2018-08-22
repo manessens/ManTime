@@ -2,7 +2,7 @@ $(function() {
     init();
     $('#liste_fitnet').select2();
     initSelectEdit();
-    initChangeFact();
+    // initChangeFact();
 });
 var xhr;
 
@@ -58,25 +58,25 @@ function initChangeSelect2(){
     });
 }
 
-function initChangeFact() {
-    $('select[name="idf"]').on('change',function(e){
-        if ( "2" == nfArray[$(this).val()][0] ) {
-            $('#linker').attr('disabled', 'disabled');
-            $('#resetter').attr('disabled', 'disabled');
-            $('#liste_fitnet').attr('disabled', 'disabled');
-            $('#resetter').click();
-            $('#id-fit').val(nfArray[$(this).val()][1]);
-        }else{
-            $('#linker').removeAttr('disabled');
-            $('#resetter').removeAttr('disabled');
-            $('#liste_fitnet').removeAttr('disabled');
-            $('#resetter').click();
-        }
-    });
-    if ($('#id-fit').val() == "" || !isFacturable() ) {
-        $('select[name="idf"]').change();
-    }
-}
+// function initChangeFact() {
+//     $('select[name="idf"]').on('change',function(e){
+//         if ( "2" == nfArray[$(this).val()][0] ) {
+//             $('#linker').attr('disabled', 'disabled');
+//             $('#resetter').attr('disabled', 'disabled');
+//             $('#liste_fitnet').attr('disabled', 'disabled');
+//             $('#resetter').click();
+//             $('#id-fit').val(nfArray[$(this).val()][1]);
+//         }else{
+//             $('#linker').removeAttr('disabled');
+//             $('#resetter').removeAttr('disabled');
+//             $('#liste_fitnet').removeAttr('disabled');
+//             $('#resetter').click();
+//         }
+//     });
+//     if ($('#id-fit').val() == "" || !isFacturable() ) {
+//         $('select[name="idf"]').change();
+//     }
+// }
 
 function resetFitnet(){
     $('#date-debut').removeAttr('readonly');

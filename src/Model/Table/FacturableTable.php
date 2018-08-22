@@ -57,10 +57,6 @@ class FacturableTable extends Table
             ->requirePresence('nom_fact', 'create')
             ->notEmpty('nom_fact');
 
-        $validator
-            ->integer('id_nf')
-            ->allowEmpty('id_nf');
-
         return $validator;
     }
 }

@@ -255,7 +255,13 @@ class ExportFitnetController extends AppController
             $query = null;
             $tempsTable = TableRegistry::get('Temps');
             $query = $tempsTable->find('all')->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil'])
-                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
+                ->where([
+                    'date >=' => $date_debut, 'date <=' => $date_fin,
+                    'validat =' => 1,
+                    'Projet.id_fit !=' => null,
+                    'Client.id_fit !=' => null,
+                    'Users.id_fit !=' => null
+                 ] )
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client != null) {
                 $ProjetTable = TableRegistry::get('Projet');
@@ -280,10 +286,12 @@ class ExportFitnetController extends AppController
 
     }
 
-    private function inError($export, $cause){
+    private function inError($export, $cause, $code = null){
         // Notification d'erreur de traitement
         if ($export != null) {
             $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
+        }elseif ($code != null) {
+            $line = ['##', ' ERREUR -- Fitnet : ', $cause];
         }else{
             $line = ['##', ' ERREUR -- time : ', $cause];
         }
@@ -394,22 +402,27 @@ class ExportFitnetController extends AppController
 
     }
     private function exportTime($time){
-        $error = false;
+        $noError = true;
+
+        if ($time->projet->id_fit == null) {
+            $this->insertLog(['--','Le projet '.$time->projet->nom_projet."n'est pas lié à une affaire fitnet : pas d'export"]);
+            return $noError;
+        }
 
         // Récupération des assignement
         $assignementID = $this->getAssignement($time);
         if ($assignementID == null) {
             $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
                         ' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
-            $error = true;
-            return !$error;
+            $noError = false;
+            return $noError;
         }
 
         // activityType
         $activityType = $time->projet->facturable->id_fit;
         if ($activityType == null) {
-            // @TODO: $this->inError();
-            $error = true;
+            $this->inError(null, 'ID_FIT de la table Facturable est éronné pour la ligne #'. $time->projet->facturable->idf );
+            $noError = false;
         }
 
         // total temps travaillé
@@ -422,25 +435,18 @@ class ExportFitnetController extends AppController
         $employeeID = $time->user->id_fit;
         if ($employeeID == null) {
             // @TODO: $this->inError();
-            $error = true;
+            $noError = false;
         }
 
         // companyID
         $companyID = $time->projet->client->agence->id_fit;
         if ($companyID == null) {
-            // @TODO: $this->inError();
-            $error = true;
+            $this->inError(null, 'ID_FIT de la table Agence est éronné pour la ligne #'. $time->projet->client->agence->id_agence );
+            $noError = false;
         }
 
-        // employeeID
-        $projectID = $time->user->id_fit;
-        if ($projectID == null) {
-            // @TODO: $this->inError();
-            $error = true;
-        }
-
-        if ($error) {
-            return !$error;
+        if (!$noError) {
+            return $noError;
         }
 
         $timesheet = [
@@ -457,16 +463,15 @@ class ExportFitnetController extends AppController
             "remark" => "",
             "timesheetAssignmentID" => 0,
             "typeOfService" => "",
-            "typeOfServiceID" => 0 // @TODO read config pour obtenir le bon profilID
+            "typeOfServiceID" => Configure::read('fitnet.profil.'.$companyID.$time->id_profil)
         ];
 
         $timesheetJS = json_encode($timesheet);
 
         $url = '/FitnetManager/rest/timesheet';
-        $result = $this->getFitnetLinkObject($url, $timesheet);
+        $result = $this->setFitnetLink($url, $timesheetJS);
 
-
-        return !$error;
+        return $result;
     }
 
     private function getAssignement($time = null){
@@ -478,20 +483,15 @@ class ExportFitnetController extends AppController
         $assignementIdName = [1 => 'assignmentOnContractID', 2 => 'assignmentOffContractID', 3 => 'assignmentTrainingID'];
         $assignementFind = null;
         $assignementJsonTable = array();
+
         $month = $time->date->i18nFormat('MM');
         $year = $time->date->i18nFormat('YYYY');
 
         $activityType = $time->projet->facturable->id_fit;
 
         switch ($activityType) {
-            case 2:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/offContract/".$time->user->origine->id_fit);
-                break;
             case 1:
                 $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year);
-                break;
-            case 3:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/training/".$time->user->origine->id_fit.'/'.$month.'/'.$year);
                 break;
 
             default:
@@ -504,27 +504,14 @@ class ExportFitnetController extends AppController
         }
 
         foreach ($assignementTable as $assignement) {
-            switch ($activityType) {
-                case 2: // Off contract
-                    if ($assignement['employeeID'] == $time->user->id_fit
-                    && $assignement['offContractActivityID'] == Configure::read('fitnet.NF.'.$time->projet->client->agence->id_fit.$time->projet->id_fit)) {
-                        $this->insertLog(['--','assignement found '.Configure::read('fitnet.NF.'.$time->projet->client->agence->id_fit.$time->projet->id_fit) ]);
+            $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
+            $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
 
-                        return $assignement[$assignementIdName[$activityType]];
-                    }
-                    break;
-                case 1: // On contract
-                case 3: // "training"
-                    $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
-                    $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
-
-                    if ($assignement['employeeID'] == $time->user->id_fit
-                    && $assignement['customerID'] == $time->client->id_fit
-                    && $assignement['projectID'] == $time->projet->id_fit
-                    && $date_debut <= $time->date && $date_fin >= $time->date ) {
-                        return $assignement[$assignementIdName[$activityType]];
-                    }
-                    break;
+            if ($assignement['employeeID'] == $time->user->id_fit
+            && $assignement['customerID'] == $time->client->id_fit
+            && $assignement['contractID'] == $time->projet->id_fit
+            && $date_debut <= $time->date && $date_fin >= $time->date ) {
+                return $assignement[$assignementIdName[$activityType]];
             }
         }
         return;
@@ -576,18 +563,9 @@ class ExportFitnetController extends AppController
         //récupération des lgoin/mdp du compte admin de fitnet
         $username = Configure::read('fitnet.login');
         $password = Configure::read('fitnet.password');
+        $return = false;
 
-        // préparation de l'en-tête pour la basic auth de fitnet
-        // $opts = array(
-        //   'http'=>array(
-        //         'method'=>"POST",
-        //         'header'=>"Authorization: Basic " . base64_encode("$username:$password"),
-        //         'content' => $object
-        //       )
-        // );
-        // // ajout du header dans le contexte
-        // $context = stream_context_create($opts);
-
+        // instance Client pour gestin des appel ajax
         $http = new Client();
         // construction de l'url fitnet
         $base = Configure::read('fitnet.base');
@@ -595,20 +573,21 @@ class ExportFitnetController extends AppController
             $url = substr($url, 1);
         }
         $url=$base . $url ;
-        $response = $http->post($url, $object, [ 'auth'=>['username' => $username, 'password' => $password], 'type' => 'json' ]);
-        $headers = $response->getHeaders();
-        debug($headers);
-        $json = $response->json;
-        debug($json);
-        // $result = json_decode($json);
 
         // appel de la requête
-        // $result = file_get_contents($url, false, $context);
+        $response = $http->post($url, $object, [ 'auth'=>['username' => $username, 'password' => $password], 'type' => 'json' ]);
+        if ($response->isOk()) {
+            $result = $response->json;
+            // $result = true;
+        }else {
+            $this->inError(null, 'Erreur sur requête fitnet, code erreur : '.$response->getStatusCode(), $response->getStatusCode());
+        }
+
         // résultat
-        // return $result;
-        return null;
+        return $result;
     }
 
+    // **TEST POUR APPEL FITNET**
     public function setTimeFitnetShell(){
         $result = [];
 
@@ -634,11 +613,10 @@ class ExportFitnetController extends AppController
         $url = '/FitnetManager/rest/timesheet';
         $result = $this->setFitnetLink($url, $timesheetJS);
 
-        debug($result);
         // type de réponse : objet json
         $this->response->type('json');
         // contenue de la réponse
-        $this->response->body($result);
+        $this->response->body(json_encode($result));
 
         return $this->response;
     }
