@@ -461,6 +461,9 @@ class ExportFitnetController extends AppController
 
         $timesheetJS = json_encode($timesheet);
 
+        $url = '/FitnetManager/rest/timesheet';
+        $result = $this->getFitnetLinkObject($url, $timesheet);
+
 
         return !$error;
     }
@@ -568,48 +571,62 @@ class ExportFitnetController extends AppController
         }
     }
 
-    public function getProjectFitnetShell($id = null){
-        $found = [];
+    protected function setFitnetLink( $url, $object ){
+        //récupération des lgoin/mdp du compte admin de fitnet
+        $username = Configure::read('fitnet.login');
+        $password = Configure::read('fitnet.password');
 
-        $id_client = $id;
-        if ($id_client != null) {
-
-            // récupération des id company fitnet
-            $clientTable = TableRegistry::get('Client');
-            $client = $clientTable->get($id_client, [
-                'contain' => ['Agence']
-            ]);
-            $id_fit = $client->agence->id_fit;
-
-            // séparation des id_agence fitnet
-            $ids = explode(';', $id_fit);
-            foreach($ids as $id){
-                if ($id != "") {
-                    // appel de la requête
-                    $result = $this->getFitnetLink("/FitnetManager/rest/projects/".$id);
-                    // décode du résultat json
-                    $vars = json_decode($result, true);
-                    // sauvegarde des résultats trouvés
-                    $found = array_merge($found, $vars);
-                }
-            }
+        // préparation de l'en-tête pour la basic auth de fitnet
+        $opts = array(
+          'http'=>array(
+                'method'=>"POST",
+                'header'=>"Authorization: Basic " . base64_encode("$username:$password"),
+                'content' => $object
+              )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+        // construction de l'url fitnet
+        $base = Configure::read('fitnet.base');
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1);
         }
+        $url=$base . $url ;
+        // appel de la requête
+        $result = file_get_contents($url, false, $context);
+        // résultat
+        return $result;
+    }
 
-        $select2 = ['select' => array(), 'projects' => array()];
-        //remise en forme du tableau
-        foreach ($found as $value) {
-            if ($value['customer'] == $client->id_fit or $client->id_fit == null) {
-                $select2['select'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
-                $select2['projects'][$value['forfaitId']]=$value;
-            }
-        }
+    public function setTimeFitnetShell(){
+        $result = [];
 
-        // réencodage pour renvoie au script ajax
-        $json_found = json_encode($select2);
+        $timesheet = [
+            "activity" => "",
+            "activityID" => 0,
+            "activityType" => 1,
+            "amount" => 1,
+            "assignmentDate" => "22/08/2018",
+            "assignmentID" => 245,
+            "company" => "",
+            "companyID" => 1,
+            "employee" => "",
+            "employeeID" => 38,
+            "remark" => "",
+            "timesheetAssignmentID" => 0,
+            "typeOfService" => "",
+            "typeOfServiceID" => 0 // @TODO read config pour obtenir le bon profilID
+        ];
+
+        $timesheetJS = json_encode($timesheet);
+
+        $url = '/FitnetManager/rest/timesheet';
+        $result = $this->setFitnetLink($url, $timesheet);
+
         // type de réponse : objet json
         $this->response->type('json');
         // contenue de la réponse
-        $this->response->body($json_found);
+        $this->response->body($result);
 
         return $this->response;
     }
