@@ -599,12 +599,14 @@ class ExportFitnetController extends AppController
         $headers = $response->getHeaders();
         debug($headers);
         $json = $response->json;
-        $result = json_decode($json);
+        debug($json);
+        // $result = json_decode($json);
 
         // appel de la requête
         // $result = file_get_contents($url, false, $context);
         // résultat
-        return $result;
+        // return $result;
+        return null;
     }
 
     public function setTimeFitnetShell(){
