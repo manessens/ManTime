@@ -591,38 +591,38 @@ class ExportFitnetController extends AppController
     }
 
     // **TEST POUR APPEL FITNET**
-    public function setTimeFitnetShell(){
-        $result = [];
-
-        $timesheet = [
-            "activity" => "",
-            "activityID" => 0,
-            "activityType" => 1,
-            "amount" => 1,
-            "assignmentDate" => "22/08/2018",
-            "assignmentID" => 245,
-            "company" => "",
-            "companyID" => 1,
-            "employee" => "",
-            "employeeID" => 38,
-            "remark" => "",
-            "timesheetAssignmentID" => 0,
-            "typeOfService" => "",
-            "typeOfServiceID" => 0 // @TODO read config pour obtenir le bon profilID
-        ];
-
-        $timesheetJS = json_encode($timesheet);
-
-        $url = '/FitnetManager/rest/timesheet';
-        $result = $this->setFitnetLink($url, $timesheetJS);
-
-        // type de réponse : objet json
-        $this->response->type('json');
-        // contenue de la réponse
-        $this->response->body(json_encode($result));
-
-        return $this->response;
-    }
+    // public function setTimeFitnetShell(){
+    //     $result = [];
+    //
+    //     $timesheet = [
+    //         "activity" => "",
+    //         "activityID" => 0,
+    //         "activityType" => 1,
+    //         "amount" => 1,
+    //         "assignmentDate" => "22/08/2018",
+    //         "assignmentID" => 245,
+    //         "company" => "",
+    //         "companyID" => 1,
+    //         "employee" => "",
+    //         "employeeID" => 38,
+    //         "remark" => "",
+    //         "timesheetAssignmentID" => 0,
+    //         "typeOfService" => "",
+    //         "typeOfServiceID" => 0 
+    //     ];
+    //
+    //     $timesheetJS = json_encode($timesheet);
+    //
+    //     $url = '/FitnetManager/rest/timesheet';
+    //     $result = $this->setFitnetLink($url, $timesheetJS);
+    //
+    //     // type de réponse : objet json
+    //     $this->response->type('json');
+    //     // contenue de la réponse
+    //     $this->response->body(json_encode($result));
+    //
+    //     return $this->response;
+    // }
 
     public function isAuthorized($user)
     {
