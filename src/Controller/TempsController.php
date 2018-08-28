@@ -39,9 +39,11 @@ class TempsController extends AppController
         $dimanche = clone $lundi;
         $dimanche->modify('+7 days');
 
-        $usersTable = TableRegistry::get('Users');
         $idUserAuth = $this->Auth->user('idu');
-        $user = $usersTable->get($idUserAuth);
+        $this->loadModel('Users');
+        $user = $this->Users->get($idUserAuth);
+        // $usersTable = TableRegistry::get('Users');
+        // $user = $usersTable->get($idUserAuth);
 
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])

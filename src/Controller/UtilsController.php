@@ -9,10 +9,20 @@ class UtilsController extends AppController
 {
     public function index()
     {
+        $current = (int)date('W');
         $this->loadModel('Users');
-        $user = $this->Users->find('all')->toArray();
+        if ($this->request->is('post')) {
+
+        }
+        if ($semaine === null) {
+            $semaine = $current;
+        }
+        if ($annee === null) {
+            $annee = date('Y');
+        }
+
         $this->set('controller', false);
-        $this->set(compact('user'));
+        $this->set(compact('users'));
     }
 
     public function isAuthorized($user)
