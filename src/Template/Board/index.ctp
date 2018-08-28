@@ -53,5 +53,10 @@
             ['title' => 'Fitnet', 'content'=>'Export fitnet', 'img'=>'Fitnet.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.admin')]),
             ['controller' => 'ExportFitnet', 'action' => 'index'],
             ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
+            ['title' => 'Outils', 'content'=>'Soumission personalisée', 'img'=>'Outils.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.admin')]),
+            ['controller' => 'UtilstFitnet', 'action' => 'index'],
+            ['escape' => false]); ?>
     </div>
 </div>
