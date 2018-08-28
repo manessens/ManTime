@@ -23,14 +23,12 @@
         <div>
             <table>
                 <tbody>
-                    <tr>
-                        <?php foreach ($usersN as $userN): ?>
-                            <td><?php echo $userN->fullname ?></td>
-                        <?php endforeach; ?>
-                        <?php foreach ($usersV as $userV): ?>
-                            <td><?php echo $userV->fullname ?></td>
-                        <?php endforeach; ?>
-                    </tr>
+                    <?php foreach ($usersN as $userN): ?>
+                        <tr><td><?php echo $userN->fullname ?></td></tr>
+                    <?php endforeach; ?>
+                    <?php foreach ($usersV as $userV): ?>
+                        <tr><td><?php echo $userV->fullname ?></td></tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 
