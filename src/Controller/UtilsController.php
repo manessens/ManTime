@@ -40,6 +40,8 @@ class UtilsController extends AppController
         debug($users);
 
         $this->set('controller', false);
+        $this->set(compact('semaine'));
+        $this->set(compact('annee'));
         $this->set(compact('users'));
     }
 
