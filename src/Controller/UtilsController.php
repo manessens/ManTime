@@ -35,7 +35,7 @@ class UtilsController extends AppController
             ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
                 return $q->where(['Temps.date >=' => $lundi, 'Temps.date <=' => $dimanche]);
             })
-            ->distinct(['Users'])
+            ->distinct(['Users.idu'])
             ->toArray();
 
         debug($users);
