@@ -22,10 +22,22 @@
         </form>
         <div>
             <table>
+                <thead>
+                    <tr>
+                        <td class="alert-danger" > Consultant ayant validé leur saisie </td>
+                    </tr>
+                </thead>
                 <tbody>
                     <?php foreach ($usersN as $userN): ?>
                         <tr><td><?php echo $userN->fullname ?></td></tr>
                     <?php endforeach; ?>
+                </tbody>
+                <thead>
+                    <tr>
+                        <td class="alert-success" > Consultant ayant validé leur saisie </td>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php foreach ($usersV as $userV): ?>
                         <tr><td><?php echo $userV->fullname ?></td></tr>
                     <?php endforeach; ?>
