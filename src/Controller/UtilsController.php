@@ -1,9 +1,9 @@
 <?php
 
-use Cake\Error\Debugger;
-use Cake\Core\Configure;
-
 namespace App\Controller;
+
+use App\Controller\AppController;
+
 
 class UtilsController extends AppController
 {
