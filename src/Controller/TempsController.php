@@ -70,6 +70,11 @@ class TempsController extends AppController
             $entities = array();
             $arrayIdentifierLine = array();
             $verif = false;
+            // vérif lock by admin
+            if (!is_null($isLocked)) {
+                $this->Flash->error(__('La semaine à été vérouillé par un admin, veuillez contacter un responsable pour une modification de saisie'));
+                return $this->redirect(['action' => 'index', $semaine, $annee]);
+            }
             if (array_key_exists('day', $arrayData)) {
                 $verif = true;
                 $projetTable = TableRegistry::get('Projet');
@@ -661,7 +666,7 @@ class TempsController extends AppController
             }
             $query = null;
             $query = $this->Temps->find('all')
-                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1])
+                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0])
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client != null) {
                 $ProjetTable = TableRegistry::get('Projet');
