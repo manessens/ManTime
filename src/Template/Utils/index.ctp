@@ -24,10 +24,13 @@
             <table>
                 <thead>
                     <tr>
-                        <td class="alert-danger" > Consultant ayant validé leur saisie </td>
+                        <td class="alert-danger" > Consultant en attente de soumission </td>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (count($usersN) == 0): ?>
+                        <tr><td>0 - Consultants en attente</td></tr>
+                    <?php endif; ?>
                     <?php foreach ($usersN as $userN): ?>
                         <tr><td><?php echo $userN->fullname ?></td></tr>
                     <?php endforeach; ?>
@@ -36,7 +39,7 @@
             <table>
                 <thead>
                     <tr>
-                        <td class="alert-success" > Consultant ayant validé leur saisie </td>
+                        <td class="alert-success" > Consultant ayant soumis leur saisie </td>
                     </tr>
                 </thead>
                 <tbody>
