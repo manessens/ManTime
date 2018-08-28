@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
 
 
 /**
@@ -58,8 +57,8 @@ class ClientController extends AppController
     {
         $client = $this->Client->newEntity();
         $agenceOption = array();
-        $agenceTable = TableRegistry::get('Agence');
-        $agenceOption = $agenceTable->find('list',['fields' =>['id_agence','nom_agence']])->toArray();
+        $this->loadModel('Agence');
+        $agenceOption = $this->Agence->find('list',['fields' =>['id_agence','nom_agence']])->toArray();
         if ($this->request->is('post')) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
@@ -84,8 +83,8 @@ class ClientController extends AppController
     {
         $client = $this->Client->get($id);
         $agenceOption = array();
-        $agenceTable = TableRegistry::get('Agence');
-        $agenceOption = $agenceTable->find('list',['fields' =>['id_agence','nom_agence']])->toArray();
+        $this->loadModel('Agence');
+        $agenceOption = $this->Agence->find('list',['fields' =>['id_agence','nom_agence']])->toArray();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Client->patchEntity($client, $this->request->getData());
             if ($this->Client->save($client)) {
@@ -133,8 +132,8 @@ class ClientController extends AppController
             if ($id_agence != "") {
 
                 // récupération des id company fitnet
-                $agenceTable = TableRegistry::get('Agence');
-                $agence = $agenceTable->get($id_agence);
+                $this->loadModel('Agence');
+                $agence = $this->Agence->get($id_agence);
                 $id_fit = $agence->id_fit;
 
                 // séparation des id_agence fitnet
