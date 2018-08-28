@@ -33,12 +33,10 @@ class UtilsController extends AppController
         $this->loadModel('Users');
         $users = $this->Users->find('all')
             ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
-                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <=' => $dimanche]);
+                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche]);
             })
             ->distinct(['Users.idu'])
             ->toArray();
-
-        debug($users);
 
         $this->set('controller', false);
         $this->set(compact('semaine'));
