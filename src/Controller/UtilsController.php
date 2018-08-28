@@ -31,9 +31,15 @@ class UtilsController extends AppController
         $dimanche->modify('+7 days');
 
         $this->loadModel('Users');
-        $users = $this->Users->find('all')
+        $usersV = $this->Users->find('all')
             ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
-                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche]);
+                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche, 'Temps.validat =' => 1]);
+            })
+            ->distinct(['Users.idu'])
+            ->toArray();
+        $usersN = $this->Users->find('all')
+            ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
+                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche, 'Temps.validat =' => 0]);
             })
             ->distinct(['Users.idu'])
             ->toArray();
@@ -41,7 +47,8 @@ class UtilsController extends AppController
         $this->set('controller', false);
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
-        $this->set(compact('users'));
+        $this->set(compact('usersV'));
+        $this->set(compact('usersN'));
     }
 
     public function isAuthorized($user)

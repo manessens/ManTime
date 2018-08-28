@@ -21,6 +21,18 @@
             <div class="col-xs-3"><button class="btn btn-primary" type="submit" >Actualiser </button></div>
         </form>
         <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <?php foreach ($usersN as $userN): ?>
+                            <td><?php echo $userN->fullname ?></td>
+                        <?php endforeach; ?>
+                        <?php foreach ($usersV as $userV): ?>
+                            <td><?php echo $userV->fullname ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
 
