@@ -56,7 +56,7 @@
         <?= $this->Html->link($this->element(
             'block',
             ['title' => 'Outils', 'content'=>'Soumission personalisée', 'img'=>'Outils.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.admin')]),
-            ['controller' => 'UtilstFitnet', 'action' => 'index'],
+            ['controller' => 'Utils', 'action' => 'index'],
             ['escape' => false]); ?>
     </div>
 </div>
