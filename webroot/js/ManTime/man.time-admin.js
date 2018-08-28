@@ -5,9 +5,6 @@ $(function() {
     alertVerouillage = false;
     updateTotal();
     first = false;
-    if (/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
-        initWeeker();
-    }
 });
 var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
@@ -19,14 +16,6 @@ function init(){
         $(this).children("option [value='"+selected+"']").attr('selected', 'selected');
     })
 }
-
-function initWeeker(){
-    $('#select-week').show();
-    $('#select-week').on('change', function(e){
-
-    })
-}
-
 
 $( "form" ).on('submit',function (e){
     if ($('#validat').prop('checked')) {
