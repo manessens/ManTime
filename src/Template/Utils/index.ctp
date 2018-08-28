@@ -32,6 +32,8 @@
                         <tr><td><?php echo $userN->fullname ?></td></tr>
                     <?php endforeach; ?>
                 </tbody>
+            </table>
+            <table>
                 <thead>
                     <tr>
                         <td class="alert-success" > Consultant ayant validé leur saisie </td>
