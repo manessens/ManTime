@@ -258,9 +258,9 @@ td.cel_detail{
 
 .week{
     padding: 0px 15px;
-    width: 71px !important;
+    min-width: 71px !important;
 }
 .year{
     padding: 0px 15px;
-    width: 180px !important;
+    min-width: 180px !important;
 }
