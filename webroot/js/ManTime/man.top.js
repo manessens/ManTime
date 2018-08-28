@@ -23,7 +23,7 @@ function initWeeker(){
     $('#select-week').on('change', function(e){
         var weeker = $(this).val();
         var annee = weeker.substring(0, 4);
-        var week = weeker.substring(7, 8);
+        var week = weeker.substring(6, 8);
         document.location.replace('/temps/index-admin/'+week+'/'+annee);
     })
 }
