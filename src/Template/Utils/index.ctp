@@ -11,11 +11,14 @@
     </legend>
     <div class="col-xs-10">
         <div class=" left ">
-            <div class="col-xs-9"><input type="week" name="select-week" id="select-week" min="2018-W15" value="<?php echo $year ?>-W<?php echo $semaine ?>" ></div>
+            <div class="col-xs-9"><input type="week" name="select-week" id="select-week" min="2018-W15" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
             <div class="col-xs-3"><input type="number" name="week" id="week" value="<?php echo $semaine ?>" ></div>
-            <div class="col-xs-6"><input type="number" name="year" id="year" value="<?php echo $year ?>" ></div>
+            <div class="col-xs-6"><input type="number" name="year" id="year" value="<?php echo $annee ?>" ></div>
         </div>
+        <div>
+
+        </div>
+
+
     </div>
-
-
 </div>
