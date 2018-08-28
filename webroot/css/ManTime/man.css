@@ -255,3 +255,12 @@ td.cel_detail{
 .block{
     display: inline-block;
 }
+
+.week{
+    padding: 0px 15px;
+    width: 71px !important;
+}
+.year{
+    padding: 0px 15px;
+    width: 180px !important;
+}
