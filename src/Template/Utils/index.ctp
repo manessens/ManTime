@@ -29,7 +29,10 @@
                 </thead>
                 <tbody>
                     <?php if (count($usersN) == 0): ?>
-                        <tr><td>0 - Consultants en attente</td></tr>
+                        <tr>
+                            <td>0 - Consultants en attente</td>
+                            <td><button type="button" class="btn btn-success">+</button></td>
+                        </tr>
                     <?php endif; ?>
                     <?php foreach ($usersN as $userN): ?>
                         <tr><td><?php echo $userN->fullname ?></td></tr>
@@ -44,7 +47,10 @@
                 </thead>
                 <tbody>
                     <?php foreach ($usersV as $userV): ?>
-                        <tr><td><?php echo $userV->fullname ?></td></tr>
+                        <tr>
+                            <td><?php echo $userV->fullname ?></td>
+                            <td><button type="button" class="btn btn-danger">-</button></td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
