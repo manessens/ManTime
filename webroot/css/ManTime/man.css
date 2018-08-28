@@ -247,3 +247,7 @@ td.cel_detail{
     font-style: italic;
     color: rgba(0, 0, 0, 0.54);
 }
+
+#select-week{
+    display: none;
+}
