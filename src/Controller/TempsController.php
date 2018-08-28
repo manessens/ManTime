@@ -581,30 +581,30 @@ class TempsController extends AppController
     }
 
     public function getProjectName($id){
-        $projetTable = TableRegistry::get('Projet');
+        $this->loadModel('Projet');
         $idp = explode('.', $id)[2];
-        $project = $projetTable->get($idp);
+        $project = $this->Projet->get($idp);
         return $this->response->withStringBody($project->nom_projet);
     }
 
     public function getClientName($id){
-        $clientTable = TableRegistry::get('Client');
+        $this->loadModel('Client');
         $idc = explode('.', $id)[1];
-        $client = $projetTable->get($idc);
+        $client = $this->Client->get($idc);
         return $this->response->withStringBody($client->nom_client);
     }
 
     public function getProfilName($id){
-        $profilTable = TableRegistry::get('Profil');
+        $this->loadModel('Profil');
         $idprof = explode('.', $id)[1];
-        $profil = $profilTable->get($idprof);
+        $profil = $this->Profil->get($idprof);
         return $this->response->withStringBody($profil->nom_profil);
     }
 
     public function getActivitieName($id){
-        $actTable = TableRegistry::get('Activitie');
+        $this->loadModel('Activitie');
         $ida = explode('.', $id)[1];
-        $act = $actTable->get($ida);
+        $act = $this->Activitie->get($ida);
         return $this->response->withStringBody($act->nom_activit);
     }
 
