@@ -5,14 +5,13 @@ $(function() {
     alertVerouillage = false;
     updateTotal();
     first = false;
-    if (chromeTest) {
+    if (/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
         initWeeker();
     }
 });
 var arrayDays = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 var alertVerouillage;
 var first = true;
-var chromeTest = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase());
 
 function init(){
     $('select').each(function(){
