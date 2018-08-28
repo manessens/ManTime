@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
@@ -51,15 +50,15 @@ class ExportFitnetController extends AppController
 
     public function export(){
         $form = new ExportForm();
-        $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all')->contain(['Agence'])->toArray();
+        $this->loadModel('Client');
+        $arrayClient = $this->Client->find('all')->contain(['Agence'])->toArray();
         $clients = array();
         $agenceClient = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
         }
-        $userTable = TableRegistry::get('Users');
-        $arrayUser = $userTable->find('all')->contain(['Origine'])->toArray();
+        $this->loadModel('Users');
+        $arrayUser = $this->Users->find('all')->contain(['Origine'])->toArray();
         $users = array();
         foreach ($arrayUser as $user) {
             $users[$user->idu] = $user->fullname;
@@ -210,7 +209,6 @@ class ExportFitnetController extends AppController
         $times = array();
         $data = array();
         $periodes = array();
-        $exportableTable = TableRegistry::get('Exportable');
         $semaineDebut = (int)date('W', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
         $anneeDebut = (int)date('Y', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
         $semaineFin = (int)date('W', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
@@ -227,7 +225,8 @@ class ExportFitnetController extends AppController
             $arraNSem[$y][] = $i;
         }
         $query = null;
-        $query = $exportableTable->find('all');
+        $this->loadModel('Exportable');
+        $query = $this->Exportable->find('all');
         $andWhere = array();
         foreach ($arraNSem as $an => $sem) {
             if (!empty($sem)) {
@@ -253,8 +252,8 @@ class ExportFitnetController extends AppController
                             ];
             }
             $query = null;
-            $tempsTable = TableRegistry::get('Temps');
-            $query = $tempsTable->find('all')->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil'])
+            $this->loadModel('Temps');
+            $query = $this->Temps->find('all')->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil'])
                 ->where([
                     'date >=' => $date_debut, 'date <=' => $date_fin,
                     'validat =' => 1,
@@ -265,8 +264,8 @@ class ExportFitnetController extends AppController
                 ->andwhere(['OR' => $andWhere]);
                 // debug($query);
             if ( $data_client != null) {
-                $ProjetTable = TableRegistry::get('Projet');
-                $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
+                $this->loadModel('Projet');
+                $arrayIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
                 if (!empty($arrayIdProjet)) {
                     $query->andWhere(['Projet.idp IN' => $arrayIdProjet]);
                 }else{
@@ -608,7 +607,7 @@ class ExportFitnetController extends AppController
     //         "remark" => "",
     //         "timesheetAssignmentID" => 0,
     //         "typeOfService" => "",
-    //         "typeOfServiceID" => 0 
+    //         "typeOfServiceID" => 0
     //     ];
     //
     //     $timesheetJS = json_encode($timesheet);

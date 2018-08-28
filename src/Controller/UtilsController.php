@@ -9,17 +9,34 @@ class UtilsController extends AppController
 {
     public function index()
     {
-        $current = (int)date('W');
-        $this->loadModel('Users');
+        $semaine = null;
+        $annee = null;
         if ($this->request->is('post')) {
-
+            $arrayData = $this->request->getData();
+            $semaine = $arrayData['week'];
+            $annee = $arrayData['year'];
         }
+        $current = (int)date('W');
         if ($semaine === null) {
             $semaine = $current;
         }
         if ($annee === null) {
             $annee = date('Y');
         }
+        $lundi = new Date('now');
+        $lundi->setTime(00, 00, 00);
+        $lundi->setISOdate($annee, $semaine);
+        $dimanche = clone $lundi;
+        $dimanche->modify('+7 days');
+
+        $this->loadModel('Users');
+        $users = $this->Users->find('all')
+            ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
+                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <=' => $dimanche]);
+            })
+            ->toArray();
+
+        debug($users);
 
         $this->set('controller', false);
         $this->set(compact('users'));
