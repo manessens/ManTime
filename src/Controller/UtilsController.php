@@ -87,7 +87,7 @@ class UtilsController extends AppController
 
         $this->loadModel('Temps');
         $test = $this->Temps->query()
-            ->update()->set(['activat' => $validat])
+            ->update()->set(['validat' => $validat])
             ->where(['date >=' => $lundi, 'date <' => $dimanche, 'idu =' => $id_user])
             ->execute();
 
