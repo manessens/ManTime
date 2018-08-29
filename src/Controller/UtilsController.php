@@ -55,20 +55,43 @@ class UtilsController extends AppController
         if( $this->request->is('ajax') ) {
             $this->autoRender = false; // Pas de rendu
         }
+        $retour = false;
         if ($this->request->is(['POST'])) {
-            $id_user = $this->request->getData()["user"];
+             $arrayData = $this->request->getData();
+             $retour = $this->activer($arrayData);
         }
-        return $this->response->withStringBody($id_user);
+        return $this->response->withStringBody($retour);
     }
 
     public function setUnactivUser(){
         if( $this->request->is('ajax') ) {
             $this->autoRender = false; // Pas de rendu
         }
+        $retour = false;
         if ($this->request->is(['POST'])) {
-            $id_user = $this->request->getData()["user"];
+             $arrayData = $this->request->getData();
+             $retour = $this->activer($arrayData);
         }
-        return $this->response->withStringBody($id_user);
+        return $this->response->withStringBody($retour);
+    }
+
+    private function activer($arrayData, $validat = false){
+        $id_user = $arrayData["user"];
+        $semaine = $arrayData["semaine"];
+        $annee = $arrayData["annee"];
+        $lundi = new Date('now');
+        $lundi->setTime(00, 00, 00);
+        $lundi->setISOdate($annee, $semaine);
+        $dimanche = clone $lundi;
+        $dimanche->modify('+7 days');
+
+        $this->loadModel('Temps');
+        $test = $this->Temps->query()
+            ->update()->set(['activat' => $validat])
+            ->where(['date >=' => $lundi, 'date <' => $dimanche, 'idu =' => $id_user])
+            ->execute();
+
+        return $test;
     }
 
     public function isAuthorized($user)

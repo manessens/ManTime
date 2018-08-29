@@ -5,7 +5,6 @@ $(function() {
         initWeeker();
     }
 });
-var xhr;
 
 // **INITIALISATION**
 
@@ -28,19 +27,21 @@ function init(){
         var idu = $(that).attr('data-idu');
         var target = 'loader-'+idu;
         var activ = $(that).attr('data-activ');
-        xhr = $.ajax({
+        var nsemaine = $('#nsemaine').text();
+        var nannee = $('#nannee').text();
+        $.ajax({
             type: "POST",
             url: "/Utils/set"+activ+"User/",
-            data: { user: idu },
+            data: { user: idu, semaine: nsemaine, annee: nannee },
             beforeSend: function( xhr ) {
                 $('#'+target).show();
                 $(that).hide();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data) ) {    //success
-                // updateSelect(data);
-            }else{                                  // fail
-                // eraseSelect();
+            if ( data ) {    //success
+                console.log('ok');
+            }else{          // fail
+                console.log('nok');
             }
         }).always(function(){
             $('#'+target).hide();
