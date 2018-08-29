@@ -81,7 +81,9 @@ class ClientController extends AppController
      */
     public function edit($id = null)
     {
-        $client = $this->Client->get($id);
+        if (is_numeric($id)) {
+            $client = $this->Client->get($id);
+        }
         $agenceOption = array();
         $this->loadModel('Agence');
         $agenceOption = $this->Agence->find('list',['fields' =>['id_agence','nom_agence']])->toArray();

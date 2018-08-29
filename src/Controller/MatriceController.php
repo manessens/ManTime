@@ -94,9 +94,11 @@ class MatriceController extends AppController
      */
     public function edit($id = null)
     {
-        $matrice = $this->Matrice->get($id, [
-            'contain' => ['LignMat' => ['Profil'] ]
-        ]);
+        if (is_numeric($id)) {
+            $matrice = $this->Matrice->get($id, [
+                'contain' => ['LignMat' => ['Profil'] ]
+            ]);
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[

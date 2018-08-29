@@ -75,9 +75,11 @@ class ActivitieController extends AppController
      */
     public function edit($id = null)
     {
-        $activitie = $this->Activitie->get($id, [
-            'contain' => []
-        ]);
+        if (is_numeric($id)) {
+            $activitie = $this->Activitie->get($id, [
+                'contain' => []
+            ]);
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $activitie = $this->Activitie->patchEntity($activitie, $this->request->getData());
             if ($this->Activitie->save($activitie)) {

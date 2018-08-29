@@ -177,7 +177,9 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        $user = $this->Users->get($id);
+        if (is_numeric($id)) {
+            $user = $this->Users->get($id);
+        }
         $origineOption = $this->getOrigineOption();
         $role = $this->getRole();
         if ($this->request->is(['patch', 'post', 'put'])) {

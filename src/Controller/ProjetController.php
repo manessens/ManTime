@@ -117,9 +117,11 @@ class ProjetController extends AppController
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
-        $projet = $this->Projet->get($id, [
-            'contain' => ['Activities', 'Participant' ]
-        ]);
+        if (is_numeric($id)) {
+            $projet = $this->Projet->get($id, [
+                'contain' => ['Activities', 'Participant' ]
+            ]);
+        }
         // Si envoie du formulaire : update table
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();

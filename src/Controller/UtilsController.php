@@ -77,8 +77,14 @@ class UtilsController extends AppController
 
     private function activer($arrayData, $validat = false){
         $id_user = $arrayData["user"];
+        if (!is_numeric($id_user)) {
+            return false;
+        }
         $semaine = $arrayData["semaine"];
         $annee = $arrayData["annee"];
+        if ($semaine == null || $annee == null) {
+            return false;
+        }
         $lundi = new Date('now');
         $lundi->setTime(00, 00, 00);
         $lundi->setISOdate($annee, $semaine);
@@ -86,12 +92,12 @@ class UtilsController extends AppController
         $dimanche->modify('+7 days');
 
         $this->loadModel('Temps');
-        $test = $this->Temps->query()
+        $this->Temps->query()
             ->update()->set(['validat' => $validat])
             ->where(['date >=' => $lundi, 'date <' => $dimanche, 'idu =' => $id_user])
             ->execute();
-        debug($test);
-        return $test;
+
+        return true;
     }
 
     public function isAuthorized($user)
