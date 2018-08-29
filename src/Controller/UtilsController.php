@@ -72,7 +72,7 @@ class UtilsController extends AppController
              $arrayData = $this->request->getData();
              $retour = $this->activer($arrayData);
         }
-        return $this->response->withStringBody(false);
+        return $this->response->withStringBody($retour);
     }
 
     private function activer($arrayData, $validat = false){
