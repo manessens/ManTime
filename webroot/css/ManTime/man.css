@@ -267,3 +267,13 @@ td.cel_detail{
 .select-week{
     padding: 0px 15px;
 }
+
+.error_ajax{
+    display: block;
+    padding: 0.375rem 0.5625rem 0.5625rem;
+    margin-top: -1px;
+    font-size: 0.75rem;
+    font-weight: normal;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.54);
+}

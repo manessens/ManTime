@@ -39,9 +39,9 @@ function init(){
             }
         }).done(function( data ) {
             if ( data ) {    //success
-                console.log('ok');
+                $('form').submit();
             }else{          // fail
-                console.log('nok');
+                addError(that);
             }
         }).always(function(){
             $('#'+target).hide();
@@ -52,3 +52,12 @@ function init(){
 }
 
 // **FUNCION**
+function addError(button) {
+
+    var div = $('<div>', {
+        class: 'error_ajax',
+        text: 'Une erreur est survenue, retenter ultérieurement.'
+    });
+    $(button).next().append(div);
+
+}
