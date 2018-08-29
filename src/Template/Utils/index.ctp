@@ -34,7 +34,10 @@
                     <?php foreach ($usersN as $userN): ?>
                         <tr>
                             <td><?php echo $userN->fullname ?></td>
-                            <td><button type="button" class="btn btn-success">+</button></td>
+                            <td>
+                                <button type="button" data-activ="Activ" data-idu="<?php echo $userN->idu ?>" data-target="loader-<?php echo $userN->email ?>" class="btn btn-success btn-loader">+</button>
+                                <div class="loader btn" style="display:none;" id="loader-<?php echo $userN->email ?>"> </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -54,7 +57,10 @@
                     <?php foreach ($usersV as $userV): ?>
                         <tr>
                             <td><?php echo $userV->fullname ?></td>
-                            <td><button type="button" class="btn btn-danger">-</button></td>
+                            <td>
+                                <button type="button" data-activ="Unactiv" data-idu="<?php echo $usersV->idu ?>" data-target="loader-<?php echo $usersV->email ?>" class="btn btn-danger btn-loader">-</button>
+                                <div class="loader btn" style="display:none;" id="loader-<?php echo $userV->email ?>"> </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -62,6 +68,10 @@
 
         </div>
 
-
     </div>
 </div>
+
+<?php
+    echo $this->Html->css('ManTime/man.loader.css');
+    echo $this->Html->script('ManTime/man.utils.js');
+?>

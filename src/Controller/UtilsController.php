@@ -51,6 +51,26 @@ class UtilsController extends AppController
         $this->set(compact('usersN'));
     }
 
+    public function setActivUser(){
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+        if ($this->request->is(['POST'])) {
+            $id_user = $this->request->query["user"];
+        }
+        return $this->response->withStringBody($id_user);
+    }
+
+    public function setUnactivUser(){
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+        if ($this->request->is(['POST'])) {
+            $id_user = $this->request->query["user"];
+        }
+        return $this->response->withStringBody($id_user);
+    }
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
