@@ -90,7 +90,7 @@ class UtilsController extends AppController
             ->update()->set(['validat' => $validat])
             ->where(['date >=' => $lundi, 'date <' => $dimanche, 'idu =' => $id_user])
             ->execute();
-
+        debug($test);
         return $test;
     }
 
