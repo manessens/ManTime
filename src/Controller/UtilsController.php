@@ -56,8 +56,7 @@ class UtilsController extends AppController
             $this->autoRender = false; // Pas de rendu
         }
         if ($this->request->is(['POST'])) {
-            debug($this->request->getData());
-            $id_user = $this->request->query["user"];
+            $id_user = $this->request->getData()["user"];
         }
         return $this->response->withStringBody($id_user);
     }
@@ -67,8 +66,7 @@ class UtilsController extends AppController
             $this->autoRender = false; // Pas de rendu
         }
         if ($this->request->is(['POST'])) {
-            debug($this->request->getData());
-            $id_user = $this->request->query["user"];
+            $id_user = $this->request->getData()["user"];
         }
         return $this->response->withStringBody($id_user);
     }
