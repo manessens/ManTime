@@ -58,7 +58,7 @@ class UtilsController extends AppController
         $retour = false;
         if ($this->request->is(['POST'])) {
              $arrayData = $this->request->getData();
-             $retour = $this->activer($arrayData);
+             $retour = $this->activer($arrayData, true);
         }
         return $this->response->withStringBody($retour);
     }
