@@ -7,7 +7,7 @@
 
 <div class="col-xs-12 new_content content">
     <legend>
-        <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('soumission personalisé des semaines') ?></span>
+        <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('soumission personalisé') ?> semaine #<?php echo $semaine ?> - <?php echo $annee ?></span>
     </legend>
     <div class="col-xs-10">
         <form method="post" action="/utils/index">
