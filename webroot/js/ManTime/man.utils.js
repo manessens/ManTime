@@ -1,10 +1,26 @@
 $(function() {
     xhr = null;
     init();
+    if (/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
+        initWeeker();
+    }
 });
 var xhr;
 
 // **INITIALISATION**
+
+function initWeeker(){
+    $('#select-week').show();
+    $('#select-select-weekandyear').hide();
+    $('#select-week').on('change', function(){
+        var weeker = $(this).val();
+        var annee = weeker.substring(0, 4);
+        var week = weeker.substring(6, 8);
+        $('#select-select-weekandyear').find('input#week').val(week);
+        $('#select-select-weekandyear').find('input#year').val(annee);
+    });
+}
+
 function init(){
 
     $('.btn-loader').on('click',function(e){
