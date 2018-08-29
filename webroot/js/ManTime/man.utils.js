@@ -58,6 +58,7 @@ function addError(button) {
         class: 'error_ajax',
         text: 'Une erreur est survenue, retenter ultérieurement.'
     });
-    $(button).next().append(div);
+    console.log($(button).next());
+    $(button).next().appendBefore(div);
 
 }
