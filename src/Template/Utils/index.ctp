@@ -58,7 +58,7 @@
                         <tr>
                             <td><?php echo $userV->fullname ?></td>
                             <td>
-                                <button type="button" data-activ="Unactiv" data-idu="<?php echo $usersV->idu ?>" data-target="loader-<?php echo $usersV->email ?>" class="btn btn-danger btn-loader">-</button>
+                                <button type="button" data-activ="Unactiv" data-idu="<?php echo $userV->idu ?>" data-target="loader-<?php echo $userV->email ?>" class="btn btn-danger btn-loader">-</button>
                                 <div class="loader btn" style="display:none;" id="loader-<?php echo $userV->email ?>"> </div>
                             </td>
                         </tr>
