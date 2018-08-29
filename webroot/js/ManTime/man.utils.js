@@ -22,7 +22,7 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
-                updateSelect(data);
+                // updateSelect(data);
             }else{                                  // fail
                 // eraseSelect();
             }
