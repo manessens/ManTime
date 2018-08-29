@@ -33,13 +33,13 @@ class UtilsController extends AppController
         $this->loadModel('Users');
         $usersV = $this->Users->find('all')
             ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
-                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche, 'Temps.validat =' => 1]);
+                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche, 'Temps.validat =' => 1, 'deleted ='=>false]);
             })
             ->distinct(['Users.idu'])
             ->toArray();
         $usersN = $this->Users->find('all')
             ->innerJoinWith('Temps', function ($q) use ($lundi, $dimanche) {
-                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche, 'Temps.validat =' => 0]);
+                return $q->where(['Temps.date >=' => $lundi, 'Temps.date <' => $dimanche, 'Temps.validat =' => 0, 'deleted ='=>false]);
             })
             ->distinct(['Users.idu'])
             ->toArray();
@@ -94,7 +94,7 @@ class UtilsController extends AppController
         $this->loadModel('Temps');
         $this->Temps->query()
             ->update()->set(['validat' => $validat])
-            ->where(['date >=' => $lundi, 'date <' => $dimanche, 'idu =' => $id_user])
+            ->where(['date >=' => $lundi, 'date <' => $dimanche, 'idu =' => $id_user, 'deleted ='=>false])
             ->execute();
 
         return true;

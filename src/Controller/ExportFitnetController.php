@@ -257,6 +257,7 @@ class ExportFitnetController extends AppController
                 ->where([
                     'date >=' => $date_debut, 'date <=' => $date_fin,
                     'validat =' => 1,
+                    'deleted =' => false,
                     'Projet.id_fit  IS NOT' => null,
                     'Client.id_fit  IS NOT' => null,
                     'Users.id_fit IS NOT' => null

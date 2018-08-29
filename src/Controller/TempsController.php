@@ -49,6 +49,7 @@ class TempsController extends AppController
                 ->where(['idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
+                ->andWhere(['deleted =' => false])
                 ->contain(['Projet' => ['Client']])
                 ->all();
 
@@ -153,19 +154,15 @@ class TempsController extends AppController
             }
             if ($verif) {
                 //Deletion
-                $query = $this->Temps->find('all')
+                $query = $this->Temps->query()
+                    ->update()->set(['deleted' => true])
                     ->where(['idu =' => $user->idu,
                      'date >=' => $lundi,
                      'date <' => $dimanche]);
                 if (!empty($arrayIdCurrent)) {
                     $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                 }
-                $listDeletion = $query->toArray();
-                if (!empty($listDeletion)) {
-                    foreach ($listDeletion as  $entity) {
-                        $verif = $verif && $this->Temps->delete($entity);
-                    }
-                }
+                $query->execute();
                 //Save
                 if (!empty($entities)) {
                     foreach ($entities as $day) {
@@ -239,6 +236,7 @@ class TempsController extends AppController
             $arrayTemps = $this->Temps->find('all')
                     ->where(['idu =' => $userAll->idu])
                     ->andWhere(['validat =' => 1])
+                    ->andWhere(['deleted =' => false])
                     ->andWhere(['date >=' => $lundi])
                     ->andWhere(['date <' => $dimanche])
                     ->contain(['Projet' => ['Client']])->all();
@@ -345,20 +343,16 @@ class TempsController extends AppController
             if ($verif) {
                 //Deletion
                 if (is_null($isLocked)) {
-                    $query = $this->Temps->find('all')
+                    $query = $this->Temps->query()
+                        ->update()->set(['deleted' => true])
                         ->where(['validat =' => 1,
                          'modify = ' => false,
                          'date >=' => $lundi,
                          'date <' => $dimanche]);
                     if (!empty($arrayIdCurrent)) {
-                        $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
+                        $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                     }
-                    $listDeletion = $query->toArray();
-                    if (!empty($listDeletion)) {
-                        foreach ($listDeletion as  $entity) {
-                            $verif = $verif && $this->Temps->delete($entity);
-                        }
-                    }
+                    $query->execute();
                     //Save
                     if (!empty($entities)) {
                         foreach ($entities as $day) {
@@ -668,7 +662,7 @@ class TempsController extends AppController
             }
             $query = null;
             $query = $this->Temps->find('all')
-                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0])
+                ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0, 'deleted =' => false])
                 ->andwhere(['OR' => $andWhere]);
             if ( $data_client != null) {
                 $ProjetTable = TableRegistry::get('Projet');
