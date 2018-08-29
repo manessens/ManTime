@@ -41,10 +41,8 @@ function initSelectEdit(){
 function initChangeSelect2(){
     $("#liste_fitnet").on("change", function(e) {
         var val = $("#liste_fitnet").find(':selected').val();
-        if ( isFacturable() ) {
-            $('#id-fit').val(val);
-        }
-        if (val != null && isFacturable()) {
+        $('#id-fit').val(val);
+        if (val != null ) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
@@ -140,16 +138,12 @@ function updateSelect(data){
     });
     extandData = data['projects'];
     var id_fit = $('#id-fit').val();
-    if ( id_fit != null  && isFacturable() ) {
+    if ( id_fit != null ) {
         $('#liste_fitnet').val(id_fit);
         $('#liste_fitnet').trigger('change'); // Notify any JS components that the value changed
     }else{
         $("#liste_fitnet").val(null).trigger("change");
     }
-}
-
-function isFacturable(){
-    return "2" != nfArray[$('select[name="idf"]').val()][0]
 }
 
 function eraseSelect(){
