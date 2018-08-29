@@ -58,7 +58,7 @@ function addError(button) {
         class: 'error_ajax',
         text: 'Une erreur est survenue, retenter ultérieurement.'
     });
-    console.log($(button).parent());
-    $(button).parent().append(div);
-
+    if ($(button).parent().find('div.error_ajax').length == 0) {
+        $(button).parent().append(div);
+    }
 }
