@@ -9,8 +9,8 @@ function init(){
 
     $('.btn-loader').on('click',function(e){
         var that = this;
-        var target = $(that).attr('data-target');
         var idu = $(that).attr('data-idu');
+        var target = 'loader-'+idu;
         var activ = $(that).attr('data-activ');
         xhr = $.ajax({
             type: "POST",

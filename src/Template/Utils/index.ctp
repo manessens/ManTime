@@ -35,8 +35,8 @@
                         <tr>
                             <td><?php echo $userN->fullname ?></td>
                             <td>
-                                <button type="button" data-activ="Activ" data-idu="<?php echo $userN->idu ?>" data-target="loader-<?php echo $userN->email ?>" class="btn btn-success btn-loader">+</button>
-                                <div class="loader btn" style="display:none;" id="loader-<?php echo $userN->email ?>"> </div>
+                                <button type="button" data-activ="Activ" data-idu="<?php echo $userN->idu ?>" class="btn btn-success btn-loader">+</button>
+                                <div class="loader btn" style="display:none;" id="loader-<?php echo $userN->idu ?>"> </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -58,8 +58,8 @@
                         <tr>
                             <td><?php echo $userV->fullname ?></td>
                             <td>
-                                <button type="button" data-activ="Unactiv" data-idu="<?php echo $userV->idu ?>" data-target="loader-<?php echo $userV->email ?>" class="btn btn-danger btn-loader">-</button>
-                                <div class="loader btn" style="display:none;" id="loader-<?php echo $userV->email ?>"> </div>
+                                <button type="button" data-activ="Unactiv" data-idu="<?php echo $userV->idu ?>" class="btn btn-danger btn-loader">-</button>
+                                <div class="loader btn" style="display:none;" id="loader-<?php echo $userV->idu ?>"> </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
