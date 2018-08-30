@@ -18,7 +18,7 @@
 <head>
     <title><?= $this->fetch('title') ?></title>
     <?php
-        echo $this->Html->css('ManTime/man_mail.css');
+        echo $this->Html->css('ManTime/man_mail.css', ['fullBase' => true]);
      ?>
 </head>
 <body>
