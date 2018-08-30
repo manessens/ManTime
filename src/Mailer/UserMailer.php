@@ -8,7 +8,7 @@ class UserMailer extends Mailer
     public function welcome($user)
     {
         // $this->to($user->email)
-        $this->to('matthias.vincent@manessens.com')
+        $this->to($user->email)
             ->subject(sprintf('Bienvenu %s sur ManTime', $user->fullname))
             ->viewVars(['fullname'=>$user->fullname])
             ->emailFormat('html');
@@ -16,8 +16,7 @@ class UserMailer extends Mailer
 
     public function resetPassword($user)
     {
-        $this
-            ->to($user->email)
+        $this->to($user->email)
             ->subject('Réinitialisation du mot de passe ManTime')
             ->viewVars(['fullname'=>$user->fullname])
             ->emailFormat('html');
