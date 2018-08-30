@@ -19,6 +19,7 @@ class UserMailer extends Mailer
         $this
             ->to($user->email)
             ->subject('Réinitialisation du mot de passe ManTime')
+            ->viewVars(['fullname'=>$user->fullname])
             ->emailFormat('html');
     }
 
