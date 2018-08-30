@@ -20,6 +20,7 @@
 <p>Recommandation :</p>
 <p>- Saisir vos temps "au fil de l'eau" afin d'être toujours à jour</p>
 <p>- Soummettre la semaine chaque vendredi soir avant de partir en week-end</p>
+<p>- Soummettre toutes les semaines de vos vacances avant le départ.</p>
 
 <p>Pour votre première connection, utilisez votre adresse mail et utilisez le mot de passe suivant :</p>
 <p> Welcome1! </p>
