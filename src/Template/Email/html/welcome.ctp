@@ -24,8 +24,8 @@
         <li>Soummettre toutes les semaines de vos vacances avant le départ.</li>
     </ul>
 </p>
-<p>le nom d'utilisateur est l'adresse mail sur laquel vous venez de recevoir ce mail.<br />
+<p>Votre nom d'utilisateur est l'adresse mail sur laquel vous venez de recevoir ce mail.<br />
     Pour votre première connection utilisez le mot de passe suivant :</p>
 <p><i>Welcome1!</i></p>
-<p>il vous sera demander de le modifier à la première connection. Cette étape est obligatoire pour pouvoir utiliser l'outils.</p>
+<p>Il vous sera demander de le modifier. Cette étape est obligatoire pour pouvoir utiliser l'outils.</p>
 <p>le site est accessible <a href="http://mantime.manessens.com/">ici</a></p>

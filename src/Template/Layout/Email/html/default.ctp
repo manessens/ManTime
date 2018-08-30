@@ -30,5 +30,8 @@
      <div class="content_mail">
          <?= $this->fetch('content') ?>
      </div>
+     <div class="footer_mail">
+         En cas de besoin contactez le responsable ManOnline : <a href="mailto:pierre.gregorutti@manessens.com">Pierre Gregorutti</a>
+     </div>
 </body>
 </html>
