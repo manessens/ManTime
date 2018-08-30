@@ -17,11 +17,14 @@
 <html>
 <head>
     <title><?= $this->fetch('title') ?></title>
+    <?php
+        echo $this->Html->css('ManTime/man_mail.css');
+     ?>
 </head>
 <body>
     <div class="header_mail">
         <?php
-            echo $this->Html->image('Logo_Manessens.png', ['alt' => 'Manessens', 'fullBase' => true]);
+            echo $this->Html->image('Manonline_rouge.png', ['alt' => 'Manessens', 'fullBase' => true]);
          ?>
      </div>
      <div class="content_mail">
