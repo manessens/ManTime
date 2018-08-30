@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
+use Cake\Mailer\MailerAwareTrait;
 /**
  * Users Controller
  *
@@ -13,6 +14,7 @@ use Cake\Mailer\Email;
  */
 class UsersController extends AppController
 {
+    use MailerAwareTrait;
 
     /**
      * Index method
@@ -117,7 +119,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
-                // $this->test();
+                // $this->getMailer('User')->send('welcome', [$user]);
                 return $this->redirect(['action' => 'edit', $user->idu]);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
@@ -139,14 +141,15 @@ class UsersController extends AppController
         return $roles;
     }
 
-    private function test()
+    private function test($user)
     {
         $userAuth = $this->Auth->identify();
         $email = new Email('default');
         $email->from([ 'matthias.vincent@manessens.com' => 'ManTime'])
             ->to('matthias.vincent@manessens.com')
             ->subject('Bienvenu sur ManTime')
-            ->template('default')
+            ->template('default', 'default')
+            ->emailFormat('html')
             ->viewVars([ 'content' => 'Bienvenu, ceci est un test', 'title'=>'Bienvenu' ])
             ->send();
         // $email = new Email();
