@@ -17,13 +17,14 @@
 <h3>Bienvenu <span class="rouge"><?= $fullname; ?></span> sur ManTime</h3>
 <p>ManTime est un utilitaire d'aide à la saisie des temps.</p>
 <p>Il vous accompagnera tout au long de vos développement sur ManOnline.</p>
-<ul>Recommandation :
-    <li>- Saisir vos temps "au fil de l'eau" afin d'être toujours à jour</li>
-    <li>- Soummettre la semaine chaque vendredi soir avant de partir en week-end</li>
-    <li>- Soummettre toutes les semaines de vos vacances avant le départ.</li>
-</ul>
-
+<p>Recommandation :
+    <ul>
+        <li>Saisir vos temps "au fil de l'eau" afin d'être toujours à jour</li>
+        <li>Soummettre la semaine chaque vendredi soir avant de partir en week-end</li>
+        <li>Soummettre toutes les semaines de vos vacances avant le départ.</li>
+    </ul>
+</p>
 <p>Pour votre première connection, utilisez votre adresse mail et utilisez le mot de passe suivant :</p>
-<p> Welcome1! </p>
+<p><i>Welcome1!</i></p>
 <p>il vous sera demander de le modifier à la première connection. Cette étape est obligatoire pour pouvoir utiliser l'outils.</p>
 <p>le site est accessible <a href="http://mantime.manessens.com/">ici</a></p>

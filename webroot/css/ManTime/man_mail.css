@@ -6,6 +6,20 @@ p i{
     padding-left: 10px;
 }
 
+p a{
+    color: #E92C3B;
+}
+
+/* visited link */
+p a:visited {
+    color: #A3A3A3;
+}
+
+/* mouse over link */
+p a:hover {
+    color: #F06C76;
+}
+
 .header_mail img{
     height: 70px;
 }
