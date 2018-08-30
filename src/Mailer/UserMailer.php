@@ -7,7 +7,8 @@ class UserMailer extends Mailer
 {
     public function welcome($user)
     {
-        $this->to($user->email)
+        // $this->to($user->email)
+        $this->to('matthias.vincent@manessens.com')
             ->subject(sprintf('Bienvenu %s sur ManTime', $user->fullname))
             ->emailFormat('html');
     }
@@ -19,20 +20,5 @@ class UserMailer extends Mailer
             ->subject('Réinitialisation du mot de passe ManTime')
             ->emailFormat('html');
     }
-    
-    public function implementedEvents()
-    {
-        return [
-            'Users.afterSave' => 'onRegistration'
-        ];
-    }
 
-    public function onRegistration(Event $event, EntityInterface $entity, ArrayObject $options)
-    {
-        if ($entity->isNew()) {
-            $this->send('welcome', [$entity]);
-        }elseif ($entity->prem_connect) {
-            $this->send('resetPassword', [$entity]);
-        }
-    }
 }

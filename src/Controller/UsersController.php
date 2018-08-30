@@ -119,7 +119,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
-                // $this->getMailer('User')->send('welcome', [$user]);
+                $this->getMailer('User')->send('welcome', [$user]);
                 return $this->redirect(['action' => 'edit', $user->idu]);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
@@ -191,9 +191,9 @@ class UsersController extends AppController
                 $user['mdp'] = 'Welcome1!';
             }
             if ($this->Users->save($user)) {
-                // if ($user['prem_connect']) {
-                //     $this->test();
-                // }
+                if ($user['prem_connect']) {
+                    $this->getMailer('User')->send('resetPassword', [$user]);
+                }
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
