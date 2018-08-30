@@ -14,8 +14,8 @@
  */
 ?>
 
-<h3><?= $fullname; ?> votre mot de passe ManTime à été réinitialisé</h3>
+<h3><span class="rouge"><?= $fullname; ?></span> votre mot de passe ManTime à été réinitialisé</h3>
 <p>Pour modifier votre mot de passe, connectez vous sur le <a href="http://mantime.manessens.com/">site</a></p>
 <p>Utilisez votre adresse mail et le mot de passe suivant :</p>
-<p> Welcome1! </p>
+<p><i>Welcome1!</i></p>
 <p>Il vous sera alors demandé de le modifier.</p>

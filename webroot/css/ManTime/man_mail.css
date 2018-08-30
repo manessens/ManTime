@@ -2,6 +2,14 @@ body{
     background-color: #424351;
     color: white;
 }
+p i{
+    padding-left: 10px;
+}
+
 .header_mail img{
     height: 70px;
+}
+
+.rouge{
+    color: #E92C3B;
 }
