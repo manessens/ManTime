@@ -14,11 +14,8 @@
  */
 ?>
 
-<h3><?= $title; ?></h3>
-
-<?php
-    $content = explode("\n", $content);
- ?>
-<?php foreach ($content as $line): ?>
-    <p><?= $line; ?></p>
-<?php endforeach; ?>
+<h3><?= $fullname; ?> votre mot de passe ManTime à été réinitialisé</h3>
+<p>Pour modifier votre mot de passe, connectez vous sur le <a href="http://mantime.manessens.com/">site</a></p>
+<p>Utilisez votre adresse mail et le mot de passe suivant :</p>
+<p> Welcome1! </p>
+<p>Il vous sera alors demandé de le modifier.</p>

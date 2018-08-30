@@ -14,11 +14,14 @@
  */
 ?>
 
-<h3><?= $title; ?></h3>
+<h3>Bienvenu <?= $fullname; ?> sur ManTime</h3>
+<p>ManTime est un utilitaire d'aide à la saisie des temps.</p>
+<p>Il vous accompagnera tout au long de vos développement sur ManOnline.</p>
+<p>Recommandation :</p>
+<p>- Saisir vos temps "au fil de l'eau" afin d'être toujours à jour</p>
+<p>- Soummettre la semaine chaque vendredi soir avant de partir en week-end</p>
 
-<?php
-    $content = explode("\n", $content);
- ?>
-<?php foreach ($content as $line): ?>
-    <p><?= $line; ?></p>
-<?php endforeach; ?>
+<p>Pour votre première connection, utilisez votre adresse mail et utilisez le mot de passe suivant :</p>
+<p> Welcome1! </p>
+<p>il vous sera demander de le modifier à la première connection. Cette étape est obligatoire pour pouvoir utiliser l'outils.</p>
+<p>le site est accessible <a href="http://mantime.manessens.com/">ici</a></p>

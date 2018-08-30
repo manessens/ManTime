@@ -21,7 +21,7 @@
 <body>
     <div class="header_mail">
         <?php
-            echo $this->Html->image('Logo Manessens.png', ['alt' => 'Manessens']);
+            echo $this->Html->image('Logo_Manessens.png', ['alt' => 'Manessens']);
          ?>
      </div>
      <div class="content_mail">

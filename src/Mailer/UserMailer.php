@@ -10,6 +10,7 @@ class UserMailer extends Mailer
         // $this->to($user->email)
         $this->to('matthias.vincent@manessens.com')
             ->subject(sprintf('Bienvenu %s sur ManTime', $user->fullname))
+            ->viewVars(['fullname'=>$user->fullname])
             ->emailFormat('html');
     }
 
