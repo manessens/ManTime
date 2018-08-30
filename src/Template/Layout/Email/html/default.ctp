@@ -24,7 +24,7 @@
 <body>
     <div class="header_mail">
         <?php
-            echo $this->Html->image('Manonline_rouge.png', ['alt' => 'Manessens', 'fullBase' => true]);
+            echo $this->Html->image('Manonline_rouge.png', ['alt' => 'ManOnline', 'fullBase' => true]);
          ?>
      </div>
      <div class="content_mail">
