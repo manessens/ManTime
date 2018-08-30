@@ -14,8 +14,8 @@
  */
 ?>
 
-<h3>Bienvenu <span class="rouge"><?= $fullname; ?></span> sur ManTime</h3>
-<p>ManTime est un utilitaire d'aide à la saisie des temps.</p>
+<h3><span class="rouge"><?= $fullname; ?></span>, bienvenu sur ManTime !</h3>
+<p><strong>ManTime</strong> est un utilitaire d'aide à la saisie des temps.</p>
 <p>Il vous accompagnera tout au long de vos développement sur ManOnline.</p>
 <p>Recommandation :
     <ul>
@@ -24,7 +24,8 @@
         <li>Soummettre toutes les semaines de vos vacances avant le départ.</li>
     </ul>
 </p>
-<p>Pour votre première connection, utilisez votre adresse mail et utilisez le mot de passe suivant :</p>
+<p>le nom d'utilisateur est l'adresse mail sur laquel vous venez de recevoir ce mail.<br />
+    Pour votre première connection utilisez le mot de passe suivant :</p>
 <p><i>Welcome1!</i></p>
 <p>il vous sera demander de le modifier à la première connection. Cette étape est obligatoire pour pouvoir utiliser l'outils.</p>
 <p>le site est accessible <a href="http://mantime.manessens.com/">ici</a></p>
