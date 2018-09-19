@@ -141,28 +141,6 @@ class UsersController extends AppController
         return $roles;
     }
 
-    private function test($user)
-    {
-        $userAuth = $this->Auth->identify();
-        $email = new Email('default');
-        $email->from([ 'matthias.vincent@manessens.com' => 'ManTime'])
-            ->to('matthias.vincent@manessens.com')
-            ->subject('Bienvenu sur ManTime')
-            ->template('default', 'default')
-            ->emailFormat('html')
-            ->viewVars([ 'content' => 'Bienvenu, ceci est un test', 'title'=>'Bienvenu' ])
-            ->send();
-        // $email = new Email();
-        // $email->transport('default')
-        //       ->template('test')
-        //       ->emailFormat('both')
-        //       ->to($user->email)
-        //       ->subject('bienvenu sur ManTime !')
-        //       ->from($userAuth['email']);
-        // $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
-        // $email->send();
-    }
-
     private function getOrigineOption()
     {
         $origineTable = TableRegistry::get('Origine');
@@ -224,6 +202,9 @@ class UsersController extends AppController
                 $user['mdp'] = 'Welcome1!';
             }
             if ($this->Users->save($user)) {
+                if ($user['prem_connect']) {
+                    $this->getMailer('User')->send('resetPassword', [$user]);
+                }
                 $this->Flash->success(__('Votre profil à été sauvegardé.'));
 
                 return $this->redirect(['controller' => 'Board','action' => 'index']);
