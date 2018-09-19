@@ -24,6 +24,7 @@ function initWeeker(){
         var weeker = $(this).val();
         var annee = weeker.substring(0, 4);
         var week = weeker.substring(6, 8);
-        document.location.replace('/temps/index-admin/'+week+'/'+annee);
+        var target = $(this).attr("data-target");
+        document.location.replace('/temps/'+target+'/'+week+'/'+annee);
     })
 }
