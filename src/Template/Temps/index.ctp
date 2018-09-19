@@ -75,9 +75,6 @@
                     <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
                 </div>
                 <div class="weeker_admin right">
-                    <div class="left">
-                        <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
-                    </div>
                     <div class="right">
                         <?php if ($semaine-1 < 1 ): ?>
                             <?= $this->Html->link(__('<'), ['action' => 'index', 52, $annee-1], ['class' => 'btn btn-success']) ?>
@@ -243,6 +240,8 @@
 </div>
 
 <?php
+    echo $this->Html->script('ManTime/man.top.js');
+    echo $this->Html->css('ManTime/man.top.css');
     if (!$validat){
         echo $this->Html->script('ManTime/man.modal.js');
         echo $this->Html->script('ManTime/man.time.js');
