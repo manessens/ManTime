@@ -1007,6 +1007,7 @@ class TempsController extends AppController
                         echo 'client';
                         continue;
                     }
+                    debug($client);
                     $idc = $client->idc;
                     $projectName = $arrayLine[1];
                     $projet = array_filter($projets, function($o) use ($projectName, $idc){
