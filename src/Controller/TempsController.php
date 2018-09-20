@@ -971,7 +971,7 @@ class TempsController extends AppController
 
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
-                    $arrayLine[2] = convertToUtf($arrayLine[2]);
+                    $arrayLine[2] = $this->convertToUtf($arrayLine[2]);
                     $content[] = $arrayLine;
                 }
             }
