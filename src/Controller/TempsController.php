@@ -968,6 +968,7 @@ class TempsController extends AppController
             if (file_exists($absFileName)) {
                 $this->loadModel('Users');
                 $this->loadModel('Projet');
+                $this->loadModel('Client');
                 $this->loadModel('Profil');
                 $this->loadModel('Activitie');
                 $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
