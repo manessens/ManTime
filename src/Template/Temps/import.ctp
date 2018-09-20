@@ -17,9 +17,11 @@
     </fieldset>
     <?= $this->Form->end() ?>
     <?php
-        pr($arrayUserRefused);
-        pr($arrayClientRefused);
-        pr($arrayProjetRefused);
+        if (!empty($arrayUserRefused) || !empty($arrayClientRefused) || !empty($arrayProjetRefused)) {
+            pr($arrayUserRefused);
+            pr($arrayClientRefused);
+            pr($arrayProjetRefused);
+        }
      ?>
 </div>
 
