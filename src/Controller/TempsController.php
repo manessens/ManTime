@@ -960,22 +960,17 @@ class TempsController extends AppController
             $file = $this->request->data['fileimport'];
 
             $content = array();
+            debug($file);
 
-            $oFile = new File($file);
-            $contents = $oFile->read();
-            // $file->write('J'écris dans ce fichier');
-            // $file->append('J'ajoute à la fin de ce fichier.');
-            // $file->delete(); // Je supprime ce fichier
-            $oFile->close(); // Assurez-vous de fermer le fichier quand c'est fini
-            // $absFileName = $file['tmp_name'];
-            // if (file_exists($absFileName)) {
-            //     $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
-            //
-            //     foreach($lines as $n => $line){
-            //         $content[] = explode(';', $line);
-            //     }
-            // }
-            debug($contents);
+            $absFileName = $file['tmp_name'];
+            if (file_exists($absFileName)) {
+                $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
+
+                foreach($lines as $n => $line){
+                    $content[] = explode(';', $line);
+                }
+            }
+            debug($content);
         }
 
         $this->set(compact('import'));
