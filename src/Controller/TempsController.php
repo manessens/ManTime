@@ -997,6 +997,10 @@ class TempsController extends AppController
 
                     //User
                     $fullname = explode(' ',$arrayLine[3]);
+                    if (count($fullname) < 2) {
+                        $arrayUserRefused[$arrayLine[3]] = $fullname;
+                        continue;
+                    }
                     $name = $fullname[1];
                     $forname = $fullname[0];
                     $user = array_filter($users, function($o) use ($name, $forname){
