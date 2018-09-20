@@ -962,20 +962,33 @@ class TempsController extends AppController
         if ($this->request->is(['post'])) {
             $file = $this->request->data['fileimport'];
 
-            $content = array();
+            $days = array();
             debug($file);
 
             $absFileName = $file['tmp_name'];
             if (file_exists($absFileName)) {
+                $this->loadModel('Users');
+                $this->loadModel('Projet');
+                $this->loadModel('Profil');
+                $this->loadModel('Activitie');
                 $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
 
-                foreach($lines as $n => $line){
+                foreach($lines as $line){
+                    $day = null;
                     $arrayLine = explode(';', $line);
                     $arrayLine[2] = $this->convertToUtf($arrayLine[2]);
-                    $content[] = $arrayLine;
+                    // $user = $this->Users->findByIdu($user_id)->firstOrFail();
+                    for ($i = 5; $i < count($arrayLine) ; $i++) {
+                        if ( !empty($arrayLine[$i]) ) {
+                            $day = $this->Temp->newEntity();
+                            // $day->date = new Time($lines[0][$i]);
+                            debug(new Time($lines[0][$i]));
+                            $days[] = $day;
+                        }
+                    }
                 }
             }
-            debug($content);
+            debug($days);
         }
 
         $this->set(compact('import'));
