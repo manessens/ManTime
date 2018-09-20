@@ -963,7 +963,6 @@ class TempsController extends AppController
             $file = $this->request->data['fileimport'];
 
             $days = array();
-            debug($file);
 
             $absFileName = $file['tmp_name'];
             if (file_exists($absFileName)) {
@@ -982,7 +981,8 @@ class TempsController extends AppController
                         if ( !empty($arrayLine[$i]) ) {
                             $day = $this->Temps->newEntity();
                             // $day->date = new Time($lines[0][$i]);
-                            debug(new Time($lines[0][$i]));
+                            debug($lines[0][$i]);
+                            debug(new Date($lines[0][$i]));
                             $days[] = $day;
                         }
                     }
