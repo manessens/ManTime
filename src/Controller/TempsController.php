@@ -7,6 +7,7 @@ use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
+use App\Form\ImportForm;
 
 /**
  * Temps Controller
@@ -951,6 +952,18 @@ class TempsController extends AppController
         return mb_convert_encoding($string, "ISO-8859-1");
     }
 
+    public function import(){
+
+        $import = new ImportForm();
+        if ($this->request->is(['post'])) {
+            $file = $this->request->data['fileimport'];
+            // code...
+        }
+
+        $this->set(compact('import'));
+        $this->set('controller', false);
+    }
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');
@@ -963,7 +976,7 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['indexAdmin']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['indexAdmin', 'import']) && $user['role'] >= 50 ) {
             return true;
         }
 
