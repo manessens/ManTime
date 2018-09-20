@@ -1069,7 +1069,6 @@ class TempsController extends AppController
             debug($arrayUserRefused);
             debug($arrayClientRefused);
             debug($arrayProjetRefused);
-            debug($days);
         }
 
         $this->set(compact('import'));
