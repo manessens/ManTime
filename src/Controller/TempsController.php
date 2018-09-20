@@ -983,7 +983,7 @@ class TempsController extends AppController
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
                     // convert into UTF8 the fields that contain string
-                    for ($i=0; $t < 5 ; $t++) {
+                    for ($t=0; $t < 5 ; $t++) {
                         $arrayLine[$t] = $this->convertToUtf($arrayLine[$t]);
                     }
                     // if key == 0 this is the header that contain the string date
@@ -998,7 +998,14 @@ class TempsController extends AppController
                     $forname = $fullname[0];
                     $user = array_filter($users, function($o) use ($name, $forname){
                         return $o->nom == $name && $o->prenom == $forname;
-                    })[0];
+                    });
+                    if (empty($user)) {
+                        echo 'client';
+                        continue;
+                    }else{
+                        $user = $user[0];
+                    }
+
                     $clientName = $arrayLine[0];
                     $client = array_filter($clients, function($o) use ($clientName){
                         return $o->nom_client == $clientName;
@@ -1006,6 +1013,8 @@ class TempsController extends AppController
                     if (empty($client)) {
                         echo 'client';
                         continue;
+                    }else{
+                        $client = $client[0];
                     }
 
                     $idc = $client[0]->idc;
@@ -1016,6 +1025,8 @@ class TempsController extends AppController
                     if (empty($projet)) {
                         echo 'projet';
                         continue;
+                    }else{
+                        $projet = $projet[0];
                     }
 
                     // check each date if ther is a time to save
