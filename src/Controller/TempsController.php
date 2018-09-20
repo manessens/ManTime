@@ -1007,14 +1007,14 @@ class TempsController extends AppController
                         echo 'client';
                         continue;
                     }
-                    debug($client);
-                    $idc = $client->idc;
+
+                    $idc = $client[0]->idc;
                     $projectName = $arrayLine[1];
                     $projet = array_filter($projets, function($o) use ($projectName, $idc){
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
                     if (empty($projet)) {
-                        echo '$projet';
+                        echo 'projet';
                         continue;
                     }
 
@@ -1035,8 +1035,8 @@ class TempsController extends AppController
                         $day->idp = $projet->idp;
                         $day->idc = $idc;
                         $day->validat = 1;
-                        $day->prix = $projet->prix;
-                        $day->idm = $projet->matrice->idm;
+                        $day->prix = $projet[0]->prix;
+                        $day->idm = $projet[0]->matrice->idm;
                         $day->modify = 0;
                         // $day->id_profil = ;
                         // $day->ida = ;
