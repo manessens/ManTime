@@ -72,7 +72,7 @@
             <div class="controler right">
                 <div><input type="week" data-target="index" name="select-week" id="select-week" min="2018-W15" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
                 <div class="left">
-                    <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
+                    <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
                 </div>
                 <div class="weeker_admin right">
                     <div class="right">
