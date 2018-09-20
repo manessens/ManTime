@@ -1003,6 +1003,7 @@ class TempsController extends AppController
                         echo 'client';
                         continue;
                     }else{
+                        debug($user);
                         $user = $user[0];
                     }
 
