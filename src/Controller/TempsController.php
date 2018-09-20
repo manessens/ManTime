@@ -1009,7 +1009,7 @@ class TempsController extends AppController
                     $clientName = $arrayLine[0];
                     $client = array_filter($clients, function($o) use ($clientName){
                         return $o->nom_client == $clientName;
-                    })[0];
+                    });
                     if (empty($client)) {
                         echo 'client';
                         continue;
@@ -1021,7 +1021,7 @@ class TempsController extends AppController
                     $projectName = $arrayLine[1];
                     $projet = array_filter($projets, function($o) use ($projectName, $idc){
                         return $o->nom_projet == $projectName && $o->idc == $idc;
-                    })[0];
+                    });
                     if (empty($projet)) {
                         echo 'projet';
                         continue;
