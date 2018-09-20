@@ -1000,7 +1000,8 @@ class TempsController extends AppController
                         return $o->nom == $name && $o->prenom == $forname;
                     });
                     if (empty($user)) {
-                        echo 'client';
+                    debug($arrayLine);
+                        echo 'user';
                         continue;
                     }else{
                         $user = array_shift($user);
@@ -1011,6 +1012,7 @@ class TempsController extends AppController
                         return $o->nom_client == $clientName;
                     });
                     if (empty($client)) {
+                    debug($arrayLine);
                         echo 'client';
                         continue;
                     }else{
@@ -1023,6 +1025,7 @@ class TempsController extends AppController
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
                     if (empty($projet)) {
+                    debug($arrayLine);
                         echo 'projet';
                         continue;
                     }else{
