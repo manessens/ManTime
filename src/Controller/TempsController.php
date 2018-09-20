@@ -998,11 +998,11 @@ class TempsController extends AppController
                     $forname = $fullname[0];
                     $user = array_filter($users, function($o) use ($name, $forname){
                         return $o->nom == $name && $o->prenom == $forname;
-                    });
+                    })[0];
                     $clientName = $arrayLine[0];
                     $client = array_filter($clients, function($o) use ($clientName){
                         return $o->nom_client == $clientName;
-                    });
+                    })[0];
                     if (empty($client)) {
                         echo 'client';
                         continue;
@@ -1012,7 +1012,7 @@ class TempsController extends AppController
                     $projectName = $arrayLine[1];
                     $projet = array_filter($projets, function($o) use ($projectName, $idc){
                         return $o->nom_projet == $projectName && $o->idc == $idc;
-                    });
+                    })[0];
                     if (empty($projet)) {
                         echo 'projet';
                         continue;
@@ -1035,8 +1035,8 @@ class TempsController extends AppController
                         $day->idp = $projet->idp;
                         $day->idc = $idc;
                         $day->validat = 1;
-                        $day->prix = $projet[0]->prix;
-                        $day->idm = $projet[0]->matrice->idm;
+                        $day->prix = $projet->prix;
+                        $day->idm = $projet->matrice->idm;
                         $day->modify = 0;
                         // $day->id_profil = ;
                         // $day->ida = ;
