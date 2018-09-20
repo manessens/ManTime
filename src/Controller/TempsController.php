@@ -952,6 +952,9 @@ class TempsController extends AppController
     private function convertToIso($string = ''){
         return mb_convert_encoding($string, "ISO-8859-1");
     }
+    private function convertToUtf($string = ''){
+        return mb_convert_encoding($string, "UTF-8");
+    }
 
     public function import(){
 
@@ -967,7 +970,9 @@ class TempsController extends AppController
                 $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
 
                 foreach($lines as $n => $line){
-                    $content[] = explode(';', $line);
+                    $arrayLine = explode(';', $line);
+                    $arrayLine[2] = convertToUtf($arrayLine[2]);
+                    $content[] = $arrayLine;
                 }
             }
             debug($content);
