@@ -961,7 +961,7 @@ class TempsController extends AppController
 
             $content = array();
 
-            $oFile = new File($file['tmp_name']);
+            $oFile = new File($file);
             $contents = $oFile->read();
             // $file->write('J'écris dans ce fichier');
             // $file->append('J'ajoute à la fin de ce fichier.');
