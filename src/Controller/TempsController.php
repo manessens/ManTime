@@ -1000,7 +1000,7 @@ class TempsController extends AppController
                         return $o->nom == $name && $o->prenom == $forname;
                     });
                     $clientName = $arrayLine[0];
-                    $client = array_filter($projets, function($o) use ($clientName){
+                    $client = array_filter($clients, function($o) use ($clientName){
                         return $o->nom_client == $clientName;
                     });
                     $idc = $client->idc;
