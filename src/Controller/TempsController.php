@@ -1003,7 +1003,7 @@ class TempsController extends AppController
                         return $o->nom == $name && $o->prenom == $forname;
                     });
                     if (empty($user)) {
-                        $arrayUserRefused[] = $fullname;
+                        $arrayUserRefused[$arrayLine[3]] = $fullname;
                         continue;
                     }else{
                         $user = array_shift($user);
@@ -1014,7 +1014,7 @@ class TempsController extends AppController
                         return $o->nom_client == $clientName;
                     });
                     if (empty($client)) {
-                        $arrayClientRefused[] = $clientName;
+                        $arrayClientRefused[$clientName] = $clientName;
                         continue;
                     }else{
                         $client = array_shift($client);
@@ -1026,7 +1026,7 @@ class TempsController extends AppController
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
                     if (empty($projet)) {
-                        $arrayProjetRefused[] = $projectName;
+                        $arrayProjetRefused[$projectName] = $projectName;
                         continue;
                     }else{
                         $projet = array_shift($projet);
@@ -1062,7 +1062,7 @@ class TempsController extends AppController
             }
             echo count($days);
             debug($arrayUserRefused);
-            debug($arrayCleintRefused);
+            debug($arrayClientRefused);
             debug($arrayProjetRefused);
             debug($days);
         }
