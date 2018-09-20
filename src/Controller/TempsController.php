@@ -959,12 +959,16 @@ class TempsController extends AppController
         if ($this->request->is(['post'])) {
             $file = $this->request->data['fileimport'];
 
-            $lines = array();
+            $content = array();
             $absFileName = $file['tmp_name'];
             if (file_exists($absFileName)) {
                 $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
+
+                foreach($lines as $n => $line){
+                    $content[] = explode(';', $line);
+                }
             }
-            debug($lines);
+            debug($content);
         }
 
         $this->set(compact('import'));
