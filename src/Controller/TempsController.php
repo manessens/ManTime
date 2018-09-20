@@ -1003,8 +1003,7 @@ class TempsController extends AppController
                         echo 'client';
                         continue;
                     }else{
-                        debug($user);
-                        $user = $user[0];
+                        $user = array_shift($user);
                     }
 
                     $clientName = $arrayLine[0];
@@ -1015,7 +1014,7 @@ class TempsController extends AppController
                         echo 'client';
                         continue;
                     }else{
-                        $client = $client[0];
+                        $client = array_shift($client);
                     }
 
                     $idc = $client[0]->idc;
@@ -1027,7 +1026,7 @@ class TempsController extends AppController
                         echo 'projet';
                         continue;
                     }else{
-                        $projet = $projet[0];
+                        $projet = array_shift($projet);
                     }
 
                     // check each date if ther is a time to save
