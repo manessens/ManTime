@@ -983,6 +983,8 @@ class TempsController extends AppController
                 $arrayClientRefused=array();
                 $arrayUserRefused=array();
 
+                Date::setJsonEncodeFormat('dd/MM/yyyy');
+
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
                     // convert into UTF8 the fields that contain string
