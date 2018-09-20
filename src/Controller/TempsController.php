@@ -8,6 +8,7 @@ use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
 use App\Form\ExportForm;
 use App\Form\ImportForm;
+use Cake\Filesystem\File;
 
 /**
  * Temps Controller
@@ -958,7 +959,12 @@ class TempsController extends AppController
         if ($this->request->is(['post'])) {
             $file = $this->request->data['fileimport'];
 
-            debug($file);
+            $lines = array();
+            $absFileName = $file['tmp_name'];
+            if (file_exists($absFileName)) {
+                $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
+            }
+            debug($lines);
         }
 
         $this->set(compact('import'));
