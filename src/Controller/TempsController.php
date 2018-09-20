@@ -1046,8 +1046,7 @@ class TempsController extends AppController
 
                         $day = $this->Temps->newEntity();
                         $dateArray = explode('/', $header[$i]);
-                        $day->date = new Date("now");
-                        $day->date->setDate($dateArray[2], $dateArray[1], $dateArray[0]);
+                        $day->date = new Date($dateArray[0].'/'.$dateArray[1].'/'.$dateArray[2]);
                         $day->time = $arrayLine[$i];
 
                         //User
