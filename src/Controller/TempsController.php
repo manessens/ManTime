@@ -980,7 +980,7 @@ class TempsController extends AppController
                     // $user = $this->Users->findByIdu($user_id)->firstOrFail();
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
                         if ( !empty($arrayLine[$i]) ) {
-                            $day = $this->Temp->newEntity();
+                            $day = $this->Temps->newEntity();
                             // $day->date = new Time($lines[0][$i]);
                             debug(new Time($lines[0][$i]));
                             $days[] = $day;
