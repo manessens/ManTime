@@ -974,6 +974,9 @@ class TempsController extends AppController
 
                 $header = array();
 
+                $users = $this->Users->find('all')->toArray();
+
+
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
                     // convert into UTF8 the fields that contain string
@@ -990,7 +993,9 @@ class TempsController extends AppController
                     $fullname = explode(' ',$arrayLine[3]);
                     $name = $fullname[1];
                     $forname = $fullname[0];
-                    $user = $this->Users->find('all', ['field'=>'idu'])->andWhere(['nom =' => $name, 'prenom ='=> $forname])->first();
+                    $user = array_filter($users, function($o) use ($name, $forname){
+                        return $o->nom == $name && $o->prenom == $forname;
+                    });
 
                     // check each date if ther is a time to save
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
