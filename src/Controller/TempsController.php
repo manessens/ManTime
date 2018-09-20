@@ -1003,11 +1003,19 @@ class TempsController extends AppController
                     $client = array_filter($clients, function($o) use ($clientName){
                         return $o->nom_client == $clientName;
                     });
+                    if (!$client) {
+                        echo 'client';
+                        continue;
+                    }
                     $idc = $client->idc;
                     $projectName = $arrayLine[1];
                     $projet = array_filter($projets, function($o) use ($projectName, $idc){
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
+                    if (!$projet) {
+                        echo '$projet';
+                        continue;
+                    }
 
                     // check each date if ther is a time to save
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
