@@ -979,6 +979,9 @@ class TempsController extends AppController
                 $projets = $this->Projet->find('all', ['contain'=>'Matrice'])->toArray();
                 $clients = $this->Client->find('all')->toArray();
 
+                $arrayProjetRefused=array();
+                $arrayClientRefused=array();
+                $arrayUserRefused=array();
 
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
@@ -1000,8 +1003,7 @@ class TempsController extends AppController
                         return $o->nom == $name && $o->prenom == $forname;
                     });
                     if (empty($user)) {
-                    debug($arrayLine);
-                        echo 'user';
+                        $arrayUserRefused[] = $fullname;
                         continue;
                     }else{
                         $user = array_shift($user);
@@ -1012,8 +1014,7 @@ class TempsController extends AppController
                         return $o->nom_client == $clientName;
                     });
                     if (empty($client)) {
-                    debug($arrayLine);
-                        echo 'client';
+                        $arrayClientRefused[] = $clientName;
                         continue;
                     }else{
                         $client = array_shift($client);
@@ -1025,8 +1026,7 @@ class TempsController extends AppController
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
                     if (empty($projet)) {
-                    debug($arrayLine);
-                        echo 'projet';
+                        $arrayProjetRefused[] = $projectName;
                         continue;
                     }else{
                         $projet = array_shift($projet);
@@ -1060,6 +1060,10 @@ class TempsController extends AppController
                     }
                 }
             }
+            echo count($days);
+            debug($arrayUserRefused);
+            debug($arrayCleintRefused);
+            debug($arrayProjetRefused);
             debug($days);
         }
 
