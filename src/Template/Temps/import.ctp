@@ -18,7 +18,7 @@
     <?= $this->Form->end() ?>
     <?php
         pr($arrayProjetRefused);
-        pr($arrayClientRefused;
+        pr($arrayClientRefused);
         pr($arrayUserRefused);
      ?>
 </div>
