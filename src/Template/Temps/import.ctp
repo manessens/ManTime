@@ -17,9 +17,9 @@
     </fieldset>
     <?= $this->Form->end() ?>
     <?php
-        pr($arrayProjetRefused);
-        pr($arrayClientRefused);
         pr($arrayUserRefused);
+        pr($arrayClientRefused);
+        pr($arrayProjetRefused);
      ?>
 </div>
 
