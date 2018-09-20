@@ -975,28 +975,42 @@ class TempsController extends AppController
                 $header = array();
 
                 foreach($lines as $n => $line){
-                    $day = null;
                     $arrayLine = explode(';', $line);
+                    // convert into UTF8 the fields that contain string
                     for ($i=0; $t < 5 ; $t++) {
                         $arrayLine[$t] = $this->convertToUtf($arrayLine[$t]);
                     }
+                    // if key == 0 this is the header that contain the string date
                     if ($n == 0) {
                         $header = $arrayLine;
                         continue;
                     }
-                    // $user = $this->Users->findByIdu($user_id)->firstOrFail();
+                    // check each date if ther is a time to save
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
-                        if ( !empty($arrayLine[$i]) ) {
-                            $day = $this->Temps->newEntity();
-                            // $day->date = new Time($lines[0][$i]);
-                            debug($header[$i]);
-                            debug(new Date($header[$i]));
-                            $days[] = $day;
+                        // check if value exist
+                        if ( empty($arrayLine[$i]) ) {
+                            continue;
                         }
+                        $day = null;
+
+                        $day = $this->Temps->newEntity();
+                        $day->date = new Date($header[$i]);
+                        $day->time = $arrayLine[$i];
+
+                        //User
+                        $fullname = explode(' ',$arrayLine[3]);
+                        $name = $fullname[1];
+                        $forname = $fullname[0];
+                        $user = $this->Users->find('all', ['field'=>'idu'])->andWhere(['nom ='=> $name, 'prenom ='=>$forname])->first();
+                        debug($user);
+                        $day->idu = $user->idu;
+
+                        // add in array to save all days in a row
+                        debug($day);
+                        $days[] = $day;
                     }
                 }
             }
-            debug($days);
         }
 
         $this->set(compact('import'));
