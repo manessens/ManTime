@@ -957,7 +957,8 @@ class TempsController extends AppController
         $import = new ImportForm();
         if ($this->request->is(['post'])) {
             $file = $this->request->data['fileimport'];
-            // code...
+
+            debug($file);
         }
 
         $this->set(compact('import'));
