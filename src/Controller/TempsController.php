@@ -1030,7 +1030,7 @@ class TempsController extends AppController
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
                     if (empty($projet)) {
-                        $arrayProjetRefused[$projectName] = $projectName;
+                        $arrayProjetRefused[$projectName] = ['projet' => $projectName, 'client' => $clientName];
                         continue;
                     }else{
                         $projet = array_shift($projet);
