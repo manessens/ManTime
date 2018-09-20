@@ -972,17 +972,25 @@ class TempsController extends AppController
                 $this->loadModel('Activitie');
                 $lines = file($absFileName, FILE_SKIP_EMPTY_LINES);
 
-                foreach($lines as $line){
+                $header = array();
+
+                foreach($lines as $n => $line){
                     $day = null;
                     $arrayLine = explode(';', $line);
-                    $arrayLine[2] = $this->convertToUtf($arrayLine[2]);
+                    for ($i=0; $t < 5 ; $t++) {
+                        $arrayLine[$t] = $this->convertToUtf($arrayLine[$t]);
+                    }
+                    if ($n == 0) {
+                        $header = $arrayLine;
+                        continue;
+                    }
                     // $user = $this->Users->findByIdu($user_id)->firstOrFail();
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
                         if ( !empty($arrayLine[$i]) ) {
                             $day = $this->Temps->newEntity();
                             // $day->date = new Time($lines[0][$i]);
-                            debug($lines[0][$i]);
-                            debug(new Date($lines[0][$i]));
+                            debug($header[$i]);
+                            debug(new Date($header[$i]));
                             $days[] = $day;
                         }
                     }
