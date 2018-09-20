@@ -959,6 +959,11 @@ class TempsController extends AppController
     public function import(){
 
         $import = new ImportForm();
+
+        $arrayProjetRefused=array();
+        $arrayClientRefused=array();
+        $arrayUserRefused=array();
+
         if ($this->request->is(['post'])) {
             $file = $this->request->data['fileimport'];
 
@@ -1065,13 +1070,12 @@ class TempsController extends AppController
                     }
                 }
             }
-            echo count($days);
-            debug($arrayUserRefused);
-            debug($arrayClientRefused);
-            debug($arrayProjetRefused);
         }
 
         $this->set(compact('import'));
+        $this->set(compact('arrayProjetRefused'));
+        $this->set(compact('arrayClientRefused'));
+        $this->set(compact('arrayUserRefused'));
         $this->set('controller', false);
     }
 

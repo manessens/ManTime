@@ -16,6 +16,11 @@
         <?= $this->Form->button(__('Importer'), ['class'=>'right btn btn-warning']) ?>
     </fieldset>
     <?= $this->Form->end() ?>
+    <?php
+        pr($arrayProjetRefused);
+        pr($arrayClientRefused;
+        pr($arrayUserRefused);
+     ?>
 </div>
 
 <?php echo $this->Html->script('ManTime/man.export.js'); ?>
