@@ -1017,7 +1017,7 @@ class TempsController extends AppController
                         $client = array_shift($client);
                     }
 
-                    $idc = $client[0]->idc;
+                    $idc = $client->idc;
                     $projectName = $arrayLine[1];
                     $projet = array_filter($projets, function($o) use ($projectName, $idc){
                         return $o->nom_projet == $projectName && $o->idc == $idc;
