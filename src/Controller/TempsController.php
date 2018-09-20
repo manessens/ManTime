@@ -953,7 +953,7 @@ class TempsController extends AppController
         return mb_convert_encoding($string, "ISO-8859-1");
     }
     private function convertToUtf($string = ''){
-        return mb_convert_encoding($string, "UTF-8");
+        return iconv("ISO-8859-1", "UTF-8", $string);
     }
 
     public function import(){
