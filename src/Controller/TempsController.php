@@ -985,6 +985,13 @@ class TempsController extends AppController
                         $header = $arrayLine;
                         continue;
                     }
+
+                    //User
+                    $fullname = explode(' ',$arrayLine[3]);
+                    $name = $fullname[1];
+                    $forname = $fullname[0];
+                    $user = $this->Users->find('all', ['field'=>'idu'])->andWhere(['nom =' => $name, 'prenom ='=> $forname])->first();
+
                     // check each date if ther is a time to save
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
                         // check if value exist
@@ -998,10 +1005,6 @@ class TempsController extends AppController
                         $day->time = $arrayLine[$i];
 
                         //User
-                        $fullname = explode(' ',$arrayLine[3]);
-                        $name = $fullname[1];
-                        $forname = $fullname[0];
-                        $user = $this->Users->find('all', ['field'=>'idu'])->andWhere(['nom ='=> $name, 'prenom ='=>$forname])->first();
                         debug($user);
                         $day->idu = $user->idu;
 
