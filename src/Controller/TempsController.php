@@ -975,6 +975,8 @@ class TempsController extends AppController
                 $header = array();
 
                 $users = $this->Users->find('all')->toArray();
+                $projets = $this->Projet->find('all', ['contain'=>'Matrice'])->toArray();
+                $clients = $this->Client->find('all')->toArray();
 
 
                 foreach($lines as $n => $line){
@@ -996,6 +998,15 @@ class TempsController extends AppController
                     $user = array_filter($users, function($o) use ($name, $forname){
                         return $o->nom == $name && $o->prenom == $forname;
                     });
+                    $clientName = $arrayLine[0];
+                    $client = array_filter($projets, function($o) use ($clientName){
+                        return $o->nom_client == $clientName;
+                    });
+                    $idc = $client->idc;
+                    $projectName = $arrayLine[1];
+                    $projet = array_filter($projets, function($o) use ($projectName, $idc){
+                        return $o->nom_projet == $projectName && $o->idc == $idc;
+                    });
 
                     // check each date if ther is a time to save
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
@@ -1010,15 +1021,22 @@ class TempsController extends AppController
                         $day->time = $arrayLine[$i];
 
                         //User
-                        debug($user);
                         $day->idu = $user->idu;
+                        $day->idp = $projet->idp;
+                        $day->idc = $idc;
+                        $day->validat = 1;
+                        $day->prix = $projet->prix;
+                        $day->idm = $projet->matrice->idm;
+                        $day->modify = 0;
+                        // $day->id_profil = ;
+                        // $day->ida = ;
 
                         // add in array to save all days in a row
-                        debug($day);
                         $days[] = $day;
                     }
                 }
             }
+            debug($days);
         }
 
         $this->set(compact('import'));
