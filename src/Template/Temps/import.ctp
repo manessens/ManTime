@@ -18,9 +18,16 @@
     <?= $this->Form->end() ?>
     <?php
         if (!empty($arrayUserRefused) || !empty($arrayClientRefused) || !empty($arrayProjetRefused)) {
+            echo 'Consultants';
             pr($arrayUserRefused);
+            echo 'Clients';
             pr($arrayClientRefused);
+            echo 'Projets';
             pr($arrayProjetRefused);
+            echo 'Profils';
+            pr($arrayProfilRefused);
+            echo 'Activités';
+            pr($arrayActivitieRefused);
         }
      ?>
 </div>

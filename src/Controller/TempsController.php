@@ -983,10 +983,14 @@ class TempsController extends AppController
                 $users = $this->Users->find('all')->toArray();
                 $projets = $this->Projet->find('all', ['contain'=>'Matrice'])->toArray();
                 $clients = $this->Client->find('all')->toArray();
+                $profils = $this->Profil->find('all')->toArray();
+                $activities = $this->Activitie->find('all')->toArray();
 
                 $arrayProjetRefused=array();
                 $arrayClientRefused=array();
                 $arrayUserRefused=array();
+                $arrayProfilRefused=array();
+                $arrayActivitieRefused=array();
 
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
@@ -1041,6 +1045,28 @@ class TempsController extends AppController
                         $projet = array_shift($projet);
                     }
 
+                    $profilName = $arrayLine[4];
+                    $profil = array_filter($profils, function($o) use ($profilName){
+                        return $o->nom_profil == $profilName;
+                    });
+                    if (empty($profil)) {
+                        $arrayProfilRefused[$profilName] = $profilName;
+                        continue;
+                    }else{
+                        $profil = array_shift($profil);
+                    }
+
+                    $activitName = $arrayLine[2];
+                    $activit = array_filter($activities, function($o) use ($activitName){
+                        return $o->nom_profil == $profilName;
+                    });
+                    if (empty($activit)) {
+                        $arrayActivitieRefused[$activitName] = $activitName;
+                        continue;
+                    }else{
+                        $activit = array_shift($activit);
+                    }
+
                     // check each date if ther is a time to save
                     for ($i = 5; $i < count($arrayLine) ; $i++) {
                         // check if value exist
@@ -1062,13 +1088,16 @@ class TempsController extends AppController
                         $day->prix = $projet->prix;
                         $day->idm = $projet->matrice->idm;
                         $day->modify = 0;
-                        // $day->id_profil = ;
-                        // $day->ida = ;
+                        $day->id_profil = $profil->id_profil;
+                        $day->ida = $activit->ida;
 
                         // add in array to save all days in a row
                         $days[] = $day;
                     }
                 }
+            }
+            if (empty($arrayUserRefused) && empty($arrayClientRefused) && empty($arrayProjetRefused) && empty($arrayProfilRefused) && empty($arrayActivitieRefused) ) {
+                // @TODO : save
             }
         }
 
@@ -1076,6 +1105,8 @@ class TempsController extends AppController
         $this->set(compact('arrayProjetRefused'));
         $this->set(compact('arrayClientRefused'));
         $this->set(compact('arrayUserRefused'));
+        $this->set(compact('arrayProfilRefused'));
+        $this->set(compact('arrayActivitieRefused'));
         $this->set('controller', false);
     }
 
