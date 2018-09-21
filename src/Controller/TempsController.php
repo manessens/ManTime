@@ -1017,6 +1017,8 @@ class TempsController extends AppController
                         $name = $fullname[1];
                         $forname = $fullname[0];
                     }
+                    debug($name);
+                    debug($forname);
                     $user = array_filter($users, function($o) use ($name, $forname){
                         return $o->nom == $name && $o->prenom == $forname;
                     });
