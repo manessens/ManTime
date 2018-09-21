@@ -1108,6 +1108,8 @@ class TempsController extends AppController
                 }else{
                     $this->Flash->success(__('Import terminé avec succés.'));
                 }
+            }else{
+                $this->Flash->error(__('Une erreur a été détecté dans les données.'));
             }
         }
 
