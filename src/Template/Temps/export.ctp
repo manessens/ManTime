@@ -7,7 +7,7 @@
 <div class="col-xs-12 new_content content">
     <?= $this->Form->create($export) ?>
     <fieldset>
-        <legend><?= __('Export') ?><span id="import" class="right btn btn-default">&#8633;</span></legend>
+        <legend><?= __('Export') ?><span id="import_export" data-target="export" class="right btn btn-default">&#8633;</span></legend>
 
         <?php
             echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);

@@ -10,8 +10,9 @@ function init(){
         $( this ).attr('type', 'date');
     });
 
-    $("#import").on("click", function(){
-        document.location.replace('/temps/import');
+    $("#import_export").on("click", function(){
+        var target = $(this).attr('data-target');
+        document.location.replace('/temps/'+target);
     });
 
 }
