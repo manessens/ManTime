@@ -1086,7 +1086,6 @@ class TempsController extends AppController
                         $dateArray = explode('/', $header[$i]);
                         $day->date = new Date($dateArray[0].'-'.$dateArray[1].'-'.$dateArray[2]);
                         $day->time = str_replace(',', '.', $arrayLine[$i]);
-                        pr($arrayLine[$i]);
 
                         //User
                         $day->idu = $user->idu;
@@ -1107,13 +1106,12 @@ class TempsController extends AppController
                 }
             }
             if (empty($arrayUserRefused) && empty($arrayClientRefused) && empty($arrayProjetRefused) && empty($arrayProfilRefused) && empty($arrayActivitieRefused) ) {
-                // $result = $this->Temps->saveMany($days);
-                // if (!$result) {
-                //     $this->Flash->error(__('Une erreur est survenue à la sauvegarde, contactez un administrateur avant tout autre manipulation.'));
-                // }else{
-                //     $this->Flash->success(__('Import terminé avec succés.'));
-                // }
-                debug($days);
+                $result = $this->Temps->saveMany($days);
+                if (!$result) {
+                    $this->Flash->error(__('Une erreur est survenue à la sauvegarde, contactez un administrateur avant tout autre manipulation.'));
+                }else{
+                    $this->Flash->success(__('Import terminé avec succés.'));
+                }
             }else{
                 $this->Flash->error(__('Une erreur a été détectée dans les données.'));
             }
