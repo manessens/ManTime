@@ -1009,6 +1009,10 @@ class TempsController extends AppController
                     if (count($fullname) < 2) {
                         $arrayUserRefused[$arrayLine[3]] = $fullname;
                         continue;
+                    }elseif (count($fullname) > 2) {
+                        $name = $fullname[count($fullname)-1];
+                        unset($fullname[count($fullname)-1]);
+                        $forname = implode(' ', $fullname);
                     }
                     $name = $fullname[1];
                     $forname = $fullname[0];
