@@ -992,6 +992,8 @@ class TempsController extends AppController
                 $arrayProfilRefused=array();
                 $arrayActivitieRefused=array();
 
+                $nline = 0;
+
                 foreach($lines as $n => $line){
                     $arrayLine = explode(';', $line);
                     // convert into UTF8 the fields that contain string
@@ -1093,13 +1095,14 @@ class TempsController extends AppController
                         $day->prix = $projet->prix;
                         $day->idm = $projet->matrice->idm;
                         $day->modify = 0;
-                        $day->n_ligne = 0;
+                        $day->n_ligne = $nline;
                         $day->id_profil = $profil->id_profil;
                         $day->ida = $activit->ida;
 
                         // add in array to save all days in a row
                         $days[] = $day;
                     }
+                    $nline++;
                 }
             }
             if (empty($arrayUserRefused) && empty($arrayClientRefused) && empty($arrayProjetRefused) && empty($arrayProfilRefused) && empty($arrayActivitieRefused) ) {
