@@ -1093,6 +1093,7 @@ class TempsController extends AppController
                         $day->prix = $projet->prix;
                         $day->idm = $projet->matrice->idm;
                         $day->modify = 0;
+                        $day->n_ligne = 0;
                         $day->id_profil = $profil->id_profil;
                         $day->ida = $activit->ida;
 
