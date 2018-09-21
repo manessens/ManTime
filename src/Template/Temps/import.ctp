@@ -17,7 +17,7 @@
     </fieldset>
     <?= $this->Form->end() ?>
     <?php
-        if (!empty($arrayUserRefused) || !empty($arrayClientRefused) || !empty($arrayProjetRefused)) {
+        if (!empty($arrayUserRefused) || !empty($arrayClientRefused) || !empty($arrayProjetRefused) || !empty($arrayProfilRefused) || !empty($arrayActivitieRefused)) {
             echo 'Consultants';
             pr($arrayUserRefused);
             echo 'Clients';
