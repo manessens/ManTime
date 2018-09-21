@@ -1058,7 +1058,7 @@ class TempsController extends AppController
 
                     $activitName = $arrayLine[2];
                     $activit = array_filter($activities, function($o) use ($activitName){
-                        return $o->nom_profil == $profilName;
+                        return $o->nom_profil == $activitName;
                     });
                     if (empty($activit)) {
                         $arrayActivitieRefused[$activitName] = $activitName;
