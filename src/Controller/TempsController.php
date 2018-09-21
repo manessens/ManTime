@@ -1086,7 +1086,7 @@ class TempsController extends AppController
                         $dateArray = explode('/', $header[$i]);
                         $day->date = new Date($dateArray[0].'-'.$dateArray[1].'-'.$dateArray[2]);
                         $day->time = str_replace(',', '.', $arrayLine[$i]);
-                        pr($arrayLine[$i]);exit;
+                        pr($arrayLine[$i]);
 
                         //User
                         $day->idu = $user->idu;
