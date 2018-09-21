@@ -1102,7 +1102,12 @@ class TempsController extends AppController
                 }
             }
             if (empty($arrayUserRefused) && empty($arrayClientRefused) && empty($arrayProjetRefused) && empty($arrayProfilRefused) && empty($arrayActivitieRefused) ) {
-                // @TODO : save
+                $result = $this->Temps->saveMany($days);
+                if (!$result) {
+                    $this->Flash->error(__('Une erreur est survenue à la sauvegarde, contactez un administrateur avant tout autre manipulation.'));
+                }else{
+                    $this->Flash->success(__('Import terminé avec succés.'));
+                }
             }
         }
 
