@@ -584,6 +584,9 @@ class TempsController extends AppController
     public function getClientName($id){
         $clientTable = TableRegistry::get('Client');
         $idc = explode('.', $id)[1];
+        if ($idc == null) {
+            pr($id);exit;
+        }
         $client = $projetTable->get($idc);
         return $this->response->withStringBody($client->nom_client);
     }
