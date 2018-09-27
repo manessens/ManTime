@@ -476,7 +476,7 @@ class ExportFitnetController extends AppController
 
         $url = '/FitnetManager/rest/timesheet';
         $result = $this->setFitnetLink($url, $timesheetJS);
-        if ($result) {
+        if (!$result) {
             debug($timesheet);
         }
 
