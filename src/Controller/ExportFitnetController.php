@@ -512,6 +512,25 @@ class ExportFitnetController extends AppController
         foreach ($assignementTable as $assignement) {
             $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
             $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
+            if ($assignement['employeeID'] == $time->user->id_fit ) {
+                debug('employye OK');
+            }
+            debug($assignement['employeeID']);
+
+            if ($assignement['customerID'] == $time->projet->client->id_fit ) {
+                debug('customer OK');
+            }
+            debug($assignement['customerID']);
+
+            if ($assignement['contractID'] == $time->projet->id_fit ) {
+                debug('contract OK');
+            }
+            debug($assignement['contractID']);
+
+            if ($date_debut <= $time->date && $date_fin >= $time->date) {
+                debug('date OK');
+            }
+
             if ($assignement['employeeID'] == $time->user->id_fit
             && $assignement['customerID'] == $time->projet->client->id_fit
             && $assignement['contractID'] == $time->projet->id_fit
