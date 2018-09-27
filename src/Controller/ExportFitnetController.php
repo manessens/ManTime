@@ -472,12 +472,13 @@ class ExportFitnetController extends AppController
             "typeOfServiceID" => Configure::read('fitnet.profil.'.$companyID.'.'.$time->id_profil)
         ];
 
-        debug($timesheet);
-
         $timesheetJS = json_encode($timesheet);
 
         $url = '/FitnetManager/rest/timesheet';
         $result = $this->setFitnetLink($url, $timesheetJS);
+        if ($result) {
+            debug($timesheet);
+        }
 
         return $result;
     }

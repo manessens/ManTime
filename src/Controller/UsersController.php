@@ -163,13 +163,14 @@ class UsersController extends AppController
         }
         $origineOption = $this->getOrigineOption();
         $role = $this->getRole();
+        $prem_connect = $user['prem_connect'];
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['prem_connect']) {
                 $user['mdp'] = 'Welcome1!';
             }
             if ($this->Users->save($user)) {
-                if ($user['prem_connect']) {
+                if ($user['prem_connect'] && !$prem_connect) {
                     $this->getMailer('User')->send('resetPassword', [$user]);
                 }
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
