@@ -250,9 +250,9 @@ class ProjetController extends AppController
         $select2 = ['select' => array(), 'projects' => array()];
         //remise en forme du tableau
         foreach ($found as $value) {
-            if ($value['customer'] == $client->id_fit or $client->id_fit == null) {
-                $select2['select'][]=array('id'=>$value['customerId'], 'text'=>$value['title']);
-                $select2['projects'][$value['customerId']]=$value;
+            if ($value['customerId'] == $client->id_fit or $client->id_fit == null) {
+                $select2['select'][]=array('id'=>$value['contractId'], 'text'=>$value['title']);
+                $select2['projects'][$value['contractId']]=$value;
             }
         }
 
