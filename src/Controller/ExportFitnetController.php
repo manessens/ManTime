@@ -515,7 +515,7 @@ class ExportFitnetController extends AppController
             if ($assignement['employeeID'] == $time->user->id_fit ) {
                 debug('employye OK');
             }
-            debug($assignement['employeeID']);
+            // debug($assignement['employeeID']);
 
             // if ($assignement['customerID'] == $time->projet->client->id_fit ) {
             //     debug('customer OK');
