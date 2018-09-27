@@ -441,7 +441,7 @@ class ExportFitnetController extends AppController
         $assignementID = $this->getAssignement($time);
         if ($assignementID == null) {
             $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
-                        ' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
+                        '|Client : '.$time->projet->client->nom_client.' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
             $noError = false;
         }
 
@@ -476,9 +476,6 @@ class ExportFitnetController extends AppController
 
         $url = '/FitnetManager/rest/timesheet';
         $result = $this->setFitnetLink($url, $timesheetJS);
-        if (!$result) {
-            debug($timesheet);
-        }
 
         return $result;
     }
