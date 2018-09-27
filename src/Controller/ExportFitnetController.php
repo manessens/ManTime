@@ -292,7 +292,7 @@ class ExportFitnetController extends AppController
         if ($export != null) {
             $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
         }elseif ($code != null) {
-            $line = ['##', ' ERREUR -- Fitnet : ', $cause];
+            $line = ['##', ' ERREUR -- Fitnet : '.$code, $cause];
         }else{
             $line = ['##', ' ERREUR -- time : ', $cause];
         }
@@ -472,6 +472,8 @@ class ExportFitnetController extends AppController
             "typeOfServiceID" => Configure::read('fitnet.profil.'.$companyID.$time->id_profil)
         ];
 
+        debug($timesheet);
+
         $timesheetJS = json_encode($timesheet);
 
         $url = '/FitnetManager/rest/timesheet';
@@ -589,6 +591,7 @@ class ExportFitnetController extends AppController
         }else {
             $this->inError(null, 'Erreur sur requête fitnet, code erreur : '.$response->getStatusCode(), $response->getStatusCode());
         }
+        debug($response);
 
         // résultat
         return $result;
