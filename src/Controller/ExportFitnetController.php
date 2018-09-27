@@ -403,6 +403,9 @@ class ExportFitnetController extends AppController
     }
     private function exportTime($time){
         $noError = true;
+        if (empty($time)) {
+            return false;
+        }
 
         // Contrôle Projet
         if ($time->projet->id_fit == null) {
