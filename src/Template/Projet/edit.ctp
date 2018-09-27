@@ -102,7 +102,7 @@
       <form id="ajax">
         <div class="modal-body">
             <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Agence:</label>
+              <label for="recipient-name" class="col-form-label">Client:</label>
               <?php echo $this->Form->select('idc', $clientOption); ?>
             </div>
         </div>

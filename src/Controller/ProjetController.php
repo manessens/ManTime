@@ -237,7 +237,7 @@ class ProjetController extends AppController
                 foreach($ids as $id){
                     if ($id != "") {
                         // appel de la requête
-                        $result = $this->getFitnetLink("/FitnetManager/rest/projects/".$id);
+                        $result = $this->getFitnetLink("/FitnetManager/rest/contracts/".$id);
                         // décode du résultat json
                         $vars = json_decode($result, true);
                         // sauvegarde des résultats trouvés
@@ -251,8 +251,8 @@ class ProjetController extends AppController
         //remise en forme du tableau
         foreach ($found as $value) {
             if ($value['customer'] == $client->id_fit or $client->id_fit == null) {
-                $select2['select'][]=array('id'=>$value['forfaitId'], 'text'=>$value['title']);
-                $select2['projects'][$value['forfaitId']]=$value;
+                $select2['select'][]=array('id'=>$value['customerId'], 'text'=>$value['title']);
+                $select2['projects'][$value['customerId']]=$value;
             }
         }
 
