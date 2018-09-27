@@ -413,6 +413,7 @@ class ExportFitnetController extends AppController
             $noError = false;
         }
         // Contrôle Client
+        debug($time);
         if ($time->client->id_fit == null) {
             $this->insertLog(['--', 'Client non lié : '. $time->client->nom_client] );
             $noError = false;
