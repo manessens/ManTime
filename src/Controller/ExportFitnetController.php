@@ -263,7 +263,7 @@ class ExportFitnetController extends AppController
                     'Users.id_fit IS NOT' => null
                  ] )
                 ->andwhere(['OR' => $andWhere]);
-                
+
             if ( $data_client != null) {
                 $this->loadModel('Projet');
                 $arrayIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
@@ -517,6 +517,7 @@ class ExportFitnetController extends AppController
             && $assignement['customerID'] == $time->projet->client->id_fit
             && $assignement['contractID'] == $time->projet->id_fit
             && $date_debut <= $time->date && $date_fin >= $time->date ) {
+                debug($assignement);
                 return $assignement[$assignementIdName[$activityType]];
             }
         }
