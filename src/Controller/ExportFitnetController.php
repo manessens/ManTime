@@ -517,19 +517,19 @@ class ExportFitnetController extends AppController
             }
             debug($assignement['employeeID']);
 
-            if ($assignement['customerID'] == $time->projet->client->id_fit ) {
-                debug('customer OK');
-            }
-            debug($assignement['customerID']);
-
-            if ($assignement['contractID'] == $time->projet->id_fit ) {
-                debug('contract OK');
-            }
-            debug($assignement['contractID']);
-
-            if ($date_debut <= $time->date && $date_fin >= $time->date) {
-                debug('date OK');
-            }
+            // if ($assignement['customerID'] == $time->projet->client->id_fit ) {
+            //     debug('customer OK');
+            // }
+            // debug($assignement['customerID']);
+            //
+            // if ($assignement['contractID'] == $time->projet->id_fit ) {
+            //     debug('contract OK');
+            // }
+            // debug($assignement['contractID']);
+            //
+            // if ($date_debut <= $time->date && $date_fin >= $time->date) {
+            //     debug('date OK');
+            // }
 
             if ($assignement['employeeID'] == $time->user->id_fit
             && $assignement['customerID'] == $time->projet->client->id_fit
