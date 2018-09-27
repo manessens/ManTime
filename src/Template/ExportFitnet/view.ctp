@@ -44,14 +44,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <?php foreach ($log_array['info'] as $key => $log): ?>
+                    <?php foreach ($log_array['info'] as $key => $log): ?>
+                        <tr>
                             <?php if ($key != 'start' && $key != 'end'): ?>
                                 <td><?php echo $log[0] ?></td>
                                 <td><?php echo $log[2] ?></td>
                             <?php endif; ?>
-                        <?php endforeach; ?>
-                    </tr>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
                 <?php if (key_exists('end', $log_array['info'])): ?>
                     <tfoot>
