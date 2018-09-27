@@ -570,7 +570,7 @@ class ExportFitnetController extends AppController
         //récupération des lgoin/mdp du compte admin de fitnet
         $username = Configure::read('fitnet.login');
         $password = Configure::read('fitnet.password');
-        $return = false;
+        $result = false;
 
         // instance Client pour gestin des appel ajax
         $http = new Client();
