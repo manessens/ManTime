@@ -469,7 +469,7 @@ class ExportFitnetController extends AppController
             "remark" => "",
             "timesheetAssignmentID" => 0,
             "typeOfService" => "",
-            "typeOfServiceID" => Configure::read('fitnet.profil.'.$companyID.$time->id_profil)
+            "typeOfServiceID" => Configure::read('fitnet.profil.'.$companyID.'.'.$time->id_profil)
         ];
 
         debug($timesheet);
@@ -591,7 +591,6 @@ class ExportFitnetController extends AppController
         }else {
             $this->inError(null, 'Erreur sur requête fitnet, code erreur : '.$response->getStatusCode(), $response->getStatusCode());
         }
-        debug($response);
 
         // résultat
         return $result;
