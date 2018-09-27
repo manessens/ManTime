@@ -139,16 +139,13 @@ class ClientController extends AppController
                 $id_fit = $agence->id_fit;
 
                 // séparation des id_agence fitnet
-                $ids = explode(';', $id_fit);
-                foreach($ids as $id){
-                    if ($id != "") {
-                        // appel de la requête
-                        $result = $this->getFitnetLink("/FitnetManager/rest/customers/".$id);
-                        // décode du résultat json
-                        $vars = json_decode($result, true);
-                        // sauvegarde des résultats trouvés
-                        $found = array_merge($found, $vars);
-                    }
+                if ($id_fit != "") {
+                    // appel de la requête
+                    $result = $this->getFitnetLink("/FitnetManager/rest/customers/".$id_fit);
+                    // décode du résultat json
+                    $vars = json_decode($result, true);
+                    // sauvegarde des résultats trouvés
+                    $found = array_merge($found, $vars);
                 }
             }
         }
