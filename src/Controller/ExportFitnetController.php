@@ -517,7 +517,7 @@ class ExportFitnetController extends AppController
             && $assignement['customerID'] == $time->projet->client->id_fit
             && $assignement['contractID'] == $time->projet->id_fit
             && $date_debut <= $time->date && $date_fin >= $time->date
-            && $assignement['typeOfServiceID'] == Configure::read('fitnet.profil.'.$companyID.'.'.$time->id_profil)
+            && $assignement['typeOfServiceID'] == Configure::read('fitnet.profil.'.$time->projet->client->agence->id_fit.'.'.$time->id_profil)
             ) {
                 return $assignement[$assignementIdName[$activityType]];
             }
