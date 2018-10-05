@@ -16,10 +16,10 @@ return [
         'abs_path'=>'/var/www/html/preprod/ManTime/tmp/',
         'profil'=>[
             '1'=>[ // Mancorp
-                '1'=>'0', // Technique ABAP
-                '2'=>'0', // Technique ABAP expert
-                '3'=>'0', // Fonctionnel / BI / BC
-                '4'=>'0', // Expert / CP / Référent
+                '1'=>null, // Technique ABAP
+                '2'=>null, // Technique ABAP expert
+                '3'=>null, // Fonctionnel / BI / BC
+                '4'=>null, // Expert / CP / Référent
             ],
             '2'=>[ // Nantes
                 '1'=>'154', // Technique ABAP
