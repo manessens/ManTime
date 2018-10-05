@@ -497,7 +497,7 @@ class ExportFitnetController extends AppController
 
         switch ($activityType) {
             case 1:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->projet->client->agence->id_fit.'/'.$month.'/'.$year);
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->users->origine->id_fit.'/'.$month.'/'.$year);
                 break;
 
             default:
