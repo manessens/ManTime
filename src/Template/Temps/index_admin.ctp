@@ -77,7 +77,7 @@
         <div class="block col-xs-12">
             <div class="left badge back-danger"><?= h($fullNameUserAuth) ?></div>
             <div class="controler right">
-                <div><input type="week" data-target="index-admin" name="select-week" id="select-week" min="2018-W15" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
+                <div><input type="week" data-target="index-admin" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
                 <div class="left">
                     <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-admin'], ['class' => 'btn btn-info']) ?>
                 </div>
