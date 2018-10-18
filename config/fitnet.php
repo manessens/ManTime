@@ -1,8 +1,9 @@
 <?php
 return [
     'fitnet' => [
-        'login'=>'matthias.vincent@manessens.com',
-        'password'=>'M@nV17!%',
+        // @TODO : Compte admin fitnet en prod
+        'login'=>'',
+        'password'=>'',
         'base'=>'https://manessens.fitnetmanager.com/',
         'wait'=>'Attente',
         'end'=>'Terminé',
