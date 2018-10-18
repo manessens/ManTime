@@ -12,9 +12,13 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
+?>
 
-$content = explode("\n", $content);
+<h3><?= $title; ?></h3>
 
-foreach ($content as $line) :
-    echo '<p> ' . $line . "</p>\n";
-endforeach;
+<?php
+    $content = explode("\n", $content);
+ ?>
+<?php foreach ($content as $line): ?>
+    <p><?= $line; ?></p>
+<?php endforeach; ?>

@@ -4,8 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
-use Cake\Core\Configure;
-
+use Cake\Mailer\MailerAwareTrait;
 /**
  * Users Controller
  *
@@ -15,6 +14,7 @@ use Cake\Core\Configure;
  */
 class UsersController extends AppController
 {
+    use MailerAwareTrait;
 
     /**
      * Index method
@@ -26,7 +26,7 @@ class UsersController extends AppController
         $this->paginate = [
             'contain'   => ['Origine'],
             'sortWhitelist' => [
-                'Users.prenom', 'Users.nom', 'Users.email', 'Origine.nom_origine', 'Users.actif', 'Users.role'
+                'Users.prenom', 'Users.nom', 'Users.email', 'Users.id_fit','Origine.nom_origine', 'Users.actif', 'Users.role'
             ],
             'order' => [
                 'Users.prenom' => 'asc'
@@ -114,43 +114,31 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         $origineOption = $this->getOrigineOption();
+        $role = $this->getRole();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($user['admin']) {
-                $user['role'] = 50;
-            }elseif ($user['role']) {
-                $user['role'] = 20;
-            }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->getMailer('User')->send('welcome', [$user]);
+                return $this->redirect(['action' => 'edit', $user->idu]);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
-        $user->admin = $user->role >= 50;
-        $user->role = $user->role >= 20;
         $this->set(compact('user'));
+        $this->set(compact('role'));
         $this->set(compact('origineOption'));
     }
 
-    private function test()
-    {
-        $userAuth = $this->Auth->identify();
-        $email = new Email('default');
-        $email->from([ 'matthias.vincent@manessens.com' => 'My Site'])
-            ->to('matthias.vincent@manessens.com')
-            ->subject('About')
-            ->send('My message');
-        // $email = new Email();
-        // $email->transport('default')
-        //       ->template('test')
-        //       ->emailFormat('both')
-        //       ->to($user->email)
-        //       ->subject('bienvenu sur ManTime !')
-        //       ->from($userAuth['email']);
-        // $email->viewVars([ 'content' => ['test qsdf qs', 'sdqfqsdfsd qsdf q'] ]);
-        // $email->send();
+    private function getRole(){
+        $roles = array();
+        $roles = [
+            \Cake\Core\Configure::read('role.intern') => 'Consultant',
+            \Cake\Core\Configure::read('role.extern') => 'Sous-traitant',
+            \Cake\Core\Configure::read('role.cp') => 'Chef de projet',
+            \Cake\Core\Configure::read('role.admin') => 'Admin'
+        ];
+
+        return $roles;
     }
 
     private function getOrigineOption()
@@ -170,31 +158,29 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        $user = $this->Users->get($id);
+        if (is_numeric($id)) {
+            $user = $this->Users->get($id);
+        }
         $origineOption = $this->getOrigineOption();
+        $role = $this->getRole();
+        $prem_connect = $user['prem_connect'];
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($user['prem_connect']) {
                 $user['mdp'] = 'Welcome1!';
             }
-            if ($user['admin']) {
-                $user['role'] = 50;
-            }elseif ($user['role']) {
-                $user['role'] = 20;
-            }
             if ($this->Users->save($user)) {
-                // if ($user['prem_connect']) {
-                //     $this->test();
-                // }
+                if ($user['prem_connect'] && !$prem_connect) {
+                    $this->getMailer('User')->send('resetPassword', [$user]);
+                }
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
         }
-        $user->admin = $user->role >= 50;
-        $user->role = $user->role >= 20;
         $this->set(compact('user'));
+        $this->set(compact('role'));
         $this->set(compact('origineOption'));
     }
 
@@ -217,6 +203,9 @@ class UsersController extends AppController
                 $user['mdp'] = 'Welcome1!';
             }
             if ($this->Users->save($user)) {
+                if ($user['prem_connect']) {
+                    $this->getMailer('User')->send('resetPassword', [$user]);
+                }
                 $this->Flash->success(__('Votre profil à été sauvegardé.'));
 
                 return $this->redirect(['controller' => 'Board','action' => 'index']);
@@ -255,7 +244,7 @@ class UsersController extends AppController
     }
 
     public function getEmployeeFitnet(){
-        $json_found = "";
+        $found = [];
 
         if( $this->request->is('ajax') ) {
             $this->autoRender = false;
@@ -264,43 +253,28 @@ class UsersController extends AppController
         if ($this->request->is(['get'])) {
 
             $mail = $this->request->query["mail"];
+            if ($mail != "") {
+                // appel de la requête
+                $result = $this->getFitnetLink("/FitnetManager/rest/employees");
+                // décode du résultat json
+                $vars = json_decode($result, true);
+                $key_found = array_search($mail, array_column($vars, 'email'));
 
-            //récupération des lgoin/mdp du compte admin de fitnet
-            $username = Configure::read('fitnet.login');
-            $password = Configure::read('fitnet.password');
-
-            // préparation de l'en-tête pour la vbasic auth de fitnet
-            $opts = array(
-              'http'=>array(
-                    'method'=>"GET",
-                    'header'=>"Authorization: Basic " . base64_encode("$username:$password")
-                  )
-            );
-            // ajout du header dans le contexte
-            $context = stream_context_create($opts);
-            // création de l'ul d ela requête
-            $url=$this->getFitnetLink("/FitnetManager/rest/employees");
-            // appel de la requête
-            $result = file_get_contents($url, false, $context);
-            // décode du résultat json
-            $vars = json_decode($result, true);
-            $key_found = array_search($mail, array_column($vars, 'email'));
-
-            // réencodage pour renvoie au script ajax
-            $json_found = json_encode($vars[$key_found]);
+                if ($key_found === false) {
+                    $found = [];
+                }else{
+                    $found = $vars[$key_found];
+                }
+            }
         }
-
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($found);
+        // type de réponse : objet json
         $this->response->type('json');
+        // contenue de la réponse
         $this->response->body($json_found);
-        return $this->response;
-    }
 
-    private function getFitnetLink( $url ){
-        $base = Configure::read('fitnet.base');
-        if (substr($url, 0, 1) == "/" ) {
-            $url = substr($url, 1);
-        }
-        return $base . $url;
+        return $this->response;
     }
 
     public function isAuthorized($user)
@@ -321,7 +295,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 

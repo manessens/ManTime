@@ -25,7 +25,7 @@ class ProjetController extends AppController
         $this->paginate = [
             'contain'   => ['Client', 'Matrice', 'Facturable'],
             'sortWhitelist' => [
-                'Client.nom_client', 'Projet.nom_projet', 'Facturable.nom_fact', 'Matrice.nom_matrice', 'Projet.prix', 'Projet.date_debut', 'Projet.date_fin'
+                'Client.nom_client', 'Projet.nom_projet', 'Projet.id_fit', 'Facturable.nom_fact', 'Matrice.nom_matrice', 'Projet.prix', 'Projet.date_debut', 'Projet.date_fin'
             ],
             'order' => [
                 'Client.nom_client' => 'asc'
@@ -75,6 +75,7 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
+
             //sauvegarde initial
             if ($this->Projet->save($projet)) {
                 if ($this->updateParticipant($projet, $data['participant'])
@@ -116,9 +117,11 @@ class ProjetController extends AppController
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
-        $projet = $this->Projet->get($id, [
-            'contain' => ['Activities', 'Participant' ]
-        ]);
+        if (is_numeric($id)) {
+            $projet = $this->Projet->get($id, [
+                'contain' => ['Activities', 'Participant' ]
+            ]);
+        }
         // Si envoie du formulaire : update table
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -128,6 +131,7 @@ class ProjetController extends AppController
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
             ]);
+
             // mise à jour des relation hasMany
             if ($this->updateParticipant($projet, $data['participant'])
             && $this->updateActivities($projet, $data['activities']) ){
@@ -208,6 +212,60 @@ class ProjetController extends AppController
         }
         return true;
     }
+
+    public function getProjectFitnet(){
+        $found = [];
+
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+
+        if ($this->request->is(['get'])) {
+
+            $id_client = $this->request->query["client"];
+            if ($id_client != null) {
+
+                // récupération des id company fitnet
+                $clientTable = TableRegistry::get('Client');
+                $client = $clientTable->get($id_client, [
+                    'contain' => ['Agence']
+                ]);
+                $id_fit = $client->agence->id_fit;
+
+                // séparation des id_agence fitnet
+                $ids = explode(';', $id_fit);
+                foreach($ids as $id){
+                    if ($id != "") {
+                        // appel de la requête
+                        $result = $this->getFitnetLink("/FitnetManager/rest/contracts/".$id);
+                        // décode du résultat json
+                        $vars = json_decode($result, true);
+                        // sauvegarde des résultats trouvés
+                        $found = array_merge($found, $vars);
+                    }
+                }
+            }
+        }
+
+        $select2 = ['select' => array(), 'projects' => array()];
+        //remise en forme du tableau
+        foreach ($found as $value) {
+            if ($value['customerId'] == $client->id_fit or $client->id_fit == null) {
+                $select2['select'][]=array('id'=>$value['contractId'], 'text'=>$value['title']);
+                $select2['projects'][$value['contractId']]=$value;
+            }
+        }
+
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($select2);
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
+    }
+
 
     private function getClientOption()
     {
@@ -346,7 +404,7 @@ class ProjetController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete','getProjectFitnet']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 

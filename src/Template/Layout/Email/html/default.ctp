@@ -17,8 +17,21 @@
 <html>
 <head>
     <title><?= $this->fetch('title') ?></title>
+    <?php
+        echo $this->Html->css('ManTime/man_mail.css', ['fullBase' => true]);
+     ?>
 </head>
 <body>
-    <?= $this->fetch('content') ?>
+    <div class="header_mail">
+        <?php
+            echo $this->Html->image('Manonline_rouge.png', ['alt' => 'ManOnline', 'fullBase' => true]);
+         ?>
+     </div>
+     <div class="content_mail">
+         <?= $this->fetch('content') ?>
+     </div>
+     <div class="footer_mail">
+         <p>En cas de besoin contactez le responsable ManOnline : <a href="mailto:pierre.gregorutti@manessens.com">Pierre Gregorutti</a></p>
+     </div>
 </body>
 </html>

@@ -12,6 +12,30 @@
 .weeker_admin{
     width: 320px ;
 }
+.control_export{
+    width: 220px;
+}
+
+table tfoot tr th{
+    border-bottom: 0px solid #1798A5;
+    border-top: 2px solid #1798A5;
+}
+
+.table_date{
+    width: 180px;
+}
+.table_error{
+    width: 400px;
+}
+
+/*  Adjustement for select2 */
+.select2-selection{
+    height: 37px !important;
+}
+.select2-selection__arrow{
+    height: 35px !important;
+}
+/* ///////////////////// */
 
 .height-input{
     height: 2.3125rem !important;
@@ -29,6 +53,11 @@
 .new_content{
     padding-left: 15% !important
 }
+
+.idf{
+    width: 100px !important;
+}
+
 .header{
     font-size: 0.875rem !important;
     font-weight: bold !important;
@@ -36,7 +65,7 @@
 .weeker{
     width: 420px;
 }
-
+/* BOOTSTRAP ++ */
 .back-basic{
     background-color: #e0e0e0 !important;
 }
@@ -56,6 +85,35 @@
     background-color: #337ab7 !important;
 }
 
+.alert-success{
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #3c763d !important;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6 !important;
+}
+.alert-danger{
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #a94442 !important;
+    background-color: #f2dede !important;
+    border-color: #ebccd1 !important;
+}
+.alert-info{
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #31708f !important;
+    background-color: #d9edf7 !important;
+    border-color: #bce8f1 !important;
+}
+.alert-warning{
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #8a6d3b !important;
+    background-color: #fcf8e3 !important;
+    border-color: #faebcc !important;
+}
+
 .text-danger{
     color: #a94442 !important;
 }
@@ -71,7 +129,10 @@
 .text-warning{
     color: #f0ad4e !important;
 }
-
+.text-default{
+    color: #111111 !important;
+}
+/* ////////////////////////////////// */
 .tag_role{
     width: 130px !important;
 }
@@ -143,6 +204,11 @@
     margin-bottom: 0px !important;
     padding-bottom: 100px !important;
 }
+
+.actions{
+    width: 185px !important;
+}
+
 #actions-sidebar{
     margin-bottom: 0px !important;
     padding-bottom: 100% !important;
@@ -154,6 +220,7 @@
 
 .multiple{
     margin-bottom:0px !important;
+    height: 250px;
 }
 
 #table-info{
@@ -189,4 +256,30 @@ td.cel_detail{
 
 #select-week{
     display: none;
+}
+
+.block{
+    display: inline-block;
+}
+
+.week{
+    padding: 0px 15px;
+    min-width: 71px !important;
+}
+.year{
+    padding: 0px 15px;
+    min-width: 180px !important;
+}
+.select-week{
+    padding: 0px 15px;
+}
+
+.error_ajax{
+    display: block;
+    padding: 0.375rem 0.5625rem 0.5625rem;
+    margin-top: -1px;
+    font-size: 0.75rem;
+    font-weight: normal;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.54);
 }

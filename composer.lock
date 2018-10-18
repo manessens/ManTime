@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "509ed320b5bd1e3046251d7a0ceb2082",
+    "content-hash": "cd3609e82b58f3c50aeebb1627060fc3",
     "packages": [
         {
             "name": "aura/intl",
@@ -1551,20 +1551,20 @@
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "3.12.0",
+            "version": "3.16.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "064e4d95ef0c601c2097c58234a127d04c30a762"
+                "reference": "aabaecb032f7e91d2c4df9c79806992cf60e07ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/064e4d95ef0c601c2097c58234a127d04c30a762",
-                "reference": "064e4d95ef0c601c2097c58234a127d04c30a762",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/aabaecb032f7e91d2c4df9c79806992cf60e07ee",
+                "reference": "aabaecb032f7e91d2c4df9c79806992cf60e07ee",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "^3.4.0",
+                "cakephp/cakephp": "^3.6.0",
                 "cakephp/chronos": "^1.0.0",
                 "cakephp/plugin-installer": "^1.0.0",
                 "composer/composer": "^1.3.0",
@@ -1573,10 +1573,10 @@
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^3.0",
-                "phpunit/phpunit": "^5.7|^6.0"
+                "phpunit/phpunit": "^5.7.14|^6.0"
             },
             "suggest": {
-                "ext-sqlite": "DebugKit needs to store panel data in a database. SQLite is simple and easy to use."
+                "ext-pdo_sqlite": "DebugKit needs to store panel data in a database. SQLite is simple and easy to use."
             },
             "type": "cakephp-plugin",
             "autoload": {
@@ -1607,7 +1607,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2018-01-24T02:47:18+00:00"
+            "time": "2018-06-11T02:33:52+00:00"
         },
         {
             "name": "composer/ca-bundle",

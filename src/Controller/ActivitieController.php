@@ -75,9 +75,11 @@ class ActivitieController extends AppController
      */
     public function edit($id = null)
     {
-        $activitie = $this->Activitie->get($id, [
-            'contain' => []
-        ]);
+        if (is_numeric($id)) {
+            $activitie = $this->Activitie->get($id, [
+                'contain' => []
+            ]);
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $activitie = $this->Activitie->patchEntity($activitie, $this->request->getData());
             if ($this->Activitie->save($activitie)) {
@@ -120,7 +122,7 @@ class ActivitieController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 

@@ -2,6 +2,7 @@ $(function() {
     init();
 });
 
+
 function init(){
     $( ".datepicker" ).each(function() {
         // if ($( this ).attr('value').length > 10) {
@@ -15,4 +16,8 @@ function init(){
         document.location.replace('/temps/'+target);
     });
 
+    $('#export_fitnet').on('click', function(e){
+        $('form').attr('action','/exportFitnet/export');
+        $('form').submit();
+    })
 }

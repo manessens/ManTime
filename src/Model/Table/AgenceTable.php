@@ -48,6 +48,10 @@ class AgenceTable extends Table
             ->allowEmpty('id_agence', 'create');
 
         $validator
+            ->integer('id_fit')
+            ->allowEmpty('id_fit', 'create');
+
+        $validator
             ->scalar('nom_agence')
             ->maxLength('nom_agence', 20)
             ->requirePresence('nom_agence', 'create')

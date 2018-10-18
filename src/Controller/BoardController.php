@@ -12,20 +12,8 @@ class BoardController extends AppController
         $user_id = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->findByIdu($user_id)->firstOrFail();
-        $this->set(compact('user'));
-        if ($user->role >= 50) {
-            return $this->redirect(['action' => 'index_admin']);
-        }
-    }
-
-    public function indexAdmin()
-    {
-        $user_id = $this->Auth->user('idu');
-        $this->loadModel('Users');
-        $user = $this->Users->findByIdu($user_id)->firstOrFail();
         $this->set('controller', false);
         $this->set(compact('user'));
-
     }
 
     public function isAuthorized($user)
@@ -38,10 +26,6 @@ class BoardController extends AppController
         }
 
         if (in_array($action, ['index']) ) {
-            return true;
-        }
-
-        if (in_array($action, ['indexAdmin']) && $user['role'] >= 50 ) {
             return true;
         }
 
