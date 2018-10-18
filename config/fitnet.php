@@ -1,5 +1,6 @@
 <?php
 return [
+    // PREPROD
     'fitnet' => [
         'login'=>'matthias.vincent@manessens.com',
         'password'=>'M@nV17!%',
