@@ -390,7 +390,11 @@ class ExportFitnetController extends AppController
         }else{
             //traitement des Temps
             foreach ($times as $time) {
-                if ($this->exportTime($time)) {
+                if ($time->projet->facturable->id_fit == 0) {
+                    $line = ['--', ' Export des activités de type '.$time->projet->facturable.' ignorées : temps #'.$time->idt];
+                    $this->insertLog($line);
+                    $count++;
+                }elseif ($this->exportTime($time)) {
                     $count++;
                 }else{
                     $export = $this->inError($export, '#'.$time->idt.' - Consultant : #'.$time->idu.' - date : '.$time->date);
