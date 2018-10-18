@@ -1,8 +1,9 @@
 <?php
 return [
     'fitnet' => [
-        'login'=>'matthias.vincent@manessens.com',
-        'password'=>'M@nV17!%',
+        // @TODO Ajouter un compte admin fitnet
+        'login'=>'',
+        'password'=>'',
         'base'=>'https://manessens.fitnetmanager.com/',
         'wait'=>'Attente',
         'end'=>'Terminé',
@@ -21,17 +22,18 @@ return [
                 '3'=>null, // Fonctionnel / BI / BC
                 '4'=>null, // Expert / CP / Référent
             ],
+            // @TODO ID fitnet a synchroniser avec la prod
             '2'=>[ // Nantes
-                '1'=>'154', // Technique ABAP
-                '2'=>'153', // Technique ABAP expert
-                '3'=>'155', // Fonctionnel / BI / BC
-                '4'=>'152', // Expert / CP / Référent
+                '1'=>'', // Technique ABAP
+                '2'=>'', // Technique ABAP expert
+                '3'=>'', // Fonctionnel / BI / BC
+                '4'=>'', // Expert / CP / Référent
             ],
             '3'=>[ // Paris
-                '1'=>'140', // Technique ABAP
-                '2'=>'142', // Technique ABAP expert
-                '3'=>'144', // Fonctionnel / BI / BC
-                '4'=>'146', // Expert / CP / Référent
+                '1'=>'', // Technique ABAP
+                '2'=>'', // Technique ABAP expert
+                '3'=>'', // Fonctionnel / BI / BC
+                '4'=>'', // Expert / CP / Référent
             ],
         ],
     ],
