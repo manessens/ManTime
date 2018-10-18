@@ -3,7 +3,7 @@ return [
     'fitnet' => [
         'login'=>'matthias.vincent@manessens.com',
         'password'=>'M@nV17!%',
-        'base'=>'https://evaluation.fitnetmanager.com/',
+        'base'=>'https://manessens.fitnetmanager.com/',
         'wait'=>'Attente',
         'end'=>'Terminé',
         'run'=>'Lancé',
@@ -13,7 +13,7 @@ return [
         'logdir_end'=>'fitnet_log/final',
         'logname'=>'Log_export_fitnet_',
         'logname_end'=>'Log_final_export_fitnet_',
-        'abs_path'=>'/var/www/html/preprod/ManTime/tmp/',
+        'abs_path'=>'/var/www/html/ManTime/tmp/',
         'profil'=>[
             '1'=>[ // Mancorp
                 '1'=>null, // Technique ABAP
@@ -21,6 +21,7 @@ return [
                 '3'=>null, // Fonctionnel / BI / BC
                 '4'=>null, // Expert / CP / Référent
             ],
+            // @TODO : update des id en prod
             '2'=>[ // Nantes
                 '1'=>'154', // Technique ABAP
                 '2'=>'153', // Technique ABAP expert
