@@ -242,6 +242,7 @@
 <?php
     echo $this->Html->script('ManTime/man.top.js');
     echo $this->Html->css('ManTime/man.top.css');
+    
     if (!$validat){
         echo $this->Html->script('ManTime/man.modal.js');
         echo $this->Html->script('ManTime/man.time.js');
