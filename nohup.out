@@ -279,3 +279,30 @@ You can exit with [36m`CTRL-C`[0m
 [Tue Feb 13 11:06:56 2018] 10.10.1.198:62854 [200]: /css/cake.css
 [Tue Feb 13 11:06:57 2018] 10.10.1.198:62856 [200]: /css/base.css
 [Tue Feb 13 11:06:57 2018] 10.10.1.198:62857 [200]: /css/base.css
+
+[36mWelcome to CakePHP v3.5.12 Console[0m
+---------------------------------------------------------------
+App : src
+Path: /var/www/html/ManTime/src/
+DocumentRoot: /var/www/html/ManTime/webroot
+Ini Path: 
+---------------------------------------------------------------
+built-in server is running in http://172.26.15.201:8765/
+You can exit with [36m`CTRL-C`[0m
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53715 [200]: /css/ManTime/man.css
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53714 [200]: /css/Bootstrap/bootstrap.css
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53716 [200]: /js/jquery-3.3.1.min.js
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53717 [200]: /js/Bootstrap/bootstrap.js
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53718 [200]: /js/moment.js
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53719 [200]: /css/base.css
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53720 [200]: /css/cake.css
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53721 [200]: /img/Saisie_semaine.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53722 [200]: /img/Validation_semaine.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53723 [200]: /img/Export.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53724 [200]: /img/007-users-group.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53725 [200]: /img/Matrices.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53726 [200]: /img/Projets.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53729 [200]: /img/Activites.png
+[Mon Apr  9 14:08:48 2018] 10.10.1.145:53727 [200]: /img/Clients.png
+[Mon Apr  9 14:08:49 2018] 10.10.1.145:53736 [200]: /css/Bootstrap/bootstrap.css.map
+[Mon Apr  9 14:08:49 2018] 10.10.1.145:53737 [200]: /favicon.ico
