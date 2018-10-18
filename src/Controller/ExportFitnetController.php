@@ -382,7 +382,7 @@ class ExportFitnetController extends AppController
 
         // Récupération des temps
         $times = $this->getTimesFromExport($export);
-        $count = 0;
+        $count = $ignored = 0;
         if (empty($times)) {
             // notif export : erreur si 0 temps - FIN de traitement
             $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
@@ -393,7 +393,7 @@ class ExportFitnetController extends AppController
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable.' ignorées : temps #'.$time->idt];
                     $this->insertLog($line);
-                    $count++;
+                    $ignored++; //car n'est pas une erreur
                 }elseif ($this->exportTime($time)) {
                     $count++;
                 }else{
@@ -402,7 +402,7 @@ class ExportFitnetController extends AppController
             }
         }
 
-        $export=$this->endProcess($export, $count, count($times));
+        $export=$this->endProcess($export, $count, count($times), $ignored);
 
     }
     private function exportTime($time){
@@ -530,9 +530,9 @@ class ExportFitnetController extends AppController
 
     }
 
-    private function endProcess($export, $count, $total){
+    private function endProcess($export, $count, $total, $ignored = 0){
         if ($count != $total) {
-            $cause = 'nombre de saisie échoué : '.($total-$count);
+            $cause = 'nombre de saisie échoué : '.($total-($count+$ignored) );
             $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit, $cause];
             $this->insertLog($line,true,true);
         }
@@ -540,6 +540,7 @@ class ExportFitnetController extends AppController
             $export->etat = Configure::read('fitnet.end');
             $this->insertLog(['--', ' Total de temps traité : '.$total]);
             $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
+            $this->insertLog(['--', ' Total de temps ignorées : '.$ignored]);
         }else{
             $export->etat = Configure::read('fitnet.err');
         }
