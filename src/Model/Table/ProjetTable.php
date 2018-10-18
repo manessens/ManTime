@@ -56,6 +56,14 @@ class ProjetTable extends Table
         $this->belongsTo('Matrice', [
             'foreignKey' => 'idm'
         ]);
+
+       //  $this->addBehavior('Timestamp', [
+       //     'events' => [
+       //         'Model.beforeSave' => [
+       //             'last_update' => 'always',
+       //         ]
+       //     ]
+       // ]);
     }
 
     /**
@@ -69,6 +77,10 @@ class ProjetTable extends Table
         $validator
             ->integer('idp')
             ->allowEmpty('idp', 'create');
+
+        $validator
+            ->integer('id_fit')
+            ->allowEmpty('id_fit');
 
         $validator
             ->scalar('nom_projet')
@@ -108,7 +120,7 @@ class ProjetTable extends Table
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {
-                    return $value > $context['data']['date_debut'];
+                    return $value >= $context['data']['date_debut'];
                 },
                 'message' => __("Date de fin inférieur à celle de début.")
             ]

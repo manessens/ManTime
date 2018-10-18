@@ -5,7 +5,7 @@
  */
 ?>
 <div class="activitie view large-10 large-10bis medium-8 columns content">
-    <h3><?= h($activitie->nom_activit) ?></h3>
+    <legend><span class="text-danger"><?= h($activitie->nom_activit) ?></span></legend>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Activité') ?></th>

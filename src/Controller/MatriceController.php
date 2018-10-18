@@ -94,9 +94,11 @@ class MatriceController extends AppController
      */
     public function edit($id = null)
     {
-        $matrice = $this->Matrice->get($id, [
-            'contain' => ['LignMat' => ['Profil'] ]
-        ]);
+        if (is_numeric($id)) {
+            $matrice = $this->Matrice->get($id, [
+                'contain' => ['LignMat' => ['Profil'] ]
+            ]);
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $matrice = $this->Matrice->patchEntity($matrice, $this->request->getData(),[
@@ -147,8 +149,7 @@ class MatriceController extends AppController
             return false;
         }
 
-        // if (in_array($action, ['index', 'view', 'add', 'edit','delete']) && $user['role'] >= 50 ) {
-        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete']) && $user['role'] >= 50 ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 

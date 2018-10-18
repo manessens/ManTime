@@ -7,6 +7,7 @@ use Cake\ORM\Entity;
  * Origine Entity
  *
  * @property int $ido
+ * @property int $id_fit
  * @property string $nom_origine
  */
 class Origine extends Entity
@@ -22,6 +23,7 @@ class Origine extends Entity
      * @var array
      */
     protected $_accessible = [
-        'nom_origine' => true
+        'nom_origine' => true,
+        'id_fit' => true
     ];
 }

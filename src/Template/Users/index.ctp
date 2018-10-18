@@ -6,17 +6,17 @@
 ?>
 
 <div class="users index large-10 large-10bis medium-8 columns content">
-    <legend><?= __('Consultants') ?></legend>
+    <legend><span class="text-danger"><?= __('Consultants') ?></span></legend>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Users.prenom','Prénom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Users.nom','Nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Users.email','Adresse email') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.id_fit','Fitnet') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Origine.nom_origine','Origine') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.actif','Actif') ?></th>
                 <th class="tag_role" scope="col"><?= $this->Paginator->sort('Users.role','Rôle') ?></th>
-                <!-- <th class="medium-1" scope="col"><?= $this->Paginator->sort('admin','Admin') ?></th> -->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -26,6 +26,7 @@
                 <td><?= h($user->prenom) ?></td>
                 <td><?= h($user->nom) ?></td>
                 <td><?= h($user->email) ?></td>
+                <td><?= $this->element('link2fitnet', ['idf'=>$user->id_fit]) ?></td>
                 <td><?= h($user->origine->nom_origine) ?></td>
                 <td>
                     <?= $this->element('tagYN', ['test' => $this->Number->format($user->actif)]) ?>
@@ -33,9 +34,6 @@
                 <td>
                     <?= $this->element('roleselect', ['role' => $this->Number->format($user->role)]) ?>
                 </td>
-                <!-- <td>
-                    <?= $this->element('tagYN', ['test' => $this->Number->format($user->role) >= 50]) ?>
-                </td> -->
                 <td class="actions">
                     <?= $this->element( 'controle', ['id' => $user->idu, 'entity'=>$user->email]); ?>
                 </td>

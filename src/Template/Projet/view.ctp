@@ -20,7 +20,10 @@
 ?>
 
 <div class="projet view large-10 large-10bis medium-8 columns content">
-    <h3><?= h($projet->nom_projet) ?></h3>
+    <legend>
+        <span class="text-danger"><?= h($projet->nom_projet) ?></span>
+        <?= $this->element('link2fitnet', ['idf'=>$projet->id_fit]) ?>
+    </legend>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Nom_projet') ?></th>

@@ -5,7 +5,7 @@
  */
 ?>
 <div class="matrice view large-10 large-10bis medium-8 columns content">
-    <h3><?= h($matrice->nom_matrice) ?></h3>
+    <legend><span class="text-danger"><?= h($matrice->nom_matrice) ?></span></legend>
     <div class="col-xs-12">
         <table class="col-xs-5 vertical-table">
             <thead>

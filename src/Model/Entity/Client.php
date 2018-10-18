@@ -7,6 +7,8 @@ use Cake\ORM\Entity;
  * Client Entity
  *
  * @property int $idc
+ * @property int $id_fit
+ * @property int $id_agence
  * @property string $nom_client
  *
  * @property \App\Model\Entity\Agence $agence
@@ -25,6 +27,7 @@ class Client extends Entity
      */
     protected $_accessible = [
         'nom_client' => true,
+        'id_fit' => true,
         'id_agence' => true,
         'agence'   => true
     ];

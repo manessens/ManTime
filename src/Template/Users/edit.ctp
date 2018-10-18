@@ -8,7 +8,7 @@
 <div class="users form large-10 large-10bis medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->email); ?></span></legend>
+        <legend><?= __('Modification de : ');?> <span class="text-danger"><?=  h($user->fullname); ?></span></legend>
         <?php
             echo $this->Form->control('email');
             echo $this->Form->control('prenom');
@@ -21,18 +21,23 @@
         ?>
         </div>
         <?php
+            echo $this->Form->label('role','Rôle');
+            echo $this->Form->select('role', $role, ['value' => $user->role]);
+
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
 
-            echo $this->Form->control('role', ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary checkboxU']]);
-            echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger checkboxU']]);
+            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+
          ?>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 
-    <!-- <button type="button" id="linker" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button> -->
+    <button type="button" id="linker" class="btn <?php echo $user->id_fit>0?"btn-success":"btn-primary"; ?>"
+         data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
+    <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
 
 </div>
 
@@ -66,19 +71,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" id="send" class="btn btn-primary">Rechercher</button>
-        <div class="loader btn" style="display:none;" id="loader"> </div>
-      </div>
+      <form id="ajax">
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+          <button type="submit" id="send" class="btn btn-primary">Rechercher</button>
+          <div class="loader btn" style="display:none;" id="loader"> </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

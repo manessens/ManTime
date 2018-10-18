@@ -48,6 +48,10 @@ class OrigineTable extends Table
             ->allowEmpty('ido', 'create');
 
         $validator
+            ->integer('id_fit')
+            ->allowEmpty('id_fit', 'create');
+
+        $validator
             ->scalar('nom_origine')
             ->maxLength('nom_origine', 20)
             ->requirePresence('nom_origine', 'create')

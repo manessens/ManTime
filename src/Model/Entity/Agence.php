@@ -7,6 +7,7 @@ use Cake\ORM\Entity;
  * Agence Entity
  *
  * @property int $id_agence
+ * @property int $id_fit
  * @property string $nom_agence
  */
 class Agence extends Entity
@@ -22,6 +23,7 @@ class Agence extends Entity
      * @var array
      */
     protected $_accessible = [
-        'nom_agence' => true
+        'nom_agence' => true,
+        'id_fit' => true
     ];
 }

@@ -2,14 +2,51 @@ $(function() {
     init();
 });
 var xhr;
+// **INITIALISATION **
+function initResetPswd(){
+    $( ".reset" ).click(function (){
+        if ($(this).is(':checked')) {
+            $('#myModal').modal('show');
+        };
+    });
+}
 
-$( ".reset" ).click(function (){
-    if ($(this).is(':checked')) {
-        $('#myModal').modal('show');
-    };
-});
+function initResetFitnet(){
+    $( "#resetter" ).click(resetFitnet);
+}
+
+function initEmailModal(){
+    $('#email').on('change',function(e){
+        var input = $('#email')
+        $('#linker').attr('data-whatever',input.val());
+    })
+}
+
+function initSelectRole(){
+    $('select[name="role"] option').addClass('text-default');
+    $('select[name="role"] option[value="20"]').removeClass('text-default').addClass('text-primary');
+    $('select[name="role"] option[value="50"]').removeClass('text-default').addClass('text-danger');
+    $('select[name="role"]').on('change',function(){
+        var select = $(this);
+        switch (select.val()) {
+            case '50':
+                select.removeClass().addClass('text-danger')
+                break;
+            case '20':
+                select.removeClass().addClass('text-primary')
+                break;
+            default:
+                select.removeClass()
+        }
+    }).change()
+}
 
 function init(){
+    initResetPswd();
+    initResetFitnet();
+    initEmailModal();
+    initSelectRole();
+
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
       var recipient = button.attr('data-whatever')// Extract info from data-* attributes
@@ -19,7 +56,8 @@ function init(){
       modal.find('.modal-body input').val(recipient)
     });
 
-    $('#linkModal').find(".modal-footer button#send").on('click',function(e){
+    $('#ajax').on('submit',function(e){
+        e.preventDefault();
         var email = $('#linkModal').find('.modal-body input').val();
         xhr = $.ajax({
             type: "GET",
@@ -30,9 +68,11 @@ function init(){
                 $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data) ) {
-                $('#linker').removeClass('btn-primary');
-                $('#linker').addClass('btn-success');
+            if ( !jQuery.isEmptyObject(data) ) {    //success
+                $('#id-fit').val(data.employee_id);
+                $('#linker').removeClass('btn-primary').addClass('btn-success');
+            }else{                                  // fail
+                resetFitnet();
             }
         }).always(function(){
             $('#linkModal').modal('hide');
@@ -46,4 +86,10 @@ function init(){
             xhr.abort();
         }
     });
+}
+
+// **FUNCTION**
+function resetFitnet(){
+    $('#id-fit').val(null);
+    $('#linker').removeClass('btn-success').addClass('btn-primary');
 }
