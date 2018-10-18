@@ -3,7 +3,7 @@ return [
     'fitnet' => [
         'login'=>'matthias.vincent@manessens.com',
         'password'=>'M@nV17!%',
-        'base'=>'https://evaluation.fitnetmanager.com/',
+        'base'=>'https://manessens.fitnetmanager.com/',
         'wait'=>'Attente',
         'end'=>'Terminé',
         'run'=>'Lancé',
