@@ -538,12 +538,13 @@ class ExportFitnetController extends AppController
         }
         if (empty($this->error_log)) {
             $export->etat = Configure::read('fitnet.end');
-            $this->insertLog(['--', ' Total de temps traité : '.$total]);
-            $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
-            $this->insertLog(['--', ' Total de temps ignorées : '.$ignored]);
         }else{
             $export->etat = Configure::read('fitnet.err');
         }
+        
+        $this->insertLog(['--', ' Total de temps traité : '.$total]);
+        $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
+        $this->insertLog(['--', ' Total de temps ignorées : '.$ignored]);
 
         $line = ['<<', ' Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
