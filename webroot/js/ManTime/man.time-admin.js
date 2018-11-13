@@ -22,7 +22,7 @@ $( "form" ).on('submit',function (e){
         var modal = new ModalWindow({
             Title: "Validation semaine",
             Message: "Vous avez coché la validation pour export, les consultants ne pourront plus modifier leur temps. Êtes-vous sûr de vouloir continuer ?",
-            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
+            Buttons: [["btn-danger admin", 'Non', 'false'], ["btn-primary admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
                     alertVerouillage = false;
