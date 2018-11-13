@@ -243,6 +243,11 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function cksession(){
+
+        return $this->response->withStringBody( $this->request->session()->valid() );
+    }
+
     public function getEmployeeFitnet(){
         $found = [];
 
@@ -291,7 +296,7 @@ class UsersController extends AppController
             return false;
         }
 
-        if ( in_array($action, ['profil']) ) {
+        if ( in_array($action, ['cksession', 'profil']) ) {
             return true;
         }
 
