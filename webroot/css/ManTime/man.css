@@ -1,3 +1,7 @@
+.top-bar.expanded .title-area{
+    background-color: #424351;
+}
+
 .btn a{
     color: white !important;
 }
