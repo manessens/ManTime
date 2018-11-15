@@ -46,7 +46,7 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
             </li>
         </ul>
         <div class="top-bar-section">
-            <ul class="right">
+            <ul class="right red-ul">
                 <li><?= $this->Html->link(__('Profil'), ['controller' => 'Users', 'action' => 'profil']) ?></li>
                 <li><?= $this->Html->link(__('Déconnexion'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
                 <!-- <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li> -->
