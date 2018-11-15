@@ -7,13 +7,13 @@
 }
 
 .red-ul a{
-    background-color: #424351 !important;
+    background-color: #E92C3B !important;
 }
-.red-ul li a:hover{
-    background-color: #A3A3A3 !important;
+.red-ul a:hover{
+    background-color: #F06C76 !important;
 }
-.red-ul li a:visited{
-    background-color: #424351 !important;
+.red-ul a:visited{
+    background-color: #E92C3B !important;
 }
 
 
