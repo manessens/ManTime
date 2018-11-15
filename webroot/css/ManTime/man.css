@@ -1,5 +1,9 @@
 .top-bar.expanded .title-area{
-    background-color: #424351;
+    background-color: #424351 !important;
+}
+
+#topofpage{
+    background-color: #E92C3B !important;
 }
 
 .btn a{
