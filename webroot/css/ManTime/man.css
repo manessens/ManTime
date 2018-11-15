@@ -6,7 +6,7 @@
     background-color: #424351 !important;
 }
 
-.top-bar.expanded .title-area .top-bar-section .right li a{
+.top-bar.expanded .title-area .top-bar-section .right>li>a{
     background-color: #424351 !important;
 }
 .top-bar.expanded .title-area .top-bar-section .right li a:hover{
