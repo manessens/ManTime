@@ -244,9 +244,6 @@ class UsersController extends AppController
     }
 
     public function cksession(){
-        if( $this->request->is('ajax') ) {
-            $this->autoRender = false; // Pas de rendu
-        }
         $retour = false;
         if ($this->request->is(['GET'])) {
             $session = $this->request->session();
@@ -254,8 +251,13 @@ class UsersController extends AppController
         }
         if ($retour != true) {
             $this->Flash->error("Expiration de la session, vous avez été déconnecté.");
+            return $this->redirect(['action' => 'login']);
+        }else{
+            if( $this->request->is('ajax') ) {
+                $this->autoRender = false; // Pas de rendu
+            }
+            return $this->response->withStringBody($retour);
         }
-        return $this->response->withStringBody($retour);
     }
 
     public function getEmployeeFitnet(){
