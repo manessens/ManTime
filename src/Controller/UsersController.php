@@ -249,8 +249,8 @@ class UsersController extends AppController
         }
         $retour = false;
         if ($this->request->is(['GET'])) {
-            $session = $this->getRequest()->getSession();
-            $retour = $session.check();
+            $retour = $this->Session->read('Auth.User');
+            debug($this->Session->velid());
         }
         return $this->response->withStringBody($retour);
     }
