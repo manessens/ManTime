@@ -21,7 +21,7 @@
     border-color: #F06C76 !important;
     background-color: #424351 !important;
 }
-table tr th {
+table:not(.vertical-table) tr th {
     border-bottom: 2px solid #E92C3B !important;
 }
 table thead tr {
