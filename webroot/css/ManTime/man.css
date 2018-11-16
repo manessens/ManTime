@@ -24,19 +24,16 @@
     background-color: #424351 !important;
 }
 table tr th {
-    border-bottom: 2px solid #424351 !important;
+    border-bottom: 2px solid #E92C3B !important;
 }
 table thead tr {
-    border-bottom: 1px solid #424351 !important;
+    border-bottom: 1px solid #E92C3B !important;
 }
 legend{
     color: #424351 !important;
 }
 fieldset legend{
-    border-bottom: 2px solid #424351 !important;
-}
-a{
-    color: #424351 !important
+    border-bottom: 2px solid #E92C3B !important;
 }
 
 
