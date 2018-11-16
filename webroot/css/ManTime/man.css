@@ -24,6 +24,15 @@
     background-color: #424351 !important;
 }
 
+legend{
+    color: #424351 !important;
+}
+
+fieldset legend{
+    border-bottom: 2px solid #424351 !important;
+}
+
+
 
 
 .btn a{
