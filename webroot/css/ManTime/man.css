@@ -32,6 +32,12 @@ table thead tr {
 legend{
     color: #424351 !important;
 }
+li{
+    color: #424351 !important;
+}
+th a{
+    color: #424351 !important;
+}
 fieldset legend{
     border-bottom: 2px solid #E92C3B !important;
 }
