@@ -16,6 +16,14 @@
     background-color: #E92C3B !important;
 }
 
+.panel-red{
+    border-color: #E92C3B !important;
+}
+.panel-red .panel-heading{
+    background-color: #E92C3B !important;
+}
+
+
 
 .btn a{
     color: white !important;
