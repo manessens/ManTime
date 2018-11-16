@@ -252,6 +252,9 @@ class UsersController extends AppController
             $session = $this->request->session();
             $retour = $session->check('Auth.User');
         }
+        if ($retour != true) {
+            $this->Flash->error("Expiration de la session, vous avez été déconnecté.");
+        }
         return $this->response->withStringBody($retour);
     }
 
