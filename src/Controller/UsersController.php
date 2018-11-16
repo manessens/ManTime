@@ -250,7 +250,7 @@ class UsersController extends AppController
         $retour = false;
         if ($this->request->is(['GET'])) {
             $session = $this->request->session();
-            $retour = $session->read->check('Auth.User');
+            $retour = $session->check('Auth.User');
             debug($retour);
         }
         return $this->response->withStringBody($retour);
