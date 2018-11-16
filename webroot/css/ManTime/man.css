@@ -23,11 +23,15 @@
     border-color: #F06C76 !important;
     background-color: #424351 !important;
 }
-
+table tr th {
+    border-bottom: 2px solid #1798A5;
+}
+table thead tr {
+    border-bottom: 1px solid #424351;
+}
 legend{
     color: #424351 !important;
 }
-
 fieldset legend{
     border-bottom: 2px solid #424351 !important;
 }
