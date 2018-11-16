@@ -1,11 +1,10 @@
+/* RECHARTRAGE */
 #topofpage{
     background-color: #E92C3B !important;
 }
-
 .top-bar.expanded .title-area{
     background-color: #424351 !important;
 }
-
 .red-ul a{
     background-color: #E92C3B !important;
 }
@@ -15,7 +14,6 @@
 .red-ul a:visited{
     background-color: #E92C3B !important;
 }
-
 .panel-red{
     border-color: #E92C3B !important;
 }
@@ -44,9 +42,11 @@ th a{
 fieldset legend{
     border-bottom: 2px solid #E92C3B !important;
 }
+.vertical-table th{
+    color: #424351 !important;
+}
 
-
-
+/* OTHER  */
 .btn a{
     color: white !important;
 }
