@@ -24,7 +24,7 @@
     background-color: #424351 !important;
 }
 table tr th {
-    border-bottom: 2px solid #1798A5 !important;
+    border-bottom: 2px solid #424351 !important;
 }
 table thead tr {
     border-bottom: 1px solid #424351 !important;
@@ -35,7 +35,9 @@ legend{
 fieldset legend{
     border-bottom: 2px solid #424351 !important;
 }
-
+a{
+    color: #424351 !important
+}
 
 
 
