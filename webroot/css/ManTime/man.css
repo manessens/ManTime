@@ -35,6 +35,9 @@ legend{
 li{
     color: #424351 !important;
 }
+li a{
+    color: #424351 !important;
+}
 th a{
     color: #424351 !important;
 }
@@ -231,7 +234,7 @@ table tfoot tr th{
 }
 
 .newUser{
-    background-color: #b4deea !important
+    background-color: #eab4b6 !important
 }
 .menu_fixed{
     position: fixed;
