@@ -5,7 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
 use Cake\Mailer\MailerAwareTrait;
-use Cake\View\Helper\SessionHelper
+use Cake\View\Helper\SessionHelper;
 /**
  * Users Controller
  *
