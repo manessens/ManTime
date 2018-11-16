@@ -233,7 +233,7 @@ function modifyProject(that) {
 }
 
 $( ".remove" ).click(function(){
-    delLine(this); // pour éviter le lag Mais on force la redirection pour éviter la déception
+    delLine(this);
     $.ajax({
         type: "GET",
         url: "/users/cksession/"
