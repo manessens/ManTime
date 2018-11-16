@@ -233,16 +233,19 @@ function modifyProject(that) {
 }
 
 $( ".remove" ).click(function(){
+    delLine(this); // pour éviter le lag Mais on force la redirection pour éviter la déception
     $.ajax({
         type: "GET",
         url: "/users/cksession/"
     }).done(function( data ) {
+        console.log("log");
         if ( !data ) {    //fail (success : no effectt)
             // @TODO : GO TO /logout
             console.log("goto /logout");
         }
+    }).always(function(){
+        console.log("done");
     });
-    delLine(this); // pour éviter le lag Mais on force la redirection pour éviter la déception
 });
 
 function delLine(that) {
@@ -250,16 +253,19 @@ function delLine(that) {
 }
 
 $( "#add" ).click(function(){
+    addLine(this);
     $.ajax({
         type: "GET",
         url: "/users/cksession/"
     }).done(function( data ) {
+        console.log("log");
         if ( !data ) {    //fail (success : no effectt)
             // @TODO : GO TO /logout
             console.log("goto /logout");
         }
+    }).always(function(){
+        console.log("done");
     });
-    addLine(this);
 });
 
 function addLine(that) {
