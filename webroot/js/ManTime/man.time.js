@@ -158,6 +158,14 @@ function modifyProject(that) {
 
 $( ".remove" ).click(function(){
     delLine(this);
+    $.ajax({
+        type: "GET",
+        url: "/users/cksession/"
+    }).done(function( data ) {
+        if ( !data ) {    //fail (success : no effectt)
+            document.location.replace('/users/login');
+        }
+    });
 });
 
 function delLine(that) {
@@ -167,6 +175,14 @@ function delLine(that) {
 
 $( "#add" ).click(function(){
     addLine(this);
+    $.ajax({
+        type: "GET",
+        url: "/users/cksession/"
+    }).done(function( data ) {
+        if ( !data ) {    //fail (success : no effectt)
+            document.location.replace('/users/login');
+        }
+    });
 });
 
 function findLastId(){

@@ -238,13 +238,9 @@ $( ".remove" ).click(function(){
         type: "GET",
         url: "/users/cksession/"
     }).done(function( data ) {
-        console.log("log");
         if ( !data ) {    //fail (success : no effectt)
-            // @TODO : GO TO /logout
-            console.log("goto /logout");
+            document.location.replace('/users/login');
         }
-    }).always(function(){
-        console.log("done");
     });
 });
 
@@ -258,13 +254,9 @@ $( "#add" ).click(function(){
         type: "GET",
         url: "/users/cksession/"
     }).done(function( data ) {
-        console.log("log");
         if ( !data ) {    //fail (success : no effectt)
-            // @TODO : GO TO /logout
-            console.log("goto /logout");
+            document.location.replace('/users/login');
         }
-    }).always(function(){
-        console.log("done");
     });
 });
 
