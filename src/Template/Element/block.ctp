@@ -1,6 +1,6 @@
 <?php if ($user->role >= $auth): ?>
     <div class="col-xs-3">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary panel-red">
             <div class="panel-heading">
                 <?= $title ?>
             </div>
