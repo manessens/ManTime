@@ -233,7 +233,7 @@ function modifyProject(that) {
 }
 
 $( ".remove" ).click(function(){
-    xhr = $.ajax({
+    $.ajax({
         type: "GET",
         url: "/users/cksession/"
     }).done(function( data ) {
@@ -250,7 +250,7 @@ function delLine(that) {
 }
 
 $( "#add" ).click(function(){
-    xhr = $.ajax({
+    $.ajax({
         type: "GET",
         url: "/users/cksession/"
     }).done(function( data ) {

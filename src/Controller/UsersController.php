@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
 use Cake\Mailer\MailerAwareTrait;
+use Cake\View\Helper\SessionHelper
 /**
  * Users Controller
  *
@@ -244,8 +245,9 @@ class UsersController extends AppController
     }
 
     public function cksession(){
-
-        return $this->response->withStringBody( $this->request->session()->valid() );
+        $session = $this->getRequest()->getSession();
+        debug($session);
+        return $this->response->withStringBody( $session->valid() );
     }
 
     public function getEmployeeFitnet(){
