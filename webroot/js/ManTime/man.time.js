@@ -163,7 +163,7 @@ $( ".remove" ).click(function(){
         url: "/users/cksession/"
     }).done(function( data ) {
         if ( !data ) {    //fail (success : no effectt)
-            // document.location.replace('/users/login');
+            document.location.replace('/users/login');
         }
     });
 });
@@ -180,7 +180,7 @@ $( "#add" ).click(function(){
         url: "/users/cksession/"
     }).done(function( data ) {
         if ( !data ) {    //fail (success : no effectt)
-            // document.location.replace('/users/login');
+            document.location.replace('/users/login');
         }
     });
 });
