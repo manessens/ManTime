@@ -35,7 +35,7 @@ legend{
 li{
     color: #424351 !important;
 }
-li a{
+ul.side-nav li a{
     color: #424351 !important;
 }
 th a{
