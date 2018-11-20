@@ -95,7 +95,7 @@
                         <?php if ($semaine+1 > 52 ): ?>
                             <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', 1, $annee+1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
-                            <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', $semaine+1, $annee], ['class' => 'btn btn-dannger']) ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'indexAdmin', $semaine+1, $annee], ['class' => 'btn btn-danger']) ?>
                         <?php endif; ?>
                     </div>
                     <div class="right">
