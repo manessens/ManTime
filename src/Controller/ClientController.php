@@ -152,8 +152,10 @@ class ClientController extends AppController
 
         $select2 = array();
         //remise en forme du tableau
-        foreach ($found as $value) {
-            $select2[]=array('id'=>$value['clientId'], 'text'=>$value['name']);
+        if (!empty($found)) {
+            foreach ($found as $value) {
+                $select2[]=array('id'=>$value['clientId'], 'text'=>$value['name']);
+            }
         }
 
         // réencodage pour renvoie au script ajax
