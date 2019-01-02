@@ -149,8 +149,8 @@ class ClientController extends AppController
                         // sauvegarde des résultats trouvés
                         $found = array_merge($found, $vars);
                     }else{
-                        $this->response->withStatus(403);
-                        return $this->response;
+                        // on notifie l'utilisateur qu'une erreur est survenu
+                        $select2[]=array('id'=>'err', 'text'=>'Erreur de communication avec Fitnet');
                     }
                 }
             }
