@@ -190,6 +190,8 @@ class TempsController extends AppController
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
+        $semaine = $semaine<10?'0'.$semaine:$semaine ;
+
         $this->set(compact('week'));
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
