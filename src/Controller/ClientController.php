@@ -145,12 +145,12 @@ class ClientController extends AppController
                     // décode du résultat json
                     $vars = json_decode($result, true);
 
-                    if (is_array($vars)) {
+                    if (is_array($vars) && !empty($vars)) {
                         // sauvegarde des résultats trouvés
                         $found = array_merge($found, $vars);
                     }else{
                         // on notifie l'utilisateur qu'une erreur est survenu
-                        $select2[]=array('id'=>'err', 'text'=>'Erreur de communication avec Fitnet');
+                        $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
                     }
                 }
             }

@@ -51,7 +51,12 @@ class AppController extends Controller
         }
         $url=$base . $url ;
         // appel de la requête
-        $result = file_get_contents($url, false, $context);
+        try {
+            $result = file_get_contents($url, false, $context);
+        } catch (\Exception $e) {
+            $result = array();
+        }
+
         // résultat
         return $result;
     }
