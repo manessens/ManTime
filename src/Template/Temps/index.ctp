@@ -70,7 +70,13 @@
         <div class="block col-xs-12">
             <div class="col-xs-2"><div class="left badge back-default"><?= h($fullNameUserAuth) ?></div></div>
             <div class="controler right">
-                <div><input type="week" data-target="index" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php echo $semaine<10?'0'.$semaine:$semaine ?>" ></div>
+                <div><input type="week" data-target="index" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php
+                        if ($semaine < 10) {
+                            echo "0".$semaine
+                        }else{
+                            echo $semaine
+                        }
+                    ?>" ></div>
                 <div class="left">
                     <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
                 </div>
