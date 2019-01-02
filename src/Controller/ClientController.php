@@ -144,8 +144,14 @@ class ClientController extends AppController
                     $result = $this->getFitnetLink("/FitnetManager/rest/customers/".$id_fit);
                     // décode du résultat json
                     $vars = json_decode($result, true);
-                    // sauvegarde des résultats trouvés
-                    $found = array_merge($found, $vars);
+
+                    if (is_array($vars)) {
+                        // sauvegarde des résultats trouvés
+                        $found = array_merge($found, $vars);
+                    }else{
+                        $this->response->withStatus(403);
+                        return $this->response;
+                    }
                 }
             }
         }
