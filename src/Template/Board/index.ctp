@@ -20,7 +20,7 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Export', 'content'=>'Export csv', 'img'=>'008-excel-file.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.cp')]),
+            ['title' => 'Export', 'content'=>'Export csv', 'img'=>'008-excel-file.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.intern')]),
             ['controller' => 'Temps', 'action' => 'export'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
