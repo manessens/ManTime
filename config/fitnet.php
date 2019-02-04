@@ -2,8 +2,8 @@
 return [
     'fitnet' => [
         // @TODO Ajouter un compte admin fitnet
-        'login'=>'',
-        'password'=>'',
+        'login'=>'testexterne@manessens.com',
+        'password'=>'motdepasse',
         'base'=>'https://manessens.fitnetmanager.com/',
         'wait'=>'Attente',
         'end'=>'Terminé',
