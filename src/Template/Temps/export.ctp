@@ -25,8 +25,8 @@
             if($this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.cp')){
                 echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
             }else{
-                echo $this->Form->select('user', [$this->request->session()->read('Auth.User.idu')=>$this->request->session()->read('Auth.User.FullName')], ['label' => 'Consultant']);
-
+                echo $this->Form->label('user','Consultant');
+                echo $this->Form->select('user', [$this->request->session()->read('Auth.User.idu')=>$this->request->session()->read('Auth.User.fullName')], ['label' => 'Consultant']);
             }
         ?>
         </div>
