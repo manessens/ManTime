@@ -145,7 +145,7 @@ class ClientController extends AppController
                     // décode du résultat json
                     $vars = json_decode($result, true);
 
-                    if (is_array($vars) && !empty($vars)) {
+                    if (is_array($vars)) {
                         // sauvegarde des résultats trouvés
                         $found = array_merge($found, $vars);
                     }else{

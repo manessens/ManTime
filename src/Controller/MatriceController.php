@@ -124,9 +124,9 @@ class MatriceController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $clientTable = TableRegistry::get('Client');
-        $testClient = $clientTable->find('all')->where(['idm =' => $id])->toArray();
-        if (!empty($testClient)) {
+        $this->loadModel('Projet');
+        $testProj = $this->Projet->find('all')->where(['idm =' => $id])->toArray();
+        if (!empty($testProj)) {
             $this->Flash->error(__("La matrice n'a pus être supprimée. Assurez-vous qu'elle ne soit pas utilisée avant de réessayer."));
             return $this->redirect(['action' => 'index']);
         }

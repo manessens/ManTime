@@ -1,5 +1,6 @@
 <?php
 return [
+    // PREPROD
     'fitnet' => [
         // @TODO Ajouter un compte admin fitnet
         'login'=>'testexterne@manessens.com',
