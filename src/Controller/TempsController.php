@@ -190,6 +190,8 @@ class TempsController extends AppController
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
+        $semaine = strlen($semaine)<=1?'0'.$semaine:$semaine ;
+
         $this->set(compact('week'));
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
@@ -410,6 +412,8 @@ class TempsController extends AppController
         asort($arrayRetour['clients']);
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
+
+        $semaine = strlen($semaine)<=1?'0'.$semaine:$semaine ;
 
         // $this->set(compact('temps'));
         $this->set(compact('week'));

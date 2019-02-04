@@ -144,16 +144,24 @@ class ClientController extends AppController
                     $result = $this->getFitnetLink("/FitnetManager/rest/customers/".$id_fit);
                     // décode du résultat json
                     $vars = json_decode($result, true);
-                    // sauvegarde des résultats trouvés
-                    $found = array_merge($found, $vars);
+
+                    if (is_array($vars)) {
+                        // sauvegarde des résultats trouvés
+                        $found = array_merge($found, $vars);
+                    }else{
+                        // on notifie l'utilisateur qu'une erreur est survenu
+                        $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
+                    }
                 }
             }
         }
 
         $select2 = array();
         //remise en forme du tableau
-        foreach ($found as $value) {
-            $select2[]=array('id'=>$value['clientId'], 'text'=>$value['name']);
+        if (!empty($found)) {
+            foreach ($found as $value) {
+                $select2[]=array('id'=>$value['clientId'], 'text'=>$value['name']);
+            }
         }
 
         // réencodage pour renvoie au script ajax

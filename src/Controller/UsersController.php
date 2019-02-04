@@ -243,6 +243,18 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function cksession(){
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+        $retour = false;
+        if ($this->request->is(['GET'])) {
+            $session = $this->request->session();
+            $retour = $session->check('Auth.User');
+        }
+        return $this->response->withStringBody($retour);
+    }
+
     public function getEmployeeFitnet(){
         $found = [];
 
@@ -291,7 +303,7 @@ class UsersController extends AppController
             return false;
         }
 
-        if ( in_array($action, ['profil']) ) {
+        if ( in_array($action, ['cksession', 'profil']) ) {
             return true;
         }
 

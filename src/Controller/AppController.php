@@ -51,7 +51,11 @@ class AppController extends Controller
         }
         $url=$base . $url ;
         // appel de la requête
-        $result = file_get_contents($url, false, $context);
+        $result = @file_get_contents($url, false, $context);
+        if($result === FALSE){
+            $result = 'error';
+        }
+
         // résultat
         return $result;
     }
@@ -101,7 +105,7 @@ class AppController extends Controller
 
         // Permet à l'action "display" de notre PagesController de continuer
         // à fonctionner. Autorise également les actions "read-only".
-        $this->Auth->allow(['display','login']);
+        $this->Auth->allow(['display','login', 'cksession']);
     }
 
     public function isAuthorized($user)

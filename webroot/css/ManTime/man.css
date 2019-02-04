@@ -1,3 +1,52 @@
+/* RECHARTRAGE */
+#topofpage{
+    background-color: #E92C3B !important;
+}
+.top-bar.expanded .title-area{
+    background-color: #424351 !important;
+}
+.red-ul a{
+    background-color: #E92C3B !important;
+}
+.red-ul a:hover{
+    background-color: #F06C76 !important;
+}
+.red-ul a:visited{
+    background-color: #E92C3B !important;
+}
+.panel-red{
+    border-color: #E92C3B !important;
+}
+.panel-red .panel-heading{
+    border-color: #F06C76 !important;
+    background-color: #424351 !important;
+}
+table:not(.vertical-table) tr th {
+    border-bottom: 2px solid #E92C3B !important;
+}
+table thead tr {
+    border-bottom: 1px solid #E92C3B !important;
+}
+legend{
+    color: #424351 !important;
+}
+li{
+    color: #424351 !important;
+}
+ul.side-nav li a{
+    color: #424351 !important;
+}
+th a{
+    color: #424351 !important;
+}
+fieldset legend{
+    border-bottom: 2px solid #E92C3B !important;
+}
+.vertical-table th{
+    color: #424351 !important;
+}
+
+/* OTHER  */
 .btn a{
     color: white !important;
 }
@@ -149,7 +198,7 @@ table tfoot tr th{
 }
 
 .semaine{
-    background-color: #337ab7 !important;
+    background-color: #424351 !important;
     width: 65px !important;
     color: white;
     text-align: center;
@@ -185,7 +234,7 @@ table tfoot tr th{
 }
 
 .newUser{
-    background-color: #b4deea !important
+    background-color: #eab4b6 !important
 }
 .menu_fixed{
     position: fixed;

@@ -68,7 +68,7 @@
     <?php endif; ?>
     <?= $this->Form->create() ?>
         <div class="block col-xs-12">
-            <div class="col-xs-2"><div class="left badge back-success"><?= h($fullNameUserAuth) ?></div></div>
+            <div class="col-xs-2"><div class="left badge back-default"><?= h($fullNameUserAuth) ?></div></div>
             <div class="controler right">
                 <div><input type="week" data-target="index" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
                 <div class="left">
@@ -77,18 +77,18 @@
                 <div class="weeker_admin right">
                     <div class="right">
                         <?php if ($semaine-1 < 1 ): ?>
-                            <?= $this->Html->link(__('<'), ['action' => 'index', 52, $annee-1], ['class' => 'btn btn-success']) ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'index', 52, $annee-1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
-                            <?= $this->Html->link(__('<'), ['action' => 'index', $semaine-1, $annee], ['class' => 'btn btn-success']) ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'index', $semaine-1, $annee], ['class' => 'btn btn-danger']) ?>
                         <?php endif; ?>
                         <?php
                             $dimanche->modify('-1 day');
                             echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM'));
                         ?>
                         <?php if ($semaine+1 > 52 ): ?>
-                            <?= $this->Html->link(__('>'), ['action' => 'index', 1, $annee+1], ['class' => 'btn btn-success']) ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'index', 1, $annee+1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
-                            <?= $this->Html->link(__('>'), ['action' => 'index', $semaine+1, $annee], ['class' => 'btn btn-success']) ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'index', $semaine+1, $annee], ['class' => 'btn btn-danger']) ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
                 <tr id="total">
                     <td scope="col" class="actions">
                     <?php if (!$validat): ?>
-                        <button id="add" type="button" class="btn btn-success">+</button>
+                        <button id="add" type="button" class="btn btn-info">+</button>
                     <?php endif; ?>
                     </th>
                     <td scope="col"></td>

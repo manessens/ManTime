@@ -10,3 +10,6 @@
     RewriteRule    ^$    webroot/    [L]
     RewriteRule    (.*) webroot/$1    [L]
 </IfModule>
+
+php_value upload_max_filesize    110M
+php_value post_max_size          120M

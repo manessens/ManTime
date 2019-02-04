@@ -21,7 +21,7 @@ $( "form" ).on('submit',function (e){
         var modal = new ModalWindow({
             Title: "Validation semaine",
             Message: "Vous avez coché la validation, vous ne pourrez plus faire de Modification par la suite, êtes vous sûr de vouloir continuer ?",
-            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
+            Buttons: [["btn-danger admin", 'Non', 'false'], ["btn-primary admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
                     alertVerouillage = false;
@@ -158,6 +158,14 @@ function modifyProject(that) {
 
 $( ".remove" ).click(function(){
     delLine(this);
+    $.ajax({
+        type: "GET",
+        url: "/users/cksession/"
+    }).done(function( data ) {
+        if ( !data ) {    //fail (success : no effectt)
+            document.location.replace('/users/login');
+        }
+    });
 });
 
 function delLine(that) {
@@ -167,6 +175,14 @@ function delLine(that) {
 
 $( "#add" ).click(function(){
     addLine(this);
+    $.ajax({
+        type: "GET",
+        url: "/users/cksession/"
+    }).done(function( data ) {
+        if ( !data ) {    //fail (success : no effectt)
+            document.location.replace('/users/login');
+        }
+    });
 });
 
 function findLastId(){
