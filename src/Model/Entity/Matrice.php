@@ -24,6 +24,7 @@ class Matrice extends Entity
      * @var array
      */
     protected $_accessible = [
+        'idm' => true,
         'nom_matrice' => true,
         'lign_mat' => true
     ];
