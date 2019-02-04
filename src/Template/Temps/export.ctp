@@ -23,7 +23,7 @@
         <div class="input text col-xs-6">
         <?php
             if($this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.admin')){
-                echo $this->Form->select('user', [$this->request->session()->read('Auth.User.idu')=>$this->request->session()->read('Auth.User.FullName')], ['label' => 'Consultant']);
+                echo $this->Form->select('user', [1=>'test'], ['label' => 'Consultant']);
             }else{
                 echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
             }
