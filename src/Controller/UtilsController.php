@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Form\AuthfitForm;
 use Cake\I18n\Date;
 
 
@@ -58,6 +59,15 @@ class UtilsController extends AppController
 
     public function authfit()
     {
+        $form = new AuthfitForm();
+        if ($this->request->is(['post'])) {
+            $arrayData = $this->request->getData();
+
+            $isValid = $form->validate($arrayData);
+        }
+
+
+        $this->set('form', $form);
         $this->set('controller', false);
     }
 
