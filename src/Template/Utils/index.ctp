@@ -6,14 +6,12 @@
 ?>
 
 <div class="col-xs-12 new_content content">
-    <legend>
-        <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('soumission personalisée') ?></span> semaine #<span id='nsemaine'><?php echo $semaine ?></span> - <span id="nannee"><?php echo $annee ?></span>
-    </legend>
+    <legend><?= __('Utilitaires') ?></legend>
     <div class="col-xs-10">
         <div class="list-group">
-          <a href="/utils/sendtime" class="list-group-item">First item</a>
-          <a href="#" class="list-group-item">Second item</a>
-          <a href="#" class="list-group-item">Third item</a>
+          <a href="/utils/sendtime" class="list-group-item"><?= __('Soumission des temps personalisée') ?></a>
+          <a href="/utils/authfit" class="list-group-item"><?= __('Authentificateur pour fitnet') ?></a>
+          <!-- <a href="#" class="list-group-item">Third item</a> -->
         </div>
     </div>
 </div>
