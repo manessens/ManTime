@@ -7,12 +7,11 @@
 
 <div class="col-xs-12 new_content content">
     <legend>
-        <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('Authorisation Fitnet') ?></span> semaine #<span id='nsemaine'><?php echo $semaine ?></span> - <span id="nannee"><?php echo $annee ?></span>
+        <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('Authorisation Fitnet') ?></span>
     </legend>
     <div class="col-xs-10">
         <?= $this->Form->create($form) ?>
         <fieldset>
-            <legend><?= __('Modifier votre Mot de passe');?> <?=  h($user->email); ?></legend>
             <?php
                 echo $this->Form->control('login',['label' => 'Login Fitnet']);
                 echo $this->Form->control('password', ['label' => 'Password Fitnet', 'type'=>'password']);
