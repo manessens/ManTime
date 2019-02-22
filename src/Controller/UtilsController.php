@@ -56,7 +56,7 @@ class UtilsController extends AppController
         $this->set(compact('usersN'));
     }
 
-    public function sendtime()
+    public function authfit()
     {
         $this->set('controller', false);
     }
