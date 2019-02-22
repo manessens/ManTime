@@ -56,6 +56,11 @@ class UtilsController extends AppController
         $this->set(compact('usersN'));
     }
 
+    public function sendtime()
+    {
+        $this->set('controller', false);
+    }
+
     public function setActivUser(){
         if( $this->request->is('ajax') ) {
             $this->autoRender = false; // Pas de rendu
