@@ -28,8 +28,8 @@
             }else{
                 echo $this->Form->label('user','Consultant');
                 echo $this->Form->select('user', [
-                    $this->request->session()->read('Auth.User.idu')=>$this->request->session()->read('Auth.User.prenom')
-                .' '.$this->request->session()->read('Auth.User.nom')], ['label' => 'Consultant']);
+                    $this->request->session()->read('Auth.User.idu')=>ucfirst($this->request->session()->read('Auth.User.prenom'))
+                .' '.strtoupper($this->request->session()->read('Auth.User.nom'))], ['label' => 'Consultant']);
             }
         ?>
         </div>
