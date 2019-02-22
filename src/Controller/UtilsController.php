@@ -10,6 +10,11 @@ class UtilsController extends AppController
 {
     public function index()
     {
+        $this->set('controller', false);
+    }
+
+    public function sendtime()
+    {
         $semaine = null;
         $annee = null;
         if ($this->request->is('post')) {
