@@ -27,8 +27,9 @@
                 echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
             }else{
                 echo $this->Form->label('user','Consultant');
-                echo $this->Form->select('user', [$this->request->session()->read('Auth.User.idu')=>$this->request->session()->read('Auth.User.Name')], ['label' => 'Consultant']);
-                debug($this->request->session()->read('Auth.User'));
+                echo $this->Form->select('user', [
+                    $this->request->session()->read('Auth.User.idu')=>$this->request->session()->read('Auth.User.prenom')
+                +' '+$this->request->session()->read('Auth.User.nom')], ['label' => 'Consultant']);
             }
         ?>
         </div>
