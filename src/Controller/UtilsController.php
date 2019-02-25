@@ -59,13 +59,21 @@ class UtilsController extends AppController
 
     public function authfit()
     {
+        $this->Cookie->config('Authfit', 'path', '/');
+        $this->Cookie->configKey('Authfit', [
+            'expires' => '1 hour',
+            'httpOnly' => true
+        ]);
         $form = new AuthfitForm();
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
-
             $isValid = $form->validate($arrayData);
+            if ($isValid){
+                $this->Cookie->write('Authfit',$arrayData);
+                // DEBUG: vérification des donnée
+                debug($this->Cookie->read('Authfit'));
+            }
         }
-
 
         $this->set('form', $form);
         $this->set('controller', false);
