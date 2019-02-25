@@ -34,14 +34,14 @@ class AppController extends Controller
     protected function getFitnetLink( $url ){
         //récupération des lgoin/mdp du compte admin de fitnet
         // ****** authentification par interface temporaire ******
-
+        
         // $username = Configure::read('fitnet.login');
         // $password = Configure::read('fitnet.password');
 
         $this->loadComponent('Cookie', ['expires' => '1 hour']);
         $dataCo = $this->Cookie->read('User');
-        $username = $dataCo['loginFit'];
-        $password = $dataCo['passwordFit'];
+        $username = $dataCo['login'];
+        $password = $dataCo['password'];
         // ****** authentification par interface temporaire ******
 
         // préparation de l'en-tête pour la basic auth de fitnet

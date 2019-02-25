@@ -13,8 +13,8 @@
         <?= $this->Form->create($form) ?>
         <fieldset>
             <?php
-                echo $this->Form->control('loginFit',['label' => 'Login Fitnet']);
-                echo $this->Form->control('passwordFit', ['label' => 'Password Fitnet', 'type'=>'password']);
+                echo $this->Form->control('login',['label' => 'Login Fitnet']);
+                echo $this->Form->control('password', ['label' => 'Password Fitnet', 'type'=>'password']);
             ?>
             <?= $this->Form->button(__('Autoriser pour 1h'), ['class' => 'btn btn-primary']) ?>
         </fieldset>
