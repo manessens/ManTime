@@ -10,6 +10,18 @@ use Cake\Controller\Component\CookieComponent;
 
 class UtilsController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Cookie', ['expires' => '1 hour']);
+        $this->Cookie->config('Authfit', 'path', '/');
+        $this->Cookie->configKey('Authfit', [
+            'expires' => '1 hour',
+            'httpOnly' => true
+        ]);
+    }
+
     public function index()
     {
         $this->set('controller', false);
@@ -60,11 +72,6 @@ class UtilsController extends AppController
 
     public function authfit()
     {
-        $this->Cookie->config('Authfit', 'path', '/');
-        $this->Cookie->configKey('Authfit', [
-            'expires' => '1 hour',
-            'httpOnly' => true
-        ]);
         $form = new AuthfitForm();
         if ($this->request->is(['post'])) {
             $arrayData = $this->request->getData();
