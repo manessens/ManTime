@@ -77,6 +77,15 @@ class UtilsController extends AppController
             $isValid = $form->validate($arrayData);
             if ($isValid){
                 $this->Cookie->delete('Authfit');
+
+                $result = $this->getFitnetLink("/FitnetManager/rest/employees");
+                $vars = json_decode($result, true);
+                if (is_array($vars)) {
+                    $this->Flash->success(__('Permission de dialogue avec fitnet accordée pour 1h.'));
+                }else{
+                    $this->Flash->error(__("Les informations de connection n'ont pas permi l'utilisation des API Fitnet."));
+                }
+
                 $this->Cookie->write('Authfit', $arrayData);
             }
         }
