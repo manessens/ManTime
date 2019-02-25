@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use App\Form\AuthfitForm;
 use Cake\I18n\Date;
-use Cake\Controller\Component\CookieComponent;
 
 
 class UtilsController extends AppController
