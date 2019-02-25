@@ -251,7 +251,7 @@ class ProjetController extends AppController
         //remise en forme du tableau
         foreach ($found as $value) {
             if ($value == 'error') {
-                $select2 = [];
+                $select2 = ['select'=>'error'];
                 break;
             }
             if ($value['customerId'] == $client->id_fit or $client->id_fit == null) {
