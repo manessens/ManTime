@@ -78,6 +78,7 @@ class UtilsController extends AppController
             if ($isValid){
                 $this->Cookie->delete('Authfit');
                 $this->Cookie->write('Authfit', $arrayData);
+                debug($dataCo = $this->Cookie->read('Authfit'));
             }
         }
 

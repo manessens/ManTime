@@ -40,6 +40,7 @@ class AppController extends Controller
 
         $this->loadComponent('Cookie', ['expires' => '1 hour']);
         $dataCo = $this->Cookie->read('Authfit');
+        debug($dataCo);
         $username = $dataCo['login'];
         $password = $dataCo['password'];
         // ****** authentification par interface temporaire ******
