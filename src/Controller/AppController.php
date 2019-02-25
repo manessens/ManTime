@@ -38,9 +38,9 @@ class AppController extends Controller
         // $username = Configure::read('fitnet.login');
         // $password = Configure::read('fitnet.password');
 
-        $this->loadComponent('Cookie', ['expires' => '1 hour']);
+        $this->loadComponent('Cookie');
         $dataCo = $this->Cookie->read('Authfit');
-        
+
         $username = $dataCo['login'];
         $password = $dataCo['password'];
         // ****** authentification par interface temporaire ******
