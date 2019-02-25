@@ -272,9 +272,6 @@ class UsersController extends AppController
                 $vars = json_decode($result, true);
                 if (is_array($vars)) {
                     $key_found = array_search($mail, array_column($vars, 'email'));
-                    
-                    debug($mail);
-                    debug($key_found);
 
                     if ($key_found === false) {
                         $found = [];
