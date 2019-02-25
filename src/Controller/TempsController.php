@@ -1147,7 +1147,8 @@ class TempsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['export']) && $user['role'] >= Configure::read('role.cp') ) {
+        // if (in_array($action, ['export']) && $user['role'] >= Configure::read('role.cp') ) {
+        if (in_array($action, ['export'])) {
             return true;
         }
 

@@ -270,12 +270,16 @@ class UsersController extends AppController
                 $result = $this->getFitnetLink("/FitnetManager/rest/employees");
                 // décode du résultat json
                 $vars = json_decode($result, true);
-                $key_found = array_search($mail, array_column($vars, 'email'));
+                if (is_array($vars)) {
+                    $key_found = array_search($mail, array_column($vars, 'email'));
 
-                if ($key_found === false) {
-                    $found = [];
+                    if ($key_found === false) {
+                        $found = [];
+                    }else{
+                        $found = $vars[$key_found];
+                    }
                 }else{
-                    $found = $vars[$key_found];
+                    $found = ['employee_id'=>'error'];
                 }
             }
         }

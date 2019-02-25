@@ -22,7 +22,15 @@
 
         <div class="input text col-xs-6">
         <?php
-            echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
+            // @TODO : ajuster le select user + filtrer le user Client?
+            if($this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.cp')){
+                echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
+            }else{
+                echo $this->Form->label('user','Consultant');
+                echo $this->Form->select('user', [
+                    $this->request->session()->read('Auth.User.idu')=>ucfirst($this->request->session()->read('Auth.User.prenom'))
+                .' '.strtoupper($this->request->session()->read('Auth.User.nom'))], ['label' => 'Consultant']);
+            }
         ?>
         </div>
         <div class="input col-xs-6 left">

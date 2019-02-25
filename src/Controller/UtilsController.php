@@ -3,12 +3,29 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Form\AuthfitForm;
 use Cake\I18n\Date;
-
 
 class UtilsController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Cookie', ['expires' => '1 hour']);
+        $this->Cookie->config('Authfit', 'path', '/');
+        $this->Cookie->configKey('Authfit', [
+            'expires' => '1 hour',
+            'httpOnly' => true
+        ]);
+    }
+
     public function index()
+    {
+        $this->set('controller', false);
+    }
+
+    public function sendtime()
     {
         $semaine = null;
         $annee = null;
@@ -49,6 +66,31 @@ class UtilsController extends AppController
         $this->set(compact('annee'));
         $this->set(compact('usersV'));
         $this->set(compact('usersN'));
+    }
+
+    public function authfit()
+    {
+        $form = new AuthfitForm();
+        if ($this->request->is(['post'])) {
+            $arrayData = $this->request->getData();
+            $isValid = $form->validate($arrayData);
+            if ($isValid){
+                $this->Cookie->delete('Authfit');
+                $this->Cookie->write('Authfit', $arrayData);
+
+                $result = $this->getFitnetLink("/FitnetManager/rest/employees");
+                $vars = json_decode($result, true);
+                if (is_array($vars)) {
+                    $this->Flash->success(__('Permission de dialogue avec fitnet accordée pour 1h.'));
+                }else{
+                    $this->Flash->error(__("Les informations de connection n'ont pas permi l'utilisation des API Fitnet."));
+                }
+
+            }
+        }
+
+        $this->set('form', $form);
+        $this->set('controller', false);
     }
 
     public function setActivUser(){
@@ -109,7 +151,7 @@ class UtilsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'setUnactivUser', 'setActivUser']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
+        if (in_array($action, ['index', 'sendtime', 'authfit', 'setUnactivUser', 'setActivUser']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 

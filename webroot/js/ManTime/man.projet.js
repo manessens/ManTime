@@ -111,7 +111,11 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data['select']) ) {    //success
-                updateSelect(data);
+                if (data['select']=='error') {
+                    $('#id-fit').val('error');
+                }else{
+                    updateSelect(data);
+                }
             }else{                                  // fail
                 eraseSelect();
             }

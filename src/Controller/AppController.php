@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\Controller\Component\CookieComponent;
 
 
 /**
@@ -32,8 +33,17 @@ class AppController extends Controller
 
     protected function getFitnetLink( $url ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('fitnet.login');
-        $password = Configure::read('fitnet.password');
+        // ****** authentification par interface temporaire ******
+
+        // $username = Configure::read('fitnet.login');
+        // $password = Configure::read('fitnet.password');
+
+        $this->loadComponent('Cookie');
+        $dataCo = $this->Cookie->read('Authfit');
+
+        $username = $dataCo['login'];
+        $password = $dataCo['password'];
+        // ****** authentification par interface temporaire ******
 
         // préparation de l'en-tête pour la basic auth de fitnet
         $opts = array(

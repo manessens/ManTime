@@ -232,16 +232,16 @@ class ProjetController extends AppController
                 ]);
                 $id_fit = $client->agence->id_fit;
 
-                // séparation des id_agence fitnet
-                $ids = explode(';', $id_fit);
-                foreach($ids as $id){
-                    if ($id != "") {
-                        // appel de la requête
-                        $result = $this->getFitnetLink("/FitnetManager/rest/contracts/".$id);
-                        // décode du résultat json
-                        $vars = json_decode($result, true);
+                if ($id_fit != "") {
+                    // appel de la requête
+                    $result = $this->getFitnetLink("/FitnetManager/rest/contracts/".$id_fit);
+                    // décode du résultat json
+                    $vars = json_decode($result, true);
+                    if (is_array($vars)) {
                         // sauvegarde des résultats trouvés
-                        $found = array_merge($found, $vars);
+                        $found = $vars;
+                    }else{
+                        $found = ['employee_id'=>'error'];
                     }
                 }
             }
@@ -250,6 +250,10 @@ class ProjetController extends AppController
         $select2 = ['select' => array(), 'projects' => array()];
         //remise en forme du tableau
         foreach ($found as $value) {
+            if ($value == 'error') {
+                $select2 = ['select'=>'error'];
+                break;
+            }
             if ($value['customerId'] == $client->id_fit or $client->id_fit == null) {
                 $select2['select'][]=array('id'=>$value['contractId'], 'text'=>$value['title']);
                 $select2['projects'][$value['contractId']]=$value;
