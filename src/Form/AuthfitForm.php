@@ -11,15 +11,15 @@ class AuthfitForm extends Form
     protected function _buildSchema(Schema $schema)
     {
         $schema
-            ->addField('login', ['type' => 'string'])
-            ->addField('password', ['type' => 'string']);
+            ->addField('loginFit', ['type' => 'string'])
+            ->addField('passwordFit', ['type' => 'string']);
         return $schema;
     }
 
     protected function _buildValidator(Validator $validator)
     {
-        $validator->requirePresence('login', 'create');
-        $validator->requirePresence('password', 'create');
+        $validator->requirePresence('loginFit', 'create');
+        $validator->requirePresence('passwordFit', 'create');
         return $validator;
     }
 
