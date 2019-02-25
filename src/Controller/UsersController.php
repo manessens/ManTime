@@ -279,7 +279,7 @@ class UsersController extends AppController
                         $found = $vars[$key_found];
                     }
                 }else{
-                    $found = ['error'];
+                    $found = ['employee_id'=>'error'];
                 }
             }
         }

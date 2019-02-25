@@ -70,7 +70,9 @@ function init(){
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
                 $('#id-fit').val(data.employee_id);
-                $('#linker').removeClass('btn-primary').addClass('btn-success');
+                if(data.employee_id != 'error'){
+                    $('#linker').removeClass('btn-primary').addClass('btn-success');
+                }
             }else{                                  // fail
                 resetFitnet();
             }
