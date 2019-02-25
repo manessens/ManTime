@@ -128,6 +128,7 @@ class ClientController extends AppController
             $this->autoRender = false; // Pas de rendu
         }
 
+        $select2 = array();
         if ($this->request->is(['get'])) {
 
             $id_agence = $this->request->query["agence"];
@@ -156,7 +157,6 @@ class ClientController extends AppController
             }
         }
 
-        $select2 = array();
         //remise en forme du tableau
         if (!empty($found)) {
             foreach ($found as $value) {
