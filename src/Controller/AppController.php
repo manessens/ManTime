@@ -32,8 +32,11 @@ class AppController extends Controller
 
     protected function getFitnetLink( $url ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('fitnet.login');
-        $password = Configure::read('fitnet.password');
+        // $username = Configure::read('fitnet.login');
+        // $password = Configure::read('fitnet.password');
+        $dataCo = $this->Cookie->read('User');
+        $username = $dataCo['login'];
+        $password = $dataCo['password'];
 
         // préparation de l'en-tête pour la basic auth de fitnet
         $opts = array(

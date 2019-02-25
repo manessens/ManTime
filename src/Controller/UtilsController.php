@@ -77,9 +77,8 @@ class UtilsController extends AppController
             $arrayData = $this->request->getData();
             $isValid = $form->validate($arrayData);
             if ($isValid){
-                $this->Cookie->write('Authfit',$arrayData);
-                // DEBUG: vérification des donnée
-                debug($this->Cookie->read('Authfit'));
+                $this->Cookie->delete('Authfit');
+                $this->Cookie->write('Authfit', $arrayData);
             }
         }
 
