@@ -112,7 +112,7 @@ function init(){
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data['select']) ) {    //success
                 if (data['select']=='error') {
-                    $('#id-fit').val(val);
+                    $('#id-fit').val('error');
                 }else{
                     updateSelect(data);
                 }
