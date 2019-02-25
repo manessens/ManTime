@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use App\Form\AuthfitForm;
 use Cake\I18n\Date;
-use Cake\Http\Middleware\EncryptedCookieMiddleware;
-
 
 class UtilsController extends AppController
 {
@@ -20,13 +18,6 @@ class UtilsController extends AppController
             'expires' => '1 hour',
             'httpOnly' => true
         ]);
-        $cookies = new EncryptedCookieMiddleware(
-            // Noms des cookies à protéger
-            ['Authfit'],
-            \Cake\Core\Configure::read('Security.cookieKey')
-        );
-
-        $middlewareQueue->add($cookies);
     }
 
     public function index()
