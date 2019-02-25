@@ -55,10 +55,13 @@ class TempsController extends AppController
                 ->contain(['Projet' => ['Client']])
                 ->all();
 
+                debug($arrayTemps);
+
         $buff = array();
         foreach ($arrayTemps as $temps) {
             $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
         }
+                        debug($buff);
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserAuth);
         $week = $retour[0];
         $validat = $retour[1];
