@@ -8,6 +8,7 @@
 /webroot/index.php
 /webroot/.htaccess
 .htaccess
+composer.lock
 
 # cakePHP perso files #
 /src/Application.php
@@ -23,6 +24,10 @@ Icon?
 ehthumbs.db
 Thumbs.db
 nohup.out
+config/fitnet.php
+/nohup.out
+/src/Application.php
+webroot/.htaccess
 
 # Tool specific files #
 #######################
