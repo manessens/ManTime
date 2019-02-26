@@ -51,6 +51,6 @@ class Projet extends Entity
 
     protected function _getProjname()
     {
-        return str_replace('.', '_', $this->_properties['nom_projet']);
+        return str_replace('_', '.', $this->_properties['nom_projet']);
     }
 }
