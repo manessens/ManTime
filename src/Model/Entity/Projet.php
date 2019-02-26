@@ -48,4 +48,9 @@ class Projet extends Entity
         'matrice' => true,
         'prix' => true
     ];
+
+    protected function _getProjname()
+    {
+        return str_replace('_', '.', $this->_properties['nom_projet']);
+    }
 }
