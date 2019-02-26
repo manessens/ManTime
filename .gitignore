@@ -9,12 +9,15 @@
 /webroot/.htaccess
 .htaccess
 composer.lock
+.gitignore
+
 
 # cakePHP perso files #
 /src/Application.php
 
 ######################
 /config/fitnet.php
+config/fitnet.php
 
 # OS generated files #
 ######################
