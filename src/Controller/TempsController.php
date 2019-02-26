@@ -693,6 +693,7 @@ class TempsController extends AppController
     }
 
     public function export(){
+        $idUserAuth = $this->Auth->user('idu');
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
         $arrayClient = $clientTable->find('all')->contain(['Agence'])->toArray();
@@ -804,6 +805,7 @@ class TempsController extends AppController
     private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient, $userOrigine)
     {
         $this->loadModel('Users');
+        $idUserAuth = $this->Auth->user('idu');
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
