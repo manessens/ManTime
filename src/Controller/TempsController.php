@@ -584,7 +584,7 @@ class TempsController extends AppController
         $this->loadModel('Projet');
         $idp = explode('.', $id)[2];
         $project = $this->Projet->get($idp);
-        return $this->response->withStringBody($project->projname);
+        return $this->response->withStringBody($project->nom_projet);
     }
 
     public function getClientName($id){

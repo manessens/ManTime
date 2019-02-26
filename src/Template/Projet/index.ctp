@@ -24,7 +24,7 @@
             <?php foreach ($projet as $projet): ?>
             <tr>
                 <td><?= h($projet->client->nom_client) ?></td>
-                <td><?= h($projet->nom_projet) ?></td>
+                <td><?= h($projet->projname) ?></td>
                 <td><?= $this->element('link2fitnet', ['idf'=>$projet->id_fit]) ?></td>
                 <td><?= h($projet->facturable->nom_fact) ?></td>
                 <td><?= h($projet->matrice->nom_matrice) ?></td>

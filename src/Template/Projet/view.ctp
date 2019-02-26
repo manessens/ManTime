@@ -27,7 +27,7 @@
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Nom_projet') ?></th>
-            <td><?= h($projet->nom_projet) ?></td>
+            <td><?= h($projet->projname) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Client') ?></th>
