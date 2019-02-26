@@ -123,6 +123,7 @@ class ProjetController extends AppController
                 'contain' => ['Activities', 'Participant' ]
             ]);
         }
+        $projet->nom_projet = str_replace('_', '.', $projet->nom_projet);
         // Si envoie du formulaire : update table
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
