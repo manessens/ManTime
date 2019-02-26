@@ -753,7 +753,7 @@ class TempsController extends AppController
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient, $userOrigine);
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
-                    if ( !$arrayData['fitnet'] || $this->Users->get($idUserAuth)->role >= Configure::read('role.cp') ) {
+                    if ( !$arrayData['fitnet'] ) {
                         $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
                     }
                     $headerFix = ['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails'), 'Agence', 'Facturable', 'Origine'];
