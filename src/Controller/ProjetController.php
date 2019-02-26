@@ -81,6 +81,7 @@ class ProjetController extends AppController
                 if ($this->updateParticipant($projet, $data['participant'])
                 && $this->updateActivities($projet, $data['activities']) ){
                     //sauvegarde après mise à jour des listes
+                    $projet->nom_projet = str_replace('.', '_', $projet->nom_projet);
                     $this->Projet->save($projet);
                     $this->Flash->success(__('Le projet à été sauvegardé avec succés.'));
 
@@ -135,6 +136,7 @@ class ProjetController extends AppController
             // mise à jour des relation hasMany
             if ($this->updateParticipant($projet, $data['participant'])
             && $this->updateActivities($projet, $data['activities']) ){
+                $projet->nom_projet = str_replace('.', '_', $projet->nom_projet);
                 if ( $this->Projet->save($projet) ) {
                     $this->Flash->success(__('Le projet à été sauvegardé avec succés.'));
                     //retour à la liste en cas de succés
