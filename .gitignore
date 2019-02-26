@@ -12,6 +12,9 @@
 # cakePHP perso files #
 /src/Application.php
 
+######################
+/config/fitnet.php
+
 # OS generated files #
 ######################
 .DS_Store
