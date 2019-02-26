@@ -752,7 +752,7 @@ class TempsController extends AppController
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient, $userOrigine);
             		$this->response->download($title.'.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
-                    if ( !$arrayData['fitnet']) {
+                    if ( !$arrayData['fitnet'] || $this->Users->get($idUserAuth)->role >= Configure::read('role.cp') ) {) {
                         $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
                     }
                     $headerFix = ['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails'), 'Agence', 'Facturable', 'Origine'];
@@ -803,6 +803,7 @@ class TempsController extends AppController
 
     private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient, $userOrigine)
     {
+        $this->loadModel('Users');
         $projetTable = TableRegistry::get('Projet');
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
@@ -879,8 +880,10 @@ class TempsController extends AppController
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
             $timeUO *= $this->getIncreaseDay($dateTime);
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
+            if ($this->Users->get($idUserAuth)->role >= Configure::read('role.cp') ) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
+            }
 
             ksort($data[$keyClient]);
             ksort($data[$keyClient][$keyProject]);
@@ -949,9 +952,11 @@ class TempsController extends AppController
                                         }
                                     }
                                 }
-                                $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
-                                if (!$isFitnet) {
-                                    $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                                if ($this->Users->get($idUserAuth)->role >= Configure::read('role.cp') ) {
+                                    $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
+                                    if (!$isFitnet) {
+                                        $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
+                                    }
                                 }
                                 $dataLine[] = array_merge($buffer, $timebufferMonth);
                             }
