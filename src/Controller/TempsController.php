@@ -807,7 +807,7 @@ class TempsController extends AppController
         $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
         foreach ($arrayprojects as $proj) {
-            $projects[$proj->idp] = $proj->nom_projet;
+            $projects[$proj->idp] = $proj->projname;
             $projectFact[$proj->idp] = $proj->facturable->nom_fact;
             $projectClients[$proj->idp] = $proj->idc;
         }
