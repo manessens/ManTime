@@ -127,7 +127,6 @@ class ProjetController extends AppController
         // Si envoie du formulaire : update table
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            debug($data);
             if ($data['ignore_fit']) {
                 $valFit = $projet->id_fit;
             }

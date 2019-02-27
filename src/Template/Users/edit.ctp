@@ -27,10 +27,15 @@
             // echo $this->Form->control('mdp');
             echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
-
+        ?>
+        <div class="content-fitnet-link">
+        <?php
             echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
-
          ?>
+        </div>
+         <div class="col-xs-12">
+             <?php echo $this->Form->control('ignore_fit', ["type" => 'checkbox', 'label' => ['text'=>'Ignorer lien fitnet']]); ?>
+         </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>

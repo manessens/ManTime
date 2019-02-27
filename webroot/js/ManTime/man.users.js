@@ -22,6 +22,19 @@ function initEmailModal(){
     })
 }
 
+function initIgnorFitnet(){
+    $( "#ignore-fit" ).on('change', function (e){
+        if($(this).is(':checked')){
+            $(this).attr('data-value', $('#id-fit').val());
+            $("#content-fitnet-link").hide();
+            resetFitnet();
+        }else{
+            $('#id-fit').val($(this).attr('data-value'));
+            $("#content-fitnet-link").show();
+        }
+    });
+}
+
 function initSelectRole(){
     $('select[name="role"] option').addClass('text-default');
     $('select[name="role"] option[value="20"]').removeClass('text-default').addClass('text-primary');
@@ -46,6 +59,7 @@ function init(){
     initResetFitnet();
     initEmailModal();
     initSelectRole();
+    initIgnorFitnet();
 
     $('#linkModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
