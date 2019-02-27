@@ -127,6 +127,7 @@ class ProjetController extends AppController
         // Si envoie du formulaire : update table
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
+            debug($data);
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             $data['date_fin'] = FrozenTime::parse($data['date_fin']);
 
