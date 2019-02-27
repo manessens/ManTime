@@ -29,7 +29,7 @@
                 <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
             </div>
          </div>
-         <?php echo $this->Form->control('ignore_fit', ["type" => 'checkbox', 'label' => ['text'=>'Ignorer lien fitnet']]); ?>
+         <?php echo $this->Form->control('ignore_fit', ["type" => 'checkbox','class'=> 'col-xs-12', 'label' => ['text'=>'Ignorer lien fitnet']]); ?>
          <!-- /FITNET/ -->
          <div class="input text required">
              <?php
