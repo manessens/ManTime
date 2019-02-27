@@ -28,7 +28,7 @@
             echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
         ?>
-        <div class="content-fitnet-link">
+        <div id="content-fitnet-link">
         <?php
             echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
          ?>
