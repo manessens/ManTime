@@ -24,6 +24,20 @@ function initcChangeClient(){
     }).change();
 }
 
+function initIgnorFitnet(){
+    $( "#ignore-fit" ).on('change', function (e){
+        if($(this).is(':checked')){
+            $(this).attr('data-value', $('#id-fit').val());
+            $("#content-fitnet-link").hide();
+            resetFitnet();
+        }else{
+            $('#id-fit').val($(this).attr('data-value'));
+            initSelectEdit()
+            $("#content-fitnet-link").show();
+        }
+    });
+}
+
 function initResetSelect(){
     $('#resetter').on('click',function(e){
         $("#liste_fitnet").val(null).trigger("change");
@@ -88,6 +102,7 @@ function init(){
     initcChangeClient();
     initChangeSelect2();
     initResetSelect();
+    initIgnorFitnet();
 
     $('#linkModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal

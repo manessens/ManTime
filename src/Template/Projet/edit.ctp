@@ -15,7 +15,7 @@
            ?>
        </div>
         <!-- FITNET -->
-        <div class="col-xs-12">
+        <div id="content-fitnet-link" class="col-xs-12">
             <div class="left">
                 <?php echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
             </div>
@@ -29,7 +29,9 @@
                 <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
             </div>
          </div>
-         <?php echo $this->Form->control('ignore_fit', ["type" => 'checkbox','class'=> 'col-xs-12', 'label' => ['text'=>'Ignorer lien fitnet']]); ?>
+         <div class="col-xs-12">
+             <?php echo $this->Form->control('ignore_fit', ["type" => 'checkbox', 'label' => ['text'=>'Ignorer lien fitnet']]); ?>
+         </div>
          <!-- /FITNET/ -->
          <div class="input text required">
              <?php
