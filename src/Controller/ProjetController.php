@@ -128,6 +128,10 @@ class ProjetController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             debug($data);
+            if ($data['ignore_fit']) {
+                $valFit = $projet->id_fit;
+            }
+
             $data['date_debut'] = FrozenTime::parse($data['date_debut']);
             $data['date_fin'] = FrozenTime::parse($data['date_fin']);
 
@@ -135,6 +139,9 @@ class ProjetController extends AppController
                 'associated' => ['Activities', 'Participant']
             ]);
 
+            if ($data['ignore_fit']) {
+                $projet->id_fit = $valFit;
+            }
             // mise à jour des relation hasMany
             if ($this->updateParticipant($projet, $data['participant'])
             && $this->updateActivities($projet, $data['activities']) ){
