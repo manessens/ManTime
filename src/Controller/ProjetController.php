@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 
 /**
  * Projet Controller
@@ -67,8 +67,8 @@ class ProjetController extends AppController
         $myActivities = array();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['date_debut'] = FrozenTime::parse($data['date_debut']);
-            $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $data['date_debut'] = FrozenDate::parse($data['date_debut']);
+            $data['date_fin'] = FrozenDate::parse($data['date_fin']);
             $myParticipants = $data['participant'];
             $myActivities = $data['activities'];
 
@@ -131,8 +131,8 @@ class ProjetController extends AppController
                 $valFit = $projet->id_fit;
             }
 
-            $data['date_debut'] = FrozenTime::parse($data['date_debut']);
-            $data['date_fin'] = FrozenTime::parse($data['date_fin']);
+            $data['date_debut'] = FrozenDate::parse($data['date_debut']);
+            $data['date_fin'] = FrozenDate::parse($data['date_fin']);
 
             $projet = $this->Projet->patchEntity($projet, $data,[
                 'associated' => ['Activities', 'Participant']
