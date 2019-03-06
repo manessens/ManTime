@@ -9,6 +9,7 @@ use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Http\Client;
 use Cake\Controller\Component\CookieComponent;
+use Cake\Console\ShellDispatcher;
 
 /**
  * ExportFitnet Controller
@@ -197,11 +198,21 @@ class ExportFitnetController extends AppController
     }
 
     public function manuel($id = null){
-        $bash = "bin\cake Fitnet ".$id;
-        debug($bash);
-        $return = shell_exec ( $bash );
-        debug($return);exit;
-        return $this->redirect(['action' => 'index']);
+        $bash = "cake Fitnet ".$id;
+        // debug($bash);
+        $shell = new ShellDispatcher();
+        $output = $shell->run(['cake', 'Fitnet', $id]);
+
+        if (0 === $output) {
+            $this->Flash->success('Success from shell command.');
+        } else {
+            $this->Flash->error('Failure from shell command.');
+        }
+
+        return $this->redirect('/');
+        // $return = shell_exec ( $bash );
+        // debug($return);exit;
+        // return $this->redirect(['action' => 'index']);
     }
 
     private function getExportActif(){
