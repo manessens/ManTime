@@ -198,7 +198,7 @@ class ExportFitnetController extends AppController
 
     public function manuel($id = null){
          $return = shell_exec ( "bin/cake Fitnet 14" );
-         debug($return);
+         debug($return);exit;
          return $this->redirect(['action' => 'index']);
     }
 
