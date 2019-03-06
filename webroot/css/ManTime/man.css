@@ -257,6 +257,9 @@ table tfoot tr th{
 .actions{
     width: 185px !important;
 }
+.actionsFit{
+    width: 200px !important;
+}
 
 #actions-sidebar{
     margin-bottom: 0px !important;

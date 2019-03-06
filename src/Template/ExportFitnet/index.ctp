@@ -14,7 +14,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Client.nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Users.prenom','Consultant') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ExportFitnet.etat','Etat') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col" class="actionsFit"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
                     <td><?php echo $export->client != null?$export->client->nom_client:'/' ; ?></td>
                     <td><?php echo $export->user != null?$export->user->fullname:'/' ; ?></td>
                     <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
-                    <td class="actions">
+                    <td class="actionsFit">
                         <?php if ($export->etat == \Cake\Core\Configure::read('fitnet.wait')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
                         <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.end') || $export->etat == \Cake\Core\Configure::read('fitnet.nerr')): ?>
