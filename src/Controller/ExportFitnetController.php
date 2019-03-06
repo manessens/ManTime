@@ -418,6 +418,8 @@ class ExportFitnetController extends AppController
 
     private function processExport($export){
         if ($export == null) {
+            debug("test");
+            debug($export);
             return;
         }
 
