@@ -611,7 +611,9 @@ class ExportFitnetController extends AppController
             $exports = $this->getExportId($id);
         }
         if (empty($exports)) {
-            return('Empty exports');
+
+            return $this->ExportFitnet->find('all')->orWhere(['etat =' => Configure::read('fitnet.wait'), 'etat =' => Configure::read('fitnet.err') ])->andWhere(['id_fit =' => $id])->sql();
+            // return('Empty exports');
         }
         foreach ($exports as $export) {
 
