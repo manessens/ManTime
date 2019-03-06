@@ -210,7 +210,7 @@ class ExportFitnetController extends AppController
         $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees");
         $vars = json_decode($resultTest, true);
         if (!is_array($vars)) {
-            $this->Flash->error('Les informations de connection n'ont pas permi l'utilisation des API Fitnet.');
+            $this->Flash->error("Les informations de connection n'ont pas permi l'utilisation des API Fitnet.");
         }
 
         Configure::write('fitnet.login', $username);
