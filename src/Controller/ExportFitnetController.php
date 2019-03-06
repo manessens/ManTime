@@ -441,7 +441,7 @@ class ExportFitnetController extends AppController
                 }elseif ($this->exportTime($time)) {
                     $count++;
                 }else{
-                    $export = $this->inError($export, '#'.$time->idt.' - Consultant : #'.$time->idu.' - date : '.$time->date);
+                    $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Date : '.$time->date.' |Projet : '.$time->projet->nom_projet);
                 }
             }
         }
@@ -488,7 +488,7 @@ class ExportFitnetController extends AppController
         // Récupération des assignement
         $assignementID = $this->getAssignement($time);
         if ($assignementID == null) {
-            $this->inError(null, 'Aucun assignement trouvé pour le Temps : Consultant : '.$time->user->fullname.
+            $this->inError(null, 'Aucun assignement trouvé pour le Temps |Consultant : '.$time->user->fullname.
                         ' |Client : '.$time->projet->client->nom_client.' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
             $noError = false;
         }
@@ -653,7 +653,7 @@ class ExportFitnetController extends AppController
             $result = true;
             // $result = $response->json;
         }else {
-            $this->inError(null, 'Erreur sur requête fitnet, code erreur : '.$response->getStatusCode(), $response->getStatusCode());
+            $this->inError(null, 'Erreur sur requête fitnet', $response->getStatusCode());
         }
 
         // résultat
