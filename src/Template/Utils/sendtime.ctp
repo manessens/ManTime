@@ -7,7 +7,7 @@
 
 <div class="col-xs-12 new_content content">
     <legend>
-        <?= $this->Html->link(__('<'), ['action' => 'index'], ['class' => 'btn btn-info']) ?><?= __('Utilitaire - ') ?><span class="text-danger"><?= __('soumission personalisée') ?></span> semaine #<span id='nsemaine'><?php echo $semaine ?></span> - <span id="nannee"><?php echo $annee ?></span>
+        <?= $this->Html->link(__('<'), ['action' => 'index'], ['class' => 'btn btn-info']) ?> <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('soumission personalisée') ?></span> semaine #<span id='nsemaine'><?php echo $semaine ?></span> - <span id="nannee"><?php echo $annee ?></span>
     </legend>
     <div class="col-xs-10">
         <form method="post" action="/utils/sendtime">
