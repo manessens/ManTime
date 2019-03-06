@@ -220,9 +220,9 @@ class ExportFitnetController extends AppController
             $output = $shell->run(['cake', 'Fitnet', $id]);
 
             if (0 === $output) {
-                $this->Flash->success('Success from shell command.');
+                $this->Flash->success('La command a été exécuté.');
             } else {
-                $this->Flash->error('Failure from shell command.');
+                $this->Flash->error("Une erreur est survenu lors de l'écxécution de la commande.");
             }
         }
 
