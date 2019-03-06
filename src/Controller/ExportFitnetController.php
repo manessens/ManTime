@@ -207,23 +207,23 @@ class ExportFitnetController extends AppController
         $password = $dataCo['password'];
         $result = false;
 
-        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees");
-        $vars = json_decode($resultTest, true);
-        if (!is_array($vars)) {
-            $this->Flash->error("Les informations de connection n'ont pas permi l'utilisation des API Fitnet.");
-        }
-
         Configure::write('fitnet.login', $username);
         Configure::write('fitnet.password', $password);
 
-        // debug($bash);
-        $shell = new ShellDispatcher();
-        $output = $shell->run(['cake', 'Fitnet', $id]);
+        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees", true);
+        $vars = json_decode($resultTest, true);
+        if (!is_array($vars)) {
+            $this->Flash->error("Les informations de connection n'ont pas permi l'utilisation des API Fitnet.");
+        }else{
+            // debug($bash);
+            $shell = new ShellDispatcher();
+            $output = $shell->run(['cake', 'Fitnet', $id]);
 
-        if (0 === $output) {
-            $this->Flash->success('Success from shell command.');
-        } else {
-            $this->Flash->error('Failure from shell command.');
+            if (0 === $output) {
+                $this->Flash->success('Success from shell command.');
+            } else {
+                $this->Flash->error('Failure from shell command.');
+            }
         }
 
         Configure::write('fitnet.login', "");
