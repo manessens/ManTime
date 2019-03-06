@@ -24,10 +24,7 @@ class FitnetShell extends Shell
             $this->out('Execute mod : manuel, Id : '.$this->args[0]);
             $found = $exportFitnet->launchExport($this->args[0]);
         }
-        // Lancement de l'export
-
-        // test d'échange fitnet :
-        // $found = $exportFitnet->setTimeFitnetShell();
+        $this->out($found);
 
     }
 

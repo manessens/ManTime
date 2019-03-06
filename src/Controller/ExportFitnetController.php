@@ -418,8 +418,6 @@ class ExportFitnetController extends AppController
 
     private function processExport($export){
         if ($export == null) {
-            debug("test");
-            debug($export);
             return;
         }
 
@@ -612,6 +610,9 @@ class ExportFitnetController extends AppController
         }else{
             $exports = $this->getExportId($id);
         }
+        if (empty($exports)) {
+            return('Empty exports');
+        }
         foreach ($exports as $export) {
 
             $this->data_log = array();
@@ -621,6 +622,7 @@ class ExportFitnetController extends AppController
 
             $this->writeLog($export->id_fit);
         }
+        return('OK');
     }
 
     protected function setFitnetLink( $url, $object ){
