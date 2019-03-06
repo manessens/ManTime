@@ -50,8 +50,3 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} de {{pages}}, affiché {{current}} enregistrement(s) sur {{count}} total')]) ?></p>
     </div>
 </div>
-
-<?php
-    echo $this->Html->script('ManTime/man.modal.js');
-    // echo $this->Html->script('ManTime/man.time.js');
-?>

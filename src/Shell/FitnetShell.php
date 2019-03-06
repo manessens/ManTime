@@ -18,8 +18,13 @@ class FitnetShell extends Shell
     {
         // Appel du controller FitnetController
         $exportFitnet = new ExportFitnetController();
+        if (empty($this->args[0])) {
+            $found = $exportFitnet->launchExport();
+        }else{
+            $this->out('Execute mod : manuel, Id : '.$this->args[0]);
+            $found = $exportFitnet->launchExport($this->args[0]);
+        }
         // Lancement de l'export
-        $found = $exportFitnet->launchExport();
 
         // test d'échange fitnet :
         // $found = $exportFitnet->setTimeFitnetShell();

@@ -8,6 +8,7 @@ use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Http\Client;
+use Cake\Controller\Component\CookieComponent;
 
 /**
  * ExportFitnet Controller
@@ -195,14 +196,20 @@ class ExportFitnetController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function execute($id = null){
+    public function manuel($id = null){
          // @TODO:  shell_exec ( string $cmd ) : string
-
-         //  @TODO : run
+         return $this->redirect(['action' => 'index']);
     }
 
     private function getExportActif(){
         return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait')])->toArray();
+    }
+
+    private function getExportId($id){
+        if ($id == null) {
+            return [];
+        }
+        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait'), 'id_fit =' => $id])->toArray();
     }
 
     private function getTimesFromExport($export){
@@ -566,8 +573,12 @@ class ExportFitnetController extends AppController
 
     }
 
-    public function launchExport(){
-        $exports = $this->getExportActif();
+    public function launchExport($id = null){
+        if ($id === null) {
+            $exports = $this->getExportActif();
+        }else{
+            $exports = $this->getExportId($id);
+        }
         foreach ($exports as $export) {
 
             $this->data_log = array();
@@ -581,9 +592,21 @@ class ExportFitnetController extends AppController
 
     protected function setFitnetLink( $url, $object ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('fitnet.login');
-        $password = Configure::read('fitnet.password');
+        // $username = Configure::read('fitnet.login');
+        // $password = Configure::read('fitnet.password');
+        $this->loadComponent('Cookie');
+        $dataCo = $this->Cookie->read('Authfit');
+
+        $username = $dataCo['login'];
+        $password = $dataCo['password'];
         $result = false;
+
+        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees");
+        $vars = json_decode($resultTest, true);
+        if (!is_array($vars)) {
+            $this->inError(null, "Les informations de connection n'ont pas permi l'utilisation des API Fitnet. : 500", "");
+            return $result;
+        }
 
         // instance Client pour gestin des appel ajax
         $http = new Client();
