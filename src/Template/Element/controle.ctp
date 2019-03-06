@@ -21,7 +21,7 @@
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de supprimer la ligne ?")]) ?>
     <?php elseif($restrict == '%mod%'): ?>
-        <?= $this->Html->link(__('Retry'), ['action' => 'manuel', $id], ['class' => 'btn btn-info',
+        <?= $this->Html->link(__('Retry'), ['action' => 'manuel', $id], ['class' => 'btn btn-warning',
             'confirm' => __("Êtes vous sûr de vouloir relancer manuellement l'export ?")]) ?>
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de vouloir supprimer le marquage d'erreur ?")]) ?>
