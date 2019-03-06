@@ -6,6 +6,8 @@
      ?>
     <?php if ($restrict != '%delete%'):?>
         <?= $this->Html->link(__('Voir'), ['action' => 'view', $id], ['class' => 'btn btn-info']) ?>
+        <?= $this->Html->link(__('Manuel'), ['action' => 'manuel', $id], ['class' => 'btn btn-warning',
+            'confirm' => __("Êtes vous sûr de vouloir exécuter manuellement l'export ?")]) ?>
 
         <?php if ($restrict != '%show%' && $restrict != '%mod%' ) :?>
             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $id], ['class' => 'btn btn-warning']) ?>
