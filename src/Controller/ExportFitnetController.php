@@ -209,10 +209,7 @@ class ExportFitnetController extends AppController
             $this->Flash->error('Failure from shell command.');
         }
 
-        return $this->redirect('/');
-        // $return = shell_exec ( $bash );
-        // debug($return);exit;
-        // return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index']);
     }
 
     private function getExportActif(){
