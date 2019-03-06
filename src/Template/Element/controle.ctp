@@ -16,7 +16,8 @@
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de supprimer l'entité : {0}?", $entity)]) ?>
     <?php elseif($restrict == '%delete%'): ?>
-        <?= $this->Form->postLink(__('Manuel'), ['action' => 'manuel', $id], ['class' => 'btn btn-info']) ?>
+        <?= $this->Form->link(__('Manuel'), ['action' => 'manuel', $id], ['class' => 'btn btn-info',
+            'confirm' => __("Êtes vous sûr de vouloir exécuter manuellement l'export ?")]) ?>
         <?= $this->Form->postLink(__('Suppr'), ['action' => 'delete', $id], ['class' => 'btn btn-danger',
             'confirm' => __("Êtes vous sûr de supprimer la ligne ?")]) ?>
     <?php elseif($restrict == '%mod%'): ?>
