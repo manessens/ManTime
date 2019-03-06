@@ -213,16 +213,16 @@ class ExportFitnetController extends AppController
         $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees", true);
         $vars = json_decode($resultTest, true);
         if (!is_array($vars)) {
-            $this->Flash->error("Les informations de connection n'ont pas permi l'utilisation des API Fitnet.");
+            $this->Flash->error("Les informations de connexion n'ont pas permis l'utilisation des API Fitnet.");
         }else{
             // debug($bash);
             $shell = new ShellDispatcher();
             $output = $shell->run(['cake', 'Fitnet', $id]);
 
             if (0 === $output) {
-                $this->Flash->success('La command a été exécuté.');
+                $this->Flash->success('Le script bash a été exécuté.');
             } else {
-                $this->Flash->error("Une erreur est survenu lors de l'écxécution de la commande.");
+                $this->Flash->error("Une erreur est survenu lors de l'écxécution du script bash.");
             }
         }
 
@@ -554,13 +554,15 @@ class ExportFitnetController extends AppController
         }
         $assignementTable = json_decode($assignementJsonTable, true);
         if ( empty($assignementTable) ) {
-            $line = ['--', '$assignementTable vide'];
-            $this->insertLog($line);
+            // DEBUG :
+            // $line = ['--', '$assignementTable vide'];
+            // $this->insertLog($line);
             return;
         }
 
-        $line = ['--', '$assignementTable non vide, connection OK'];
-        $this->insertLog($line);
+        // DEBUG :
+        // $line = ['--', '$assignementTable non vide, connection OK'];
+        // $this->insertLog($line);
 
         foreach ($assignementTable as $assignement) {
             $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
