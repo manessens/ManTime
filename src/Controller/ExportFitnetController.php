@@ -199,6 +199,23 @@ class ExportFitnetController extends AppController
 
     public function manuel($id = null){
         $bash = "cake Fitnet ".$id;
+
+        $this->loadComponent('Cookie');
+        $dataCo = $this->Cookie->read('Authfit');
+
+        $username = $dataCo['login'];
+        $password = $dataCo['password'];
+        $result = false;
+
+        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees");
+        $vars = json_decode($resultTest, true);
+        if (!is_array($vars)) {
+            $this->Flash->error('Les informations de connection n'ont pas permi l'utilisation des API Fitnet.');
+        }
+
+        Configure::write('fitnet.login', $username);
+        Configure::write('fitnet.password', $password);
+
         // debug($bash);
         $shell = new ShellDispatcher();
         $output = $shell->run(['cake', 'Fitnet', $id]);
@@ -208,6 +225,9 @@ class ExportFitnetController extends AppController
         } else {
             $this->Flash->error('Failure from shell command.');
         }
+
+        Configure::write('fitnet.login', "");
+        Configure::write('fitnet.password', "");
 
         return $this->redirect(['action' => 'index']);
     }
@@ -525,7 +545,7 @@ class ExportFitnetController extends AppController
 
         switch ($activityType) {
             case 1:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year);
+                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year, true);
                 break;
 
             default:
@@ -603,21 +623,9 @@ class ExportFitnetController extends AppController
 
     protected function setFitnetLink( $url, $object ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        // $username = Configure::read('fitnet.login');
-        // $password = Configure::read('fitnet.password');
-        $this->loadComponent('Cookie');
-        $dataCo = $this->Cookie->read('Authfit');
-
-        $username = $dataCo['login'];
-        $password = $dataCo['password'];
+        $username = Configure::read('fitnet.login');
+        $password = Configure::read('fitnet.password');
         $result = false;
-
-        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees");
-        $vars = json_decode($resultTest, true);
-        if (!is_array($vars)) {
-            $this->inError(null, "Les informations de connection n'ont pas permi l'utilisation des API Fitnet. : 500", "");
-            return $result;
-        }
 
         // instance Client pour gestin des appel ajax
         $http = new Client();

@@ -31,18 +31,20 @@ use Cake\Controller\Component\CookieComponent;
 class AppController extends Controller
 {
 
-    protected function getFitnetLink( $url ){
+    protected function getFitnetLink( $url , $noSafe = null){
         //récupération des lgoin/mdp du compte admin de fitnet
+        
         // ****** authentification par interface temporaire ******
+        if ($noSafe !== null) {
+            $username = Configure::read('fitnet.login');
+            $password = Configure::read('fitnet.password');
+        }else{
+            $this->loadComponent('Cookie');
+            $dataCo = $this->Cookie->read('Authfit');
 
-        // $username = Configure::read('fitnet.login');
-        // $password = Configure::read('fitnet.password');
-
-        $this->loadComponent('Cookie');
-        $dataCo = $this->Cookie->read('Authfit');
-
-        $username = $dataCo['login'];
-        $password = $dataCo['password'];
+            $username = $dataCo['login'];
+            $password = $dataCo['password'];
+        }
         // ****** authentification par interface temporaire ******
 
         // préparation de l'en-tête pour la basic auth de fitnet
