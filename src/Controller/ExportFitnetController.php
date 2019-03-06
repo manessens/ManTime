@@ -197,9 +197,11 @@ class ExportFitnetController extends AppController
     }
 
     public function manuel($id = null){
-         $return = shell_exec ( "cake Fitnet 14" );
-         debug($return);exit;
-         return $this->redirect(['action' => 'index']);
+        $bash = "bin\cake Fitnet ".$id;
+        debug($bash);
+        $return = shell_exec ( $bash );
+        debug($return);exit;
+        return $this->redirect(['action' => 'index']);
     }
 
     private function getExportActif(){
