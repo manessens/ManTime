@@ -7,7 +7,7 @@
 
 <div class="col-xs-12 new_content content">
     <legend>
-        <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('Authorisation Fitnet') ?></span>
+        <?= $this->Html->link(__('<'), ['action' => 'index'], ['class' => 'btn btn-info']) ?><?= __('Utilitaire - ') ?><span class="text-danger"><?= __('Authorisation Fitnet') ?></span>
     </legend>
     <div class="col-xs-10">
         <?= $this->Form->create($form) ?>
