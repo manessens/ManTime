@@ -197,7 +197,7 @@ class ExportFitnetController extends AppController
     }
 
     public function manuel($id = null){
-         // @TODO:  shell_exec ( string $cmd ) : string
+         shell_exec ( "bin/cake Fitnet" );
          return $this->redirect(['action' => 'index']);
     }
 
@@ -668,7 +668,7 @@ class ExportFitnetController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['export', 'index', 'add', 'delete', 'view']) && $user['role'] >= Configure::read('role.admin') ) {
+        if (in_array($action, ['export', 'index', 'add', 'delete', 'view', 'manuel']) && $user['role'] >= Configure::read('role.admin') ) {
             return true;
         }
 
