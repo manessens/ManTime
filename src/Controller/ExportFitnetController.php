@@ -240,7 +240,7 @@ class ExportFitnetController extends AppController
         if ($id == null) {
             return [];
         }
-        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait'), 'id_fit =' => $id])->toArray();
+        return $this->ExportFitnet->find('all')->orWhere(['etat =' => Configure::read('fitnet.wait'), 'etat =' => Configure::read('fitnet.err') ])->andWhere(['id_fit =' => $id])->toArray();
     }
 
     private function getTimesFromExport($export){
