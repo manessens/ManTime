@@ -554,8 +554,13 @@ class ExportFitnetController extends AppController
         }
         $assignementTable = json_decode($assignementJsonTable, true);
         if ( empty($assignementTable) ) {
+            $line = ['--', '$assignementTable vide'];
+            $this->insertLog($line);
             return;
         }
+
+        $line = ['--', '$assignementTable non vide, connection OK'];
+        $this->insertLog($line);
 
         foreach ($assignementTable as $assignement) {
             $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
