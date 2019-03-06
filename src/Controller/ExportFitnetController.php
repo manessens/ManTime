@@ -195,6 +195,12 @@ class ExportFitnetController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function execute($id = null){
+         // @TODO:  shell_exec ( string $cmd ) : string
+
+         //  @TODO : run
+    }
+
     private function getExportActif(){
         return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait')])->toArray();
     }
@@ -541,7 +547,7 @@ class ExportFitnetController extends AppController
         }else{
             $export->etat = Configure::read('fitnet.err');
         }
-        
+
         $this->insertLog(['--', ' Total de temps traité : '.$total]);
         $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
         $this->insertLog(['--', ' Total de temps ignorées : '.$ignored]);

@@ -10,7 +10,7 @@
         <?= __('Utilitaire - ') ?><span class="text-danger"><?= __('soumission personalisée') ?></span> semaine #<span id='nsemaine'><?php echo $semaine ?></span> - <span id="nannee"><?php echo $annee ?></span>
     </legend>
     <div class="col-xs-10">
-        <form method="post" action="/utils/index">
+        <form method="post" action="/utils/sendtime">
             <div class=" left ">
                 <div class="select-week"><input style="width:250px;" type="week" name="select-week" id="select-week" min="2018-W15" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
                 <div class="block" id="select-weekandyear" >
