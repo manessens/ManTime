@@ -549,7 +549,7 @@ class ExportFitnetController extends AppController
         switch ($activityType) {
             case 1:
                 foreach ($idsOrigine as $id) {
-                    $buffer = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year, true);
+                    $buffer = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$id.'/'.$month.'/'.$year, true);
                     $buffer = json_decode($buffer, true);
                     $assignementJsonTable = array_merge($assignementJsonTable, $buffer);
                 }
