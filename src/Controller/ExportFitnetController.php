@@ -444,19 +444,19 @@ class ExportFitnetController extends AppController
                 $keyClient = $tempTime->projet->client->id_fit;
                 $keyProject = $tempTime->projet->id_fit;
                 $keyProfil = Configure::read('fitnet.profil.'.$tempTime->projet->client->agence->id_fit.'.'.$tempTime->id_profil);
-                if (!array_key_exists($tmpTimeSum, $keyUser)) {
+                if (!array_key_exists($keyUser, $tmpTimeSum)) {
                     $tmpTimeSum[$keyUser] = array();
                 }
-                if (!array_key_exists($tmpTimeSum[$keyUser], $keyDate)) {
+                if (!array_key_exists($keyDate, $tmpTimeSum[$keyUser])) {
                     $tmpTimeSum[$keyUser][$keyDate] = array();
                 }
-                if (!array_key_exists($tmpTimeSum[$keyUser][$keyDate], $keyClient)) {
+                if (!array_key_exists($keyClient, $tmpTimeSum[$keyUser][$keyDate])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient] = array();
                 }
-                if (!array_key_exists($tmpTimeSum[$keyUser][$keyDate][$keyClient], $keyProject)) {
+                if (!array_key_exists($keyProject, $tmpTimeSum[$keyUser][$keyDate][$keyClient])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject] = array();
                 }
-                if (!array_key_exists($tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject], $keyProfil)) {
+                if (!array_key_exists($keyProfil, $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false, "ids"=>array()];
                 }
                 $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
@@ -464,7 +464,7 @@ class ExportFitnetController extends AppController
             }
             // DEBUG: A supprimer
             debug($tmpTimeSum);
-            
+
             //traitement des Temps
             foreach ($times as $time) {
                 if ($time->projet->facturable->id_fit == 0) {
