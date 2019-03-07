@@ -543,9 +543,15 @@ class ExportFitnetController extends AppController
 
         $activityType = $time->projet->facturable->id_fit;
 
+        $idsOrigine = explode( ';', $time->user->origine->id_fit );
+        $assignementJsonTable = array();
+
         switch ($activityType) {
             case 1:
-                $assignementJsonTable = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year, true);
+                foreach ($idsOrigine as $id) {
+                    $buffer = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year, true);
+                    $assignementJsonTable = array_merge($assignementJsonTable, $buffer);
+                }
                 break;
 
             default:
