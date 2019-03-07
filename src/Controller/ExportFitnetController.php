@@ -457,10 +457,9 @@ class ExportFitnetController extends AppController
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject] = array();
                 }
                 if (!array_key_exists($keyProfil, $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject])) {
-                    $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false, "ids"=>array()];
+                    $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false];
                 }
                 $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
-                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["ids"][] = $tempTime->idt;
             }
             // DEBUG: A supprimer
             debug($tmpTimeSum);
@@ -488,13 +487,21 @@ class ExportFitnetController extends AppController
             return false;
         }
 
+        // Gen key for time
+        $keyProfil = Configure::read('fitnet.profil.'.$time->projet->client->agence->id_fit.'.'.$time->id_profil);
+        $keyClient = $time->projet->client->id_fit;
+        $keyProject = $time->projet->id_fit;
+
+        // Date
+        $assignementDate = $time->date->i18nFormat('dd/MM/yyyy');
+
         // Contrôle Projet
-        if ($time->projet->id_fit == null) {
+        if ($keyProject == null) {
             $this->insertLog(['--','Le projet '.$time->projet->nom_projet."n'est pas lié à une affaire fitnet : pas d'export"]);
             $noError = false;
         }
         // Contrôle Client
-        if ($time->projet->client->id_fit == null) {
+        if ($keyClient == null) {
             $this->insertLog(['--', 'Client non lié : '. $time->projet->client->nom_client] );
             $noError = false;
         }
@@ -518,6 +525,14 @@ class ExportFitnetController extends AppController
             $noError = false;
         }
 
+        // Contrôle traité par cumul des temps (multiligne sur même assignement)
+        // DEBUG:
+        debug($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]);
+        if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
+            $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." a été traité par cumul."]);
+            return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
+        }
+
         // Récupération des assignement
         $assignementID = $this->getAssignement($time);
         if ($assignementID == null) {
@@ -532,9 +547,7 @@ class ExportFitnetController extends AppController
         }
 
         // total temps travaillé
-        $amount = $time->time;
-        // Date
-        $assignementDate = $time->date->i18nFormat('dd/MM/yyyy');
+        $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
 
         $timesheet = [
             "activity" => "",
@@ -557,6 +570,10 @@ class ExportFitnetController extends AppController
 
         $url = '/FitnetManager/rest/timesheet';
         $result = $this->setFitnetLink($url, $timesheetJS);
+
+        if ($result) {
+            $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
+        }
 
         return $result;
     }
@@ -584,7 +601,9 @@ class ExportFitnetController extends AppController
                 foreach ($idsOrigine as $id) {
                     $buffer = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$id.'/'.$month.'/'.$year, true);
                     $buffer = json_decode($buffer, true);
-                    $assignementTable = array_merge($assignementTable, $buffer);
+                    if (is_array($buffer)) {
+                        $assignementTable = array_merge($assignementTable, $buffer);
+                    }
                 }
                 break;
 
