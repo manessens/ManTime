@@ -565,7 +565,6 @@ class ExportFitnetController extends AppController
             // $this->insertLog($line);
             return;
         }
-
         // DEBUG :
         // $line = ['--', '$assignementTable non vide, connection OK'];
         // $this->insertLog($line);
