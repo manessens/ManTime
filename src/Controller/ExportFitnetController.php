@@ -210,21 +210,25 @@ class ExportFitnetController extends AppController
         Configure::write('fitnet.login', $username);
         Configure::write('fitnet.password', $password);
 
-        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees", true);
-        $vars = json_decode($resultTest, true);
-        if (!is_array($vars)) {
-            $this->Flash->error("Les informations de connexion n'ont pas permis l'utilisation des API Fitnet.");
-        }else{
-            // debug($bash);
-            $shell = new ShellDispatcher();
-            $output = $shell->run(['cake', 'Fitnet', $id]);
+        // @DEBUG TEMPORAIRE !!! A MODIFIER AVANT array_product
 
-            if (0 === $output) {
-                $this->Flash->success('Le script bash a été exécuté.');
-            } else {
-                $this->Flash->error("Une erreur est survenu lors de l'écxécution du script bash.");
-            }
-        }
+        $this->launchExport($id);
+
+        // $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees", true);
+        // $vars = json_decode($resultTest, true);
+        // if (!is_array($vars)) {
+        //     $this->Flash->error("Les informations de connexion n'ont pas permis l'utilisation des API Fitnet.");
+        // }else{
+        //     // debug($bash);
+        //     $shell = new ShellDispatcher();
+        //     $output = $shell->run(['cake', 'Fitnet', $id]);
+        //
+        //     if (0 === $output) {
+        //         $this->Flash->success('Le script bash a été exécuté.');
+        //     } else {
+        //         $this->Flash->error("Une erreur est survenu lors de l'écxécution du script bash.");
+        //     }
+        // }
 
         Configure::write('fitnet.login', "");
         Configure::write('fitnet.password', "");
@@ -432,13 +436,42 @@ class ExportFitnetController extends AppController
             $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
             $this->ExportFitnet->save($export);
         }else{
+            //traitement des Temps pour fusion des lignes
+            $tmpTimeSum = array();
+            foreach ($times as $tempTime) {
+                $keyDate = $tempTime->date->i18nFormat('dd/MM/yyyy');
+                $keyUser = $tempTime->user->id_fit;
+                $keyClient = $tempTime->projet->client->id_fit;
+                $keyProject = $tempTime->projet->id_fit;
+                $keyProfil = Configure::read('fitnet.profil.'.$tempTime->projet->client->agence->id_fit.'.'.$tempTime->id_profil);
+                if (!array_key_exists($tmpTimeSum, $keyUser)) {
+                    $tmpTimeSum[$keyUser] = array();
+                }
+                if (!array_key_exists($tmpTimeSum[$keyUser], $keyDate)) {
+                    $tmpTimeSum[$keyUser][$keyDate] = array();
+                }
+                if (!array_key_exists($tmpTimeSum[$keyUser][$keyDate], $keyClient)) {
+                    $tmpTimeSum[$keyUser][$keyDate][$keyClient] = array();
+                }
+                if (!array_key_exists($tmpTimeSum[$keyUser][$keyDate][$keyClient], $keyProject)) {
+                    $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject] = array();
+                }
+                if (!array_key_exists($tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject], $keyProfil)) {
+                    $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false, "ids"=>array()];
+                }
+                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
+                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["ids"][] = $tempTime->idt;
+            }
+            // DEBUG: A supprimer
+            debug($tmpTimeSum);
+            
             //traitement des Temps
             foreach ($times as $time) {
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable.' ignorées : temps #'.$time->idt];
                     $this->insertLog($line);
                     $ignored++; //car n'est pas une erreur
-                }elseif ($this->exportTime($time)) {
+                }elseif ($this->exportTime($time, $tmpTimeSum)) {
                     $count++;
                 }else{
                     $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date);
@@ -449,7 +482,7 @@ class ExportFitnetController extends AppController
         $export=$this->endProcess($export, $count, count($times), $ignored);
 
     }
-    private function exportTime($time){
+    private function exportTime($time, $tmpTimeSum){
         $noError = true;
         if (empty($time)) {
             return false;
