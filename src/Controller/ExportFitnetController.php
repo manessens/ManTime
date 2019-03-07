@@ -527,19 +527,20 @@ class ExportFitnetController extends AppController
 
         // Contrôle traité par cumul des temps (multiligne sur même assignement)
         // DEBUG:
-        debug($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]);exit;
+        debug('$tmpTimeSum['.$employeeID.']['.$assignementDate.']['.$keyClient.']['.$keyProject.']['.$keyProfil.']');
+        debug($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]);
         if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
             $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." a été traité par cumul."]);
             return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
         }
 
         // Récupération des assignement
-        $assignementID = $this->getAssignement($time);
-        if ($assignementID == null) {
-            $this->inError(null, 'Aucun assignement trouvé pour le Temps |Consultant : '.$time->user->fullname.
-                        ' |Client : '.$time->projet->client->nom_client.' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
-            $noError = false;
-        }
+        // $assignementID = $this->getAssignement($time);
+        // if ($assignementID == null) {
+        //     $this->inError(null, 'Aucun assignement trouvé pour le Temps |Consultant : '.$time->user->fullname.
+        //                 ' |Client : '.$time->projet->client->nom_client.' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
+        //     $noError = false;
+        // }
 
         // Contrôle d'erreur
         if (!$noError) {
@@ -569,7 +570,7 @@ class ExportFitnetController extends AppController
         $timesheetJS = json_encode($timesheet);
 
         $url = '/FitnetManager/rest/timesheet';
-        $result = $this->setFitnetLink($url, $timesheetJS);
+        // $result = $this->setFitnetLink($url, $timesheetJS);
 
         if ($result) {
             $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
