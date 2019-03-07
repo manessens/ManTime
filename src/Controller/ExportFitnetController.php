@@ -550,6 +550,7 @@ class ExportFitnetController extends AppController
             case 1:
                 foreach ($idsOrigine as $id) {
                     $buffer = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$time->user->origine->id_fit.'/'.$month.'/'.$year, true);
+                    $buffer = json_decode($buffer, true);
                     $assignementJsonTable = array_merge($assignementJsonTable, $buffer);
                 }
                 break;
@@ -558,7 +559,6 @@ class ExportFitnetController extends AppController
                 $this->inError(null, 'activityType éroné' );
                 break;
         }
-        $assignementTable = json_decode($assignementJsonTable, true);
         if ( empty($assignementTable) ) {
             // DEBUG :
             // $line = ['--', '$assignementTable vide'];
