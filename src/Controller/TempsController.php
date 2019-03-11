@@ -742,7 +742,7 @@ class TempsController extends AppController
                     }else{
                         $title = 'export';
                         for ($i=$arrayData['date_debut']->year; $i <= $arrayData['date_fin']->year; $i++) {
-                            for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month && $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
+                            for ($y=$arrayData['date_debut']->month; $y <= $arrayData['date_fin']->month || $i <= $arrayData['date_fin']->year && $y <= 12; $y++) {
                                 $period[$i.$y] = '';
                                 $arrayMonth[] = 'JH '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
                                 $arrayMonthUO[] = 'UO '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
