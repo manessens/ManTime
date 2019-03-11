@@ -744,12 +744,9 @@ class TempsController extends AppController
                         $ddebut = $arrayData['date_debut'];
                         $dfin = $arrayData['date_fin'];
                         for ($i=$ddebut->year; $i <= $dfin->year; $i++) {
-                            if ($i === $ddebut->year) {
-                                $yb = $ddebut->month;
-                            }else{
-                                $yb = 1;
-                            }
-                            for ($y=$yb; $y <= $dfin->month || ($i <= $dfin->year && $y <= 12 && $ddebut->year < $dfin->year); $y++) {
+                            $controlYear = $i === $dfin->year?false:true;
+                            $yb = $i === $ddebut->year?$ddebut->month:$yb = 1;
+                            for ($y=$yb; $y <= $dfin->month || ($i <= $dfin->year && $y <= 12 && $controlYear); $y++) {
                                 $period[$i.$y] = '';
                                 $arrayMonth[] = 'JH '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
                                 $arrayMonthUO[] = 'UO '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
