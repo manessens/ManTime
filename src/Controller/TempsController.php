@@ -876,7 +876,7 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
             }
             $nbDays = intval($time->time);
-            $timeUO = round(($time->time-$nbDays) * 8, 1) * $arrayMatrice[$time->idm][$keyProfil]['h'];
+            $timeUO = round(($time->time-$nbDays) * 8, 2) * $arrayMatrice[$time->idm][$keyProfil]['h'];
             $timeUO +=  $nbDays * $arrayMatrice[$time->idm][$keyProfil]['j'] ;
 
             $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
