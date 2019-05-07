@@ -324,6 +324,7 @@ class TempsController extends AppController
                                     $arrayIdCurrent[] = $dataDay['id'];
                                 }
                                 $day->idu = $idUser;
+                                $day->deleted = false;
                                 $day->date = clone $dayTime ;
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
