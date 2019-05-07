@@ -345,7 +345,7 @@ class TempsController extends AppController
                     }
                 }
             }
-            if ($verif && !$validat) {
+            if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 //Deletion
                 if (is_null($isLocked)) {
                     $query = $this->Temps->query()
