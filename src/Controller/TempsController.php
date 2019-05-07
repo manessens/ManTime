@@ -382,12 +382,12 @@ class TempsController extends AppController
                 }
             }
             if ($arrayData['validat'] == 0 && $validat) {
-                $exportableTable->delete($isLocked);
+                $this->Exportable->delete($isLocked);
             }elseif ($arrayData['validat'] == 1 && !$validat) {
-                $locked = $exportableTable->newEntity();
+                $locked = $this->Exportable->newEntity();
                 $locked->n_sem = $semaine;
                 $locked->annee = $annee;
-                $exportableTable->save($locked);
+                $this->Exportable->save($locked);
             }
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
