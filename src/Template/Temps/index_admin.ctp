@@ -264,6 +264,9 @@
             <div class = 'right col-xs-1'>
                 <a href="#topofpage"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
             </div>
+            <?php
+                echo $this->Form->hidden('check_request', ['value' => true,]);
+            ?>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>
     <?= $this->Form->end() ?>
