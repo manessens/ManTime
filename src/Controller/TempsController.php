@@ -155,21 +155,26 @@ class TempsController extends AppController
                 }
             }
             if ($verif) {
-                //Deletion
-                $query = $this->Temps->query()
-                    ->update()->set(['deleted' => true])
-                    ->where(['idu =' => $user->idu,
-                     'date >=' => $lundi,
-                     'date <' => $dimanche]);
-                if (!empty($arrayIdCurrent)) {
-                    $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
-                }
-                $query->execute();
-                //Save
-                if (!empty($entities)) {
-                    foreach ($entities as $day) {
-                        $verif = $verif && $this->Temps->save($day);
+                if (!$validat) { // Si pas de blocage alors on modifie les temps
+                    //Deletion
+                    $query = $this->Temps->query()
+                        ->update()->set(['deleted' => true])
+                        ->where(['idu =' => $user->idu,
+                         'date >=' => $lundi,
+                         'date <' => $dimanche]);
+                    if (!empty($arrayIdCurrent)) {
+                        $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                     }
+                    $query->execute();
+                    //Save
+                    if (!empty($entities)) {
+                        foreach ($entities as $day) {
+                            $verif = $verif && $this->Temps->save($day);
+                        }
+                    }
+                }else{
+                    $this->Flash->error(__("La semaine a déjà été soumise, les modifications n'ont pus être sauvegardées."));
+                    return $this->redirect(['action' => 'index', $semaine, $annee]);
                 }
             }
             if ($verif) {
