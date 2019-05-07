@@ -264,6 +264,11 @@
             <div class = 'right col-xs-1'>
                 <a href="#topofpage"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
             </div>
+            <?php
+                 if ($validat){ 
+                    echo $this->Form->hidden('check_lock', ['value' => 1]);
+                }
+              ?>
         <?= $this->Form->button(__('Enregistrer'), ['class'=>'right btn btn-warning']) ?>
         </div>
     <?= $this->Form->end() ?>

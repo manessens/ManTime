@@ -381,6 +381,7 @@ class TempsController extends AppController
                     }
                 }
             }
+            debug($arrayData['validat']);
             if ($arrayData['validat'] == 0 && $validat) {
                 $this->Exportable->delete($isLocked);
             }elseif ($arrayData['validat'] == 1 && !$validat) {
