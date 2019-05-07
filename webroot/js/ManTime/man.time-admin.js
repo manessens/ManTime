@@ -432,7 +432,10 @@ $('.numericer').on('input', function() {
 function numericer(that) {
     var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
-    $(that).val(arrayString.join(''));
+    if (arrayString !== null) {
+        $(that).val(arrayString.join(''));
+    }
+    $(that).val(0);
 }
 function updateTotal() {
     var nb = 8;

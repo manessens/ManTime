@@ -345,9 +345,10 @@ class TempsController extends AppController
                     }
                 }
             }
+             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
+                if (!$validat) { // Si pas de blocage alors on modifie les temps
                 //Deletion
-                if (is_null($isLocked)) {
                     $query = $this->Temps->query()
                         ->update()->set(['deleted' => true])
                         ->where(['validat =' => 1,
@@ -358,7 +359,7 @@ class TempsController extends AppController
                         $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                     }
                     $query->execute();
-                    //Save
+                //Save
                     if (!empty($entities)) {
                         foreach ($entities as $day) {
                             try {
@@ -379,16 +380,25 @@ class TempsController extends AppController
                             }
                         }
                     }
+                 // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
+                }else{
+                    $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
+                    return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
                 }
             }
-            if ($arrayData['validat'] === "0" && $validat) {
-                $this->Exportable->delete($isLocked);
-            }elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
-                $locked = $this->Exportable->newEntity();
-                $locked->n_sem = $semaine;
-                $locked->annee = $annee;
-                $this->Exportable->save($locked);
+
+            // Mise à jour du blocage si on viens de la page locked ou si il n'y a pas de clef de blocage existant
+            if (array_key_exists('check_lock', $arrayData) || !$validat) {
+                if ($arrayData['validat'] === "0" && $validat) {
+                    $this->Exportable->delete($isLocked);
+                }elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
+                    $locked = $this->Exportable->newEntity();
+                    $locked->n_sem = $semaine;
+                    $locked->annee = $annee;
+                    $this->Exportable->save($locked);
+                }
             }
+
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
 
