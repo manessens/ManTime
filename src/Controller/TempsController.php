@@ -381,10 +381,9 @@ class TempsController extends AppController
                     }
                 }
             }
-            dump($arrayData['validat']);
-            if ($arrayData['validat'] == 0 && $validat) {
+            if ($arrayData['validat'] === "0" && $validat) {
                 $this->Exportable->delete($isLocked);
-            }elseif ($arrayData['validat'] == 1 && !$validat) {
+            }elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
                 $locked = $this->Exportable->newEntity();
                 $locked->n_sem = $semaine;
                 $locked->annee = $annee;
