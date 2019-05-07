@@ -433,9 +433,7 @@ function numericer(that) {
     var regex = /^([0-9])+([.])?([0-9]+)?/g;
     var arrayString = $(that).val().match(regex);
     // console.log(arrayString);
-    if(arrayString === null){
-        $(that).val(0);
-    }else{
+    if(arrayString !== null){
         $(that).val(arrayString.join(''));
     }
 }
