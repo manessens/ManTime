@@ -228,11 +228,11 @@ class TempsController extends AppController
         $dimanche = clone $lundi;
         $dimanche->modify('+7 days');
 
-        $usersTable = TableRegistry::get('Users');
+        $this->loadModel('Users');
         $idUserAuth = $this->Auth->user('idu');
-        $user = $usersTable->get($idUserAuth);
+        $user = $this->Users->get($idUserAuth);
 
-        $users = $usersTable->find('all')->toArray();
+        $users = $this->Users->find('all')->toArray();
         $arrayRetour = array('users' => ['0'=>'-'], 'projets' => ['0'=>'-'], 'clients' => ['0'=>'-'], 'profiles' => ['0'=>'-'], 'activities' => ['0'=>'-']);
         foreach ($users as $key => $userAll) {
             $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
@@ -253,8 +253,8 @@ class TempsController extends AppController
         }
 
         $validat = false;
-        $exportableTable = TableRegistry::get('Exportable');
-        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
+        $this->loadModel('Exportable');
+        $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
         if (!is_null($isLocked)) {
             $validat = true;
         }
@@ -345,7 +345,7 @@ class TempsController extends AppController
                     }
                 }
             }
-            if ($verif) {
+            if ($verif && !$validat) {
                 //Deletion
                 if (is_null($isLocked)) {
                     $query = $this->Temps->query()
@@ -380,14 +380,14 @@ class TempsController extends AppController
                         }
                     }
                 }
-                if ($arrayData['validat'] == 0 && !is_null($isLocked)) {
-                    $exportableTable->delete($isLocked);
-                }elseif ($arrayData['validat'] == 1 && is_null($isLocked)) {
-                    $locked = $exportableTable->newEntity();
-                    $locked->n_sem = $semaine;
-                    $locked->annee = $annee;
-                    $exportableTable->save($locked);
-                }
+            }
+            if ($arrayData['validat'] == 0 && $validat) {
+                $exportableTable->delete($isLocked);
+            }elseif ($arrayData['validat'] == 1 && !$validat) {
+                $locked = $exportableTable->newEntity();
+                $locked->n_sem = $semaine;
+                $locked->annee = $annee;
+                $exportableTable->save($locked);
             }
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
