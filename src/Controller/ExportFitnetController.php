@@ -460,7 +460,7 @@ class ExportFitnetController extends AppController
             //traitement des Temps
             foreach ($times as $time) {
                 if ($time->projet->facturable->id_fit == 0) {
-                    $line = ['--', ' Export des activités de type '.$time->projet->facturable.' ignorées : temps #'.$time->idt];
+                    $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
                     $this->insertLog($line);
                     $ignored++; //car n'est pas une erreur
                 }elseif ($this->exportTime($time, $tmpTimeSum)) {
