@@ -557,6 +557,8 @@ class ExportFitnetController extends AppController
             "typeOfServiceID" => 0
         ];
 
+        $this->insertLog(['--',implode(' , ', $timesheet)]);
+
         $timesheetJS = json_encode($timesheet);
 
         $url = '/FitnetManager/rest/timesheet';
