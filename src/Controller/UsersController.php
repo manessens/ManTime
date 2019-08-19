@@ -119,7 +119,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
-                $this->getMailer('User')->send('welcome', [$user]);
+                // $this->getMailer('User')->send('welcome', [$user]);
                 return $this->redirect(['action' => 'edit', $user->idu]);
             }
             $this->Flash->error(__('Le consultant ne peut être sauvegarder. Veuillez retenter ultérieurement.'));
@@ -169,7 +169,7 @@ class UsersController extends AppController
             if ($data['ignore_fit']) {
                 $valFit = $user->id_fit;
             }
-            
+
             $user = $this->Users->patchEntity($user, $data);
             if ($user['prem_connect']) {
                 $user['mdp'] = 'Welcome1!';
@@ -180,7 +180,7 @@ class UsersController extends AppController
             }
             if ($this->Users->save($user)) {
                 if ($user['prem_connect'] && !$prem_connect) {
-                    $this->getMailer('User')->send('resetPassword', [$user]);
+                    // $this->getMailer('User')->send('resetPassword', [$user]);
                 }
                 $this->Flash->success(__('Le consultant à été sauvegardé.'));
 
@@ -213,7 +213,7 @@ class UsersController extends AppController
             }
             if ($this->Users->save($user)) {
                 if ($user['prem_connect']) {
-                    $this->getMailer('User')->send('resetPassword', [$user]);
+                    // $this->getMailer('User')->send('resetPassword', [$user]);
                 }
                 $this->Flash->success(__('Votre profil à été sauvegardé.'));
 

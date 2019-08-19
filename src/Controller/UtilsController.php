@@ -15,7 +15,7 @@ class UtilsController extends AppController
         $this->loadComponent('Cookie', ['expires' => '1 hour']);
         $this->Cookie->config('Authfit', 'path', '/');
         $this->Cookie->configKey('Authfit', [
-            'expires' => '1 hour',
+            'expires' => '3 hours',
             'httpOnly' => true
         ]);
     }
