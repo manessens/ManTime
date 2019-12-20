@@ -41,7 +41,7 @@ $( "form" ).on('submit',function (e){
         var modal = new ModalWindow({
             Title: "Attention saisie journée",
             Message: "Attention, vous avez saisie un total qui dépasse une journée pleine, êtes vous sûr de vouloir continuer ?",
-            Buttons: [["btn-primary admin", 'Non', 'false'], ["btn-danger admin", 'Oui', 'true']],
+            Buttons: [["btn-danger admin", 'Non', 'false'], ["btn-primary admin", 'Oui', 'true']],
             CallBack: function(result, event, formData, ExtraData, rootDiv) {
                 if (result === 'true') {
                     alert = false;

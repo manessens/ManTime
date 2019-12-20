@@ -650,7 +650,7 @@ class TempsController extends AppController
         $anneeFin =   (int)date('Y', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
         $arraNSem = array($anneeDebut => array());
         $y=$anneeDebut;
-        for ($i=$semaineDebut; ($i <= $semaineFin || $y < $anneeFin) ; $i++) {
+        for ($i=$semaineDebut; ($i <= $semaineFin && $y <= $anneeFin) ; $i++) {
             if ($i > 52) {
                 $i = 1;
                 $y++;
