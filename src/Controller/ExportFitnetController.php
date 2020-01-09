@@ -260,7 +260,7 @@ class ExportFitnetController extends AppController
         $arraNSem = array($anneeDebut => array());
 
         $y=$anneeDebut;
-        for ($i=$semaineDebut; ($i <= $semaineFin || $y < $anneeFin) ; $i++) {
+        for ($i=$semaineDebut; ($i <= $semaineFin && $y <= $anneeFin) ; $i++) {
             if ($i > 52) {
                 $i = 1;
                 $y++;

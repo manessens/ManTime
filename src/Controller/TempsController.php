@@ -643,7 +643,7 @@ class TempsController extends AppController
         $times = array();
         $data = array();
         $periodes = array();
-        $exportableTable = TableRegistry::get('Exportable');
+        $this->loadModel('Exportable');
         $semaineDebut = (int)date('W', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
         $anneeDebut = (int)date('Y', strtotime($date_debut->i18nFormat('dd-MM-YYYY')));
         $semaineFin = (int)date('W', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
@@ -658,7 +658,7 @@ class TempsController extends AppController
             $arraNSem[$y][] = $i;
         }
         $query = null;
-        $query = $exportableTable->find('all');
+        $query = $this->Exportable->find('all');
         $andWhere = array();
         foreach ($arraNSem as $an => $sem) {
             if (!empty($sem)) {
