@@ -31,9 +31,80 @@ use Cake\Controller\Component\CookieComponent;
 class AppController extends Controller
 {
 
+    protected function getVsaLogin(){
+        //récupération des lgoin/mdp du compte admin de fitnet
+
+        // ****** authentification par interface  ******{
+        $this->loadComponent('Cookie');
+        $dataCo = $this->Cookie->read('Authvsa');
+
+        $login = $dataCo['login'];
+        $pass = $dataCo['pass'];
+        // ****** authentification par interface  ******
+
+        // préparation de l'en-tête
+        $opts = array(
+          'http'=>array( 'method'=>"GET" )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+        // construction de l'url login VSA
+        $base = Configure::read('vsa.base');
+        $url=$base.'login?login='.$login.'&password='.$pass ;
+        // appel de la requête
+        $result = @file_get_contents($url, false, $context);
+        if($result === FALSE){
+            return false;
+        }
+
+        $vars = json_decode($result, true);
+        if (is_array($vars)) {
+            if (array_key_exists('token', $vars)) {
+                $this->Cookie->write('Authvsa', $vars);
+                return true;
+            }
+        }
+
+        // résultat
+        return false.;
+    }
+
+    protected function getVsaLink( $url , $rest = "GET" ){
+        //récupération des lgoin/mdp du compte admin de fitnet
+
+        $this->loadComponent('Cookie');
+        $dataCo = $this->Cookie->read('Authvsa');
+
+        $token = $dataCo['token'];
+
+        // préparation de l'en-tête pour la basic auth de fitnet
+        $opts = array(
+          'http'=>array(
+                'method'=>$rest,
+                'header'=>"Authorization: Bearer " . $token
+              )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+        // construction de l'url fitnet
+        $base = Configure::read('vsa.base');
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1);
+        }
+        $url=$base . $url ;
+        // appel de la requête
+        $result = @file_get_contents($url, false, $context);
+        if($result === FALSE){
+            $result = 'error';
+        }
+
+        // résultat
+        return $result;
+    }
+
     protected function getFitnetLink( $url , $noSafe = null){
         //récupération des lgoin/mdp du compte admin de fitnet
-        
+
         // ****** authentification par interface temporaire ******
         if ($noSafe !== null) {
             $username = Configure::read('fitnet.login');

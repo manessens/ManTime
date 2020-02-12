@@ -93,6 +93,29 @@ class UtilsController extends AppController
         $this->set('controller', false);
     }
 
+    public function authvsa()
+    {
+        $form = new AuthfitForm();
+        if ($this->request->is(['post'])) {
+            $arrayData = $this->request->getData();
+            $isValid = $form->validate($arrayData);
+            if ($isValid){
+                $this->Cookie->delete('Authvsa');
+                $this->Cookie->write('Authvsa', $arrayData);
+
+                if ( $this->getVsaLogin() ) {
+                    $this->Flash->success(__('Permission de dialogue avec fitnet accordée pour 24h.'));
+                }else{
+                    $this->Flash->error(__("Les informations de connection n'ont pas permi l'utilisation des API VSA."));
+                }
+
+            }
+        }
+
+        $this->set('form', $form);
+        $this->set('controller', false);
+    }
+
     public function setActivUser(){
         if( $this->request->is('ajax') ) {
             $this->autoRender = false; // Pas de rendu

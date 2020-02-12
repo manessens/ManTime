@@ -12,6 +12,7 @@
           <a href="/utils/sendtime" class="list-group-item"><?= __('Soumission des temps personalisée') ?></a>
           <a href="/utils/authfit" class="list-group-item"><?= __('Authentificateur pour fitnet') ?></a>
           <!-- <a href="#" class="list-group-item">Third item</a> -->
+          <a href="/utils/authvsa" class="list-group-item"><?= __('Authentificateur pour VSA') ?></a>
         </div>
     </div>
 </div>
