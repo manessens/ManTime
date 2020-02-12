@@ -39,7 +39,7 @@ class AppController extends Controller
         $dataCo = $this->Cookie->read('Authvsa');
 
         $login = $dataCo['login'];
-        $pass = $dataCo['pass'];
+        $pass = $dataCo['password'];
         // ****** authentification par interface  ******
 
         // préparation de l'en-tête
