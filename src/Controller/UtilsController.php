@@ -102,7 +102,7 @@ class UtilsController extends AppController
             if ($isValid){
                 $this->Cookie->delete('Authvsa');
                 $this->Cookie->write('Authvsa', $arrayData);
-
+var_dump()$this->getVsaLogin());
                 if ( $this->getVsaLogin() ) {
                     $this->Flash->success(__('Permission de dialogue avec fitnet accordée pour 24h.'));
                 }else{

@@ -56,9 +56,8 @@ class AppController extends Controller
         if($result === FALSE){
             return false;
         }
-
         $vars = json_decode($result, true);
-        var_dump($vars); exit;
+        return $vars;
         if (is_array($vars)) {
             if (array_key_exists('token', $vars)) {
                 $this->Cookie->write('Authvsa', $vars);
