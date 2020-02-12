@@ -66,7 +66,7 @@ class AppController extends Controller
         }
 
         // résultat
-        return false.;
+        return false;
     }
 
     protected function getVsaLink( $url , $rest = "GET" ){
