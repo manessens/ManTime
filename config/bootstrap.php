@@ -79,6 +79,7 @@ try {
  */
 //Configure::load('app_local', 'default');
 Configure::load('fitnet', 'default', false);
+Configure::load('vsa', 'default', false);
 Configure::write(['role' => [
         'admin' => 50,
         'cp' => 20,
