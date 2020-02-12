@@ -174,7 +174,7 @@ class UtilsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'sendtime', 'authfit', 'setUnactivUser', 'setActivUser']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
+        if (in_array($action, ['index', 'sendtime', 'authvsa', 'setUnactivUser', 'setActivUser']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 
