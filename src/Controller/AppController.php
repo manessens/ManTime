@@ -53,11 +53,11 @@ class AppController extends Controller
         $url=$base.'login?login='.$login.'&password='.$pass ;
         // appel de la requête
         $result = @file_get_contents($url, false, $context);
+        return $result;
         if($result === FALSE){
             return false;
         }
         $vars = json_decode($result, true);
-        return $vars;
         if (is_array($vars)) {
             if (array_key_exists('token', $vars)) {
                 $this->Cookie->write('Authvsa', $vars);
