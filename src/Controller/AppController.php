@@ -53,7 +53,7 @@ class AppController extends Controller
         $url=$base.'login?login='.$login.'&password='.$pass ;
         // appel de la requête
         $result = @file_get_contents($url, false, $context);
-        return $result;
+        return $url;
         if($result === FALSE){
             return false;
         }
