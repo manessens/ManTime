@@ -34,8 +34,7 @@ function initResetSelect(){
 function initSelectEdit(){
     if ($('#id-fit').val() != null) {
         var value = $('#linker').attr('data-whatever');
-        $('#linkModal').find('.modal-body select option[value='+value+']').prop('selected', true);
-        $('#ajax').submit();
+        $('#linker').click();
     }
 }
 
@@ -43,18 +42,8 @@ function init(){
     initChangeSelect2();
     initcChangeAgence();
 
-    $('#linkModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.attr('data-whatever')// Extract info from data-* attributes
-      var modal = $(this);
-
-      modal.find('.modal-title').text('Obtenir la liste fitnet des clients')
-      modal.find('.modal-body select option[value='+recipient+']').prop('selected', true);
-    });
-
-    $('#ajax').on('submit',function(e){
+    $('#linker').on('click',function(e){
         e.preventDefault();
-        var id_agence = $('#linkModal').find('.modal-body select option:selected').val();
         xhr = $.ajax({
             type: "GET",
             url: "/client/getCustomerVsa/",
@@ -69,13 +58,11 @@ function init(){
                 eraseSelect();
             }
         }).always(function(){
-            $('#linkModal').modal('hide');
             $('#loader').hide();
-            $('#linkModal').find(".modal-footer button#send").show();
         });
     });
 
-    $('#linkModal').on('hide.bs.modal', function (e) {
+    $('#resetter').on('click', function (e) {
         if (xhr != undefined) {
             xhr.abort();
         }
