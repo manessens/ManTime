@@ -133,23 +133,25 @@ class ClientController extends AppController
 
             $id_agence = $this->request->query["agence"];
             // appel de la requête
-            $result = $this->getFitnetLink("v1/customers");
+            $result = $this->getVsaLink("v1/customers");
             // décode du résultat json
             $vars = json_decode($result, true);
 
             if (is_array($vars)) {
-                // sauvegarde des résultats trouvés
-                $found = array_merge($found, $vars);
-            }else{
+                if (array_key_exists('error', $vars)) {
+                    // sauvegarde des résultats trouvés
+                    $found = array_merge($found, $vars);
+                }else{
                 // on notifie l'utilisateur qu'une erreur est survenu
-                $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
+                    $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
+                }
             }
         }
 
         //remise en forme du tableau
         if (!empty($found)) {
             foreach ($found as $value) {
-                $select2[]=array('id'=>$value['clientId'], 'text'=>$value['name']);
+                $select2[]=array('id'=>$value['code'], 'text'=>$value['name']);
             }
         }
 
