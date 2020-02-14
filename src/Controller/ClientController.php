@@ -130,9 +130,8 @@ class ClientController extends AppController
 
         $select2 = array();
         if ($this->request->is(['get'])) {
-
-            $id_agence = $this->request->query["agence"];
             // appel de la requête
+            return "prout";
             $result = $this->getVsaLink("v1/customers");
             // décode du résultat json
             $vars = json_decode($result, true);
