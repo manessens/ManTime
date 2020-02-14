@@ -157,12 +157,12 @@ class ClientController extends AppController
         }
 
         // réencodage pour renvoie au script ajax
-        $json_found = json_encode($select2);
+        // $json_found = json_encode($select2);
+        $json_found = json_encode($result);
         // type de réponse : objet json
         $this->response->type('json');
         // contenue de la réponse
-        // $this->response->body($json_found);
-        $this->response->body($vars);
+        $this->response->body($json_found);
 
         return $this->response;
     }
