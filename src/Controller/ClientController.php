@@ -121,7 +121,7 @@ class ClientController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function getCustomerFitnet(){
+    public function getCustomerVsa(){
         $found = [];
 
         if( $this->request->is('ajax') ) {
@@ -132,28 +132,17 @@ class ClientController extends AppController
         if ($this->request->is(['get'])) {
 
             $id_agence = $this->request->query["agence"];
-            if ($id_agence != "") {
+            // appel de la requête
+            $result = $this->getFitnetLink("v1/customers");
+            // décode du résultat json
+            $vars = json_decode($result, true);
 
-                // récupération des id company fitnet
-                $this->loadModel('Agence');
-                $agence = $this->Agence->get($id_agence);
-                $id_fit = $agence->id_fit;
-
-                // séparation des id_agence fitnet
-                if ($id_fit != "") {
-                    // appel de la requête
-                    $result = $this->getFitnetLink("/FitnetManager/rest/customers/".$id_fit);
-                    // décode du résultat json
-                    $vars = json_decode($result, true);
-
-                    if (is_array($vars)) {
-                        // sauvegarde des résultats trouvés
-                        $found = array_merge($found, $vars);
-                    }else{
-                        // on notifie l'utilisateur qu'une erreur est survenu
-                        $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
-                    }
-                }
+            if (is_array($vars)) {
+                // sauvegarde des résultats trouvés
+                $found = array_merge($found, $vars);
+            }else{
+                // on notifie l'utilisateur qu'une erreur est survenu
+                $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
             }
         }
 

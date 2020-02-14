@@ -1,6 +1,6 @@
 $(function() {
     init();
-    $('#liste_fitnet').select2();
+    $('#liste_vsa').select2();
     initResetSelect();
     initSelectEdit();
 });
@@ -15,8 +15,8 @@ function initcChangeAgence(){
 }
 
 function initChangeSelect2(){
-    $("#liste_fitnet").on("change", function(e) {
-        var val = $("#liste_fitnet").find(':selected').val();
+    $("#liste_vsa").on("change", function(e) {
+        var val = $("#liste_vsa").find(':selected').val();
         $('#id-fit').val(val);
         if (val != null) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
@@ -26,7 +26,7 @@ function initChangeSelect2(){
 
 function initResetSelect(){
     $('#resetter').on('click',function(e){
-        $("#liste_fitnet").val(null).trigger("change");
+        $("#liste_vsa").val(null).trigger("change");
         $('#linker').removeClass('btn-success').addClass('btn-primary');
     });
 }
@@ -57,8 +57,7 @@ function init(){
         var id_agence = $('#linkModal').find('.modal-body select option:selected').val();
         xhr = $.ajax({
             type: "GET",
-            url: "/client/getCustomerFitnet/",
-            data: { agence: id_agence },
+            url: "/client/getCustomerVsa/",
             beforeSend: function( xhr ) {
                 $('#loader').show();
                 $('#linkModal').find(".modal-footer button#send").hide();
@@ -86,18 +85,18 @@ function init(){
 // **FUNCION**
 function updateSelect(data){
     eraseSelect();
-    $('#liste_fitnet').select2({
+    $('#liste_vsa').select2({
         data: data
     });
     var id_fit = $('#id-fit').val();
     if (id_fit != null) {
-        $('#liste_fitnet').val(id_fit);
-        $('#liste_fitnet').trigger('change'); // Notify any JS components that the value changed
+        $('#liste_vsa').val(id_fit);
+        $('#liste_vsa').trigger('change'); // Notify any JS components that the value changed
     }else{
-        $("#liste_fitnet").change();
+        $("#liste_vsa").change();
     }
 }
 
 function eraseSelect(){
-    $('#liste_fitnet option').remove();
+    $('#liste_vsa option').remove();
 }

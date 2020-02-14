@@ -21,20 +21,20 @@
         </div>
         <div class="left">
         <?php
-            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
         ?>
         </div>
         <div class="left col-xs-10">
                 <?php
-                    echo $this->Form->label('select_fit','Liste Fitnet');
+                    echo $this->Form->label('select_vsa','Liste VSA');
                 ?>
-                <select name="select_fit" class="col-xs-8" type="text" id="liste_fitnet"></select>
+                <select name="select_vsa" class="col-xs-8" type="text" id="liste_vsa"></select>
          </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
     <button type="button" id="linker" class="btn <?php echo $client->id_fit>0?"btn-success":"btn-primary"; ?>"
-         data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
+         data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste VSA</button>
     <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
 </div>
 
