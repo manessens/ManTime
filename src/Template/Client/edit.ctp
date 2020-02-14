@@ -21,7 +21,7 @@
         </div>
         <div class="left">
         <?php
-            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
+            echo $this->Form->control('id_fit', ['readonly','class'=> 'col-xs-4', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
         ?>
         </div>
         <div class="left col-xs-10">
