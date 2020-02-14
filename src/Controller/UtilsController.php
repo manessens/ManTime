@@ -12,10 +12,10 @@ class UtilsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('Cookie', ['expires' => '1 hour']);
+        $this->loadComponent('Cookie', ['expires' => '24 hour']);
         $this->Cookie->config('Authfit', 'path', '/');
         $this->Cookie->configKey('Authfit', [
-            'expires' => '3 hours',
+            'expires' => '24 hours',
             'httpOnly' => true
         ]);
     }
