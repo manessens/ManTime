@@ -54,7 +54,8 @@ class ClientTable extends Table
             ->allowEmpty('idc', 'create');
 
         $validator
-            ->integer('id_fit')
+            ->scalar('id_fit')
+            ->maxLength('id_fit', 50)
             ->allowEmpty('id_fit');
 
         $validator
