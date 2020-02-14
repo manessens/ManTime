@@ -139,6 +139,9 @@ class ClientController extends AppController
                 if (!array_key_exists('error', $vars)) {
                     // sauvegarde des résultats trouvés
                     $found = array_merge($found, $vars);
+                }else{
+                    // on notifie l'utilisateur qu'une erreur est survenu
+                    $select2[]=array('id'=>'err', 'text'=>$vars['message']);
                 }
             }
         }
