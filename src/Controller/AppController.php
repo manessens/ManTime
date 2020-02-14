@@ -93,8 +93,7 @@ class AppController extends Controller
         $url=$base . $url ;
         // appel de la requête
         $result = @file_get_contents($url, false, $context);
-        return $result;
-        if($result === FALSE){
+        if($result === false){
             $result = 'error';
         }
 
