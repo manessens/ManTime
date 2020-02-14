@@ -24,11 +24,11 @@
             echo $this->Form->control('id_fit', ['readonly', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
         ?>
         </div>
-        <div class="left col-xs-10">
+        <div class="left col-xs-8">
                 <?php
                     echo $this->Form->label('select_vsa','Liste VSA');
                 ?>
-                <select name="select_vsa" class="col-xs-8" type="text" id="liste_vsa"></select>
+                <select name="select_vsa" type="text" id="liste_vsa"></select>
          </div>
     </fieldset>
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
