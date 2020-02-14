@@ -137,11 +137,11 @@ class ClientController extends AppController
 
             if (is_array($vars)) {
                 if (array_key_exists('error', $vars)) {
+                    // on notifie l'utilisateur qu'une erreur est survenu
+                    $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
+                }else{
                     // sauvegarde des résultats trouvés
                     $found = array_merge($found, $vars);
-                }else{
-                // on notifie l'utilisateur qu'une erreur est survenu
-                    $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
                 }
             }
         }
