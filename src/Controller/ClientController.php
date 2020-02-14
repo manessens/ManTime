@@ -136,10 +136,7 @@ class ClientController extends AppController
             $vars = json_decode($result, true);
 
             if (is_array($vars)) {
-                if (array_key_exists('error', $vars)) {
-                    // on notifie l'utilisateur qu'une erreur est survenu
-                    $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
-                }else{
+                if (!array_key_exists('error', $vars)) {
                     // sauvegarde des résultats trouvés
                     $found = array_merge($found, $vars);
                 }
@@ -151,6 +148,9 @@ class ClientController extends AppController
             foreach ($found as $value) {
                 $select2[]=array('id'=>$value['code'], 'text'=>$value['name']);
             }
+        }else{
+            // on notifie l'utilisateur qu'une erreur est survenu
+            $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
         }
 
         // réencodage pour renvoie au script ajax
