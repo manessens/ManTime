@@ -7,7 +7,7 @@ use Cake\ORM\Entity;
  * Client Entity
  *
  * @property int $idc
- * @property int $id_fit
+ * @property string $id_fit
  * @property int $id_agence
  * @property string $nom_client
  *
