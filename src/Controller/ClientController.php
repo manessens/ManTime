@@ -134,7 +134,7 @@ class ClientController extends AppController
             $result = $this->getVsaLink("v1/customers");
             // décode du résultat json
             $vars = json_decode($result, true);
-            return $vars;
+
             if (is_array($vars)) {
                 if (!array_key_exists('error', $vars)) {
                     // sauvegarde des résultats trouvés
@@ -161,7 +161,8 @@ class ClientController extends AppController
         // type de réponse : objet json
         $this->response->type('json');
         // contenue de la réponse
-        $this->response->body($json_found);
+        // $this->response->body($json_found);
+        $this->response->body($vars);
 
         return $this->response;
     }
