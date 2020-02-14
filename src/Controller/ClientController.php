@@ -134,7 +134,7 @@ class ClientController extends AppController
             $result = $this->getVsaLink("v1/customers");
             // décode du résultat json
             $vars = json_decode($result, true);
-
+            return $vars;
             if (is_array($vars)) {
                 if (!array_key_exists('error', $vars)) {
                     // sauvegarde des résultats trouvés
@@ -153,7 +153,7 @@ class ClientController extends AppController
             }
         }else{
             // on notifie l'utilisateur qu'une erreur est survenu
-            $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste Fitnet');
+            $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste des clients VSA');
         }
 
         // réencodage pour renvoie au script ajax
