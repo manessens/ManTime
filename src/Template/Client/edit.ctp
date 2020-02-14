@@ -19,9 +19,9 @@
             echo $this->Form->select('id_agence', $agenceOption, ['id'=> 'id_agence']);
         ?>
         </div>
-        <div class="left">
+        <div class="left idf">
         <?php
-            echo $this->Form->control('id_fit', ['readonly','class'=> 'col-xs-4', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
+            echo $this->Form->control('id_fit', ['readonly', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
         ?>
         </div>
         <div class="left col-xs-10">
