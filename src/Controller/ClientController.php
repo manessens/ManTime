@@ -131,7 +131,6 @@ class ClientController extends AppController
         $select2 = array();
         if ($this->request->is(['get'])) {
             // appel de la requête
-            return "prout";
             $result = $this->getVsaLink("v1/customers");
             // décode du résultat json
             $vars = json_decode($result, true);
@@ -173,7 +172,7 @@ class ClientController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete', 'getCustomerFitnet']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit', 'delete', 'getCustomerVsa']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 
