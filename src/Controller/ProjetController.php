@@ -221,8 +221,8 @@ class ProjetController extends AppController
             };
         }
         return true;
-    // }
-    //
+    }
+    
     // public function getProjectFitnet(){
     //     $found = [];
     //
