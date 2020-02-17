@@ -25,9 +25,9 @@ function initcChangeClient(){
 }
 
 function initIgnorFitnet(){
+    $(this).attr('data-value', $('#id-fit').val());
     $( "#ignore-fit" ).on('change', function (e){
         if($(this).is(':checked')){
-            $(this).attr('data-value', $('#id-fit').val());
             $("#content-fitnet-link").hide();
             resetFitnet();
         }else{
@@ -56,9 +56,9 @@ function initChangeSelect2(){
     $("#liste_vsa").on("change", function(e) {
         var val = $("#liste_vsa").find(':selected').val();
         if (val == "error") {
+            $('#id-fit').val(val);
             return false;
         }
-        $('#id-fit').val(val);
         if (val != null ) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
@@ -95,6 +95,7 @@ function initChangeSelect2(){
 function resetFitnet(){
     $('#date-debut').removeAttr('readonly');
     $('#date-fin').removeAttr('readonly');
+    $('#nom-projet').removeAttr('readonly');
     $('#linker').removeClass('btn-success').addClass('btn-primary');
 }
 
@@ -141,7 +142,7 @@ function updateSelect(data){
     });
     extandData = data['projects'];
     var id_fit = $('#id-fit').val();
-    if ( id_fit != null && id_fit != 'error' ) {
+    if ( id_fit != null ) {
         $('#liste_vsa').val(id_fit);
         $('#liste_vsa').trigger('change'); // Notify any JS components that the value changed
     }else{
