@@ -49,7 +49,6 @@ function init(){
             url: "/client/getCustomerVsa/",
             beforeSend: function( xhr ) {
                 $('#loader').show();
-                $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success

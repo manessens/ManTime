@@ -113,7 +113,6 @@ function init(){
             data: { client: id_client },
             beforeSend: function( xhr ) {
                 $('#loader').show();
-                $('#linkModal').find(".modal-footer button#send").hide();
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data['select']) ) {    //success
@@ -126,12 +125,10 @@ function init(){
                 eraseSelect();
             }
         }).always(function(){
-            $('#linkModal').modal('hide');
             $('#loader').hide();
-            $('#linkModal').find(".modal-footer button#send").show();
         });
     });
-    
+
     $('#resetter').on('click', function (e) {
         if (xhr != undefined) {
             xhr.abort();
