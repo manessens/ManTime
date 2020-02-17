@@ -21,7 +21,7 @@
             </div>
             <div class="col-xs-6">
                 <?php echo $this->Form->label('select_fit','Liste VSA'); ?>
-                <select name="select_fit" type="text" id="liste_fitnet"></select>
+                <select name="select_fit" type="text" id="liste_vsa"></select>
             </div>
             <div class="left control_fitnet">
                 <button type="button" id="linker" class="btn <?php echo $projet->id_fit>0?"btn-success":"btn-primary"; ?>"
