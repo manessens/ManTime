@@ -106,7 +106,7 @@ function init(){
 
     $('#linker').on('click',function(e){
         e.preventDefault();
-        var id_client = $('#linkModal').find('.modal-body select option:selected').val();
+        var id_client = $('#linker').attr('data-whatever');;
         xhr = $.ajax({
             type: "GET",
             url: "/projet/getProjectVsa/",
