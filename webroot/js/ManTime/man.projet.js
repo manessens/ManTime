@@ -55,6 +55,9 @@ function initSelectEdit(){
 function initChangeSelect2(){
     $("#liste_vsa").on("change", function(e) {
         var val = $("#liste_vsa").find(':selected').val();
+        if (val == "error") {
+            return false;
+        }
         $('#id-fit').val(val);
         if (val != null ) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
