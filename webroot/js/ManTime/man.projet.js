@@ -25,12 +25,14 @@ function initcChangeClient(){
 }
 
 function initIgnorFitnet(){
+    $(this).attr('data-value', $('#id-fit').val());
     $( "#ignore-fit" ).on('change', function (e){
         if($(this).is(':checked')){
+            $(this).attr('data-value', $('#id-fit').val());
             $("#content-fitnet-link").hide();
             resetFitnet();
         }else{
-            $('#id-fit').val($('#resetter').attr('data-value'));
+            $('#id-fit').val($(this).attr('data-value'));
             initSelectEdit()
             $("#content-fitnet-link").show();
         }
