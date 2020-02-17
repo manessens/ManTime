@@ -296,7 +296,7 @@ class ProjetController extends AppController
                 $clientTable = TableRegistry::get('Client');
                 $client = $clientTable->getById($id_client);
                 $id_fit = $client->id_fit;
-                
+
                 if ($id_fit != "") {
                     // appel de la requête
                     $result = $this->getVsaLink("v1/orders");
@@ -305,6 +305,7 @@ class ProjetController extends AppController
                     if (is_array($vars)) {
                         if (!array_key_exists('error', $vars)) {
                             // sauvegarde des résultats trouvés
+                            return $result;
                             $found = array_filter( $vars, function($k, $v) use ($id_fit) {
                                 return $v['customerCode'] == $id_fit;
                             }, ARRAY_FILTER_USE_BOTH);
