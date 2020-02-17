@@ -18,16 +18,17 @@
         <!-- FITNET -->
         <div class="col-xs-12">
             <div class="left">
-                <?php echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]); ?>
+                <?php echo $this->Form->control('id_fit', ['readonly', "type" => 'text', 'label' => ['text'=>'Id VSA']]); ?>
             </div>
             <div class="col-xs-8">
-                <?php echo $this->Form->label('select_fit','Liste Fitnet'); ?>
-                <select name="select_fit" type="text" id="liste_fitnet"></select>
+                <?php echo $this->Form->label('select_fit','Liste VSA'); ?>
+                <select name="select_fit" type="text" id="liste_vsa"></select>
             </div>
             <div class="left control_fitnet">
                 <button type="button" id="linker" class="btn <?php echo $projet->id_fit>0?"btn-success":"btn-primary"; ?>"
-                     data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste Fitnet</button>
-                <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
+                     data-toggle="modal" data-target="#linkModal" data-whatever="">Actualiser liste VSA</button>
+                <button type="button" id="resetter" data-value="<?php echo $projet->id_fit ?>" class="btn btn-danger">Supprimer Id</button>
+                <div class="loader btn" style="display:none;" id="loader"> </div>
             </div>
          </div>
          <!-- /FITNET/ -->
@@ -82,29 +83,3 @@
 <?php echo $this->Html->script('ManTime/man.projet.js'); ?>
 <?php echo $this->Html->css('ManTime/man.loader.css'); ?>
 <?php echo $this->Html->css('ManTime/man.projet.css'); ?>
-<!-- modal link with fitnet -->
-<div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="ajax">
-        <div class="modal-body">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Client:</label>
-              <?php echo $this->Form->select('idc', $clientOption); ?>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
-          <button type="submit" id="send" class="btn btn-primary">Rechercher</button>
-          <div class="loader btn" style="display:none;" id="loader"> </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
