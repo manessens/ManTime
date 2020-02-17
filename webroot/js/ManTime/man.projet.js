@@ -41,6 +41,7 @@ function initIgnorFitnet(){
 function initResetSelect(){
     $('#resetter').on('click',function(e){
         $("#liste_vsa").val(null).trigger("change");
+        $('#linker').removeClass('btn-success').addClass('btn-primary');
     });
 }
 
@@ -140,7 +141,7 @@ function updateSelect(data){
     });
     extandData = data['projects'];
     var id_fit = $('#id-fit').val();
-    if ( id_fit != null ) {
+    if ( id_fit != null && id_fit != 'error' ) {
         $('#liste_vsa').val(id_fit);
         $('#liste_vsa').trigger('change'); // Notify any JS components that the value changed
     }else{
