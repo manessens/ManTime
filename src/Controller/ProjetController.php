@@ -282,6 +282,7 @@ class ProjetController extends AppController
     // }
 
     public function getProjectVsa(){
+        $data = [];
         $found = [];
 
         if( $this->request->is('ajax') ) {
@@ -306,7 +307,7 @@ class ProjetController extends AppController
                     if (is_array($vars)) {
                         if (!array_key_exists('error', $vars)) {
                             // sauvegarde des résultats trouvés
-                            $found = $vars;
+                            $data = $vars;
                         }else{
                             // on notifie l'utilisateur qu'une erreur est survenu
                             $select2[]=array('id'=>'error', 'text'=>$vars['message']);
@@ -317,9 +318,10 @@ class ProjetController extends AppController
         }
 
         //remise en forme du tableau
-        if (!empty($found)) {
-            foreach ($found as $value) {
+        if (!empty($data)) {
+            foreach ($data as $value) {
                 if ($value['customerCode'] == $id_fit) {
+                    $found[]=$value;
                     $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
                 }
             }
