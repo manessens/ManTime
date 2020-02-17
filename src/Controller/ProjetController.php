@@ -324,7 +324,6 @@ class ProjetController extends AppController
                 $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
             }
         }else{
-return $id_fit;
             // on notifie l'utilisateur qu'une erreur est survenu
             $select2[]=array('id'=>'error', 'text'=>'Erreur Lors de la récupérration de la liste des affaires VSA');
         }
