@@ -62,12 +62,17 @@ function initChangeSelect2(){
         }
         if (val != null ) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
-            $('#date-debut').attr('readonly','readonly');
-            $('#date-fin').attr('readonly','readonly');
-            $('#nom-projet').attr('readonly','readonly');
+            if (extandData[val].startinDate) {
+                $('#date-debut').attr('readonly','readonly');
+                $('#date-debut').val(moment(extandData[val].startinDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            }
+            
+            if (extandData[val].endingDate) {
+                $('#date-fin').attr('readonly','readonly');
+                $('#date-fin').val(moment(extandData[val].endingDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            }
 
-            $('#date-debut').val(moment(extandData[val].startinDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
-            $('#date-fin').val(moment(extandData[val].endingDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#nom-projet').attr('readonly','readonly');
             $('#nom-projet').val(extandData[val].title);
         }
     });
