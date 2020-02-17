@@ -306,9 +306,7 @@ class ProjetController extends AppController
                     if (is_array($vars)) {
                         if (!array_key_exists('error', $vars)) {
                             // sauvegarde des résultats trouvés
-                            $found = array_filter( $vars, function($k, $v) use ($id_fit) {
-                                return $v['customerCode'] == $id_fit;
-                            }, ARRAY_FILTER_USE_BOTH);
+                            $found = $vars;
                         }else{
                             // on notifie l'utilisateur qu'une erreur est survenu
                             $select2[]=array('id'=>'error', 'text'=>$vars['message']);
@@ -321,7 +319,9 @@ class ProjetController extends AppController
         //remise en forme du tableau
         if (!empty($found)) {
             foreach ($found as $value) {
-                $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
+                if ($value['customerCode'] == $id_fit) {
+                    $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
+                }
             }
         }else{
             // on notifie l'utilisateur qu'une erreur est survenu
