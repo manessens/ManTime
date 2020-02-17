@@ -56,8 +56,8 @@ function initSelectEdit(){
 function initChangeSelect2(){
     $("#liste_vsa").on("change", function(e) {
         var val = $("#liste_vsa").find(':selected').val();
+        $('#id-fit').val(val);
         if (val == "error") {
-            $('#id-fit').val(val);
             return false;
         }
         if (val != null ) {
