@@ -280,6 +280,63 @@ class ProjetController extends AppController
         return $this->response;
     }
 
+    public function getProjectVsa(){
+        $found = [];
+
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false; // Pas de rendu
+        }
+
+        if ($this->request->is(['get'])) {
+
+            $id_client = $this->request->query["client"];
+            if ($id_client != null) {
+
+                // récupération des id company fitnet
+                $clientTable = TableRegistry::get('Client');
+                $client = $clientTable->getById($id_client);
+                $id_fit = $client->id_fit;
+
+                if ($id_fit != "") {
+                    // appel de la requête
+                    $result = $this->getVsaLink("v1/orders");
+                    // décode du résultat json
+                    $vars = json_decode($result, true);
+                    if (is_array($vars)) {
+                        if (!array_key_exists('error', $vars)) {
+                            // sauvegarde des résultats trouvés
+                            $found = array_filter( $vars, function($k, $v) use ($id_fit) {
+                                return $v['customerCode'] == $id_fit;
+                            }, ARRAY_FILTER_USE_BOTH);
+                        }else{
+                            // on notifie l'utilisateur qu'une erreur est survenu
+                            $select2[]=array('id'=>'error', 'text'=>$vars['message']);
+                        }
+                    }
+                }
+            }
+        }
+
+        //remise en forme du tableau
+        if (!empty($found)) {
+            foreach ($found as $value) {
+                $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
+            }
+        }else{
+            // on notifie l'utilisateur qu'une erreur est survenu
+            $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste des affaires VSA');
+        }
+
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($select2);
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
+    }
+
 
     private function getClientOption()
     {

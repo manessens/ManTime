@@ -104,21 +104,12 @@ function init(){
     initResetSelect();
     initIgnorFitnet();
 
-    $('#linkModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.attr('data-whatever')// Extract info from data-* attributes
-        var modal = $(this);
-
-        modal.find('.modal-title').text('Obtenir la liste fitnet des projets')
-        modal.find('.modal-body select option[value='+recipient+']').prop('selected', true);
-    });
-
-    $('#ajax').on('submit',function(e){
+    $('#linker').on('click',function(e){
         e.preventDefault();
         var id_client = $('#linkModal').find('.modal-body select option:selected').val();
         xhr = $.ajax({
             type: "GET",
-            url: "/projet/getProjectFitnet/",
+            url: "/projet/getProjectVsa/",
             data: { client: id_client },
             beforeSend: function( xhr ) {
                 $('#loader').show();
@@ -140,13 +131,11 @@ function init(){
             $('#linkModal').find(".modal-footer button#send").show();
         });
     });
-
-    $('#linkModal').on('hide.bs.modal', function (e) {
+    
+    $('#resetter').on('click', function (e) {
         if (xhr != undefined) {
             xhr.abort();
         }
-        $('#loader').hide();
-        $('#linkModal').find(".modal-footer button#send").show();
     });
 }
 
