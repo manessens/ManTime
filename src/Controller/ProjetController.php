@@ -329,7 +329,7 @@ class ProjetController extends AppController
         }
 
         // réencodage pour renvoie au script ajax
-        $json_found = json_encode($select2);
+        $json_found = json_encode(["select" => $select2, 'projects' => $found] );
         // type de réponse : objet json
         $this->response->type('json');
         // contenue de la réponse

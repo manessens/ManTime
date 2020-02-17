@@ -47,7 +47,6 @@ function initResetSelect(){
 function initSelectEdit(){
     if ($('#id-fit').val() != null) {
         var value = $('#linker').attr('data-whatever');
-        $('#linkModal').find('.modal-body select option[value='+value+']').prop('selected', true);
         $('#ajax').submit();
     }
 }
@@ -65,8 +64,8 @@ function initChangeSelect2(){
             $('#date-fin').attr('readonly','readonly');
             $('#nom-projet').attr('readonly','readonly');
 
-            $('#date-debut').val(moment(extandData[val].beginDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
-            $('#date-fin').val(moment(extandData[val].endDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#date-debut').val(moment(extandData[val].startinDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            $('#date-fin').val(moment(extandData[val].endingDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
             $('#nom-projet').val(extandData[val].title);
         }
     });
@@ -117,7 +116,7 @@ function init(){
                 $('#loader').show();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data) ) {    //success
+            if ( !jQuery.isEmptyObject(data['select']) ) {    //success
                 updateSelect(data);
             }else{                                  // fail
                 eraseSelect();
@@ -137,7 +136,7 @@ function init(){
 function updateSelect(data){
     eraseSelect();
     $('#liste_vsa').select2({
-        data: data
+        data: data['select'];
     });
     extandData = data['projects'];
     var id_fit = $('#id-fit').val();
