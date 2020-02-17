@@ -296,7 +296,7 @@ class ProjetController extends AppController
                 $clientTable = TableRegistry::get('Client');
                 $client = $clientTable->getById($id_client);
                 $id_fit = $client->id_fit;
-return $id_fit;
+
                 if ($id_fit != "") {
                     // appel de la requête
                     $result = $this->getVsaLink("v1/orders");
@@ -323,6 +323,7 @@ return $id_fit;
                 $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
             }
         }else{
+return $id_fit;
             // on notifie l'utilisateur qu'une erreur est survenu
             $select2[]=array('id'=>'error', 'text'=>'Erreur Lors de la récupérration de la liste des affaires VSA');
         }
