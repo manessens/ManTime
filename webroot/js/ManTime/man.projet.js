@@ -30,7 +30,7 @@ function initIgnorFitnet(){
             $("#content-fitnet-link").hide();
             resetFitnet();
         }else{
-            $('#id-fit').val($(this).attr('data-value'));
+            $('#id-fit').val($('#resetter').attr('data-value'));
             initSelectEdit()
             $("#content-fitnet-link").show();
         }
@@ -105,8 +105,6 @@ function init(){
     initChangeSelect2();
     initResetSelect();
     initIgnorFitnet();
-
-    $(this).attr('data-value', $('#id-fit').val());
 
     $('#linker').on('click',function(e){
         e.preventDefault();
