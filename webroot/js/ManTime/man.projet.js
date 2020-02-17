@@ -116,7 +116,7 @@ function init(){
                 $('#loader').show();
             }
         }).done(function( data ) {
-            if ( !jQuery.isEmptyObject(data['select']) ) {    //success
+            if ( !jQuery.isEmptyObject(data) ) {    //success
                 updateSelect(data);
             }else{                                  // fail
                 eraseSelect();
