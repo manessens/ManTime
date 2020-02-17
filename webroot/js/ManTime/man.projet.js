@@ -25,7 +25,6 @@ function initcChangeClient(){
 }
 
 function initIgnorFitnet(){
-    $(this).attr('data-value', $('#id-fit').val());
     $( "#ignore-fit" ).on('change', function (e){
         if($(this).is(':checked')){
             $("#content-fitnet-link").hide();
@@ -106,6 +105,8 @@ function init(){
     initChangeSelect2();
     initResetSelect();
     initIgnorFitnet();
+
+    $(this).attr('data-value', $('#id-fit').val());
 
     $('#linker').on('click',function(e){
         e.preventDefault();
