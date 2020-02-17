@@ -169,24 +169,25 @@ class ProjetController extends AppController
 
     private function updateActivities( $projet, $activities = array())
     {
-        $activitiesTable = TableRegistry::get('Activities');
+
+        $this->loadModel('Activities');
         $activitiesObject = array();
         if ( !empty($activities) ) {
             foreach ($activities as $value) {
-                $activitiesObject[] = $activitiesTable->newEntity(['idp' => $projet->idp, 'ida' => $value]);
+                $activitiesObject[] = $this->Activities->newEntity(['idp' => $projet->idp, 'ida' => $value]);
             }
             //Prepare query for deletion
-            $query = $activitiesTable->find('all')->where(['idp =' => $projet->idp, 'ida NOT IN' => $activities ]);
+            $query = $this->Activities->find('all')->where(['idp =' => $projet->idp, 'ida NOT IN' => $activities ]);
         }else{
             //Prepare query for deletion in case of empty array
-            $query = $activitiesTable->find('all')->where(['idp =' => $projet->idp ]);
+            $query = $this->Activities->find('all')->where(['idp =' => $projet->idp ]);
         }
         // Update liste of activities to create associated entity in tab
         $projet->activities = $activitiesObject;
         //DELETION
         $listDeletion = $query->toArray();
         foreach ($listDeletion as  $entity) {
-            $result = $activitiesTable->delete($entity);
+            $result = $this->Activities->delete($entity);
             if ( !$result ) {
                 $this->Flash->error(__("Le projet n'a pus être sauvegardé. Erreur à l'enregistrement des activités."));
                 return false;
@@ -293,8 +294,8 @@ class ProjetController extends AppController
             if ($id_client != null) {
 
                 // récupération des id company fitnet
-                $clientTable = TableRegistry::get('Client');
-                $client = $clientTable->getById($id_client);
+                $this->loadModel('Client');
+                $client = $this->Client->get($id_client);
                 $id_fit = $client->id_fit;
 
                 if ($id_fit != "") {
@@ -439,14 +440,14 @@ return $id_fit;
         $this->request->allowMethod(['post', 'delete']);
         $projet = $this->Projet->get($id);
         //DELETION ACTIVTIES / PARTICIPANT
-        $activitiesTable = TableRegistry::get('Activities');
-        $query = $activitiesTable->find('all')->where(['idp =' => $projet->idp ]);
+        $this->loadModel('Activities');
+        $query = $this->Activities->find('all')->where(['idp =' => $projet->idp ]);
         $listDeletionA = $query->toArray();
         $participantTable = TableRegistry::get('Participant');
         $query = $participantTable->find('all')->where(['idp =' => $projet->idp ]);
         $listDeletionP = $query->toArray();
         foreach ($listDeletionA as  $entity) {
-            if ( !$activitiesTable->delete($entity) ) {
+            if ( !$this->Activities->delete($entity) ) {
                 $this->Flash->error(__("Le projet n'a pus être supprimé. Erreur à la désaffectation des activités."));
                 return $this->redirect(['action' => 'index']);
             };
