@@ -319,7 +319,8 @@ class ProjetController extends AppController
         }
 
         //remise en forme du tableau
-        if (!empty($found)) {
+        if (!empty($vars)) {
+        // if (!empty($found)) {
             foreach ($vars as $value) {
             // foreach ($found as $value) {
                 $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
