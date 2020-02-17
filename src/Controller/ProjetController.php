@@ -302,10 +302,10 @@ class ProjetController extends AppController
                     $result = $this->getVsaLink("v1/orders");
                     // décode du résultat json
                     $vars = json_decode($result, true);
+                    return $result;
                     if (is_array($vars)) {
                         if (!array_key_exists('error', $vars)) {
                             // sauvegarde des résultats trouvés
-                            return $result;
                             $found = array_filter( $vars, function($k, $v) use ($id_fit) {
                                 return $v['customerCode'] == $id_fit;
                             }, ARRAY_FILTER_USE_BOTH);
