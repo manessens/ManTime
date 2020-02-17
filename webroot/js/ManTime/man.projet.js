@@ -136,7 +136,7 @@ function init(){
 function updateSelect(data){
     eraseSelect();
     $('#liste_vsa').select2({
-        data: data['select'];
+        data: data['select']
     });
     extandData = data['projects'];
     var id_fit = $('#id-fit').val();
