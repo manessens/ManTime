@@ -222,7 +222,7 @@ class ProjetController extends AppController
         }
         return true;
     }
-    
+
     // public function getProjectFitnet(){
     //     $found = [];
     //
@@ -296,7 +296,7 @@ class ProjetController extends AppController
                 $clientTable = TableRegistry::get('Client');
                 $client = $clientTable->getById($id_client);
                 $id_fit = $client->id_fit;
-return $id_fit;
+                
                 if ($id_fit != "") {
                     // appel de la requête
                     $result = $this->getVsaLink("v1/orders");
@@ -475,7 +475,7 @@ return $id_fit;
             return false;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete','getProjectFitnet']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete','getProjectVsa']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 
