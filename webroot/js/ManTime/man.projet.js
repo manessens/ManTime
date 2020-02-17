@@ -65,11 +65,15 @@ function initChangeSelect2(){
             if (extandData[val].startinDate) {
                 $('#date-debut').attr('readonly','readonly');
                 $('#date-debut').val(moment(extandData[val].startinDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            }else{
+                $('#date-debut').removeAttr('readonly');
             }
-            
+
             if (extandData[val].endingDate) {
                 $('#date-fin').attr('readonly','readonly');
                 $('#date-fin').val(moment(extandData[val].endingDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+            }else{
+                $('#date-fin').removeAttr('readonly');
             }
 
             $('#nom-projet').attr('readonly','readonly');
