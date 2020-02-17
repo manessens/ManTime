@@ -296,13 +296,12 @@ class ProjetController extends AppController
                 $clientTable = TableRegistry::get('Client');
                 $client = $clientTable->getById($id_client);
                 $id_fit = $client->id_fit;
-
+return $id_fit;
                 if ($id_fit != "") {
                     // appel de la requête
                     $result = $this->getVsaLink("v1/orders");
                     // décode du résultat json
                     $vars = json_decode($result, true);
-                    return $result;
                     if (is_array($vars)) {
                         if (!array_key_exists('error', $vars)) {
                             // sauvegarde des résultats trouvés
@@ -325,7 +324,7 @@ class ProjetController extends AppController
             }
         }else{
             // on notifie l'utilisateur qu'une erreur est survenu
-            $select2[]=array('id'=>'err', 'text'=>'Erreur Lors de la récupérration de la liste des affaires VSA');
+            $select2[]=array('id'=>'error', 'text'=>'Erreur Lors de la récupérration de la liste des affaires VSA');
         }
 
         // réencodage pour renvoie au script ajax
