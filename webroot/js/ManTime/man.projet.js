@@ -60,6 +60,7 @@ function initChangeSelect2(){
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             $('#date-debut').attr('readonly','readonly');
             $('#date-fin').attr('readonly','readonly');
+            $('#nom-projet').attr('readonly','readonly');
 
             $('#date-debut').val(moment(extandData[val].beginDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
             $('#date-fin').val(moment(extandData[val].endDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
@@ -116,9 +117,7 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data['select']) ) {    //success
-                if (data['select']=='error') {
-                    $('#id-fit').val('error');
-                }else{
+                if (data['select']=='error')
                     updateSelect(data);
                 }
             }else{                                  // fail
