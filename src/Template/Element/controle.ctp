@@ -5,7 +5,9 @@
         }
      ?>
     <?php if ($restrict != '%delete%'):?>
-        <!-- <?= $this->Html->link(__('Voir'), ['action' => 'view', $id], ['class' => 'btn btn-info']) ?> -->
+       <?php if ($restrict == '%show%' || $restrict == '%mod%'):?>
+            <?= $this->Html->link(__('Voir'), ['action' => 'view', $id], ['class' => 'btn btn-info']) ?>
+        <?php endif; ?>
 
         <?php if ($restrict != '%show%' && $restrict != '%mod%' ) :?>
             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $id], ['class' => 'btn btn-warning']) ?>

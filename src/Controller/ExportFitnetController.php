@@ -72,7 +72,7 @@ class ExportFitnetController extends AppController
             if ($isValid){
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
-                $arrayData['etat'] = Configure::read('fitnet.wait');
+                $arrayData['etat'] = Configure::read('vsa.err');
                 $arrayData['idc'] = $arrayData['client'];
                 $arrayData['idu'] = $arrayData['user'];
 
@@ -103,11 +103,11 @@ class ExportFitnetController extends AppController
         }
 
         $line=array();
-        $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
-        $absFileName = Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end').DS.$filename;
+        $filename = Configure::read('vsa.logname_end') . $id . '.csv';
+        $absFileName = Configure::read('vsa.abs_path').Configure::read('vsa.logdir_end').DS.$filename;
         if (!file_exists($absFileName)) {
-            $filename = Configure::read('fitnet.logname') . $id . '.csv';
-            $absFileName = Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir').DS.$filename;
+            $filename = Configure::read('vsa.logname') . $id . '.csv';
+            $absFileName = Configure::read('vsa.abs_path').Configure::read('vsa.logdir').DS.$filename;
             if (!file_exists($absFileName)) {
                 $this->Flash->error(__("Aucun fichier log trouvé, veuillez contacter un administrateur."));
                 return $this->redirect(['action' => 'index']);
@@ -179,15 +179,15 @@ class ExportFitnetController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $export = $this->ExportFitnet->get($id);
-        if ($export->etat == Configure::read('fitnet.wait') ) {
+        if ($export->etat == Configure::read('vsa.wait') ) {
             try {
                 $this->ExportFitnet->delete($export);
                 $this->Flash->success(__('La demande d\'export a été supprimé avec succés.'));
             } catch (\PDOException $e) {
                 $this->Flash->error(__("La demande d'export n'a pus être supprimé. Assurez-vous qu'il ne soit pas utilisé avant de réessayer."));
             }
-        }elseif ($export->etat == Configure::read('fitnet.err')) {
-            $export->etat = Configure::read('fitnet.nerr');
+        }elseif ($export->etat == Configure::read('vsa.err')) {
+            $export->etat = Configure::read('vsa.nerr');
             $this->ExportFitnet->save($export);
             $this->Flash->success(__('La demande d\'export en erreur à été fixé.'));
         }else{
@@ -232,14 +232,14 @@ class ExportFitnetController extends AppController
     }
 
     private function getExportActif(){
-        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait')])->toArray();
+        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('vsa.err')])->toArray();
     }
 
     private function getExportId($id){
         if ($id == null) {
             return [];
         }
-        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('fitnet.wait')])->orWhere(['etat =' => Configure::read('fitnet.err') ])->andWhere(['id_fit =' => $id])->toArray();
+        return $this->ExportFitnet->find('all')->where(['etat =' => Configure::read('vsa.err')])->orWhere(['etat =' => Configure::read('vsa.err') ])->andWhere(['id_fit =' => $id])->toArray();
     }
 
     private function getTimesFromExport($export){
@@ -346,9 +346,9 @@ class ExportFitnetController extends AppController
     }
     private function inProcess($export){
 
-        $filename = Configure::read('fitnet.logname') . $export->id_fit . '.csv';
+        $filename = Configure::read('vsa.logname') . $export->id_fit . '.csv';
 
-        $folder = new Folder(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir'));
+        $folder = new Folder(Configure::read('vsa.abs_path').Configure::read('fitnet.logdir'));
         $this->file_log = new File($folder->pwd() . DS . $filename);
         $this->file_log->delete();
 
@@ -363,9 +363,9 @@ class ExportFitnetController extends AppController
 
     private function writeLog($id){
         // Ecrit une nouveau log pour l'export #$id
-        $filename = Configure::read('fitnet.logname_end') . $id . '.csv';
+        $filename = Configure::read('vsa.logname_end') . $id . '.csv';
 
-        $folder = new Folder(Configure::read('fitnet.abs_path').Configure::read('fitnet.logdir_end'));
+        $folder = new Folder(Configure::read('vsa.abs_path').Configure::read('fitnet.logdir_end'));
         $file = new File($folder->pwd() . DS . $filename);
         $file->delete();
 
@@ -638,9 +638,9 @@ class ExportFitnetController extends AppController
             $this->insertLog($line,true,true);
         }
         if (empty($this->error_log)) {
-            $export->etat = Configure::read('fitnet.end');
+            $export->etat = Configure::read('vsa.end');
         }else{
-            $export->etat = Configure::read('fitnet.err');
+            $export->etat = Configure::read('vsa.err');
         }
 
         $this->insertLog(['--', ' Total de temps traité : '.$total]);

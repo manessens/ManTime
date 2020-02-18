@@ -13,7 +13,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Users.prenom','Prénom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Users.nom','Nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Users.email','Adresse email') ?></th>
-                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.id_fit','Fitnet') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.id_fit','VSA') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Origine.nom_origine','Origine') ?></th>
                 <th class="medium-1" scope="col"><?= $this->Paginator->sort('Users.actif','Actif') ?></th>
                 <th class="tag_role" scope="col"><?= $this->Paginator->sort('Users.role','Rôle') ?></th>

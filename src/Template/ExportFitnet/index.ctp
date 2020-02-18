@@ -4,7 +4,7 @@
  */
 ?>
 <div class="projet index large-10 large-10bis medium-8 columns content">
-    <Legend><span class="text-danger"><?= __('Exports Fitnet') ?></span></legend>
+    <Legend><span class="text-danger"><?= __('Exports VSA') ?></span></legend>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -27,11 +27,11 @@
                     <td><?php echo $export->user != null?$export->user->fullname:'/' ; ?></td>
                     <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
                     <td class="actionsFit">
-                        <?php if ($export->etat == \Cake\Core\Configure::read('fitnet.wait')): ?>
+                        <?php if ($export->etat == \Cake\Core\Configure::read('vsa.err')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
-                        <?php elseif($export->etat == \Cake\Core\Configure::read('fitnet.end') || $export->etat == \Cake\Core\Configure::read('fitnet.nerr')): ?>
+                        <?php elseif($export->etat == \Cake\Core\Configure::read('vsa.end') || $export->etat == \Cake\Core\Configure::read('vsa.nerr')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
-                        <?php elseif( $export->etat == \Cake\Core\Configure::read('fitnet.err') ): ?>
+                        <?php elseif( $export->etat == \Cake\Core\Configure::read('vsa.err') ): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%mod%']); ?>
                         <?php endif; ?>
                     </td>

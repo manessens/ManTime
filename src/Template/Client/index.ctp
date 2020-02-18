@@ -11,7 +11,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Client.nom_client','Client') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Agence.nom_agence','Agence') ?></th>
-                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Client.id_fit','Fitnet') ?></th>
+                <th class="medium-1" scope="col"><?= $this->Paginator->sort('Client.id_fit','VSA') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
