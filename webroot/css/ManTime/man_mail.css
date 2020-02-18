@@ -1,5 +1,5 @@
 body{
-    background-color: #424351;
+    background-color: #221F20;
     color: white;
 }
 p i{
@@ -7,7 +7,7 @@ p i{
 }
 
 p a{
-    color: #E92C3B;
+    color: #01ABBD;
 }
 
 /* visited link */
@@ -17,7 +17,7 @@ p a:visited {
 
 /* mouse over link */
 p a:hover {
-    color: #F06C76;
+    color: #019BAD;
 }
 
 .header_mail img{
@@ -25,7 +25,7 @@ p a:hover {
 }
 
 .rouge{
-    color: #E92C3B;
+    color: #01ABBD;
 }
 .footer_mail{
     font-size: small;

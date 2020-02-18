@@ -1,49 +1,49 @@
 /* RECHARTRAGE */
 #topofpage{
-    background-color: #E92C3B !important;
+    background-color: #01ABBD !important;
 }
 .top-bar.expanded .title-area{
-    background-color: #424351 !important;
+    background-color: #221F20 !important;
 }
 .red-ul a{
-    background-color: #E92C3B !important;
+    background-color: #01ABBD !important;
 }
 .red-ul a:hover{
-    background-color: #F06C76 !important;
+    background-color: #019BAD !important;
 }
 .red-ul a:visited{
-    background-color: #E92C3B !important;
+    background-color: #01ABBD !important;
 }
 .panel-red{
-    border-color: #E92C3B !important;
+    border-color: #01ABBD !important;
 }
 .panel-red .panel-heading{
-    border-color: #F06C76 !important;
-    background-color: #424351 !important;
+    border-color: #019BAD !important;
+    background-color: #221F20 !important;
 }
 table:not(.vertical-table) tr th {
-    border-bottom: 2px solid #E92C3B !important;
+    border-bottom: 2px solid #E43C62 !important;
 }
 table thead tr {
-    border-bottom: 1px solid #E92C3B !important;
+    border-bottom: 1px solid #E43C62 !important;
 }
 legend{
-    color: #424351 !important;
+    color: #221F20 !important;
 }
 li{
-    color: #424351 !important;
+    color: #221F20 !important;
 }
 ul.side-nav li a{
-    color: #424351 !important;
+    color: #221F20 !important;
 }
 th a{
-    color: #424351 !important;
+    color: #221F20 !important;
 }
 fieldset legend{
-    border-bottom: 2px solid #E92C3B !important;
+    border-bottom: 2px solid #01ABBD !important;
 }
 .vertical-table th{
-    color: #424351 !important;
+    color: #221F20 !important;
 }
 
 /* OTHER  */
@@ -198,7 +198,7 @@ table tfoot tr th{
 }
 
 .semaine{
-    background-color: #424351 !important;
+    background-color: #6D4598 !important;
     width: 65px !important;
     color: white;
     text-align: center;

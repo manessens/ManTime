@@ -3229,7 +3229,7 @@ fieldset[disabled] .btn-success.focus {
 }
 .btn-info {
   color: #fff;
-  background-color: #424351  !important;
+  background-color: #221F20  !important;
   border-color: #2a2a2a;
 }
 .btn-info:focus,
@@ -3277,11 +3277,11 @@ fieldset[disabled] .btn-info:focus,
 .btn-info.disabled.focus,
 .btn-info[disabled].focus,
 fieldset[disabled] .btn-info.focus {
-  background-color: #424351 ;
+  background-color: #221F20 ;
   border-color: #2a2a2a;
 }
 .btn-info .badge {
-  color: #424351 ;
+  color: #221F20 ;
   background-color: #fff !important;
 }
 .btn-warning {
