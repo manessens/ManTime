@@ -1,6 +1,6 @@
-<?php if ($etat == \Cake\Core\Configure::read('vsa.err') ): ?>
+<?php if ($etat == \Cake\Core\Configure::read('vsa.wait') ): ?>
     <span class="badge back-info" ><?php echo $etat ?></span>
-<?php elseif($etat == \Cake\Core\Configure::read('fitnet.run')): ?>
+<?php elseif($etat == \Cake\Core\Configure::read('vsa.run')): ?>
     <span class="badge back-warning" ><?php echo $etat ?></span>
 <?php elseif($etat == \Cake\Core\Configure::read('vsa.end')): ?>
     <span class="badge back-success" ><?php echo $etat ?></span>

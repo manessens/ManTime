@@ -27,7 +27,7 @@
                     <td><?php echo $export->user != null?$export->user->fullname:'/' ; ?></td>
                     <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
                     <td class="actionsFit">
-                        <?php if ($export->etat == \Cake\Core\Configure::read('vsa.err')): ?>
+                        <?php if ($export->etat == \Cake\Core\Configure::read('vsa.wait')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%delete%']); ?>
                         <?php elseif($export->etat == \Cake\Core\Configure::read('vsa.end') || $export->etat == \Cake\Core\Configure::read('vsa.nerr')): ?>
                             <?= $this->element( 'controle', ['id' =>$export->id_fit, 'restrict'=>'%show%']); ?>
