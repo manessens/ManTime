@@ -352,7 +352,7 @@ class UsersController extends AppController
             $found = $vars[$key_found];
         }
 
-        return $found
+        return $found;
     }
 
 
