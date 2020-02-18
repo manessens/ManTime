@@ -319,12 +319,12 @@ class UsersController extends AppController
                 $vars = json_decode($result, true);
                 if (is_array($vars)) {
                     if (!empty($vars)) {
-                        $found = key_found($mail, $vars)
+                        $found = key_found($mail, $vars);
                     }else{
                         $result = $this->getVsaLink("/v1/users/list?email=".$mail);
                         $vars = json_decode($result, true);
                         if (is_array($vars)) {
-                            $found = key_found($mail, $vars)
+                            $found = key_found($mail, $vars);
                         }
                     }
                 }
