@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $idp
  * @property string $nom_projet
- * @property int $id_fit
+ * @property string $id_fit
  * @property int $idc
  * @property int $idm
  * @property \Cake\I18n\FrozenTime $date_debut
