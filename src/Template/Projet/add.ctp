@@ -20,7 +20,7 @@
             <div class="left">
                 <?php echo $this->Form->control('id_fit', ['readonly', "type" => 'text', 'label' => ['text'=>'Id VSA']]); ?>
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-6">
                 <?php echo $this->Form->label('select_fit','Liste VSA'); ?>
                 <select name="select_fit" type="text" id="liste_vsa"></select>
             </div>
