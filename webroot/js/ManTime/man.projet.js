@@ -64,14 +64,15 @@ function initChangeSelect2(){
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             if (extandData[val].startinDate) {
                 $('#date-debut').attr('readonly','readonly');
-                $('#date-debut').val(moment(extandData[val].startinDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+                $('#date-debut').val(extandData[val].startinDate);
             }else{
                 $('#date-debut').removeAttr('readonly');
             }
 
             if (extandData[val].endingDate) {
                 $('#date-fin').attr('readonly','readonly');
-                $('#date-fin').val(moment(extandData[val].endingDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+                // $('#date-fin').val(moment(extandData[val].endingDate, "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
+                $('#date-fin').val(extandData[val].endingDate);
             }else{
                 $('#date-fin').removeAttr('readonly');
             }
