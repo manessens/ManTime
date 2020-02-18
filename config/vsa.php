@@ -17,11 +17,10 @@ return [
         'deliveryCode'=>'CDSTMA',
         'entity'=>'157',
         'profil'=>[
-                '1'=>'CDSTMA', // Technique ABAP
-                '2'=>'CDSExpertSAP', // Technique ABAP expert
-                '3'=>'155', // Fonctionnel / BI / BC
-                '4'=>'152', // Expert / CP / Référent
-            ],
+            '1'=>'CDSTMA', // Technique ABAP
+            '2'=>'CDSExpertSAP', // Technique ABAP expert
+            '3'=>'155', // Fonctionnel / BI / BC
+            '4'=>'152' // Expert / CP / Référent
         ],
     ],
 ];
