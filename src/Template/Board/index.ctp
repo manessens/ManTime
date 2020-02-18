@@ -51,7 +51,7 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Fitnet', 'content'=>'Export fitnet', 'img'=>'Fitnet.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.admin')]),
+            ['title' => 'VSA', 'content'=>'Export vsa', 'img'=>'logo_vsa.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.admin')]),
             ['controller' => 'ExportFitnet', 'action' => 'index'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
