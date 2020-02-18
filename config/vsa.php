@@ -14,6 +14,8 @@ return [
         'logname'=>'Log_export_vsa_',
         'logname_end'=>'Log_final_export_vsa_',
         'abs_path'=>'/var/www/html/preprod/ManTime/tmp/',
+        'deliveryCode'=>'CDSTMA',
+        'entity'=>'157',
         'profil'=>[
             '1'=>[ // Mancorp
                 '1'=>null, // Technique ABAP

@@ -302,6 +302,60 @@ class UsersController extends AppController
         return $this->response;
     }
 
+    public function getEmployeeVsa(){
+        $found = [];
+
+        if( $this->request->is('ajax') ) {
+            $this->autoRender = false;
+        }
+
+        if ($this->request->is(['get'])) {
+
+            $mail = $this->request->query["mail"];
+            if ($mail != "") {
+                // appel de la requête
+                $result = $this->getVsaLink("/v1/users/list?entityId=".\Cake\Core\Configure::read('vsa.entity')."&email=".$mail);
+                // décode du résultat json
+                $vars = json_decode($result, true);
+                if (is_array($vars)) {
+                    if (!empty($vars)) {
+                        $found = key_found($mail, $vars)
+                    }else{
+                        $result = $this->getVsaLink("/v1/users/list?email=".$mail);
+                        $vars = json_decode($result, true);
+                        if (is_array($vars)) {
+                            $found = key_found($mail, $vars)
+                        }
+                    }
+                }
+                if(empty($found)){
+                    $found = ['userId'=>'error'];
+                }
+            }
+        }
+        // réencodage pour renvoie au script ajax
+        $json_found = json_encode($found);
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
+    }
+
+    private function key_found($mail, $vars){
+        $key_found = array_search($mail, array_column($vars, 'email'));
+
+        if ($key_found === false) {
+            $found = [];
+        }else{
+            $found = $vars[$key_found];
+        }
+
+        return $found
+    }
+
+
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');

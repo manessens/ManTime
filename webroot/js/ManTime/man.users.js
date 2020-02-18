@@ -75,7 +75,7 @@ function init(){
         var email = $('#linkModal').find('.modal-body input').val();
         xhr = $.ajax({
             type: "GET",
-            url: "/users/getEmployeeFitnet/",
+            url: "/users/getEmployeeVsa/",
             data: { mail: email },
             beforeSend: function( xhr ) {
                 $('#loader').show();
@@ -83,8 +83,8 @@ function init(){
             }
         }).done(function( data ) {
             if ( !jQuery.isEmptyObject(data) ) {    //success
-                $('#id-fit').val(data.employee_id);
-                if(data.employee_id != 'error'){
+                $('#id-fit').val(data.userId);
+                if(data.userId != 'error'){
                     $('#linker').removeClass('btn-primary').addClass('btn-success');
                 }
             }else{                                  // fail

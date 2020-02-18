@@ -30,7 +30,7 @@
         ?>
         <div id="content-fitnet-link">
         <?php
-            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id Fitnet']]);
+            echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id VSA']]);
          ?>
         </div>
          <?php echo $this->Form->control('ignore_fit', ["type" => 'checkbox', 'label' => ['text'=>'Ignorer lien fitnet']]); ?>
@@ -39,7 +39,7 @@
     <?= $this->Form->end() ?>
 
     <button type="button" id="linker" class="btn <?php echo $user->id_fit>0?"btn-success":"btn-primary"; ?>"
-         data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à Fitnet</button>
+         data-toggle="modal" data-target="#linkModal" data-whatever="<?php echo $user->email ?>">Lier à VSA</button>
     <button type="button" id="resetter" class="btn btn-danger">Supprimer Id</button>
 
 </div>
