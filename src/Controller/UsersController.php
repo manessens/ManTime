@@ -374,7 +374,7 @@ class UsersController extends AppController
             return true;
         }
 
-        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeFitnet']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
+        if (in_array($action, ['index', 'view', 'add', 'edit','delete', 'getEmployeeVsa']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 
