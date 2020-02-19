@@ -517,7 +517,7 @@ class ExportFitnetController extends AppController
 
         // Configure::write('vsa.token', "");
 
-        var_dump(json_decode($result));
+        debug(json_decode($result), true);
         exit;
     }
 
