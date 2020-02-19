@@ -506,9 +506,9 @@ class ExportFitnetController extends AppController
             "quantityHour" => 8,
             "comment" => ""
         ];
-        $timesheetJS = json_encode($timeSheets);
+
         $url = '/v1/activity/timesheet';
-        $result = $this->setVsaLink($url, "POST", $timesheetJS);
+        $result = $this->setVsaLink($url, "POST", $timeSheets);
 
         // Configure::write('vsa.token', "");
 
@@ -741,20 +741,21 @@ class ExportFitnetController extends AppController
         curl_close($ch);
         debug($result,true);
         exit;
-
-        if (array_key_exists('error', $result)) {
-            foreach ($result['data'] as $key => $message) {
-                preg_match ( '/[0-9]+/' , $key , $matches );
-                if (is_array($matches)) {
-                    $time = $object[$matches[0]];
-                    $msgError = $message.
-                    ' : |Consultant: '.$object['userId'].
-                    ' |Client: '.$object['tiersCode'].
-                    ' |Affaire:  '.$object['orderCode'].
-                    ' |TabTitle:  '.$object['tabTitle'].
-                    ' |Date:  '.$object['tabTitle'].
-                    ' |Valeur:  '.$object['quantityDay'];
-                    $errors[] = $msgError;
+        if (is_array($result)) {
+            if (array_key_exists('error', $result)) {
+                foreach ($result['data'] as $key => $message) {
+                    preg_match ( '/[0-9]+/' , $key , $matches );
+                    if (is_array($matches)) {
+                        $time = $object[$matches[0]];
+                        $msgError = $message.
+                        ' : |Consultant: '.$object['userId'].
+                        ' |Client: '.$object['tiersCode'].
+                        ' |Affaire:  '.$object['orderCode'].
+                        ' |TabTitle:  '.$object['tabTitle'].
+                        ' |Date:  '.$object['tabTitle'].
+                        ' |Valeur:  '.$object['quantityDay'];
+                        $errors[] = $msgError;
+                    }
                 }
             }
         }
