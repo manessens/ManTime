@@ -1,18 +1,18 @@
 /* RECHARTRAGE */
 #topofpage{
-    background-color: #01ABBD !important;
+    background-color: #2C85AE !important;
 }
 .top-bar.expanded .title-area{
     background-color: #221F20 !important;
 }
 .red-ul a{
-    background-color: #01ABBD !important;
+    background-color: #2C85AE !important;
 }
 .red-ul a:hover{
     background-color: #019BAD !important;
 }
 .red-ul a:visited{
-    background-color: #01ABBD !important;
+    background-color: #2C85AE !important;
 }
 .panel-red{
     border-color: #5268A5 !important;
@@ -165,6 +165,9 @@ table tfoot tr th{
 
 .text-danger{
     color: #6D4598 !important;
+}
+.text-admin{
+    color: #d43f3a !important;
 }
 .text-success{
     color: #4cae4c !important;

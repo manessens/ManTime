@@ -1,8 +1,7 @@
 <?php
 return [
     'vsa' => [
-        'login'=>'mvincent',
-        'password'=>'Synv@nce20!%',
+        'token'=>'',
         'base'=>'https://synvance-pp.vsactivity.com/api/',
         'wait'=>'Attente',
         'end'=>'Terminé',

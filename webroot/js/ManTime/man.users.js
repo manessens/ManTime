@@ -38,12 +38,12 @@ function initIgnorFitnet(){
 function initSelectRole(){
     $('select[name="role"] option').addClass('text-default');
     $('select[name="role"] option[value="20"]').removeClass('text-default').addClass('text-primary');
-    $('select[name="role"] option[value="50"]').removeClass('text-default').addClass('text-danger');
+    $('select[name="role"] option[value="50"]').removeClass('text-default').addClass('text-admin');
     $('select[name="role"]').on('change',function(){
         var select = $(this);
         switch (select.val()) {
             case '50':
-                select.removeClass().addClass('text-danger')
+                select.removeClass().addClass('text-admin')
                 break;
             case '20':
                 select.removeClass().addClass('text-primary')

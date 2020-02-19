@@ -201,32 +201,34 @@ class ExportFitnetController extends AppController
         $bash = "cake Fitnet ".$id;
 
         $this->loadComponent('Cookie');
-        $dataCo = $this->Cookie->read('Authfit');
+        $dataCo = $this->Cookie->read('Authvsa');
 
-        $username = $dataCo['login'];
-        $password = $dataCo['password'];
+        $token = $dataCo['token'];
         $result = false;
 
-        Configure::write('fitnet.login', $username);
-        Configure::write('fitnet.password', $password);
+        Configure::write('vsa.token', $token);
 
-        $resultTest = $this->getFitnetLink("/FitnetManager/rest/employees", true);
+        $resultTest = $this->getVsaLink("/v1/app/version?type=ALL");
         $vars = json_decode($resultTest, true);
         if (!is_array($vars)) {
             $this->Flash->error("Les informations de connexion n'ont pas permis l'utilisation des API Fitnet.");
-        }else{
-            $shell = new ShellDispatcher();
-            $output = $shell->run(['cake', 'Fitnet', $id]);
-
-            if (0 === $output) {
-                $this->Flash->success('Le script bash a été exécuté.');
-            } else {
-                $this->Flash->error("Une erreur est survenu lors de l'écxécution du script bash.");
-            }
+            return $this->redirect(['action' => 'index']);
+        }
+        if(array_key_exists('error', $vars)){
+            $this->Flash->error("Les informations de connexion n'ont pas permis l'utilisation des API Fitnet.");
+            return $this->redirect(['action' => 'index']);
         }
 
-        Configure::write('fitnet.login', "");
-        Configure::write('fitnet.password', "");
+        $shell = new ShellDispatcher();
+        $output = $shell->run(['cake', 'Fitnet', $id]);
+
+        if (0 === $output) {
+            $this->Flash->success('Le script bash a été exécuté.');
+        } else {
+            $this->Flash->error("Une erreur est survenu lors de l'écxécution du script bash.");
+        }
+
+        Configure::write('vsa.token', "");
 
         return $this->redirect(['action' => 'index']);
     }
@@ -333,17 +335,17 @@ class ExportFitnetController extends AppController
     private function inError($export, $cause, $code = null){
         // Notification d'erreur de traitement
         if ($export != null) {
-            $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit.' : ', $cause];
+            $line = ['##', ' ERREUR -- EXPORT VSA : ', $cause];
         }elseif ($code != null) {
-            $line = ['##', ' ERREUR -- Fitnet : '.$code, $cause];
+            $line = ['##', ' VSA : '.$code, $cause];
         }else{
-            $line = ['##', ' ERREUR -- time : ', $cause];
+            $line = ['##', ' Time : ', $cause];
         }
         $this->insertLog($line, true);
 
         return $export;
-
     }
+
     private function inProcess($export){
 
         $filename = Configure::read('vsa.logname') . $export->id_fit . '.csv';
@@ -354,7 +356,7 @@ class ExportFitnetController extends AppController
 
         $export->etat = Configure::read('vsa.run');
         // Notification de lancement du traitemnt
-        $line = ['>>', ' Début du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        $line = ['>>', ' Début du traitement EXPORT VSA pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
         $this->ExportFitnet->save($export);
@@ -463,17 +465,53 @@ class ExportFitnetController extends AppController
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
                     $this->insertLog($line);
                     $ignored++; //car n'est pas une erreur
-                }elseif ($this->exportTime($time, $tmpTimeSum)) {
-                    $count++;
                 }else{
-                    $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date);
+                    $timesheet = $this->exportTime($time, $tmpTimeSum)
+                    if ($timesheet) {
+                        $timeSheets[] = $timesheet;
+                    }
                 }
             }
+
+            $timesheetJS = json_encode($timeSheets);
+            $url = '/v1/activity/timesheet';
+            $result = $this->setVsaLink($url, "POST", $timesheetJS);
+
+
+//////////////////// @TODO: SENDING TIMES \\\\\\\\\\\\\\\\\\\\\\\
+            if ("ok") {
+                $count++;
+            }else{
+                $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date);
+            }
+//////////////////// @TODO: SENDING TIMES \\\\\\\\\\\\\\\\\\\\\\\
+
         }
 
         $export=$this->endProcess($export, $count, count($times), $ignored);
 
     }
+
+    public function testVsa(){
+        $timeSheets=[];
+        $timeSheets[] = [
+            "userId" => 1645,
+            "tiersCode" => "C-BIOLINE_BY_INVIVO",
+            "orderCode" => "PAR.AAL.201907.C.0165",
+            "tabTitle" => "INVIVO Mainonline 2.0",
+            "deliveryCode" => "CDSTMA",
+            "date" => "2020-01-06",
+            "moment" => "J",
+            "quantityDay" => 1,
+            "quantityHour" => 8,
+            "comment" => ""
+        ]
+        $timesheetJS = json_encode($timeSheets);
+        $url = '/v1/activity/timesheet';
+        $result = $this->setVsaLink($url, "POST", $timesheetJS);
+        return $result;
+    }
+
     private function exportTime($time, $tmpTimeSum){
         $noError = true;
         if (empty($time)) {
@@ -481,12 +519,13 @@ class ExportFitnetController extends AppController
         }
 
         // Gen key for time
-        $keyProfil = Configure::read('fitnet.profil.'.$time->projet->client->agence->id_fit.'.'.$time->id_profil);
+        $keyProfil = Configure::read('vsa.profil.'.$time->id_profil);
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
+        $tabProject = $time->projet->nom_projet;
 
         // Date
-        $assignementDate = $time->date->i18nFormat('dd/MM/yyyy');
+        $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
 
         // Contrôle Projet
         if ($keyProject == null) {
@@ -504,19 +543,18 @@ class ExportFitnetController extends AppController
             $this->insertLog(['--', 'Utilisateur non lié : '. $time->user->fullname] );
             $noError = false;
         }
-
-        // companyID
-        $companyID = $time->projet->client->agence->id_fit;
-        if ($companyID == null) {
-            $this->inError(null, 'ID_FIT de la table Agence est éronné pour la ligne #'. $time->projet->client->agence->id_agence );
-            $noError = false;
-        }
-        // Contrôle activityType
-        $activityType = $time->projet->facturable->id_fit;
-        if ($activityType == null) {
-            $this->inError(null, 'ID_FIT de la table Facturable est éronné pour la ligne #'. $time->projet->facturable->idf );
-            $noError = false;
-        }
+        // // companyID
+        // $companyID = $time->projet->client->agence->id_fit;
+        // if ($companyID == null) {
+        //     $this->inError(null, 'ID_FIT de la table Agence est éronné pour la ligne #'. $time->projet->client->agence->id_agence );
+        //     $noError = false;
+        // }
+        // // Contrôle activityType
+        // $activityType = $time->projet->facturable->id_fit;
+        // if ($activityType == null) {
+        //     $this->inError(null, 'ID_FIT de la table Facturable est éronné pour la ligne #'. $time->projet->facturable->idf );
+        //     $noError = false;
+        // }
 
         // Contrôle traité par cumul des temps (multiligne sur même assignement)
         if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
@@ -524,13 +562,13 @@ class ExportFitnetController extends AppController
             return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
         }
 
-        // Récupération des assignement
-        $assignementID = $this->getAssignement($time);
-        if ($assignementID == null) {
-            $this->inError(null, 'Aucun assignement trouvé pour le Temps |Consultant : '.$time->user->fullname.
-                        ' |Client : '.$time->projet->client->nom_client.' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
-            $noError = false;
-        }
+        // // Récupération des assignement
+        // $assignementID = $this->getAssignement($time);
+        // if ($assignementID == null) {
+        //     $this->inError(null, 'Aucun assignement trouvé pour le Temps |Consultant : '.$time->user->fullname.
+        //                 ' |Client : '.$time->projet->client->nom_client.' |Projet : '.$time->projet->nom_projet.' |Date : '. $time->date->i18nFormat('dd-MM-yy') );
+        //     $noError = false;
+        // }
 
         // Contrôle d'erreur
         if (!$noError) {
@@ -541,34 +579,22 @@ class ExportFitnetController extends AppController
         $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
 
         $timesheet = [
-            "activity" => "",
-            "activityID" => 0,
-            "activityType" => $activityType,
-            "amount" => $amount,
-            "assignmentDate" => $assignementDate,
-            "assignmentID" => $assignementID,
-            "company" => "",
-            "companyID" => $companyID,
-            "employee" => "",
-            "employeeID" => $employeeID,
-            "remark" => "",
-            "timesheetAssignmentID" => 0,
-            "typeOfService" => "",
-            "typeOfServiceID" => 0
+            "userId" => $employeeID,
+            "tiersCode" => $keyClient,
+            "orderCode" => $keyProject,
+            "tabTitle" => $tabProject,
+            "deliveryCode" => $keyProfil,
+            "date" => $assignementDate,
+            "moment" => "J",
+            "quantityDay" => $amount,
+            "quantityHour" => ($amount * 8),
+            "comment" => $time->detail
         ];
 
-        $this->insertLog(['--',implode(' , ', $timesheet)]);
 
-        $timesheetJS = json_encode($timesheet);
+        $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
-        $url = '/FitnetManager/rest/timesheet';
-        $result = $this->setFitnetLink($url, $timesheetJS);
-
-        if ($result) {
-            $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
-        }
-
-        return $result;
+        return $timesheet;
     }
 
     private function getAssignement($time = null){
