@@ -496,7 +496,7 @@ class ExportFitnetController extends AppController
 
         $this->loadComponent('Cookie');
         $dataCo = $this->Cookie->read('Authvsa');
-        Configure::write('vsa.token', $token);
+        Configure::write('vsa.token', $dataCo['token']);
 
         $timeSheets=[];
         $timeSheets[] = [
