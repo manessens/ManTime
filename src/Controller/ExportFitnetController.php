@@ -745,7 +745,7 @@ class ExportFitnetController extends AppController
                 foreach ($result['data'] as $key => $message) {
                     preg_match ( '/[0-9]+/' , $key , $matches );
                     if (is_array($matches)) {
-                        $time = $object[$matches[0]];
+                        $time = $object[$matches[0]-1];
                         $msgError = $message.
                         ' : |Consultant: '.$object['userId'].
                         ' |Client: '.$object['tiersCode'].
