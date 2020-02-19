@@ -15,11 +15,11 @@
     background-color: #01ABBD !important;
 }
 .panel-red{
-    border-color: #01ABBD !important;
+    border-color: #5268A5 !important;
 }
 .panel-red .panel-heading{
-    border-color: #019BAD !important;
-    background-color: #221F20 !important;
+    border-color: #5268A5 !important;
+    background-color: #2C85AE !important;
 }
 table:not(.vertical-table) tr th {
     border-bottom: 2px solid #E43C62 !important;
@@ -164,7 +164,7 @@ table tfoot tr th{
 }
 
 .text-danger{
-    color: #a94442 !important;
+    color: #6D4598 !important;
 }
 .text-success{
     color: #4cae4c !important;
