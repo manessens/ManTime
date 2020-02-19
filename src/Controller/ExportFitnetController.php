@@ -440,7 +440,7 @@ class ExportFitnetController extends AppController
                 $keyUser = $tempTime->user->id_fit;
                 $keyClient = $tempTime->projet->client->id_fit;
                 $keyProject = $tempTime->projet->id_fit;
-                $keyProfil = Configure::read('fitnet.profil.'.$tempTime->projet->client->agence->id_fit.'.'.$tempTime->id_profil);
+                $keyProfil = Configure::read('vsa.profil.'.$tempTime->projet->client->agence->id_fit.'.'.$tempTime->id_profil);
                 if (!array_key_exists($keyUser, $tmpTimeSum)) {
                     $tmpTimeSum[$keyUser] = array();
                 }
@@ -656,7 +656,7 @@ class ExportFitnetController extends AppController
             && $assignement['customerID'] == $time->projet->client->id_fit
             && $assignement['contractID'] == $time->projet->id_fit
             && $date_debut <= $time->date && $date_fin >= $time->date
-            && $assignement['typeOfServiceID'] == Configure::read('fitnet.profil.'.$time->projet->client->agence->id_fit.'.'.$time->id_profil)
+            && $assignement['typeOfServiceID'] == Configure::read('vsa.profil.'.$time->projet->client->agence->id_fit.'.'.$time->id_profil)
             ) {
                 return $assignement[$assignementIdName[$activityType]];
             }
@@ -718,7 +718,7 @@ class ExportFitnetController extends AppController
 
     protected function setVsaLink( $url, $rest, $object ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('fitnet.token');
+        $username = Configure::read('vsa.token');
         $result = false;
 
         // instance Client pour gestin des appel ajax
@@ -727,7 +727,7 @@ class ExportFitnetController extends AppController
         if (substr($url, 0, 1) == "/" ) {
             $url = substr($url, 1);
         }
-        $base = Configure::read('fitnet.base');
+        $base = Configure::read('vsa.base');
         $url=$base . $url ;
 
         // appel de la requête
@@ -735,7 +735,7 @@ class ExportFitnetController extends AppController
         ///////////////////// debug \\\\\\\\\\\\\\\
         $ch = curl_init( $url );
         # Setup request to send json via POST.
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $tabTime );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $object );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         # Return response instead of printing.
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
