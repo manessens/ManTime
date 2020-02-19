@@ -505,7 +505,7 @@ class ExportFitnetController extends AppController
             "quantityDay" => 1,
             "quantityHour" => 8,
             "comment" => ""
-        ]
+        ];
         $timesheetJS = json_encode($timeSheets);
         $url = '/v1/activity/timesheet';
         $result = $this->setVsaLink($url, "POST", $timesheetJS);
