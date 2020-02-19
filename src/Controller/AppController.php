@@ -68,7 +68,7 @@ class AppController extends Controller
         return false;
     }
 
-    protected function getVsaLink( $url , $rest = "GET", $tabTime = [] ){
+    protected function getVsaLink( $url , $rest = "GET"){
         //récupération des lgoin/mdp du compte admin de fitnet
 
         $this->loadComponent('Cookie');
@@ -77,25 +77,12 @@ class AppController extends Controller
         $token = $dataCo['token'];
 
         // préparation de l'en-tête pour la basic auth de fitnet
-        if (empty($tabTime)) {
-            $opts = array(
-              'http'=>array(
-                    'method'=>$rest,
-                    'header'=>"Authorization: Bearer " . $token
-                  )
-            );
-        }else{
-            $opts = array(
-              'http'=>array(
-                    'method'=>$rest,
-                    'header'=> [
-                        "Authorization: Bearer " . $token,
-                        "Content-type: application/json"
-                    ],
-                    'content'=>$tabTime
-                  )
-            );
-        }
+        $opts = array(
+          'http'=>array(
+                'method'=>$rest,
+                'header'=>"Authorization: Bearer " . $token
+              )
+        );
         // ajout du header dans le contexte
         $context = stream_context_create($opts);
         // construction de l'url fitnet
@@ -105,18 +92,6 @@ class AppController extends Controller
         }
         $url=$base . $url ;
         // appel de la requête
-        ///////////////////// debug \\\\\\\\\\\\\\\
-        $ch = curl_init( $url );
-        # Setup request to send json via POST.
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $tabTime );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        # Return response instead of printing.
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        # Send request.
-        $result = curl_exec($ch);
-        curl_close($ch);
-        return $result;
-        ///////////////////// debug \\\\\\\\\\\\\\\
         $result = @file_get_contents($url, false, $context);
         if($result === false){
             $result = 'error';

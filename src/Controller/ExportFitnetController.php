@@ -493,6 +493,11 @@ class ExportFitnetController extends AppController
     }
 
     public function testVsa(){
+
+        $this->loadComponent('Cookie');
+        $dataCo = $this->Cookie->read('Authvsa');
+        Configure::write('vsa.token', $token);
+
         $timeSheets=[];
         $timeSheets[] = [
             "userId" => 1645,
@@ -509,6 +514,9 @@ class ExportFitnetController extends AppController
         $timesheetJS = json_encode($timeSheets);
         $url = '/v1/activity/timesheet';
         $result = $this->setVsaLink($url, "POST", $timesheetJS);
+
+        Configure::write('vsa.token', "");
+
         return $result;
     }
 
@@ -708,10 +716,9 @@ class ExportFitnetController extends AppController
         return('OK');
     }
 
-    protected function setFitnetLink( $url, $object ){
+    protected function setVsaLink( $url, $rest, $object ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('fitnet.login');
-        $password = Configure::read('fitnet.password');
+        $username = Configure::read('fitnet.token');
         $result = false;
 
         // instance Client pour gestin des appel ajax
@@ -724,6 +731,20 @@ class ExportFitnetController extends AppController
         $url=$base . $url ;
 
         // appel de la requête
+
+        ///////////////////// debug \\\\\\\\\\\\\\\
+        $ch = curl_init( $url );
+        # Setup request to send json via POST.
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $tabTime );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        # Return response instead of printing.
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        # Send request.
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+        ///////////////////// debug \\\\\\\\\\\\\\\
+
         $response = $http->post($url, $object, [ 'auth'=>['username' => $username, 'password' => $password], 'type' => 'json' ]);
         if ($response->isOk()) {
             $result = true;
