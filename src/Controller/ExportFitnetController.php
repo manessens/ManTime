@@ -466,7 +466,7 @@ class ExportFitnetController extends AppController
                     $this->insertLog($line);
                     $ignored++; //car n'est pas une erreur
                 }else{
-                    $timesheet = $this->exportTime($time, $tmpTimeSum)
+                    $timesheet = $this->exportTime($time, $tmpTimeSum);
                     if ($timesheet) {
                         $timeSheets[] = $timesheet;
                     }
@@ -479,11 +479,11 @@ class ExportFitnetController extends AppController
 
 
 //////////////////// @TODO: SENDING TIMES \\\\\\\\\\\\\\\\\\\\\\\
-            if ("ok") {
-                $count++;
-            }else{
-                $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date);
-            }
+            // if ("ok") {
+            //     $count++;
+            // }else{
+            //     $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date);
+            // }
 //////////////////// @TODO: SENDING TIMES \\\\\\\\\\\\\\\\\\\\\\\
 
         }
