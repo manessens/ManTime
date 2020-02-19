@@ -515,12 +515,10 @@ class ExportFitnetController extends AppController
         $url = '/v1/activity/timesheet';
         $result = $this->setVsaLink($url, "POST", $timesheetJS);
 
-        Configure::write('vsa.token', "");
+        // Configure::write('vsa.token', "");
 
         var_dump(json_decode($result));
         exit;
-
-        return $this->response->withStringBody(json_decode($result));
     }
 
     private function exportTime($time, $tmpTimeSum){
@@ -721,7 +719,7 @@ class ExportFitnetController extends AppController
 
     protected function setVsaLink( $url, $rest, $object ){
         //récupération des lgoin/mdp du compte admin de fitnet
-        $username = Configure::read('vsa.token');
+        $token = Configure::read('vsa.token');
         $result = false;
 
         // instance Client pour gestin des appel ajax
@@ -736,10 +734,12 @@ class ExportFitnetController extends AppController
         // appel de la requête
 
         ///////////////////// debug \\\\\\\\\\\\\\\
+
+        $authorization = "Authorization: Bearer ".$token;
         $ch = curl_init( $url );
         # Setup request to send json via POST.
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $object );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', $authorization));
         # Return response instead of printing.
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         # Send request.
