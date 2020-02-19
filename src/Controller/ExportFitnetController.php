@@ -739,6 +739,8 @@ class ExportFitnetController extends AppController
         # Send request.
         $result = json_decode(curl_exec($ch));
         curl_close($ch);
+        debug($result);
+        exit;
 
         if (is_array($result)) {
             if (array_key_exists('error', $result)) {
