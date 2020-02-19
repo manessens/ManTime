@@ -466,6 +466,7 @@ class ExportFitnetController extends AppController
                     $this->insertLog($line);
                     $ignored++; //car n'est pas une erreur
                 }else{
+                    $count++;
                     $timesheet = $this->exportTime($time, $tmpTimeSum);
                     if ($timesheet) {
                         $timeSheets[] = $timesheet;
@@ -473,18 +474,12 @@ class ExportFitnetController extends AppController
                 }
             }
 
-            $timesheetJS = json_encode($timeSheets);
             $url = '/v1/activity/timesheet';
-            $result = $this->setVsaLink($url, "POST", $timesheetJS);
-
-
-//////////////////// @TODO: SENDING TIMES \\\\\\\\\\\\\\\\\\\\\\\
-            // if ("ok") {
-            //     $count++;
-            // }else{
-            //     $export = $this->inError($export, '#'.$time->idt.' |Consultant : #'.$time->idu.' - '.$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date);
-            // }
-//////////////////// @TODO: SENDING TIMES \\\\\\\\\\\\\\\\\\\\\\\
+            $errors = $this->setVsaLink($url, "POST", $timeSheets);
+            foreach ($errors as $key => $value) {
+                $count--;
+                $export = $this->inError($export, $value);
+            }
 
         }
 
@@ -517,7 +512,7 @@ class ExportFitnetController extends AppController
 
         // Configure::write('vsa.token', "");
 
-        debug(json_decode($result), true);
+        debug($result,true);
         exit;
     }
 
@@ -721,6 +716,7 @@ class ExportFitnetController extends AppController
         //récupération des lgoin/mdp du compte admin de fitnet
         $token = Configure::read('vsa.token');
         $result = false;
+        $errors = [];
 
         // instance Client pour gestin des appel ajax
         $http = new Client();
@@ -733,66 +729,37 @@ class ExportFitnetController extends AppController
 
         // appel de la requête
 
-        ///////////////////// debug \\\\\\\\\\\\\\\
-
         $authorization = "Authorization: Bearer ".$token;
         $ch = curl_init( $url );
         # Setup request to send json via POST.
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $object );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode($object) );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', $authorization));
         # Return response instead of printing.
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         # Send request.
-        $result = curl_exec($ch);
+        $result = json_decode(curl_exec($ch));
         curl_close($ch);
-        return $result;
-        ///////////////////// debug \\\\\\\\\\\\\\\
 
-        $response = $http->post($url, $object, [ 'auth'=>['username' => $username, 'password' => $password], 'type' => 'json' ]);
-        if ($response->isOk()) {
-            $result = true;
-            // $result = $response->json;
-        }else {
-            $this->inError(null, 'Erreur sur requête fitnet', $response->getStatusCode());
+        if (array_key_exists('error', $result)) {
+            foreach ($result['data'] as $key => $message) {
+                preg_match ( '/[0-9]+/' , $key , $matches );
+                if (is_array($matches)) {
+                    $time = $object[$matches[0]];
+                    $msgError = $message.
+                    ' : |Consultant: '.$object['userId'].
+                    ' |Client: '.$object['tiersCode'].
+                    ' |Affaire:  '.$object['orderCode'].
+                    ' |TabTitle:  '.$object['tabTitle'].
+                    ' |Date:  '.$object['tabTitle'].
+                    ' |Valeur:  '.$object['quantityDay'];
+                    $errors[] = $msgError;
+                }
+            }
         }
 
         // résultat
-        return $result;
+        return $errors;
     }
-
-    // **TEST POUR APPEL FITNET**
-    // public function setTimeFitnetShell(){
-    //     $result = [];
-    //
-    //     $timesheet = [
-    //         "activity" => "",
-    //         "activityID" => 0,
-    //         "activityType" => 1,
-    //         "amount" => 1,
-    //         "assignmentDate" => "22/08/2018",
-    //         "assignmentID" => 245,
-    //         "company" => "",
-    //         "companyID" => 1,
-    //         "employee" => "",
-    //         "employeeID" => 38,
-    //         "remark" => "",
-    //         "timesheetAssignmentID" => 0,
-    //         "typeOfService" => "",
-    //         "typeOfServiceID" => 0
-    //     ];
-    //
-    //     $timesheetJS = json_encode($timesheet);
-    //
-    //     $url = '/FitnetManager/rest/timesheet';
-    //     $result = $this->setFitnetLink($url, $timesheetJS);
-    //
-    //     // type de réponse : objet json
-    //     $this->response->type('json');
-    //     // contenue de la réponse
-    //     $this->response->body(json_encode($result));
-    //
-    //     return $this->response;
-    // }
 
     public function isAuthorized($user)
     {
