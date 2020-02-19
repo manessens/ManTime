@@ -746,14 +746,16 @@ class ExportFitnetController extends AppController
                     preg_match ( '/[0-9]+/' , $key , $matches );
                     if (is_array($matches)) {
                         $time = $object[$matches[0]-1];
-                        $msgError = $message.
-                        ' : |Consultant: '.$object['userId'].
-                        ' |Client: '.$object['tiersCode'].
-                        ' |Affaire:  '.$object['orderCode'].
-                        ' |TabTitle:  '.$object['tabTitle'].
-                        ' |Date:  '.$object['tabTitle'].
-                        ' |Valeur:  '.$object['quantityDay'];
-                        $errors[] = $msgError;
+                        foreach ($message[0] as $k => $v) {
+                            $msgError = $v.
+                            ' : |Consultant: '.$object['userId'].
+                            ' |Client: '.$object['tiersCode'].
+                            ' |Affaire:  '.$object['orderCode'].
+                            ' |TabTitle:  '.$object['tabTitle'].
+                            ' |Date:  '.$object['tabTitle'].
+                            ' |Valeur:  '.$object['quantityDay'];
+                            $errors[] = $msgError;
+                        }
                     }
                 }
             }
