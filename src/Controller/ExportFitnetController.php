@@ -748,12 +748,12 @@ class ExportFitnetController extends AppController
                         $time = $object[$matches[0]-1];
                         foreach ($message[0] as $k => $v) {
                             $msgError = $v.
-                            ' : |Consultant: '.$object->userId.
-                            ' |Client: '.$object->tiersCode.
-                            ' |Affaire:  '.$object->orderCode.
-                            ' |TabTitle:  '.$object->tabTitle.
-                            ' |Date:  '.$object->tabTitle.
-                            ' |Valeur:  '.$object->quantityDay;
+                            ' : |Consultant: '.$time->userId.
+                            ' |Client: '.$time->tiersCode.
+                            ' |Affaire:  '.$time->orderCode.
+                            ' |TabTitle:  '.$time->tabTitle.
+                            ' |Date:  '.$time->tabTitle.
+                            ' |Valeur:  '.$time->quantityDay;
                             $errors[] = $msgError;
                         }
                     }
