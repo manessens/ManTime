@@ -22,10 +22,10 @@
     background-color: #2C85AE !important;
 }
 table:not(.vertical-table) tr th {
-    border-bottom: 2px solid #E43C62 !important;
+    border-bottom: 2px solid #6D4598 !important;
 }
 table thead tr {
-    border-bottom: 1px solid #E43C62 !important;
+    border-bottom: 1px solid #6D4598 !important;
 }
 legend{
     color: #221F20 !important;
@@ -40,7 +40,7 @@ th a{
     color: #221F20 !important;
 }
 fieldset legend{
-    border-bottom: 2px solid #01ABBD !important;
+    border-bottom: 2px solid #6D4598 !important;
 }
 .vertical-table th{
     color: #221F20 !important;
@@ -198,7 +198,7 @@ table tfoot tr th{
 }
 
 .semaine{
-    background-color: #6D4598 !important;
+    background-color: #2C85AE !important;
     width: 65px !important;
     color: white;
     text-align: center;
