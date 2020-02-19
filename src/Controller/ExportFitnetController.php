@@ -737,7 +737,7 @@ class ExportFitnetController extends AppController
         # Return response instead of printing.
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         # Send request.
-        $result = json_decode(curl_exec($ch));
+        $result = json_decode(curl_exec($ch), true);
         curl_close($ch);
         debug($result);
         exit;
