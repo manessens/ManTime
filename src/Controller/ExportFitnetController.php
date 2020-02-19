@@ -774,7 +774,7 @@ class ExportFitnetController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['export', 'index', 'add', 'delete', 'view', 'manuel']) && $user['role'] >= Configure::read('role.admin') ) {
+        if (in_array($action, ['export', 'index', 'add', 'delete', 'view', 'manuel', 'testVsa']) && $user['role'] >= Configure::read('role.admin') ) {
             return true;
         }
 
