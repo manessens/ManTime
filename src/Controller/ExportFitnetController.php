@@ -517,7 +517,10 @@ class ExportFitnetController extends AppController
 
         Configure::write('vsa.token', "");
 
-        return $result;
+        var_dump(json_decode($result));
+        exit;
+
+        return $this->response->withStringBody(json_decode($result));
     }
 
     private function exportTime($time, $tmpTimeSum){
