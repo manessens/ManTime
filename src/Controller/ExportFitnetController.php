@@ -478,6 +478,7 @@ class ExportFitnetController extends AppController
             $errors = $this->setVsaLink($url, "POST", $timeSheets);
             foreach ($errors as $key => $value) {
                 $count--;
+                str_replace('%UNAME%', $tempTime->user->fullname, $value)
                 $export = $this->inError($export, $value);
             }
 
@@ -686,7 +687,7 @@ class ExportFitnetController extends AppController
                         $time = $object[$matches[0]-1];
                         foreach ($message[0] as $k => $v) {
                             $msgError = $v.
-                            ' : |Consultant: '.$time['userId'].
+                            ' : |Consultant: %UNAME%'.
                             ' |Client: '.$time['tiersCode'].
                             ' |Affaire:  '.$time['orderCode'].
                             ' |TabTitle:  '.$time['tabTitle'].
