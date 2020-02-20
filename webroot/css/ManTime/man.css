@@ -163,6 +163,9 @@ table tfoot tr th{
     border-color: #faebcc !important;
 }
 
+.text-error{
+    color: #E43C62 !important;
+}
 .text-danger{
     color: #6D4598 !important;
 }

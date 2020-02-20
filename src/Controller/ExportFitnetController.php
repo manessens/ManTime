@@ -690,7 +690,7 @@ class ExportFitnetController extends AppController
                             ' |Client: '.$time['tiersCode'].
                             ' |Affaire:  '.$time['orderCode'].
                             ' |TabTitle:  '.$time['tabTitle'].
-                            ' |Date:  '.$time['tabTitle'].
+                            ' |Date:  '.$time['date'].
                             ' |Valeur:  '.$time['quantityDay'].'J';
                             $errors[] = $msgError;
                         }
