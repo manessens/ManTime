@@ -436,7 +436,7 @@ class ExportFitnetController extends AppController
             //traitement des Temps pour fusion des lignes
             $tmpTimeSum = array();
             foreach ($times as $tempTime) {
-                $keyDate = $tempTime->date->i18nFormat('dd/MM/yyyy');
+                $keyDate = $tempTime->date->i18nFormat('yyyy-MM-dd');
                 $keyUser = $tempTime->user->id_fit;
                 $keyClient = $tempTime->projet->client->id_fit;
                 $keyProject = $tempTime->projet->id_fit;
@@ -653,7 +653,7 @@ class ExportFitnetController extends AppController
     }
 
     protected function setVsaLink( $url, $rest, $object ){
-        
+
         $token = Configure::read('vsa.token');
         $result = false;
         $errors = [];
