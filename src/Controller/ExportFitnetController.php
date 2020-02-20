@@ -526,7 +526,7 @@ class ExportFitnetController extends AppController
         $keyProfil = Configure::read('vsa.profil.'.$time->id_profil);
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
-        $tabProject = str_replace('.', '_', $time->projet->nom_projet);
+        $tabProject = str_replace('_', '.', $time->projet->nom_projet);
 
         // Date
         $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
