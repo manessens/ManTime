@@ -335,11 +335,11 @@ class ExportFitnetController extends AppController
     private function inError($export, $cause, $code = null){
         // Notification d'erreur de traitement
         if ($export != null) {
-            $line = ['##', ' ERREUR -- EXPORT VSA : ', $cause];
+            $line = ['##', ' ERREUR -- VSA : ', $cause];
         }elseif ($code != null) {
-            $line = ['##', ' VSA : '.$code, $cause];
+            $line = ['##', ' VSA code retour : '.$code, $cause];
         }else{
-            $line = ['##', ' Time : ', $cause];
+            $line = ['##', ' ERREUR -- ManTime : ', $cause];
         }
         $this->insertLog($line, true);
 
@@ -604,7 +604,7 @@ class ExportFitnetController extends AppController
     private function endProcess($export, $count, $total, $ignored = 0){
         if ($count != $total) {
             $cause = 'nombre de saisie échoué : '.($total-($count+$ignored) );
-            $line = ['##', ' ERREUR -- EXPORT FITNET #'.$export->id_fit, $cause];
+            $line = ['##', ' EXPORT -- ID #'.$export->id_fit, $cause];
             $this->insertLog($line,true,true);
         }
         if (empty($this->error_log)) {
@@ -617,7 +617,7 @@ class ExportFitnetController extends AppController
         $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
         $this->insertLog(['--', ' Total de temps ignorées : '.$ignored]);
 
-        $line = ['<<', ' Fin du traitement EXPORT FITNET pour la demande d\'export #'.$export->id_fit];
+        $line = ['<<', ' Fin du traitement EXPORT VSA pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
 
 
@@ -707,7 +707,7 @@ class ExportFitnetController extends AppController
     {
         $action = $this->request->getParam('action');
 
-        if (in_array($action, ['export', 'index', 'add', 'delete', 'view', 'manuel', 'testVsa']) && $user['role'] >= Configure::read('role.admin') ) {
+        if (in_array($action, ['export', 'index', 'add', 'delete', 'view', 'manuel']) && $user['role'] >= Configure::read('role.admin') ) {
             return true;
         }
 
