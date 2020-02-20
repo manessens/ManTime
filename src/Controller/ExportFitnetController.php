@@ -440,7 +440,7 @@ class ExportFitnetController extends AppController
                 $keyUser = $tempTime->user->id_fit;
                 $keyClient = $tempTime->projet->client->id_fit;
                 $keyProject = $tempTime->projet->id_fit;
-                $keyProfil = Configure::read('vsa.profil.'.$tempTime->projet->client->agence->id_fit.'.'.$tempTime->id_profil);
+                $keyProfil = Configure::read('vsa.profil.'.$tempTime->id_profil);
                 if (!array_key_exists($keyUser, $tmpTimeSum)) {
                     $tmpTimeSum[$keyUser] = array();
                 }
