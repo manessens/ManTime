@@ -468,7 +468,7 @@ class ExportFitnetController extends AppController
                 }else{
                     $count++;
                     $timesheet = $this->exportTime($time, $tmpTimeSum);
-                    if ($timesheet) {
+                    if (is_array($timesheet)) {
                         $timeSheets[] = $timesheet;
                     }
                 }
@@ -510,7 +510,7 @@ class ExportFitnetController extends AppController
         $url = '/v1/activity/timesheet';
         $result = $this->setVsaLink($url, "POST", $timeSheets);
 
-        // Configure::write('vsa.token', "");
+        Configure::write('vsa.token', "");
 
         debug($result,true);
         exit;
@@ -601,66 +601,6 @@ class ExportFitnetController extends AppController
         return $timesheet;
     }
 
-    private function getAssignement($time = null){
-        if (empty($time)) {
-            $this->inError(null, 'Null-pointer sur un traitement Temps');
-            return;
-        }
-
-        $assignementIdName = [1 => 'assignmentOnContractID', 2 => 'assignmentOffContractID', 3 => 'assignmentTrainingID'];
-        $assignementFind = null;
-        $assignementJsonTable = array();
-
-        $month = $time->date->i18nFormat('MM');
-        $year = $time->date->i18nFormat('YYYY');
-
-        $activityType = $time->projet->facturable->id_fit;
-
-        $idsOrigine = explode( ';', $time->user->origine->id_fit );
-        $assignementTable = array();
-
-        switch ($activityType) {
-            case 1:
-                foreach ($idsOrigine as $id) {
-                    $buffer = $this->getFitnetLink("/FitnetManager/rest/assignments/onContract/".$id.'/'.$month.'/'.$year, true);
-                    $buffer = json_decode($buffer, true);
-                    if (is_array($buffer)) {
-                        $assignementTable = array_merge($assignementTable, $buffer);
-                    }
-                }
-                break;
-
-            default:
-                $this->inError(null, 'activityType éroné' );
-                break;
-        }
-        if ( empty($assignementTable) ) {
-            // DEBUG :
-            // $line = ['--', '$assignementTable vide'];
-            // $this->insertLog($line);
-            return;
-        }
-        // DEBUG :
-        // $line = ['--', '$assignementTable non vide, connection OK'];
-        // $this->insertLog($line);
-
-        foreach ($assignementTable as $assignement) {
-            $date_debut = new Time(str_replace('/', '-', $assignement['assignmentStartDate']));
-            $date_fin = new Time(str_replace('/', '-', $assignement['assignmentEndDate']));
-
-            if ($assignement['employeeID'] == $time->user->id_fit
-            && $assignement['customerID'] == $time->projet->client->id_fit
-            && $assignement['contractID'] == $time->projet->id_fit
-            && $date_debut <= $time->date && $date_fin >= $time->date
-            && $assignement['typeOfServiceID'] == Configure::read('vsa.profil.'.$time->projet->client->agence->id_fit.'.'.$time->id_profil)
-            ) {
-                return $assignement[$assignementIdName[$activityType]];
-            }
-        }
-        return;
-
-    }
-
     private function endProcess($export, $count, $total, $ignored = 0){
         if ($count != $total) {
             $cause = 'nombre de saisie échoué : '.($total-($count+$ignored) );
@@ -713,14 +653,12 @@ class ExportFitnetController extends AppController
     }
 
     protected function setVsaLink( $url, $rest, $object ){
-        //récupération des lgoin/mdp du compte admin de fitnet
+        
         $token = Configure::read('vsa.token');
         $result = false;
         $errors = [];
 
-        // instance Client pour gestin des appel ajax
-        $http = new Client();
-        // construction de l'url fitnet
+        // construction de l'url vsa
         if (substr($url, 0, 1) == "/" ) {
             $url = substr($url, 1);
         }
@@ -728,7 +666,6 @@ class ExportFitnetController extends AppController
         $url=$base . $url ;
 
         // appel de la requête
-
         $authorization = "Authorization: Bearer ".$token;
         $ch = curl_init( $url );
         # Setup request to send json via POST.
@@ -740,6 +677,7 @@ class ExportFitnetController extends AppController
         $result = json_decode(curl_exec($ch), true);
         curl_close($ch);
 
+        // Création du message d'erreur si nécessaire"
         if (is_array($result)) {
             if (array_key_exists('error', $result)) {
                 foreach ($result['data'] as $key => $message) {
@@ -753,7 +691,7 @@ class ExportFitnetController extends AppController
                             ' |Affaire:  '.$time['orderCode'].
                             ' |TabTitle:  '.$time['tabTitle'].
                             ' |Date:  '.$time['tabTitle'].
-                            ' |Valeur:  '.$time['quantityDay'];
+                            ' |Valeur:  '.$time['quantityDay'].'J';
                             $errors[] = $msgError;
                         }
                     }
