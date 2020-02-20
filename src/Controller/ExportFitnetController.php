@@ -478,7 +478,7 @@ class ExportFitnetController extends AppController
             $errors = $this->setVsaLink($url, "POST", $timeSheets);
             foreach ($errors as $key => $value) {
                 $count--;
-                str_replace('%UNAME%', $tempTime->user->fullname, $value)
+                str_replace('%UNAME%', $tempTime->user->fullname, $value);
                 $export = $this->inError($export, $value);
             }
 
