@@ -470,15 +470,15 @@ class ExportFitnetController extends AppController
                     $timesheet = $this->exportTime($time, $tmpTimeSum);
                     if (is_array($timesheet)) {
                         $timeSheets[] = $timesheet;
+                        $names[] = $time->user->fullname;
                     }
                 }
             }
 
             $url = '/v1/activity/timesheet';
-            $errors = $this->setVsaLink($url, "POST", $timeSheets);
+            $errors = $this->setVsaLink($url, "POST", $timeSheets, $names);
             foreach ($errors as $key => $value) {
                 $count--;
-                str_replace('%UNAME%', $tempTime->user->fullname, $value);
                 $export = $this->inError($export, $value);
             }
 
@@ -653,7 +653,7 @@ class ExportFitnetController extends AppController
         return('OK');
     }
 
-    protected function setVsaLink( $url, $rest, $object ){
+    protected function setVsaLink( $url, $rest, $object, $names ){
 
         $token = Configure::read('vsa.token');
         $result = false;
@@ -687,7 +687,7 @@ class ExportFitnetController extends AppController
                         $time = $object[$matches[0]-1];
                         foreach ($message[0] as $k => $v) {
                             $msgError = $v.
-                            ' : |Consultant: %UNAME%'.
+                            ' : |Consultant: '.$names[$matches[0]-1].
                             ' |Client: '.$time['tiersCode'].
                             ' |Affaire:  '.$time['orderCode'].
                             ' |TabTitle:  '.$time['tabTitle'].
