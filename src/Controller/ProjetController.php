@@ -264,8 +264,9 @@ class ProjetController extends AppController
         if (!empty($data)) {
             foreach ($data as $value) {
                 if ($value['customerCode'] == $id_fit) {
-                    $found[$value['code']]=$value;
-                    $select2[]=array('id'=>$value['id'].'|'.$value['code'], 'text'=>$value['title']);
+                    $key = $value['id'].'|'.$value['code'];
+                    $found[$key]=$value;
+                    $select2[]=array('id'=>$key, 'text'=>$value['title']);
                 }
             }
         }else{
