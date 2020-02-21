@@ -223,7 +223,7 @@ class ProjetController extends AppController
         }
         return true;
     }
-    
+
     public function getProjectVsa(){
         $data = [];
         $found = [];
@@ -265,7 +265,7 @@ class ProjetController extends AppController
             foreach ($data as $value) {
                 if ($value['customerCode'] == $id_fit) {
                     $found[$value['code']]=$value;
-                    $select2[]=array('id'=>$value['code'], 'text'=>$value['title']);
+                    $select2[]=array('id'=>$value['id'].'|'.$value['code'], 'text'=>$value['title']);
                 }
             }
         }else{

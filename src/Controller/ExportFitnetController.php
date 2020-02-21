@@ -467,23 +467,69 @@ class ExportFitnetController extends AppController
                     $ignored++; //car n'est pas une erreur
                 }else{
                     $count++;
-                    $timesheet = $this->exportTime($time, $tmpTimeSum);
-                    if (is_array($timesheet)) {
-                        $timeSheets[] = $timesheet;
-                        $names[] = $time->user->fullname;
+                    $timesheets = $this->exportTime($time, $tmpTimeSum);
+                    if (is_array($timesheets['time'])) {
+                        $timeSheets[] = $timesheets['time'];
+                        $delTimes[] = $timesheets['delete'];
+                        $names[$time->user->id_fit] = $time->user->fullname;
                     }
                 }
             }
 
+            //SUPPRESSION
             $url = '/v1/activity/timesheet';
-            $errors = $this->setVsaLink($url, "POST", $timeSheets, $names);
+            $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
+            if (is_array($resultd)) {
+                if (array_key_exists('error', $resultd)) {
+                    foreach ($resultd['data'] as $key => $message) {
+                        preg_match ( '/[0-9]+/' , $key , $matches );
+                        if (is_array($matches)) {
+                            $deleteTime = $delTimes[$matches[0]-1];
+                            foreach ($message[0] as $k => $v) {
+                                $msgError = $v.
+                                ' : |Consultant: '.$names[$deleteTime['userId']].
+                                ' |Affaire: '.$deleteTime['orderId'].
+                                ' |Profil: '.$deleteTime['deliveryCode'].
+                                ' |Date: '.$deleteTime['date'].
+                                $errorsDeletion[] = $msgError;
+                            }
+                        }
+                    }
+                }
+            }
+            foreach ($errorsDeletion as $key => $value) {
+                $export = $this->inError($export, $value);
+            }
+            //ENREGISTREMENT
+            $url = '/v1/activity/timesheet';
+            $result = $this->setVsaLink($url, "POST", $timeSheets);
+            // Création du message d'erreur si nécessaire"
+            if (is_array($result)) {
+                if (array_key_exists('error', $result)) {
+                    foreach ($result['data'] as $key => $message) {
+                        preg_match ( '/[0-9]+/' , $key , $matches );
+                        if (is_array($matches)) {
+                            $time = $timeSheets[$matches[0]-1];
+                            foreach ($message[0] as $k => $v) {
+                                $msgError = $v.
+                                ' : |Consultant: '.$names[$time['userId']].
+                                ' |Client: '.$time['tiersCode'].
+                                ' |Affaire: '.$time['orderCode'].
+                                ' |TabTitle: '.$time['tabTitle'].
+                                ' |Profil: '.$time['deliveryCode'].
+                                ' |Date: '.$time['date'].
+                                ' |Valeur: '.$time['quantityDay'].'J ';
+                                $errors[] = $msgError;
+                            }
+                        }
+                    }
+                }
+            }
             foreach ($errors as $key => $value) {
                 $count--;
                 $export = $this->inError($export, $value);
             }
-
         }
-
         $export=$this->endProcess($export, $count, count($times), $ignored);
 
     }
@@ -583,10 +629,18 @@ class ExportFitnetController extends AppController
         // total temps travaillé
         $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
 
+        $keysproject = explode('|', $keyProject);
+
+        $delTime = [
+            "userId" => $employeeID,
+            "orderId" =>  $keysproject[0],
+            "deliveryCode" => $keyProfil,
+            "date" => $assignementDate
+        ];
         $timesheet = [
             "userId" => $employeeID,
             "tiersCode" => $keyClient,
-            "orderCode" => $keyProject,
+            "orderCode" => $keysproject[1],
             "tabTitle" => $tabProject,
             "deliveryCode" => $keyProfil,
             "date" => $assignementDate,
@@ -596,10 +650,9 @@ class ExportFitnetController extends AppController
             "comment" => $time->detail
         ];
 
-
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
-        return $timesheet;
+        return ['delete'=>$delTime, 'time'=>$timesheet];
     }
 
     private function endProcess($export, $count, $total, $ignored = 0){
@@ -653,7 +706,7 @@ class ExportFitnetController extends AppController
         return('OK');
     }
 
-    protected function setVsaLink( $url, $rest, $object, $names ){
+    protected function setVsaLink( $url, $rest, $object ){
 
         $token = Configure::read('vsa.token');
         $result = false;
@@ -667,6 +720,7 @@ class ExportFitnetController extends AppController
         $url=$base . $url ;
 
         // appel de la requête
+        // ENREGISTREMENT
         $authorization = "Authorization: Bearer ".$token;
         $ch = curl_init( $url );
         # Setup request to send json via POST.
@@ -678,30 +732,8 @@ class ExportFitnetController extends AppController
         $result = json_decode(curl_exec($ch), true);
         curl_close($ch);
 
-        // Création du message d'erreur si nécessaire"
-        if (is_array($result)) {
-            if (array_key_exists('error', $result)) {
-                foreach ($result['data'] as $key => $message) {
-                    preg_match ( '/[0-9]+/' , $key , $matches );
-                    if (is_array($matches)) {
-                        $time = $object[$matches[0]-1];
-                        foreach ($message[0] as $k => $v) {
-                            $msgError = $v.
-                            ' : |Consultant: '.$names[$matches[0]-1].
-                            ' |Client: '.$time['tiersCode'].
-                            ' |Affaire:  '.$time['orderCode'].
-                            ' |TabTitle:  '.$time['tabTitle'].
-                            ' |Date:  '.$time['date'].
-                            ' |Valeur:  '.$time['quantityDay'].'J';
-                            $errors[] = $msgError;
-                        }
-                    }
-                }
-            }
-        }
-
         // résultat
-        return $errors;
+        return $result;
     }
 
     public function isAuthorized($user)
