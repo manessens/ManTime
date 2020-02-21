@@ -491,14 +491,11 @@ class ExportFitnetController extends AppController
                                 ' |Affaire: '.$deleteTime['orderId'].
                                 ' |Profil: '.$deleteTime['deliveryCode'].
                                 ' |Date: '.$deleteTime['date'].
-                                $errorsDeletion[] = $msgError;
+                                $export = $this->inError($export, $value);
                             }
                         }
                     }
                 }
-            }
-            foreach ($errorsDeletion as $key => $value) {
-                $export = $this->inError($export, $value);
             }
             //ENREGISTREMENT
             $url = '/v1/activity/timesheet';
@@ -519,15 +516,12 @@ class ExportFitnetController extends AppController
                                 ' |Profil: '.$time['deliveryCode'].
                                 ' |Date: '.$time['date'].
                                 ' |Valeur: '.$time['quantityDay'].'J ';
-                                $errors[] = $msgError;
+                                $count--;
+                                $export = $this->inError($export, $value);
                             }
                         }
                     }
                 }
-            }
-            foreach ($errors as $key => $value) {
-                $count--;
-                $export = $this->inError($export, $value);
             }
         }
         $export=$this->endProcess($export, $count, count($times), $ignored);
