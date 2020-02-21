@@ -491,7 +491,7 @@ class ExportFitnetController extends AppController
                                 ' |Affaire: '.$deleteTime['orderId'].
                                 ' |Profil: '.$deleteTime['deliveryCode'].
                                 ' |Date: '.$deleteTime['date'].
-                                $export = $this->inError($export, $value);
+                                $export = $this->inError($export, $msgError);
                             }
                         }
                     }
@@ -517,7 +517,7 @@ class ExportFitnetController extends AppController
                                 ' |Date: '.$time['date'].
                                 ' |Valeur: '.$time['quantityDay'].'J ';
                                 $count--;
-                                $export = $this->inError($export, $value);
+                                $export = $this->inError($export, $msgError);
                             }
                         }
                     }
