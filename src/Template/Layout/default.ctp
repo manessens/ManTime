@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'ManTime - saisie des temps simplifié';
+$cakeDescription = 'Syn\'chrone - saisie des temps simplifié';
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@ $cakeDescription = 'ManTime - saisie des temps simplifié';
         <ul class="title-area large-2 large-2bis medium-4 columns">
             <li class="name">
                 <!-- <h1><a href=""><?= $this->fetch('title') ?></a></h1> -->
-                <h1><?= $this->Html->link(__('ManTime'), ['controller' => 'Board','action' => 'index']) ?></h1>
+                <h1><?= $this->Html->link(__('Syn\'chrone'), ['controller' => 'Board','action' => 'index']) ?></h1>
             </li>
         </ul>
         <div class="top-bar-section">

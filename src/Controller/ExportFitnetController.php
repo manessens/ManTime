@@ -339,7 +339,7 @@ class ExportFitnetController extends AppController
         }elseif ($code != null) {
             $line = ['##', ' VSA code retour : '.$code, $cause];
         }else{
-            $line = ['##', ' ERREUR -- ManTime : ', $cause];
+            $line = ['##', ' ERREUR -- Syn\'chrone : ', $cause];
         }
         $this->insertLog($line, true);
 
