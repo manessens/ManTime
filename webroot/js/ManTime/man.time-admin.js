@@ -125,10 +125,14 @@ function modifyUser (that) {
         arrayDays.forEach(function(idDay){
             tdSelectLast = $(tdSelectLast).next();
             var inputCurrentText = $(tdSelectLast).children().find('input[type="text"]');
-            var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
+            // var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
+            var inputCurrentHiddenTemp = $(tdSelectLast).children()[0];
+            if (inputCurrentHiddenTemp.type === "hidden") {
+                var inputCurrentHidden = inputCurrentHiddenTemp;
+                $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
+            }
             $(inputCurrentText).attr('id','day-'+idu+'-'+idLine+'-'+idDay);
             $(inputCurrentText).attr('name','day['+idu+']['+idLine+']['+idDay+'][time]');
-            $(inputCurrentHidden).attr('name','day['+idu+']['+idLine+']['+idDay+'][id]');
         });
 
     }
