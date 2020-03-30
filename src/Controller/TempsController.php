@@ -276,6 +276,7 @@ class TempsController extends AppController
             $arrayIdentifierLine = array();
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
+                debug($arrayData);
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     foreach ($arrayLine as $line => $arrayDay) {
                         $dayTime = clone $lundi;
