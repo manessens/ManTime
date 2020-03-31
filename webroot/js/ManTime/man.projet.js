@@ -3,7 +3,7 @@ $(function() {
     $('#liste_vsa').select2();
     initSelectEdit();
     // initChangeFact();
-    first = fals;
+    first = false;
 });
 var xhr;
 var first = true;
