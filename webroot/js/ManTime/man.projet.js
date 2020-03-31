@@ -10,10 +10,12 @@ var extandData;
 
 function initDatePicker(){
     $( ".datepicker" ).each(function() {
+        var value;
         if ($( this ).attr('value').length > 10) {
-            $( this ).attr('value', $( this ).attr('value'));
+            value = $( this ).attr('value').substring(6,10) + '-' + $( this ).attr('value').substring(3,5) + '-' + $( this ).attr('value').substring(0,2);
         }
         $( this ).attr('type', 'date');
+        $( this ).attr('value', value);
     });
 }
 
