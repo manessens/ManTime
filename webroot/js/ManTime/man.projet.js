@@ -3,17 +3,15 @@ $(function() {
     $('#liste_vsa').select2();
     initSelectEdit();
     // initChangeFact();
-    first = false;
 });
 var xhr;
-var first = true;
 
 var extandData;
 
 function initDatePicker(){
     $( ".datepicker" ).each(function() {
         if ($( this ).attr('value').length > 10) {
-            $( this ).attr('value', $( this ).attr('value'));
+            $( this ).attr('value', $( this ).attr('value').substring(0,10));
         }
         $( this ).attr('type', 'date');
     });
@@ -62,7 +60,7 @@ function initChangeSelect2(){
         if (val == "error") {
             return false;
         }
-        if (val != null && first === false) {
+        if (val != null ) {
             $('#linker').removeClass('btn-primary').addClass('btn-success');
             if (extandData[val].startinDate) {
                 $('#date-debut').attr('readonly','readonly');
