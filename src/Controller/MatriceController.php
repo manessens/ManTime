@@ -69,6 +69,8 @@ class MatriceController extends AppController
                     $line->idm = $matrice->idm;
                     $matrice->lign_mat[] = $line;
                 }
+                    // DEBUG:
+                    debug($matrice->lign_mat); exit;
                 // $matrice->lign_mat = $lignMats;
                 // $matrice->lign_mat[0]->idm = $matrice->idm;
                 // $matrice->lign_mat[0]->id_profil = 1;
