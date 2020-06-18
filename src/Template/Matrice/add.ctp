@@ -40,13 +40,13 @@
                     <td><?= h('Fonctionnel BI/BC') ?> <?php echo $this->Form->hidden('lign_mat.3.id_ligne'); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.3.heur', ['label' => false]); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.3.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.3.id_profil', ['value' => 3]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.3.id_profil', ['value' => 4]); ?></td>
                 </tr>
                 <tr>
                     <td><?= h('Expert / CP / Référent') ?> <?php echo $this->Form->hidden('lign_mat.4.id_ligne'); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.4.heur', ['label' => false]); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.4.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.4.id_profil', ['value' => 4]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.4.id_profil', ['value' => 5]); ?></td>
                 </tr>
             </tbody>
         </table>
