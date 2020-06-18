@@ -65,11 +65,8 @@ class MatriceController extends AppController
             $lignMats = $matrice->lign_mat;
             $matrice->lign_mat = [];
             if ($this->Matrice->save($matrice)) {
-                // DEBUG:
-                debug($lignMats); exit;
                 foreach ($lignMats as $id => $line) {
                     $line->idm = $matrice->idm;
-                    $line->id_profil = 1;
                     $matrice->lign_mat[] = $line;
                 }
                 // $matrice->lign_mat = $lignMats;
