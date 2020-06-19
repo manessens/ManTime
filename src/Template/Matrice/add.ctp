@@ -19,10 +19,10 @@
                 </tr>
             </thead>
             <tbody>
-                <td scope="col" class="actions">
-                    <button type="button" class="btn btn-danger remove">-</button>
-                </th>
                 <tr>
+                    <td scope="col" class="actions">
+                        <button type="button" class="btn btn-danger remove">-</button>
+                    </td>
                     <td><?= h('Technique ABAP') ?> <?php echo $this->Form->hidden('lign_mat.0.id_ligne'); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.0.heur', ['label' => false]); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.0.jour', ['label' => false]); ?></td>
