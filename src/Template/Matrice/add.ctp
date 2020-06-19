@@ -70,3 +70,6 @@
     <?= $this->Form->button(__('Enregistrer'), ['class' => 'btn btn-warning']) ?>
     <?= $this->Form->end() ?>
 </div>
+<?php
+    echo $this->Html->script('ManTime/man.matrice-admin.js');
+?>
