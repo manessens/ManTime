@@ -11,6 +11,7 @@
         <table class="col-xs-5 vertical-table">
             <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col"><?php echo $this->Form->control('nom_matrice'); ?></th>
                     <th class="col-xs-3" scope="col"><?= __('UO / Heure') ?></th>
                     <th class="col-xs-3" scope="col"><?= __('UO / Jour') ?></th>
@@ -18,6 +19,9 @@
                 </tr>
             </thead>
             <tbody>
+                <td scope="col" class="actions">
+                    <button type="button" class="btn btn-danger remove">-</button>
+                </th>
                 <tr>
                     <td><?= h('Technique ABAP') ?> <?php echo $this->Form->hidden('lign_mat.0.id_ligne'); ?></td>
                     <td><?php echo $this->Form->control('lign_mat.0.heur', ['label' => false]); ?></td>
