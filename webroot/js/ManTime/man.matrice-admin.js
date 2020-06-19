@@ -39,3 +39,11 @@ $( "form" ).on('submit',function (e){
         e.preventDefault();
     }
 });
+
+$( ".remove" ).click(function(){
+    delLine(this);
+});
+
+function delLine(that) {
+    $(that).parent().parent().remove();
+}

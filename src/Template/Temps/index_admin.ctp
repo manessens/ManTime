@@ -132,12 +132,12 @@
                 <?php foreach ($week as $kUser => $weekUser): ?>
                     <?php foreach ($weekUser as $k => $line): ?>
                     <tr idLine="<?php echo $line['nline'] ?>" user="<?php echo $kUser ?>"
-                            <?php if ($kUserOld != $kUser): ?> class="newUser" <?php $kUserOld = $kUser; ?><?php endif; ?>>
+                            <?php if ($kUserOld != $kUser): ?> class="newUser" <?php $kUserOld = $kUser; ?><?php endif; ?> >
                         <td scope="col" class="actions">
                             <?php if (!$validat): ?>
                                 <button type="button" class="btn btn-danger remove">-</button>
                             <?php endif; ?>
-                        </th>
+                        </td>
                         <td scope="col" class="cel_users">
                             <?php if ($validat): ?>
                             <div>
@@ -265,7 +265,7 @@
                 <a href="#topofpage"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
             </div>
             <?php
-                 if ($validat){ 
+                 if ($validat){
                     echo $this->Form->hidden('check_lock', ['value' => 1]);
                 }
               ?>

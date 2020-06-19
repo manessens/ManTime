@@ -65,15 +65,11 @@ class MatriceController extends AppController
             $lignMats = $matrice->lign_mat;
             $matrice->lign_mat = [];
             if ($this->Matrice->save($matrice)) {
+
                 $matrice->lign_mat = $lignMats;
-                $matrice->lign_mat[0]->idm = $matrice->idm;
-                $matrice->lign_mat[0]->id_profil = 1;
-                $matrice->lign_mat[1]->idm = $matrice->idm;
-                $matrice->lign_mat[1]->id_profil = 2;
-                $matrice->lign_mat[2]->idm = $matrice->idm;
-                $matrice->lign_mat[2]->id_profil = 3;
-                $matrice->lign_mat[3]->idm = $matrice->idm;
-                $matrice->lign_mat[3]->id_profil = 4;
+                foreach ($lignMats as $id => $line) {
+                    $line->idm = $matrice->idm;
+                }
                 if ($this->Matrice->save($matrice, ['associated' => ['LignMat']])) {
                     $this->Flash->success(__('La matrice a été créée.'));
 
