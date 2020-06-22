@@ -301,7 +301,7 @@ class TempsController extends AppController
                         $day = null;
                         if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
-                            $day->idu = $user->idu;
+                            $day->idu = $idUserJp;
                         }else{
                             $day = $this->Temps->get($dataDay['id']);
                         }
@@ -371,12 +371,12 @@ class TempsController extends AppController
                     }
                 }else{
                     $this->Flash->error(__("La semaine a déjà été soumise, les modifications n'ont pus être sauvegardées."));
-                    return $this->redirect(['action' => 'index', $semaine, $annee]);
+                    return $this->redirect(['action' => 'index_jp', $semaine, $annee]);
                 }
             }
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
-                return $this->redirect(['action' => 'index', $semaine, $annee]);
+                return $this->redirect(['action' => 'index_jp', $semaine, $annee]);
             }else{
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
