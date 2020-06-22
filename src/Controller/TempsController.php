@@ -44,8 +44,6 @@ class TempsController extends AppController
         $idUserAuth = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->get($idUserAuth);
-        // $usersTable = TableRegistry::get('Users');
-        // $user = $usersTable->get($idUserAuth);
 
         $arrayTemps = $this->Temps->find('all')
                 ->where(['idu =' => $idUserAuth])
@@ -256,8 +254,9 @@ class TempsController extends AppController
         }
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserJp);
         $week = $retour[0];
-        $validat = $retour[1];
+        // $validat = $retour[1];
 
+        $validat = false;
         $exportableTable = TableRegistry::get('Exportable');
         $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
         if (!is_null($isLocked)) {
@@ -271,10 +270,10 @@ class TempsController extends AppController
             $arrayIdentifierLine = array();
             $verif = false;
             // vérif lock by admin
-            if (!is_null($isLocked)) {
-                $this->Flash->error(__('La semaine à été vérouillé par un admin, veuillez contacter un responsable pour une modification de saisie'));
-                return $this->redirect(['action' => 'index', $semaine, $annee]);
-            }
+            // if (!is_null($isLocked)) {
+            //     $this->Flash->error(__('La semaine à été vérouillé par un admin, veuillez contacter un responsable pour une modification de saisie'));
+            //     return $this->redirect(['action' => 'index', $semaine, $annee]);
+            // }
             if (array_key_exists('day', $arrayData)) {
                 $verif = true;
                 $projetTable = TableRegistry::get('Projet');
@@ -319,10 +318,10 @@ class TempsController extends AppController
                             $dayTime->modify('+1 days');
                             continue;
                         }
-                        if ($dataDay['time'] > 1 && $verif) {
-                            $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
-                            $verif = false;
-                        }
+                        // if ($dataDay['time'] > 1 && $verif) {
+                        //     $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
+                        //     $verif = false;
+                        // }
                         if ($idc==$arrayIdp[1] && $idp==$arrayIdprof[0] && $idp==$arrayIda[0]) {
                             //For deletion
                             if ($day->idt) {
@@ -332,7 +331,7 @@ class TempsController extends AppController
                             $day->date = clone $dayTime ;
                             $day->n_ligne = $line;
                             $day->time = $dataDay['time'];
-                            $day->validat = $arrayData['validat'];
+                            $day->validat = 1;
                             if ($day->idp != $idp) {
                                 $projet  = $projetTable->find('all', ['fields'=>['idm', 'prix']])->where(['idp ='=>$idp])->first();
                                 $day->idm = $projet->idm;
@@ -350,29 +349,29 @@ class TempsController extends AppController
                 }
             }
             if ($verif) {
-                if (!$validat) { // Si pas de blocage alors on modifie les temps
-                    //Deletion
-                    $query = $this->Temps->query()
-                        ->update()->set(['deleted' => true])
-                        ->innerJoinWith('Projet.Participant')
-                        ->where(['idu =' => $idUserJp,
-                         'date >=' => $lundi,
-                         'date <' => $dimanche])
-                         ->andWhere(['Participant.idu =' => $idUserAuth]);
-                    if (!empty($arrayIdCurrent)) {
-                        $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
-                    }
-                    $query->execute();
-                    //Save
-                    if (!empty($entities)) {
-                        foreach ($entities as $day) {
-                            $verif = $verif && $this->Temps->save($day);
-                        }
-                    }
-                }else{
-                    $this->Flash->error(__("La semaine a déjà été soumise, les modifications n'ont pus être sauvegardées."));
-                    return $this->redirect(['action' => 'index_jp', $semaine, $annee]);
+                // if (!$validat) { // Si pas de blocage alors on modifie les temps
+                //Deletion
+                $query = $this->Temps->query()
+                    ->update()->set(['deleted' => true])
+                    ->innerJoinWith('Projet.Participant')
+                    ->where(['idu =' => $idUserJp,
+                     'date >=' => $lundi,
+                     'date <' => $dimanche])
+                     ->andWhere(['Participant.idu =' => $idUserAuth]);
+                if (!empty($arrayIdCurrent)) {
+                    $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                 }
+                $query->execute();
+                //Save
+                if (!empty($entities)) {
+                    foreach ($entities as $day) {
+                        $verif = $verif && $this->Temps->save($day);
+                    }
+                }
+                // }else{
+                //     $this->Flash->error(__("La semaine a déjà été soumise, les modifications n'ont pus être sauvegardées."));
+                //     return $this->redirect(['action' => 'index_jp', $semaine, $annee]);
+                // }
             }
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));

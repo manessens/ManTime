@@ -225,9 +225,9 @@
             <?php
                 if ($validat) {
                     echo "<div class='header'>La semaine est déjà validée, correction impossible.</div>";
-                }else{
-                    echo $this->Form->control('validat', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
-                }
+                }//else{
+                //     echo $this->Form->control('validat', ['type' => 'checkbox' , 'label'=>'Valider la saisie (vérouille la saisie)']);
+                // }
             ?>
             </div>
             <?php
