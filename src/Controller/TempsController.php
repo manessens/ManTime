@@ -482,6 +482,10 @@ class TempsController extends AppController
                         //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                         //     $verif = false;
                         // }
+                        // DEBUG:
+                        debug($idUser);
+                        debug($line);
+                        debug($arrayData);
                         if ($arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0
                          || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
                          || $arrayData['activities'][$idUser][$line] == 0) {
