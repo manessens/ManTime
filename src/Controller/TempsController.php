@@ -245,10 +245,11 @@ class TempsController extends AppController
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
                 ->andWhere(['deleted =' => false])
-                ->andWhere(['Participants.idu =' => $idUserAuth])
-                ->contain(['Projet' => ['Client', 'Participant' ]])
-                ->all();
-
+                ->andWhere(['Participants.idu =' => $idUserAuth]);
+                // ->contain(['Projet' => ['Client', 'Participant' ]])
+                // ->all();
+            debug($arrayTemps);
+            $arrayTemps = $arrayTemps->all();
         $buff = array();
         foreach ($arrayTemps as $temps) {
             $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
