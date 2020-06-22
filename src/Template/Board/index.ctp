@@ -15,6 +15,11 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
+            ['title' => 'Saisie JP', 'content'=>'Saisie de la facturation Julien-Pierre', 'img'=>'002-check.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.cp')]),
+            ['controller' => 'Temps', 'action' => 'index-jp'],
+            ['escape' => false]); ?>
+        <?= $this->Html->link($this->element(
+            'block',
             ['title' => 'Validation semaine', 'content'=>'Gestions des temps par semaines', 'img'=>'002-check.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.admin')]),
             ['controller' => 'Temps', 'action' => 'index-admin'],
             ['escape' => false]); ?>
