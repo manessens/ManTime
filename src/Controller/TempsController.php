@@ -233,7 +233,7 @@ class TempsController extends AppController
         $dimanche = clone $lundi;
         $dimanche->modify('+7 days');
 
-        $idUserJp = Configure::read('jpid')
+        $idUserJp = Configure::read('jpid');
         $idUserAuth = $this->Auth->user('idu');
         $this->loadModel('Users');
         $user = $this->Users->get($idUserAuth);
