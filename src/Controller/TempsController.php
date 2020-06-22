@@ -245,7 +245,7 @@ class TempsController extends AppController
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
                 ->andWhere(['deleted =' => false])
-                ->andWhere(['Participant.idu =' => $idUserAuth])
+                ->andWhere(['Participants.idu =' => $idUserAuth])
                 ->contain(['Projet' => ['Client', 'Participant' ]])
                 ->all();
 
