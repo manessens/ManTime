@@ -240,12 +240,14 @@ class TempsController extends AppController
         // $usersTable = TableRegistry::get('Users');
         // $user = $usersTable->get($idUserAuth);
 
-        $arrayTemps = $this->Temps->find('all')
+        $arrayTemps = $this->Temps->find()
+                ->select()
+                ->innerJoinWith('Participant')
                 ->where(['idu =' => $idUserJp])
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
                 ->andWhere(['deleted =' => false])
-                ->andWhere(['Participants.idu =' => $idUserAuth]);
+                ->andWhere(['Participans.idu =' => $idUserAuth]);
                 // ->contain(['Projet' => ['Client', 'Participant' ]])
                 // ->all();
             debug($arrayTemps);
