@@ -1376,6 +1376,10 @@ class TempsController extends AppController
             return true;
         }
 
+        if (in_array($action, ['indexJp']) && $user['role'] >= Configure::read('role.cp') ) {
+            return true;
+        }
+
         if (in_array($action, ['indexAdmin', 'import']) && $user['role'] >= Configure::read('role.admin') ) {
             return true;
         }
