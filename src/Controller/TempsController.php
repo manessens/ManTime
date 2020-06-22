@@ -473,6 +473,7 @@ class TempsController extends AppController
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
+                    if ($idUser === 0) {continue;}
                     foreach ($arrayLine as $line => $arrayDay) {
                         $dayTime = clone $lundi;
                         // $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
@@ -482,10 +483,6 @@ class TempsController extends AppController
                         //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                         //     $verif = false;
                         // }
-                        // DEBUG:
-                        debug($idUser);
-                        debug($line);
-                        debug($arrayData);
                         if ($arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0
                          || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
                          || $arrayData['activities'][$idUser][$line] == 0) {
