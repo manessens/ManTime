@@ -248,10 +248,8 @@ class TempsController extends AppController
                 ->andWhere(['date <' => $dimanche])
                 ->andWhere(['deleted =' => false])
                 ->andWhere(['Participant.idu =' => $idUserAuth])
-                ->contain(['Projet' => ['Client', 'Participant' ]]);
-                // ->all();
-            debug($arrayTemps);
-            $arrayTemps = $arrayTemps->all();
+                ->contain(['Projet' => ['Client']])
+                ->all();
         $buff = array();
         foreach ($arrayTemps as $temps) {
             $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
@@ -356,11 +354,11 @@ class TempsController extends AppController
                     //Deletion
                     $query = $this->Temps->query()
                         ->update()->set(['deleted' => true])
+                        ->innerJoinWith('Projet.Participant')
                         ->where(['idu =' => $idUserJp,
                          'date >=' => $lundi,
                          'date <' => $dimanche])
-                         ->andWhere(['Participant.idu =' => $idUserAuth])
-                         ->contain(['Projet' => ['Participant' ]]);
+                         ->andWhere(['Participant.idu =' => $idUserAuth]);
                     if (!empty($arrayIdCurrent)) {
                         $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                     }
