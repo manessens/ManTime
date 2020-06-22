@@ -236,7 +236,7 @@ class TempsController extends AppController
         $idUserJp = Configure::read('jpid');
         $idUserAuth = $this->Auth->user('idu');
         $this->loadModel('Users');
-        $user = $this->Users->get($idUserAuth);
+        $user = $this->Users->get($idUserJp);
         // $usersTable = TableRegistry::get('Users');
         // $user = $usersTable->get($idUserAuth);
 
