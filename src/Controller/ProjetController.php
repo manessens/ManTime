@@ -62,6 +62,7 @@ class ProjetController extends AppController
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
+        $referentOption = $this->getReferentOption();
         $projet = $this->Projet->newEntity();
         $myParticipants = array();
         $myActivities = array();
@@ -98,6 +99,7 @@ class ProjetController extends AppController
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
         $this->set(compact('matricesOption'));
+        $this->set(compact('referentOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
         $this->set('activities', $activitiesOption);
@@ -118,6 +120,7 @@ class ProjetController extends AppController
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
+        $referentOption = $this->getReferentOption();
         if (is_numeric($id)) {
             $projet = $this->Projet->get($id, [
                 'contain' => ['Activities', 'Participant' ]
@@ -161,6 +164,7 @@ class ProjetController extends AppController
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
         $this->set(compact('matricesOption'));
+        $this->set(compact('referentOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activities', $activitiesOption);
@@ -169,7 +173,6 @@ class ProjetController extends AppController
 
     private function updateActivities( $projet, $activities = array())
     {
-
         $this->loadModel('Activities');
         $activitiesObject = array();
         if ( !empty($activities) ) {
@@ -197,17 +200,17 @@ class ProjetController extends AppController
     }
     private function updateParticipant( $projet, $participant = array())
     {
-        $participantTable = TableRegistry::get('Participant');
+        $this->loadModel('Participant');
         $participants = array();
         if ( !empty($participant) ) {
             foreach ($participant as $value) {
-                $participants[] = $participantTable->newEntity(['idp' => $projet->idp, 'idu' => $value]);
+                $participants[] = $this->Participant->newEntity(['idp' => $projet->idp, 'idu' => $value]);
             }
             //Prepare query for deletion
-            $query = $participantTable->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $participant ]);
+            $query = $this->Participant->find('all')->where(['idp =' => $projet->idp, 'idu NOT IN' => $participant ]);
         }else{
             //Prepare query for deletion in case of empty array
-            $query = $participantTable->find('all')->where(['idp =' => $projet->idp ]);
+            $query = $this->Participant->find('all')->where(['idp =' => $projet->idp ]);
         }
         // Update liste of participant to create associated entity in tab
         $projet->participant = $participants;
@@ -215,7 +218,7 @@ class ProjetController extends AppController
         //DELETION
         $listDeletion = $query->toArray();
         foreach ($listDeletion as  $entity) {
-            $result = $participantTable->delete($entity);
+            $result = $this->Participant->delete($entity);
             if ( !$result ) {
                 $this->Flash->error(__("Le projet n'a pus être sauvegardé. Erreur à l'enregistrement des participants."));
                 return false;
@@ -287,8 +290,8 @@ class ProjetController extends AppController
 
     private function getClientOption()
     {
-        $clientTable = TableRegistry::get('Client');
-        $query = $clientTable->find('all');
+        $this->loadModel('Client');
+        $query = $this->Client->find('all');
         $clients = $query->toArray();
         $clientOption = [];
         foreach ($clients as $client) {
@@ -299,16 +302,16 @@ class ProjetController extends AppController
 
     private function getFactOption()
     {
-        $factTable = TableRegistry::get('Facturable');
+        $this->loadModel('Facturable');
         $factOption = array();
-        $factOption = $factTable->find('list',['fields'=>['idf', 'nom_fact']])->toArray();
+        $factOption = $this->Facturable->find('list',['fields'=>['idf', 'nom_fact']])->toArray();
         return $factOption;
     }
 
     private function getUserOption()
     {
-        $userTable = TableRegistry::get('Users');
-        $query = $userTable->find('all')->where(['Users.actif =' => 1]);
+        $this->loadModel('Users');
+        $query = $this->Users->find('all')->where(['Users.actif =' => 1]);
         $users = $query->toArray();
         $userOption = [];
         foreach ($users as $user) {
@@ -320,9 +323,8 @@ class ProjetController extends AppController
 
     private function getMatricesOption()
     {
-
-        $matriceTable = TableRegistry::get('Matrice');
-        $query = $matriceTable->find('all');
+        $this->loadModel('Matrice');
+        $query = $this->Matrice->find('all');
         $matrices = $query->toArray();
         $matricesOption = [];
         foreach ($matrices as $matrice) {
@@ -332,10 +334,24 @@ class ProjetController extends AppController
         return $matricesOption;
     }
 
+    private function getReferentOption()
+    {
+        $this->loadModel('Users');
+        $query = $this->Users->find('all')->andWhere(['role >=' => \Cake\Core\Configure::read('role.cp')]);
+        $users = $query->toArray();
+        $usersOption = [];
+        $usersOption[""] = " - ";
+        foreach ($users as $user) {
+            $usersOption[$user->idu] = $user->fullname;
+        }
+        asort($usersOption);
+        return $usersOption;
+    }
+
     private function getActivitiesOption()
     {
-        $activitieTable = TableRegistry::get('Activitie');
-        $query = $activitieTable->find('all');
+        $this->loadModel('Activitie');
+        $query = $this->Activitie->find('all');
         $activities = $query->toArray();
         $activitieOption = [];
         foreach ($activities as $activitie) {
@@ -347,8 +363,8 @@ class ProjetController extends AppController
 
     private function getMyParticipantsOption($idp = null)
     {
-        $participantTable = TableRegistry::get('Participant');
-        $query = $participantTable->findByIdp($idp);
+        $this->loadModel('Participant');
+        $query = $this->Participant->findByIdp($idp);
         $participants = $query->toArray();
         $participantOption = array();
         foreach ($participants as $participant) {
@@ -361,8 +377,8 @@ class ProjetController extends AppController
 
     private function getMyActivitiesOption($idp = null)
     {
-        $activitieTable = TableRegistry::get('Activities');
-        $query = $activitieTable->findByIdp($idp);
+        $this->loadModel('Activities');
+        $query = $this->Activities->findByIdp($idp);
         $activities = $query->toArray();
         $activitiesOption = array();
         foreach ($activities as $activitie) {

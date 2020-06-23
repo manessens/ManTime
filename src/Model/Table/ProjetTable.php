@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Entity\Client|\Cake\ORM\Association\BelongsTo $Client
  * @property \App\Model\Entity\Facturable|\Cake\ORM\Association\BelongsTo $Facturable
+ * @property \App\Model\Entity\Users|\Cake\ORM\Association\BelongsTo Users
  * @property \App\Model\Table\ActivitiesTable|\Cake\ORM\Association\HasMany $Activity
  * @property \App\Model\Table\ParticipantTable|\Cake\ORM\Association\HasMany $Participant
  *
@@ -45,6 +46,10 @@ class ProjetTable extends Table
         ]);
         $this->belongsTo('Facturable', [
             'foreignKey' => 'idf'
+        ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'idu'
         ]);
 
         $this->hasMany('Activities', [
@@ -112,6 +117,10 @@ class ProjetTable extends Table
         $validator
             ->integer('idm')
             ->allowEmpty('idm');
+
+        $validator
+            ->integer('idu')
+            ->allowEmpty('idu');
 
         $validator
             ->decimal('prix')

@@ -41,13 +41,19 @@
          ?>
         <div class="input text required">
             <?php
-                echo $this->Form->label('Matrice');
+                echo $this->Form->label('idm', 'Matrice');
                 echo $this->Form->select('idm', $matricesOption, ['value'=>10]);
             ?>
         </div>
         <?php
             echo $this->Form->control('prix');
         ?>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('idu', 'CP référent');
+            echo $this->Form->select('idu', $referentOption);
+        ?>
+        </div>
         <div class="input text col-xs-6">
             <?php
                 echo $this->Form->label('participant','Participants');

@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property string $id_fit
  * @property int $idc
  * @property int $idm
+ * @property int $idu
  * @property \Cake\I18n\FrozenTime $date_debut
  * @property \Cake\I18n\FrozenTime $date_fin
  * @property float $prix
@@ -20,6 +21,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Participant[] $participant
  * @property \App\Model\Entity\Matrice $matrice
  * @property \App\Model\Entity\Facturable $facturable
+ * @property \App\Model\Entity\User $user
  */
 class Projet extends Entity
 {
@@ -46,7 +48,9 @@ class Projet extends Entity
         'facturable' => true,
         'idm' => true,
         'matrice' => true,
-        'prix' => true
+        'prix' => true,
+        'idu' => true,
+        'user' => true
     ];
 
     protected function _getProjname()

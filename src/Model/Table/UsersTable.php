@@ -12,6 +12,7 @@ use Cake\Auth\DefaultPasswordHasher;
  *
  * @property \App\Model\Entity\Origine|\Cake\ORM\Association\BelongsTo $Origine
  * @property \App\Model\Table\TempsTable|\Cake\ORM\Association\HasMany $Temps
+ * @property \App\Model\Table\ProjetTable|\Cake\ORM\Association\HasMany $Projet
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
@@ -43,6 +44,9 @@ class UsersTable extends Table
         ]);
 
         $this->hasMany('Temps', [
+            'foreignKey' => 'idu'
+        ]);
+        $this->hasMany('Projet', [
             'foreignKey' => 'idu'
         ]);
 

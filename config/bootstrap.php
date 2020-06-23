@@ -87,6 +87,7 @@ Configure::write(['role' => [
         'intern' => 0
     ]
 ]);
+Configure::write(['jpid' => 42 ]);
 
 
 /*
