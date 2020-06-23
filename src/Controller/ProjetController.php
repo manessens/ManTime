@@ -340,6 +340,7 @@ class ProjetController extends AppController
         $query = $this->Users->find('all')->andWhere(['role >=' => \Cake\Core\Configure::read('role.cp')]);
         $users = $query->toArray();
         $usersOption = [];
+        $usersOption[""] = " - ";
         foreach ($users as $user) {
             $usersOption[$user->idu] = $user->fullname;
         }

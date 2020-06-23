@@ -41,7 +41,7 @@
          ?>
         <div class="input text required">
             <?php
-                echo $this->Form->label('Matrice');
+                echo $this->Form->label('idm', 'Matrice');
                 echo $this->Form->select('idm', $matricesOption, ['value'=>10]);
             ?>
         </div>
@@ -50,7 +50,7 @@
         ?>
         <div class="input text required">
         <?php
-            echo $this->Form->label('CP référent');
+            echo $this->Form->label('idu', 'CP référent');
             echo $this->Form->select('idu', $referentOption);
         ?>
         </div>
