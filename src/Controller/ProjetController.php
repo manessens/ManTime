@@ -337,7 +337,7 @@ class ProjetController extends AppController
     private function getReferentOption()
     {
         $this->loadModel('Users');
-        $query = $this->Users->find('all')->where('role >='=> \Cake\Core\Configure::read('role.cp') );
+        $query = $this->Users->find('all')->andWhere(['role >=' => \Cake\Core\Configure::read('role.cp')]);
         $users = $query->toArray();
         $usersOption = [];
         foreach ($users as $user) {
