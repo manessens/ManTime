@@ -385,7 +385,7 @@ class TempsController extends AppController
 
         $arrayRetour =  array();
         $arrayEmpty = ['0'=>'-'];
-        $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche, $idUserJp);
+        $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche, $idUserAuth);
         asort($arrayRetour['projets']);
         asort($arrayRetour['clients']);
         asort($arrayRetour['activities']);
