@@ -773,7 +773,7 @@ class TempsController extends AppController
             ->andWhere(['date_debut <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd')])
             ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')]);
         if ($idcp > 0) {
-            $particpations->andWhere(['Projet.idu =' => $idcp])
+            $particpations->andWhere(['Projet.idu =' => $idcp]);
         }
         $particpations->contain(['Projet' => ['Client', 'Matrice'=>['LignMat'=>['Profil']] ] ])->all();
         foreach ($particpations as $participant) {
