@@ -240,12 +240,12 @@ class TempsController extends AppController
 
         $arrayTemps = $this->Temps->find()
                 ->select()
-                ->innerJoinWith('Projet.Participant')
+                // ->innerJoinWith('Projet')
                 ->where(['Temps.idu =' => $idUserJp])
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
                 ->andWhere(['deleted =' => false])
-                ->andWhere(['Participant.idu =' => $idUserAuth])
+                ->andWhere(['Projet.idu =' => $idUserAuth])
                 ->contain(['Projet' => ['Client']])
                 ->all();
         $buff = array();
