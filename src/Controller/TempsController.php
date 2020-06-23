@@ -439,7 +439,7 @@ class TempsController extends AppController
             $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
             $arrayTemps = array();
             $arrayTemps = $this->Temps->find('all')
-                    ->where(['idu =' => $userAll->idu])
+                    ->where(['Temps.idu =' => $userAll->idu])
                     ->andWhere(['validat =' => 1])
                     ->andWhere(['deleted =' => false])
                     ->andWhere(['date >=' => $lundi])
