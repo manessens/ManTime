@@ -62,6 +62,7 @@ class ProjetController extends AppController
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
+        $referentOption = $this->getReferentOption();
         $projet = $this->Projet->newEntity();
         $myParticipants = array();
         $myActivities = array();
@@ -98,6 +99,7 @@ class ProjetController extends AppController
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
         $this->set(compact('matricesOption'));
+        $this->set(compact('referentOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $myParticipants);
         $this->set('activities', $activitiesOption);
@@ -118,6 +120,7 @@ class ProjetController extends AppController
         $participantsOption = $this->getUserOption();
         $activitiesOption = $this->getActivitiesOption();
         $matricesOption = $this->getmatricesOption();
+        $referentOption = $this->getReferentOption();
         if (is_numeric($id)) {
             $projet = $this->Projet->get($id, [
                 'contain' => ['Activities', 'Participant' ]
@@ -161,6 +164,7 @@ class ProjetController extends AppController
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
         $this->set(compact('matricesOption'));
+        $this->set(compact('referentOption'));
         $this->set('participants', $participantsOption);
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activities', $activitiesOption);
@@ -321,8 +325,8 @@ class ProjetController extends AppController
     private function getMatricesOption()
     {
 
-        $matriceTable = TableRegistry::get('Matrice');
-        $query = $matriceTable->find('all');
+        $this->loadModel('Matrice');
+        $query = $this->Matrice->find('all');
         $matrices = $query->toArray();
         $matricesOption = [];
         foreach ($matrices as $matrice) {
@@ -330,6 +334,20 @@ class ProjetController extends AppController
         }
         asort($matricesOption);
         return $matricesOption;
+    }
+
+    private function getReferentOption()
+    {
+
+        $this->loadModel('Users');
+        $query = $this->Useres->find('all')->where('role >='=> \Cake\Core\Configure::read('role.cp') );
+        $users = $query->toArray();
+        $usersOption = [];
+        foreach ($users as $user) {
+            $usersOption[$user->idu] = $user->fullname;
+        }
+        asort($usersOption);
+        return $usersOption;
     }
 
     private function getActivitiesOption()

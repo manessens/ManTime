@@ -46,6 +46,10 @@
             <td><?= $this->Number->format($projet->prix) ?>€</td>
         </tr>
         <tr>
+            <th scope="row"><?= __('CP référent') ?></th>
+            <td><?= h($projet->User->fullname) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Date de debut') ?></th>
             <td><?=  h($projet->date_debut->i18nFormat('dd-MM-yyyy')) ?></td>
         </tr>

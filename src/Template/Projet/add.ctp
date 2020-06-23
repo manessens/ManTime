@@ -48,6 +48,12 @@
         <?php
             echo $this->Form->control('prix');
         ?>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('CP référent');
+            echo $this->Form->select('idu', $referentOption);
+        ?>
+        </div>
         <div class="input text col-xs-6">
             <?php
                 echo $this->Form->label('participant','Participants');
