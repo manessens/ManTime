@@ -48,9 +48,9 @@ class Projet extends Entity
         'facturable' => true,
         'idm' => true,
         'matrice' => true,
-        'prix' => true
+        'prix' => true,
         'idu' => true,
-        'user' => true,
+        'user' => true
     ];
 
     protected function _getProjname()
