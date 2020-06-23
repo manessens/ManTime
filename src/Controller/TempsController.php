@@ -240,7 +240,7 @@ class TempsController extends AppController
 
         $arrayTemps = $this->Temps->find()
                 ->select()
-                // ->innerJoinWith('Projet')
+                ->innerJoinWith('Projet')
                 ->where(['Temps.idu =' => $idUserJp])
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
