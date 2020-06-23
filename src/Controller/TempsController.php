@@ -46,7 +46,7 @@ class TempsController extends AppController
         $user = $this->Users->get($idUserAuth);
 
         $arrayTemps = $this->Temps->find('all')
-                ->where(['idu =' => $idUserAuth])
+                ->where(['Temps.idu =' => $idUserAuth])
                 ->andWhere(['date >=' => $lundi])
                 ->andWhere(['date <' => $dimanche])
                 ->andWhere(['deleted =' => false])
