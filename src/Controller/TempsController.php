@@ -762,12 +762,13 @@ class TempsController extends AppController
 
     private function getProjects($idu, $lundi, $dimanche)
     {
-        $participantTable = TableRegistry::get('Participant');
-        $activitiesTable = TableRegistry::get('Activities');
+
+        $this->loadModel('Participant');
+        $this->loadModel('Activities');
         $arrayProjects = array();
         $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
-        $particpations = $participantTable->find('all')
-            ->where(['idu =' => $idu])
+        $particpations = $this->Participant->find('all')
+            ->where(['Participant.idu =' => $idu])
             ->andWhere(['date_debut <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd')])
             ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')])
             ->contain(['Projet' => ['Client', 'Matrice'=>['LignMat'=>['Profil']] ] ])->all();
@@ -785,7 +786,7 @@ class TempsController extends AppController
                 $arrayRetour['profiles'][$projet->idp . '.' . $ligne->id_profil] = $ligne->profil->nom_profil;
             }
 
-            $activities = $activitiesTable->findByIdp($projet->idp)->contain(['Activitie'])->all();
+            $activities = $this->Activities->findByIdp($projet->idp)->contain(['Activitie'])->all();
             foreach ($activities as $activity) {
                 $arrayRetour['activities'][$projet->idp . '.' . $activity->ida] = $activity->activitie->nom_activit;
             }
