@@ -760,18 +760,22 @@ class TempsController extends AppController
         return $holidays;
     }
 
-    private function getProjects($idu, $lundi, $dimanche)
+    private function getProjects($idu, $lundi, $dimanche, $idcp = -1)
     {
 
         $this->loadModel('Participant');
         $this->loadModel('Activities');
         $arrayProjects = array();
         $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
+
         $particpations = $this->Participant->find('all')
             ->where(['Participant.idu =' => $idu])
             ->andWhere(['date_debut <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd')])
-            ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')])
-            ->contain(['Projet' => ['Client', 'Matrice'=>['LignMat'=>['Profil']] ] ])->all();
+            ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')]);
+        if ($idcp > 0) {
+            $particpations->andWhere(['Projet.idu =' => $idcp])
+        }
+        $particpations->contain(['Projet' => ['Client', 'Matrice'=>['LignMat'=>['Profil']] ] ])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet;
