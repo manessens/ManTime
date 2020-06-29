@@ -470,7 +470,7 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             // DEBUG:
-            debug($arrayData);exit;
+            debug($arrayData);
             $arrayDays = ['Lu'=> 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
@@ -551,6 +551,10 @@ class TempsController extends AppController
                     }
                 }
             }
+            // DEBUG:
+            debug($entities);
+
+            exit;
              // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 if (!$validat) { // Si pas de blocage alors on modifie les temps
