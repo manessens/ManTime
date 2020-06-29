@@ -529,9 +529,12 @@ class TempsController extends AppController
                                 }
                                 $day->idu = $idUser;
                                 $day->deleted = false;
+
+                                // détermination de la date en fonction du jour de la semaine
                                 $dayTime = clone $lundi ;
                                 $dayTime->modify('+'.$arrayDays[$daySemaine].' days');
                                 $day->date = clone $dayTime ;
+
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
@@ -545,7 +548,7 @@ class TempsController extends AppController
                                 $day->detail = trim( $arrayData['detail'][$idUser][$line] );
                                 $entities[] = $day;
 
-                                $dayTime->modify('+1 days');
+                                // $dayTime->modify('+1 days');
                             }
                         }
                     }
@@ -554,7 +557,7 @@ class TempsController extends AppController
             // DEBUG:
             debug($entities);
 
-            exit;
+            // exit;
              // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 if (!$validat) { // Si pas de blocage alors on modifie les temps
