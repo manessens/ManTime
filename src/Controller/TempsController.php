@@ -469,6 +469,8 @@ class TempsController extends AppController
             $entities = array();
             $verif = true;
             $arrayIdentifierLine = array();
+            // DEBUG:
+            debug($arrayData);
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
