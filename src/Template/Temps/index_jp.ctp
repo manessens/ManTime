@@ -70,25 +70,25 @@
         <div class="block col-xs-12">
             <div class="col-xs-2"><div class="left badge back-default"><?= h($fullNameUserAuth) ?></div></div>
             <div class="controler right">
-                <div><input type="week" data-target="index" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
+                <div><input type="week" data-target="index-jp" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php echo $semaine ?>" ></div>
                 <div class="left">
-                    <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
+                    <?= $this->Html->link(__("Aujourd'hui"), ['action' => 'index-jp'], ['class' => 'btn btn-info']) ?>
                 </div>
                 <div class="weeker_admin right">
                     <div class="right">
                         <?php if ($semaine-1 < 1 ): ?>
-                            <?= $this->Html->link(__('<'), ['action' => 'index', 52, $annee-1], ['class' => 'btn btn-danger']) ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'index-jp', 52, $annee-1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
-                            <?= $this->Html->link(__('<'), ['action' => 'index', $semaine-1, $annee], ['class' => 'btn btn-danger']) ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'index-jp', $semaine-1, $annee], ['class' => 'btn btn-danger']) ?>
                         <?php endif; ?>
                         <?php
                             $dimanche->modify('-1 day');
                             echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM'));
                         ?>
                         <?php if ($semaine+1 > 52 ): ?>
-                            <?= $this->Html->link(__('>'), ['action' => 'index', 1, $annee+1], ['class' => 'btn btn-danger']) ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'index-jp', 1, $annee+1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
-                            <?= $this->Html->link(__('>'), ['action' => 'index', $semaine+1, $annee], ['class' => 'btn btn-danger']) ?>
+                            <?= $this->Html->link(__('>'), ['action' => 'index-jp', $semaine+1, $annee], ['class' => 'btn btn-danger']) ?>
                         <?php endif; ?>
                     </div>
                 </div>

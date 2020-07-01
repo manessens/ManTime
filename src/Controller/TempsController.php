@@ -469,12 +469,15 @@ class TempsController extends AppController
             $entities = array();
             $verif = true;
             $arrayIdentifierLine = array();
+            // // DEBUG:
+            // debug($arrayData);
+            $arrayDays = ['Lu'=> 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     if ($idUser === 0) {continue;}
                     foreach ($arrayLine as $line => $arrayDay) {
-                        $dayTime = clone $lundi;
+                        // $dayTime = clone $lundi;
                         // $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
                         //     $arrayData['projet'][$idUser][$line] . $arrayData['profil'][$idUser][$line] .
                         //     $arrayData['activities'][$idUser][$line] . $arrayData['detail'][$idUser][$line] ;
@@ -488,7 +491,7 @@ class TempsController extends AppController
                             continue;
                         }
                         // $arrayIdentifierLine[] = $identifierLine;
-                        foreach ($arrayDay as $dataDay) {
+                        foreach ($arrayDay as $daySemaine => $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
                             $arrayIdc = explode('.',$arrayData['client'][$idUser][$line]);
                             $arrayIdp = explode('.',$arrayData['projet'][$idUser][$line]);
@@ -515,7 +518,7 @@ class TempsController extends AppController
                             $week[$idUser][$line]['detail'] = $arrayData['detail'][$idUser][$line];
 
                             if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
-                                $dayTime->modify('+1 days');
+                                // $dayTime->modify('+1 days');
                                 continue;
                             }
                             if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
@@ -526,7 +529,12 @@ class TempsController extends AppController
                                 }
                                 $day->idu = $idUser;
                                 $day->deleted = false;
+
+                                // détermination de la date en fonction du jour de la semaine
+                                $dayTime = clone $lundi ;
+                                $dayTime->modify('+'.$arrayDays[$daySemaine].' days');
                                 $day->date = clone $dayTime ;
+
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
@@ -540,12 +548,16 @@ class TempsController extends AppController
                                 $day->detail = trim( $arrayData['detail'][$idUser][$line] );
                                 $entities[] = $day;
 
-                                $dayTime->modify('+1 days');
+                                // $dayTime->modify('+1 days');
                             }
                         }
                     }
                 }
             }
+            // DEBUG:
+            // debug($entities);
+
+            // exit;
              // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 if (!$validat) { // Si pas de blocage alors on modifie les temps
