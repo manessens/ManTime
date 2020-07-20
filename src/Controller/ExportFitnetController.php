@@ -463,6 +463,7 @@ class ExportFitnetController extends AppController
 
             //récupération de la liste des assignements
             $assignements = $this->getAssignements();
+            debug($assignements);
 
             //traitement des Temp
             foreach ($times as $time) {
@@ -573,7 +574,7 @@ class ExportFitnetController extends AppController
         if (array_key_exists($key, $this->arrayAssignMemory)) {
             return $this->arrayAssignMemory[$key];
         }
-
+        debug($assignements);
         foreach ($assignements as $assignement) {
             if ($assignement['tiersCode'] != $keyClient
                 || $assignement['orderCode'] != $orderCode
