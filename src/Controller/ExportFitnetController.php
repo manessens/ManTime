@@ -565,7 +565,7 @@ class ExportFitnetController extends AppController
         return $this->getVsaLinkExport("v1/orders/assignments");
     }
 
-    public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
+    public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil, $dateTime){
         $orderCode = explode('|', $projet->id_fit)[1];
         $key = $keyClient . $orderCode . $keyProfil . $userEmail;
 
@@ -580,8 +580,8 @@ class ExportFitnetController extends AppController
                 || $assignement->orderCode != $orderCode
                 || $assignement->prestation != $keyProfil
                 || $assignement->colLogin != $userEmail
-                || $start >=  $projet->date_debut
-                || $end <=  $projet->date_fin ) {
+                || $start > $dateTime
+                || $end <  $dateTime ) {
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement['tabTitle'];
@@ -601,7 +601,7 @@ class ExportFitnetController extends AppController
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
 
-        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil);
+        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
         // str_replace('_', '.', $time->projet->nom_projet);
 
         // Date
