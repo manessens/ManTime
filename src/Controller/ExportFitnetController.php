@@ -486,7 +486,6 @@ class ExportFitnetController extends AppController
 
             // DEBUG:
             debug('$delTimes');
-            debug($delTimes); exit;
 
             $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
             if (is_array($resultd)) {
@@ -793,6 +792,7 @@ class ExportFitnetController extends AppController
         $authorization = "Authorization: Bearer ".$token;
         $ch = curl_init( $url );
         # Setup request to send json via POST.
+        debug(json_encode($object));
         curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode($object) );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', $authorization));
         # Return response instead of printing.
