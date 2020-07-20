@@ -567,7 +567,7 @@ class ExportFitnetController extends AppController
     }
 
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
-        $orderCode = explode('|', $time->projet->id_fit)[1];
+        $orderCode = explode('|', $projet->id_fit)[1];
         $key = $keyClient . $orderCode . $keyProfil . $userEmail;
 
         if (array_key_exists($key, $this->arrayAssignMemory)) {
@@ -760,9 +760,6 @@ class ExportFitnetController extends AppController
         if($result === false){
             $result = 'error';
         }
-
-        // DEBUG:
-        debug(json_decode($result));
 
         // résultat
         return $result;
