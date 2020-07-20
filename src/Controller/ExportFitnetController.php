@@ -764,7 +764,7 @@ class ExportFitnetController extends AppController
 
         // résultat
         if (!is_array($result)) {
-            $result = json_decode($result):
+            $result = json_decode($result);
         }
         return $result;
     }
