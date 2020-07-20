@@ -583,13 +583,13 @@ class ExportFitnetController extends AppController
         foreach ($assignements as $assignement) {
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
-            debug(($assignement->tiersCode);
+            debug($assignement->tiersCode);
             debug($assignement->tiersCode != $keyClient);
-            debug(($assignement->orderCode);
+            debug($assignement->orderCode);
             debug($assignement->orderCode != $orderCode);
-            debug(($assignement->prestation);
+            debug($assignement->prestation);
             debug($assignement->prestation != $keyProfil);
-            debug(($assignement->colLogin);
+            debug($assignement->colLogin);
             debug($assignement->colLogin != $userEmail);
             debug($start);
             debug($start);
