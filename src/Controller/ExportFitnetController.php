@@ -761,8 +761,11 @@ class ExportFitnetController extends AppController
             $result = 'error';
         }
 
+        // DEBUG:
+        debug($result); exit;
+
         // résultat
-        return json_decode($result);
+        return $result;
     }
 
     protected function setVsaLink( $url, $rest, $object ){
