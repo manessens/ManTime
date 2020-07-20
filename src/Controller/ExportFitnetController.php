@@ -24,6 +24,7 @@ class ExportFitnetController extends AppController
     var $file_log;
     var $data_log;
     var $error_log;
+    var $arrayAssignMemory;
     var $delimiteur;
 
     public function initialize()
@@ -31,6 +32,7 @@ class ExportFitnetController extends AppController
         parent::initialize();
         $this->data_log = array();
         $this->error_log = array();
+        $this->arrayAssignMemory = array();
         $this->delimiteur = ';';
     }
 
@@ -565,15 +567,23 @@ class ExportFitnetController extends AppController
     }
 
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
+        $orderCode = explode('|', $time->projet->id_fit)[1];
+        $key = $keyClient . $orderCode . $keyProfil . $userEmail;
+
+        if (array_key_exists($key, $this->arrayAssignMemory)) {
+            return $this->arrayAssignMemory[$key];
+        }
+
         foreach ($assignements as $assignement) {
             if ($assignement['tiersCode'] != $keyClient
-                || $assignement['orderCode'] != explode('|', $time->projet->id_fit)[1]
+                || $assignement['orderCode'] != $orderCode
                 || $assignement['prestation'] != $keyProfil
                 || $assignement['colLogin'] != $userEmail
                 || $assignement['startDate'] >=  $projet->date_debut
                 || $assignement['endDate'] <=  $projet->date_fin ) {
                 continue;
             }
+            $this->arrayAssignMemory[$key] = $assignement['tabTitle'];
             return $assignement['tabTitle'];
             break;
         }
@@ -752,7 +762,7 @@ class ExportFitnetController extends AppController
         }
 
         // résultat
-        return $result;
+        return json_decode($result);
     }
 
     protected function setVsaLink( $url, $rest, $object ){
