@@ -459,7 +459,10 @@ class ExportFitnetController extends AppController
                 $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
             }
 
-            //traitement des Temps
+            //récupération de la liste des assignements
+            $assignements = $this->getAssignements();
+
+            //traitement des Temp
             foreach ($times as $time) {
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
@@ -467,7 +470,7 @@ class ExportFitnetController extends AppController
                     $ignored++; //car n'est pas une erreur
                 }else{
                     $count++;
-                    $timesheets = $this->exportTime($time, $tmpTimeSum);
+                    $timesheets = $this->exportTime($time, $tmpTimeSum, $assignements);
                     if (is_array($timesheets['time'])) {
                         $timeSheets[] = $timesheets['time'];
                         $delTimes[] = $timesheets['delete'];
@@ -490,7 +493,7 @@ class ExportFitnetController extends AppController
                                 ' : |Consultant: '.$names[$deleteTime['userId']].
                                 ' |Affaire: '.$deleteTime['orderId'].
                                 ' |Profil: '.$deleteTime['deliveryCode'].
-                                ' |Date: '.$deleteTime['date'].
+                                ' |Date: '.$deleteTime['date'];
                                 $export = $this->inError($export, $msgError);
                             }
                         }
@@ -528,36 +531,54 @@ class ExportFitnetController extends AppController
 
     }
 
-    public function testVsa(){
+    // public function testVsa(){
+    //
+    //     $this->loadComponent('Cookie');
+    //     $dataCo = $this->Cookie->read('Authvsa');
+    //     Configure::write('vsa.token', $dataCo['token']);
+    //
+    //     $timeSheets=[];
+    //     $timeSheets[] = [
+    //         "userId" => 1645,
+    //         "tiersCode" => "C-BIOLINE_BY_INVIVO",
+    //         "orderCode" => "PAR.AAL.201907.C.0165",
+    //         "tabTitle" => "INVIVO Mainonline 2.0",
+    //         "deliveryCode" => "CDSTMA",
+    //         "date" => "2020-01-06",
+    //         "moment" => "J",
+    //         "quantityDay" => 1,
+    //         "quantityHour" => 8,
+    //         "comment" => ""
+    //     ];
+    //
+    //     $url = '/v1/activity/timesheet';
+    //     $result = $this->setVsaLink($url, "POST", $timeSheets);
+    //
+    //     Configure::write('vsa.token', "");
+    //
+    //     debug($result,true);
+    //     exit;
+    // }
 
-        $this->loadComponent('Cookie');
-        $dataCo = $this->Cookie->read('Authvsa');
-        Configure::write('vsa.token', $dataCo['token']);
-
-        $timeSheets=[];
-        $timeSheets[] = [
-            "userId" => 1645,
-            "tiersCode" => "C-BIOLINE_BY_INVIVO",
-            "orderCode" => "PAR.AAL.201907.C.0165",
-            "tabTitle" => "INVIVO Mainonline 2.0",
-            "deliveryCode" => "CDSTMA",
-            "date" => "2020-01-06",
-            "moment" => "J",
-            "quantityDay" => 1,
-            "quantityHour" => 8,
-            "comment" => ""
-        ];
-
-        $url = '/v1/activity/timesheet';
-        $result = $this->setVsaLink($url, "POST", $timeSheets);
-
-        Configure::write('vsa.token', "");
-
-        debug($result,true);
-        exit;
+    public function getAssignements(){
+        return $this->setVsaLink('/v1/orders/assignments', 'GET', []);
     }
 
-    private function exportTime($time, $tmpTimeSum){
+    public function findAssignements($assignements, $projet, $userEmail, $keyProfil){
+        foreach ($assignements as $assignement) {
+            if ($assignement['tiersCode'] != $projet->id_fit
+                || $assignement['prestation'] != $keyProfil
+                || $assignement['colLogin'] != $userEmail
+                || $assignement['startDate'] >=  $projet->date_debut
+                || $assignement['endDate'] <=  $projet->date_fin ) {
+                continue;
+            }
+            return $assignement['tabTitle'];
+            break;
+        }
+    }
+
+    private function exportTime($time, $tmpTimeSum, $assignements = []){
         $noError = true;
         if (empty($time)) {
             return false;
@@ -567,7 +588,9 @@ class ExportFitnetController extends AppController
         $keyProfil = Configure::read('vsa.profil.'.$time->id_profil);
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
-        $tabProject = str_replace('_', '.', $time->projet->nom_projet);
+
+        $tabProject = findAssignements($assignements, $time->projet, $time->user->email, $keyProfil);
+        // str_replace('_', '.', $time->projet->nom_projet);
 
         // Date
         $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
