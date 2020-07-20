@@ -568,11 +568,27 @@ class ExportFitnetController extends AppController
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
         $orderCode = explode('|', $projet->id_fit)[1];
         $key = $keyClient . $orderCode . $keyProfil . $userEmail;
+        // DEBUG:
+        debug($keyClient);
+        debug($orderCode);
+        debug($keyProfil);
+        debug($userEmail);
+        debug($projet->date_debut);
+        debug($projet->date_fin);
 
         if (array_key_exists($key, $this->arrayAssignMemory)) {
             return $this->arrayAssignMemory[$key];
         }
         foreach ($assignements as $assignement) {
+
+            // DEBUG:
+            debug($assignement->tiersCode);
+            debug($assignement->orderCode);
+            debug($assignement->prestation);
+            debug($assignement->colLogin);
+            debug($assignement->startDate);
+            debug($assignement->endDate);
+
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
                 || $assignement->prestation != $keyProfil
