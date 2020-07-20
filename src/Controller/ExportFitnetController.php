@@ -562,7 +562,7 @@ class ExportFitnetController extends AppController
 
     public function getAssignements(){
         // DEBUG:
-        debug($this->setVsaLink('/v1/orders/assignments', 'GET', [])); exit;
+        debug($this->getVsaLink('/v1/orders/assignments')); exit;
         return $this->setVsaLink('/v1/orders/assignments', 'GET', []);
     }
 
