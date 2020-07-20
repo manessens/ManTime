@@ -483,6 +483,10 @@ class ExportFitnetController extends AppController
 
             //SUPPRESSION
             $url = '/v1/activity/timesheet';
+
+            // DEBUG:
+            debug($delTimes);
+            
             $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
             if (is_array($resultd)) {
                 if (array_key_exists('error', $resultd)) {
@@ -573,28 +577,9 @@ class ExportFitnetController extends AppController
             return $this->arrayAssignMemory[$key];
         }
 
-                // DEBUG:
-                debug($keyClient);
-                debug($orderCode);
-                debug($keyProfil);
-                debug($userEmail);
-                debug($dateTime);
-
         foreach ($assignements as $assignement) {
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
-            debug($assignement->tiersCode);
-            debug($assignement->tiersCode != $keyClient);
-            debug($assignement->orderCode);
-            debug($assignement->orderCode != $orderCode);
-            debug($assignement->prestation);
-            debug($assignement->prestation != $keyProfil);
-            debug($assignement->colLogin);
-            debug($assignement->colLogin != $userEmail);
-            debug($start);
-            debug($start > $dateTime);
-            debug($end);
-            debug($end <  $dateTime);
 
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
@@ -602,7 +587,6 @@ class ExportFitnetController extends AppController
                 || $assignement->colLogin != $userEmail
                 || $start > $dateTime
                 || $end <  $dateTime ) {
-                debug('continue');
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement->tabTitle;
