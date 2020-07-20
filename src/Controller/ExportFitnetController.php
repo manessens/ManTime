@@ -592,10 +592,6 @@ class ExportFitnetController extends AppController
             debug($assignement->colLogin);
             debug($assignement->colLogin != $userEmail);
             debug($start);
-            debug($start);
-            debug($start);
-            debug($start);
-            debug($start);
             debug($start > $dateTime);
             debug($end);
             debug($end <  $dateTime);
