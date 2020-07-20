@@ -590,7 +590,7 @@ class ExportFitnetController extends AppController
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
 
-        $tabProject = findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil);
+        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil);
         // str_replace('_', '.', $time->projet->nom_projet);
 
         // Date
