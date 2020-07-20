@@ -573,12 +573,28 @@ class ExportFitnetController extends AppController
             return $this->arrayAssignMemory[$key];
         }
 
-        // DEBUG:
-        debug($dateTime);
+                // DEBUG:
+                debug($keyClient);
+                debug($orderCode);
+                debug($keyProfil);
+                debug($userEmail);
+                debug($dateTime);
 
         foreach ($assignements as $assignement) {
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
+            debug(($assignement->tiersCode);
+            debug($assignement->tiersCode != $keyClient);
+            debug(($assignement->orderCode);
+            debug($assignement->orderCode != $orderCode);
+            debug(($assignement->prestation);
+            debug($assignement->prestation != $keyProfil);
+            debug(($assignement->colLogin);
+            debug($assignement->colLogin != $userEmail);
+            debug($start);
+            debug($start);
+            debug($start);
+            debug($start);
             debug($start);
             debug($start > $dateTime);
             debug($end);
@@ -590,6 +606,7 @@ class ExportFitnetController extends AppController
                 || $assignement->colLogin != $userEmail
                 || $start > $dateTime
                 || $end <  $dateTime ) {
+                debug('continue');
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement->tabTitle;
