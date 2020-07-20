@@ -564,9 +564,10 @@ class ExportFitnetController extends AppController
         return $this->setVsaLink('/v1/orders/assignments', 'GET', []);
     }
 
-    public function findAssignements($assignements, $projet, $userEmail, $keyProfil){
+    public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
         foreach ($assignements as $assignement) {
-            if ($assignement['tiersCode'] != $projet->id_fit
+            if ($assignement['tiersCode'] != $keyClient
+                || $assignement['orderCode'] != explode('|', $time->projet->id_fit)[1]
                 || $assignement['prestation'] != $keyProfil
                 || $assignement['colLogin'] != $userEmail
                 || $assignement['startDate'] >=  $projet->date_debut
@@ -589,7 +590,7 @@ class ExportFitnetController extends AppController
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
 
-        $tabProject = findAssignements($assignements, $time->projet, $time->user->email, $keyProfil);
+        $tabProject = findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil);
         // str_replace('_', '.', $time->projet->nom_projet);
 
         // Date
