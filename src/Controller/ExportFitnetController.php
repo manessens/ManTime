@@ -572,9 +572,17 @@ class ExportFitnetController extends AppController
         if (array_key_exists($key, $this->arrayAssignMemory)) {
             return $this->arrayAssignMemory[$key];
         }
+
+        // DEBUG:
+        debug($dateTime);
+
         foreach ($assignements as $assignement) {
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
+            debug($start);
+            debug($start > $dateTime);
+            debug($end);
+            debug($end <  $dateTime);
 
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
@@ -584,8 +592,8 @@ class ExportFitnetController extends AppController
                 || $end <  $dateTime ) {
                 continue;
             }
-            $this->arrayAssignMemory[$key] = $assignement['tabTitle'];
-            return $assignement['tabTitle'];
+            $this->arrayAssignMemory[$key] = $assignement->tabTitle;
+            return $assignement->tabTitle;
             break;
         }
     }
