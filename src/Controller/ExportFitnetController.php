@@ -562,7 +562,7 @@ class ExportFitnetController extends AppController
 
     public function getAssignements(){
         // DEBUG:
-        $result = $this->getVsaLink("v1/orders");
+        $result = $this->getVsaLink("v1/orders/assignments");
         debug($result); exit;
         // return $this->setVsaLink('/v1/orders/assignments', 'GET', []);
     }
@@ -725,6 +725,37 @@ class ExportFitnetController extends AppController
             $this->writeLog($export->id_fit);
         }
         return('OK');
+    }
+
+    protected function getVsaLink( $url, $rest = 'GET' ){
+        //récupération des lgoin/mdp du compte admin de fitnet
+
+        $token = Configure::read('vsa.token');
+
+        // préparation de l'en-tête pour la basic auth de fitnet
+        $opts = array(
+          'http'=>array(
+                'method'=>$rest,
+                'header'=>"Authorization: Bearer " . $token
+              )
+        );
+        // ajout du header dans le contexte
+        $context = stream_context_create($opts);
+        // construction de l'url vsa
+        $base = Configure::read('vsa.base');
+        if (substr($url, 0, 1) == "/" ) {
+            $url = substr($url, 1);
+        }
+        $url=$base . $url ;
+
+        // appel de la requête
+        $result = @file_get_contents($url, false, $context);
+        if($result === false){
+            $result = 'error';
+        }
+
+        // résultat
+        return $result;
     }
 
     protected function setVsaLink( $url, $rest, $object ){
