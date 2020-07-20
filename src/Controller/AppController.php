@@ -60,6 +60,7 @@ class AppController extends Controller
         if (is_array($vars)) {
             if (array_key_exists('token', $vars)) {
                 $this->Cookie->write('Authvsa', $vars);
+                $base = Configure::write('vsa.token');
                 return true;
             }
         }
@@ -75,6 +76,9 @@ class AppController extends Controller
         $dataCo = $this->Cookie->read('Authvsa');
 
         $token = $dataCo['token'];
+        if ($token === null) {
+            $token = Configure::read('vsa.token');
+        }
 
         // préparation de l'en-tête pour la basic auth de fitnet
         $opts = array(
