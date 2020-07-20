@@ -210,8 +210,8 @@ class ExportFitnetController extends AppController
 
         Configure::write('vsa.token', $token);
 
-        $resultTest = $this->getVsaLink("/v1/app/version?type=ALL");
-        $vars = json_decode($resultTest, true);
+        $vars = $this->getVsaLinkExport("/v1/app/version?type=ALL");
+        // $vars = json_decode($resultTest, true);
         if (!is_array($vars)) {
             $this->Flash->error("Les informations de connexion n'ont pas permis l'utilisation des API Fitnet.");
             return $this->redirect(['action' => 'index']);
@@ -564,7 +564,7 @@ class ExportFitnetController extends AppController
     // }
 
     public function getAssignements(){
-        return $this->getVsaLink("v1/orders/assignments");
+        return $this->getVsaLinkExport("v1/orders/assignments");
     }
 
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
@@ -735,7 +735,7 @@ class ExportFitnetController extends AppController
         return('OK');
     }
 
-    protected function getVsaLink( $url, $rest = 'GET' ){
+    protected function getVsaLinkExport( $url, $rest = 'GET' ){
         //récupération des lgoin/mdp du compte admin de fitnet
 
         $token = Configure::read('vsa.token');
