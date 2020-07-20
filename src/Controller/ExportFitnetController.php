@@ -485,7 +485,7 @@ class ExportFitnetController extends AppController
             $url = '/v1/activity/timesheet';
 
             // DEBUG:
-            debug('$delTimes'); exit;
+            debug('$delTimes');
             debug($delTimes); exit;
 
             $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
