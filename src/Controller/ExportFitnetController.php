@@ -481,32 +481,27 @@ class ExportFitnetController extends AppController
                 }
             }
 
-            //SUPPRESSION
-            $url = '/v1/activity/timesheet';
-
-            // DEBUG:
-            debug('$delTimes');
-
-            $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
-            if (is_array($resultd)) {
-                if (array_key_exists('error', $resultd)) {
-                    foreach ($resultd['data'] as $key => $message) {
-                        preg_match ( '/[0-9]+/' , $key , $matches );
-                        if (is_array($matches)) {
-                            $deleteTime = $delTimes[$matches[0]-1];
-                            foreach ($message[0] as $k => $v) {
-                                $msgError = $v.
-                                ' : |Consultant: '.$names[$deleteTime['userId']].
-                                ' |Affaire: '.$deleteTime['orderId'].
-                                ' |Profil: '.$deleteTime['deliveryCode'].
-                                ' |Date: '.$deleteTime['date'];
-                                $export = $this->inError($export, $msgError);
-                            }
-                        }
-                    }
-                }
-            }
-            exit;
+            // SUPPRESSION
+            // $url = '/v1/activity/timesheet';
+            // $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
+            // if (is_array($resultd)) {
+            //     if (array_key_exists('error', $resultd)) {
+            //         foreach ($resultd['data'] as $key => $message) {
+            //             preg_match ( '/[0-9]+/' , $key , $matches );
+            //             if (is_array($matches)) {
+            //                 $deleteTime = $delTimes[$matches[0]-1];
+            //                 foreach ($message[0] as $k => $v) {
+            //                     $msgError = $v.
+            //                     ' : |Consultant: '.$names[$deleteTime['userId']].
+            //                     ' |Affaire: '.$deleteTime['orderId'].
+            //                     ' |Profil: '.$deleteTime['deliveryCode'].
+            //                     ' |Date: '.$deleteTime['date'];
+            //                     $export = $this->inError($export, $msgError);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
             //ENREGISTREMENT
             $url = '/v1/activity/timesheet';
             $result = $this->setVsaLink($url, "POST", $timeSheets);
@@ -793,7 +788,6 @@ class ExportFitnetController extends AppController
         $authorization = "Authorization: Bearer ".$token;
         $ch = curl_init( $url );
         # Setup request to send json via POST.
-        debug(json_encode($object));
         curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode($object) );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', $authorization));
         # Return response instead of printing.
