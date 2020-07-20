@@ -576,12 +576,12 @@ class ExportFitnetController extends AppController
         }
         debug($assignements);
         foreach ($assignements as $assignement) {
-            if ($assignement['tiersCode'] != $keyClient
-                || $assignement['orderCode'] != $orderCode
-                || $assignement['prestation'] != $keyProfil
-                || $assignement['colLogin'] != $userEmail
-                || $assignement['startDate'] >=  $projet->date_debut
-                || $assignement['endDate'] <=  $projet->date_fin ) {
+            if ($assignement->tiersCode != $keyClient
+                || $assignement->orderCode != $orderCode
+                || $assignement->prestation != $keyProfil
+                || $assignement->colLogin != $userEmail
+                || $assignement->startDate >=  $projet->date_debut
+                || $assignement->endDate <=  $projet->date_fin ) {
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement['tabTitle'];
