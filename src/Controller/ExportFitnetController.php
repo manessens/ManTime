@@ -573,8 +573,8 @@ class ExportFitnetController extends AppController
             return $this->arrayAssignMemory[$key];
         }
         foreach ($assignements as $assignement) {
-            $start = new Date($assignement->startDate);
-            $end = new Date($assignement->endDate);
+            $start = new Time($assignement->startDate);
+            $end = new Time($assignement->endDate);
 
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
