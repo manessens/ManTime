@@ -91,6 +91,7 @@ class AppController extends Controller
             $url = substr($url, 1);
         }
         $url=$base . $url ;
+
         // appel de la requête
         $result = @file_get_contents($url, false, $context);
         if($result === false){
