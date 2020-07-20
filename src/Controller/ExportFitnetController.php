@@ -762,7 +762,7 @@ class ExportFitnetController extends AppController
         }
 
         // DEBUG:
-        debug($result); exit;
+        debug(json_decode($result)); exit;
 
         // résultat
         return $result;
