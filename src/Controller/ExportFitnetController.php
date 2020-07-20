@@ -506,6 +506,7 @@ class ExportFitnetController extends AppController
                     }
                 }
             }
+            exit;
             //ENREGISTREMENT
             $url = '/v1/activity/timesheet';
             $result = $this->setVsaLink($url, "POST", $timeSheets);
