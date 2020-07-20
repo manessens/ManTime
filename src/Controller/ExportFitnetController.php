@@ -568,33 +568,20 @@ class ExportFitnetController extends AppController
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil){
         $orderCode = explode('|', $projet->id_fit)[1];
         $key = $keyClient . $orderCode . $keyProfil . $userEmail;
-        // DEBUG:
-        debug($keyClient);
-        debug($orderCode);
-        debug($keyProfil);
-        debug($userEmail);
-        debug($projet->date_debut);
-        debug($projet->date_fin);
 
         if (array_key_exists($key, $this->arrayAssignMemory)) {
             return $this->arrayAssignMemory[$key];
         }
         foreach ($assignements as $assignement) {
-
-            // DEBUG:
-            debug($assignement->tiersCode);
-            debug($assignement->orderCode);
-            debug($assignement->prestation);
-            debug($assignement->colLogin);
-            debug($assignement->startDate);
-            debug($assignement->endDate);
+            $start = new Date($assignement->startDate);
+            $end = new Date($assignement->endDate);
 
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
                 || $assignement->prestation != $keyProfil
                 || $assignement->colLogin != $userEmail
-                || $assignement->startDate >=  $projet->date_debut
-                || $assignement->endDate <=  $projet->date_fin ) {
+                || $start >=  $projet->date_debut
+                || $end <=  $projet->date_fin ) {
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement['tabTitle'];
