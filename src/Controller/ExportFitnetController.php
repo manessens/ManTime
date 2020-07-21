@@ -458,7 +458,7 @@ class ExportFitnetController extends AppController
                 if (!array_key_exists($keyProfil, $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false];
                 }
-                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += ($tempTime->user->modal == 0 ? $tempTime->time : $tempTime->time*8);
+                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
             }
 
             //récupération de la liste des assignements
@@ -520,7 +520,7 @@ class ExportFitnetController extends AppController
                                 ' |TabTitle: '.$time['tabTitle'].
                                 ' |Profil: '.$time['deliveryCode'].
                                 ' |Date: '.$time['date'].
-                                ' |Valeur: '.$time['quantityDay'].$time['moment'];
+                                ' |Valeur: '.$time['quantityDay'];
                                 $count--;
                                 $export = $this->inError($export, $msgError);
                             }
@@ -681,7 +681,7 @@ class ExportFitnetController extends AppController
             "tabTitle" => $tabProject,
             "deliveryCode" => $keyProfil,
             "date" => $assignementDate,
-            "moment" => $time->user->modal == 0 ? "J" : "H",
+            "moment" => "J",
             "quantityDay" => $amount,
             "quantityHour" => ($amount * 8),
             "comment" => $time->detail
