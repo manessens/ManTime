@@ -458,7 +458,7 @@ class ExportFitnetController extends AppController
                 if (!array_key_exists($keyProfil, $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false];
                 }
-                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += ($time->user->modal == 0 ? $tempTime->time : $tempTime->time*8);
+                $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += ($tempTime->user->modal == 0 ? $tempTime->time : $tempTime->time*8);
             }
 
             //récupération de la liste des assignements
