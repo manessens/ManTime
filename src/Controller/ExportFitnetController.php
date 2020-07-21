@@ -520,7 +520,7 @@ class ExportFitnetController extends AppController
                                 ' |TabTitle: '.$time['tabTitle'].
                                 ' |Profil: '.$time['deliveryCode'].
                                 ' |Date: '.$time['date'].
-                                ' |Valeur: '.$time['quantityDay'].'J ';
+                                ' |Valeur: '.$time['quantityDay'].$time->user->modal == 0 ? " J" : " H";
                                 $count--;
                                 $export = $this->inError($export, $msgError);
                             }
