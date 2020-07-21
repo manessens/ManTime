@@ -14,6 +14,10 @@
         </legend>
         <table class="vertical-table">
             <tr>
+                <th scope="row"><?= __('Email') ?></th>
+                <td><?= h($user->email) ?></td>
+            </tr>
+            <tr>
                 <th scope="row"><?= __('Prenom') ?></th>
                 <td><?= h($user->prenom) ?></td>
             </tr>

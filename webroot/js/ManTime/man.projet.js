@@ -79,7 +79,7 @@ function initChangeSelect2(){
                 $('#date-fin').removeAttr('readonly');
             }
 
-            $('#nom-projet').attr('readonly','readonly');
+            // $('#nom-projet').attr('readonly','readonly');
             $('#nom-projet').val(extandData[val].title);
         }
     });

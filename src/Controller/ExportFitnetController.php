@@ -520,7 +520,7 @@ class ExportFitnetController extends AppController
                                 ' |TabTitle: '.$time['tabTitle'].
                                 ' |Profil: '.$time['deliveryCode'].
                                 ' |Date: '.$time['date'].
-                                ' |Valeur: '.$time['quantityDay'].'J ';
+                                ' |Valeur: '.$time['quantityDay'];
                                 $count--;
                                 $export = $this->inError($export, $msgError);
                             }
@@ -577,6 +577,13 @@ class ExportFitnetController extends AppController
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
 
+            // Archivé / bloqué ?
+            if ($assignement->locked == "Y"
+                || $assignement->archived == "1") {
+                continue;
+            }
+
+            // recherche de l'assignement
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
                 || $assignement->prestation != $keyProfil
