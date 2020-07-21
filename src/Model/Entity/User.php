@@ -14,7 +14,6 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property string $mdp
  * @property int $ido
- * @property int $modal
  * @property int $actif
  * @property int $admin
  * @property int $role
@@ -40,7 +39,6 @@ class User extends Entity
         'nom' => true,
         'email' => true,
         'mdp' => true,
-        'modal' => true,
         'actif' => true,
         'ido' => true,
         'origine' => true,
