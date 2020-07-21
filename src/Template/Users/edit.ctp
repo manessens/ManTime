@@ -21,6 +21,7 @@
         ?>
         </div>
         <?php
+            echo $this->Form->control('modal', ['type' => 'checkbox', 'label' => ['text'=>'Saisie VSA en H ?']]);
             echo $this->Form->label('role','Rôle');
             echo $this->Form->select('role', $role, ['value' => $user->role]);
 

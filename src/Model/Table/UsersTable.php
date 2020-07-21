@@ -100,6 +100,10 @@ class UsersTable extends Table
             ->notEmpty('mdp');
 
         $validator
+            ->integer('modal')
+            ->allowEmpty('modal');
+
+        $validator
             ->integer('actif')
             ->allowEmpty('actif');
 
