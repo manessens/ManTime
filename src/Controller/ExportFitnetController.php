@@ -480,7 +480,7 @@ class ExportFitnetController extends AppController
                     }
                 }
             }
-
+            exit;
             // SUPPRESSION
             // $url = '/v1/activity/timesheet';
             // $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
@@ -645,6 +645,8 @@ class ExportFitnetController extends AppController
         // }
 
         // Contrôle traité par cumul des temps (multiligne sur même assignement)
+        // DEBUG:
+            debug($tmpTimeSum);
         if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
             $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." a été traité par cumul."]);
             return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
@@ -684,7 +686,7 @@ class ExportFitnetController extends AppController
             "moment" => "J",
             "quantityDay" => $amount,
             "quantityHour" => ($amount * 8),
-            "comment" => $time->detail
+            "comment" => "" //$time->detail
         ];
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
