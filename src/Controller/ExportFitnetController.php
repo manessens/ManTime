@@ -647,9 +647,6 @@ class ExportFitnetController extends AppController
         // }
 
         // Contrôle traité par cumul des temps (multiligne sur même assignement)
-        // DEBUG:
-            debug($tmpTimeSum);
-            debug($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]);
         if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
             $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." a été traité par cumul."]);
             return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
@@ -693,9 +690,6 @@ class ExportFitnetController extends AppController
         ];
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
-
-            debug($tmpTimeSum);
-            debug($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]);
 
         return ['delete'=>$delTime, 'time'=>$timesheet, 'modify'=>$tmpTimeSum];
     }
