@@ -913,15 +913,12 @@ class TempsController extends AppController
                     $queryError = true;
                 }
             }
-            // DEBUG:
-            debug($data_user);
             if ($data_user != null && count($data_user) > 0 ){
                 foreach ($data_user as $userId) {
                     $queryUser[] = ['idu =' => $userId];
                 }
                 $query->andWhere(['OR' => $queryUser ]);
             }
-            exit;
             if ($queryError) {
                 $times=array();
                 return $times;
