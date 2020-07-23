@@ -569,6 +569,9 @@ class ExportFitnetController extends AppController
     }
 
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil, $dateTime){
+        if ( count(explode('|', $projet->id_fit)) < 2 ){
+            return;
+        }
         $orderCode = explode('|', $projet->id_fit)[1];
         $key = $keyClient . $orderCode . $keyProfil . $userEmail;
 
@@ -592,7 +595,7 @@ class ExportFitnetController extends AppController
                 || $assignement->prestation != $keyProfil
                 || $assignement->colLogin != $userEmail
                 || $start > $dateTime
-                || $end <  $dateTime ) {
+                || $end <=  $dateTime ) {
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement->tabTitle;
@@ -612,17 +615,15 @@ class ExportFitnetController extends AppController
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
 
-        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
-        // str_replace('_', '.', $time->projet->nom_projet);
-
-        // Date
-        $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
-
         // Contrôle Projet
         if ($keyProject == null) {
             $this->insertLog(['--','Le projet '.$time->projet->nom_projet."n'est pas lié à une affaire fitnet : pas d'export"]);
             $noError = false;
         }
+
+        // Date
+        $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
+
         // Contrôle Client
         if ($keyClient == null) {
             $this->insertLog(['--', 'Client non lié : '. $time->projet->client->nom_client] );
@@ -665,6 +666,9 @@ class ExportFitnetController extends AppController
         if (!$noError) {
             return $noError;
         }
+
+        // Assignement (Tab title)
+        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
 
         // total temps travaillé
         $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
