@@ -473,7 +473,9 @@ class ExportFitnetController extends AppController
                 }else{
                     $count++;
                     $timesheets = $this->exportTime($time, $tmpTimeSum, $assignements);
-                    $tmpTimeSum = $timesheets["modify"];
+                    if (is_array($timesheets['modify'])) {
+                        $tmpTimeSum = $timesheets["modify"];
+                    }
                     if (is_array($timesheets['time'])) {
                         $timeSheets[] = $timesheets['time'];
                         $delTimes[] = $timesheets['delete'];
@@ -668,6 +670,7 @@ class ExportFitnetController extends AppController
         $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
 
         $keysproject = explode('|', $keyProject);
+
 
         $delTime = [
             "userId" => $employeeID,
