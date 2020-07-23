@@ -55,12 +55,12 @@
         <?php endif; ?>
         </div>
 
-        <div class="input col-xs-6 left">
-        <?php
-            echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export avec niveau de détail au jour']);
-        ?>
-        </div>
     </fieldset>
+    <div class="input col-xs-6 left">
+    <?php
+        echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export avec niveau de détail au jour']);
+    ?>
+    </div>
     <div class="col-xs-6">
         <div class="right control_export">
             <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
