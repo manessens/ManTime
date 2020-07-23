@@ -925,8 +925,8 @@ class TempsController extends AppController
     public function export(){
         $idUserAuth = $this->Auth->user('idu');
         $export = new ExportForm();
-        $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all')->contain(['Agence'])->toArray();
+        $this->loadModel('Client');
+        $arrayClient = $this->Client->find('all')->contain(['Agence'])->toArray();
         $clients = array();
         $agenceClient = array();
         foreach ($arrayClient as $client) {
