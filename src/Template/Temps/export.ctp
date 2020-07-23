@@ -14,15 +14,13 @@
             echo $this->Form->control('date_fin', ['type' => 'text', 'label' => 'Date de fin', 'class'=>'datepicker']);
         ?>
 
-
-        ///////////////////////////////////////////////////////////////////////
         <!-- Clients -->
         <!-- <div class="input text col-xs-6">
         <?php // echo $this->Form->control('client',  ['label' => 'Client', 'empty' => '-']); ?>
         </div> -->
         <div class="input text col-xs-6">
         <?php
-           echo $this->Form->label('client','Client');
+           echo $this->Form->label('client','Clients');
            echo $this->Form->select('client', $clients, ['multiple' => true , 'class' => 'multiple form-control']);
         ?>
            <div class="input-group">
@@ -38,7 +36,7 @@
             // @TODO : ajuster le select user + filtrer le user Client?
             if($this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.cp')){
                 // echo $this->Form->control('user', ['label' => 'Consultant', 'empty' => '-']);
-               echo $this->Form->label('user','Consultant');
+               echo $this->Form->label('user','Consultants');
                echo $this->Form->select('user', $users, ['multiple' => true , 'class' => 'multiple form-control']);
             }else{
                 echo $this->Form->label('user','Consultant');
@@ -56,7 +54,7 @@
            </div>
         <?php endif; ?>
         </div>
-        ///////////////////////////////////////////////////////////////////////
+
         <div class="input col-xs-6 left">
         <?php
             echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export avec niveau de détail au jour']);
