@@ -900,7 +900,7 @@ class TempsController extends AppController
             $query = $this->Temps->find('all')
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0, 'deleted =' => false])
                 ->andwhere(['OR' => $andWhere]);
-            if ( count($data_client) > 0) {
+            if ( $data_client != null && count($data_client) > 0) {
                 $this->loadModel('Projet');
                 $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
                 foreach ($data_client as $keyClient => $client) {
@@ -913,11 +913,11 @@ class TempsController extends AppController
                     $queryError = true;
                 }
             }
-            if (count($data_user) > 0 ){
+            if ($data_user != null && count($data_user) > 0 ){
                 foreach ($data_user as $keyUser => $userName) {
                     $queryUser[] = ['idu =' => $keyUser];
                 }
-                $query->andWhere(['OR', $queryUser ]);
+                $query->andWhere(['OR' => $queryUser ]);
             }
 
             if ($queryError) {
