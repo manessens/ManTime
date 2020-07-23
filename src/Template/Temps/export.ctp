@@ -60,15 +60,15 @@
             echo $this->Form->control('fitnet', ['type' => 'checkbox', 'label'=>'Export avec niveau de détail au jour']);
         ?>
         </div>
-        <div class="col-xs-6">
-            <div class="right control_export">
-                <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
-                <?php if($this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.admin')): ?>
-                    <?= $this->Form->button(__('Export VSA'), ['type'=>'button', 'class'=>'right btn btn-warning', 'id'=>'export_fitnet']) ?>
-                <?php endif; ?>
-            </div>
-        </div>
     </fieldset>
+    <div class="col-xs-6">
+        <div class="right control_export">
+            <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
+            <?php if($this->request->session()->read('Auth.User.role') >= \Cake\Core\Configure::read('role.admin')): ?>
+                <?= $this->Form->button(__('Export VSA'), ['type'=>'button', 'class'=>'right btn btn-warning', 'id'=>'export_fitnet']) ?>
+            <?php endif; ?>
+        </div>
+    </div>
     <?= $this->Form->end() ?>
 </div>
 
