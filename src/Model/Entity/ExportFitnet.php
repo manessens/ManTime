@@ -9,8 +9,8 @@ use Cake\ORM\Entity;
  * @property int $id_fit
  * @property \Cake\I18n\FrozenTime $date_debut
  * @property \Cake\I18n\FrozenTime $date_fin
- * @property int $idc
- * @property int $idu
+ * @property string $idc
+ * @property string $idu
  * @property string $etat
  *
  * @property \App\Model\Entity\Client $client
@@ -32,9 +32,7 @@ class ExportFitnet extends Entity
         'date_debut' => true,
         'date_fin' => true,
         'idc' => true,
-        'client' => true,
         'idu' => true,
-        'users' => true,
         'etat' => true
     ];
 }

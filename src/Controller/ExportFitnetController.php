@@ -75,8 +75,8 @@ class ExportFitnetController extends AppController
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
                 $arrayData['etat'] = Configure::read('vsa.wait');
-                $arrayData['idc'] = $arrayData['client'];
-                $arrayData['idu'] = $arrayData['user'];
+                $arrayData['idc'] = implode(",", $arrayData['client']);
+                $arrayData['idu'] = implode(",", $arrayData['user']);
 
                 $export = $this->ExportFitnet->newEntity();
                 $export = $this->ExportFitnet->patchEntity($export, $arrayData);
