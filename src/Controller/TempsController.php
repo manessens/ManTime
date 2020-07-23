@@ -903,8 +903,8 @@ class TempsController extends AppController
             if ( $data_client != null && count($data_client) > 0) {
                 $this->loadModel('Projet');
                 $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
-                foreach ($data_client as $keyClient => $client) {
-                    $queryIdProjet->orWhere(['idc =' => $keyClient]);
+                foreach ($data_client as $client) {
+                    $queryIdProjet->orWhere(['idc =' => $client]);
                 };
                 $arrayIdProjet = $queryIdProjet->toArray();
                 if (!empty($arrayIdProjet)) {
@@ -916,8 +916,8 @@ class TempsController extends AppController
             // DEBUG:
             debug($data_user);
             if ($data_user != null && count($data_user) > 0 ){
-                foreach ($data_user as $keyUser => $userName) {
-                    $queryUser[] = ['idu =' => $keyUser];
+                foreach ($data_user as $userId) {
+                    $queryUser[] = ['idu =' => $userId];
                 }
                 $query->andWhere(['OR' => $queryUser ]);
             }
