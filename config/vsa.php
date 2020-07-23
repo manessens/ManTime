@@ -17,7 +17,7 @@ return [
         'entity'=>'157',
         'profil'=>[
             '1'=>'CDS_TMA_TechABAP', // Technique ABAP
-            '2'=>'CDS_TMA_ABAP_Expert', // Technique ABAP expert
+            '2'=>'CDS_-_TMA_ABAP_Expert', // Technique ABAP expert
             '3'=>'CDSExpertSAP', // Fonctionnel confirmé
             '4'=>'CDS_TMA_Fonctionnel', // Fonctionnel / BI / BC
             '5'=>'CDS_TMA_CPExpert' // Expert / CP / Référent
