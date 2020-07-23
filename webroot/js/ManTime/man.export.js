@@ -5,7 +5,7 @@ $(function() {
 
 function init(){
     initMultiple();
-    
+
     $( ".datepicker" ).each(function() {
         // if ($( this ).attr('value').length > 10) {
         //     $( this ).attr('value', moment($( this ).attr('value'), "DD/MM/YYYY hh:mm").format("YYYY-MM-DD"));
@@ -31,9 +31,9 @@ function initMultiple(){
         return false;
     });
 
-    $( "#search_participant" ).on('keyup', function (e){
+    $( "#search_client" ).on('keyup', function (e){
         var search_text = $(this).val().toLowerCase();
-        $('select[name="participant[]"] option').each(function(){
+        $('select[name="client[]"] option').each(function(){
             if ($(this).text().toLowerCase().match('.*('+search_text+').*')) {
                 $(this).show();
             }else{
@@ -42,9 +42,9 @@ function initMultiple(){
         });
     });
 
-    $( "#search_activit" ).on('keyup', function (e){
+    $( "#search_user" ).on('keyup', function (e){
         var search_text = $(this).val().toLowerCase();
-        $('select[name="activities[]"] option').each(function(){
+        $('select[name="user[]"] option').each(function(){
             if ($(this).text().toLowerCase().match('.*('+search_text+').*')) {
                 $(this).show();
             }else{
