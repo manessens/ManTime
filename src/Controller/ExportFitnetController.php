@@ -58,7 +58,7 @@ class ExportFitnetController extends AppController
             $export->users = [];
             foreach (explode(',', $export->idu) as $idUser) {
                 if ($idUser != null) {
-                    $export->users[] = $this->Users->get($idUser)->nom_client;
+                    $export->users[] = $this->Users->get($idUser)->fullname;
                 }
             }
 
