@@ -913,11 +913,15 @@ class TempsController extends AppController
                     $queryError = true;
                 }
             }
-            if ($data_user != null && count($data_user) > 0 ){
-                foreach ($data_user as $userId) {
-                    $queryUser[] = ['idu =' => $userId];
+            if (is_array($data_user)) {
+                if ($data_user != null && count($data_user) > 0 ){
+                    foreach ($data_user as $userId) {
+                        $queryUser[] = ['idu =' => $userId];
+                    }
+                    $query->andWhere(['OR' => $queryUser ]);
                 }
-                $query->andWhere(['OR' => $queryUser ]);
+            }else{
+                $queryUser[] = ['idu =' => $data_user];
             }
             if ($queryError) {
                 $times=array();
@@ -939,8 +943,8 @@ class TempsController extends AppController
             $clients[$client->idc] = ucfirst($client->nom_client);
             $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
         }
-        $userTable = TableRegistry::get('Users');
-        $arrayUser = $userTable->find('all')->contain(['Origine'])->toArray();
+        $this->loadModel('Users');
+        $arrayUser = $this->Users->find('all')->contain(['Origine'])->toArray();
         $users = array();
         foreach ($arrayUser as $user) {
             $users[$user->idu] = $user->fullname;
