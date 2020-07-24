@@ -49,12 +49,12 @@ class ExportFitnetController extends AppController
         foreach ($exports as $export) {
             //Clients
             $export->clients = [];
-            foreach ($export->idc as $idCLient) {
+            foreach (explode(',', $export->idc) as $idCLient) {
                 $export->clients[] = $this->Client->get($idCLient)->nom_client;
             }
             // Users
             $export->users = [];
-            foreach ($export->idu as $idUser) {
+            foreach (explode(',', $export->idu) as $idUser) {
                 $export->users[] = $this->Users->get($idUser)->nom_client;
             }
 
