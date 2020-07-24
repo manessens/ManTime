@@ -23,8 +23,8 @@
                     <td><?= h($export->id_fit) ?></td>
                     <td><?= h($export->date_debut->i18nFormat('dd-MM-yyyy')) ?></td>
                     <td><?= h($export->date_fin->i18nFormat('dd-MM-yyyy')) ?></td>
-                    <td><?php echo $export->client != null?$export->client->nom_client:'/' ; ?></td>
-                    <td><?php echo $export->user != null?$export->user->fullname:'/' ; ?></td>
+                    <td><?php echo count($export->clients) > 0?implode(',',$export->clients):'/' ; ?></td>
+                    <td><?php echo count($export->users) > 0?implode(',',$export->users):'/' ; ?></td>
                     <td><?= $this->element('etatFitnet', ['etat'=>$export->etat]) ?></td>
                     <td class="actionsFit">
                         <?php if ($export->etat == \Cake\Core\Configure::read('vsa.wait')): ?>
