@@ -10,6 +10,7 @@ use App\Form\ExportForm;
 use App\Form\ImportForm;
 use Cake\Filesystem\File;
 use Cake\Core\Configure;
+use Cake\Http\Client\Request;
 
 /**
  * Temps Controller
@@ -459,6 +460,7 @@ class TempsController extends AppController
             $validat = true;
         }
 
+        //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
             if (!array_key_exists('validat', $arrayData)) {
@@ -1378,6 +1380,10 @@ class TempsController extends AppController
         $this->set(compact('arrayProfilRefused'));
         $this->set(compact('arrayActivitieRefused'));
         $this->set('controller', false);
+    }
+
+    public function getOldData(){
+        return "tts";
     }
 
     public function isAuthorized($user)
