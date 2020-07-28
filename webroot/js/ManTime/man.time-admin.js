@@ -20,6 +20,7 @@ function init() {
 }
 
 $("form").on("submit", function (e) {
+    debugger;
     if ($("#validat").prop("checked")) {
         var modal = new ModalWindow({
             Title: "Validation semaine",
@@ -515,13 +516,16 @@ function updateTotal() {
 
 // Gestions Update Diff - Mathis ALLEAUME
 
-$('#test').click(function(){
+$("#test").click(function (event) {
+    event.preventDefault();
     getPreviousData();
 });
 
-function updateDiff(annee, semaine) {
+function updateDiff() {
+    var week = getsemaine();
+
     // recupération des anciennes donnée  dans la table de temps
-    var previousData = getPreviousData(annee, semaine);
+    var previousData = getPreviousData(week);
 
     // récupération des données du formes (dont modifiées)
     var newData = getNewData();
@@ -532,25 +536,35 @@ function updateDiff(annee, semaine) {
     // envoie des diffs en base
 }
 
-function getPreviousData() {
+function getPreviousData(week) {
+    
+    // console.log(week);
+    var oldTemps = [];
     $.ajax({
-        type: "post",
-        url: '/ManTime/webroot/index.php/temps/getOldData',
-        data: "test",
+        type: "POST",
+        url: "/ManTime/webroot/index.php/temps/getOldData/",
+        data: week,
         success: function (result) {
-            debugger;
-            console.log(result);
+            // debugger;
+            for (var i = 0; i < result.temps.length; i++) {
+                oldTemps.push(result.temps[i]);
+            }
+            console.log(oldTemps);
         },
     });
+    
+    return oldTemps;
 }
 
 function getNewData() {
-    // let form = $('#formTime > form')[0];
-    // form.addEventListener('submit', (event) => {
-    //     // handle the form data
-    //     event.preventDefault();
-    //     console.log(form.serialize());
-    // });
+    
 }
 
 function compareData() {}
+
+function getsemaine() {
+    var inputValue = $("#select-week")[0].value;
+    var semaine = inputValue.split("-")[1].substr(1);
+    var annee = inputValue.split("-")[0];
+    return { semaine: semaine, annee: annee };
+}

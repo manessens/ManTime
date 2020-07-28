@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -11,6 +12,7 @@ use App\Form\ImportForm;
 use Cake\Filesystem\File;
 use Cake\Core\Configure;
 use Cake\Http\Client\Request;
+use Symfony\Component\Debug\Debug;
 
 /**
  * Temps Controller
@@ -47,23 +49,23 @@ class TempsController extends AppController
         $user = $this->Users->get($idUserAuth);
 
         $arrayTemps = $this->Temps->find('all')
-                ->where(['Temps.idu =' => $idUserAuth])
-                ->andWhere(['date >=' => $lundi])
-                ->andWhere(['date <' => $dimanche])
-                ->andWhere(['deleted =' => false])
-                ->contain(['Projet' => ['Client']])
-                ->all();
+            ->where(['Temps.idu =' => $idUserAuth])
+            ->andWhere(['date >=' => $lundi])
+            ->andWhere(['date <' => $dimanche])
+            ->andWhere(['deleted =' => false])
+            ->contain(['Projet' => ['Client']])
+            ->all();
 
         $buff = array();
         foreach ($arrayTemps as $temps) {
-            $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
+            $buff[$temps->projet->client->nom_client . '.' . $temps->projet->nom_projet . '.' . $temps->n_ligne][] = $temps;
         }
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserAuth);
         $week = $retour[0];
         $validat = $retour[1];
 
         $exportableTable = TableRegistry::get('Exportable');
-        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
+        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
         if (!is_null($isLocked)) {
             $validat = true;
         }
@@ -90,23 +92,25 @@ class TempsController extends AppController
                     //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                     //     $verif = false;
                     // }
-                    if ($arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
-                     || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0) {
+                    if (
+                        $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
+                        || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
+                    ) {
                         continue;
                     }
                     // $arrayIdentifierLine[] = $identifierLine;
                     foreach ($arrayDay as $dataDay) {
-                        $idc =explode('.',$arrayData['client'][$line])[1];
-                        $arrayIdp = explode('.',$arrayData['projet'][$line]);
+                        $idc = explode('.', $arrayData['client'][$line])[1];
+                        $arrayIdp = explode('.', $arrayData['projet'][$line]);
                         $idp = $arrayIdp[2];
-                        $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
+                        $arrayIdprof = explode('.', $arrayData['profil'][$line]);
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
                         //generate day
                         $day = null;
                         if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
                             $day->idu = $user->idu;
-                        }else{
+                        } else {
                             $day = $this->Temps->get($dataDay['id']);
                         }
                         $day->time = $dataDay['time'];
@@ -127,18 +131,18 @@ class TempsController extends AppController
                             $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
                             $verif = false;
                         }
-                        if ($idc==$arrayIdp[1] && $idp==$arrayIdprof[0] && $idp==$arrayIda[0]) {
+                        if ($idc == $arrayIdp[1] && $idp == $arrayIdprof[0] && $idp == $arrayIda[0]) {
                             //For deletion
                             if ($day->idt) {
                                 $arrayIdCurrent[] = $dataDay['id'];
                             }
 
-                            $day->date = clone $dayTime ;
+                            $day->date = clone $dayTime;
                             $day->n_ligne = $line;
                             $day->time = $dataDay['time'];
                             $day->validat = $arrayData['validat'];
                             if ($day->idp != $idp) {
-                                $projet  = $projetTable->find('all', ['fields'=>['idm', 'prix']])->where(['idp ='=>$idp])->first();
+                                $projet  = $projetTable->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $idp])->first();
                                 $day->idm = $projet->idm;
                                 $day->prix = $projet->prix;
                             }
@@ -158,9 +162,11 @@ class TempsController extends AppController
                     //Deletion
                     $query = $this->Temps->query()
                         ->update()->set(['deleted' => true])
-                        ->where(['idu =' => $user->idu,
-                         'date >=' => $lundi,
-                         'date <' => $dimanche]);
+                        ->where([
+                            'idu =' => $user->idu,
+                            'date >=' => $lundi,
+                            'date <' => $dimanche
+                        ]);
                     if (!empty($arrayIdCurrent)) {
                         $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                     }
@@ -171,7 +177,7 @@ class TempsController extends AppController
                             $verif = $verif && $this->Temps->save($day);
                         }
                     }
-                }else{
+                } else {
                     $this->Flash->error(__("La semaine a déjà été soumise, les modifications n'ont pus être sauvegardées."));
                     return $this->redirect(['action' => 'index', $semaine, $annee]);
                 }
@@ -179,7 +185,7 @@ class TempsController extends AppController
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
                 return $this->redirect(['action' => 'index', $semaine, $annee]);
-            }else{
+            } else {
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
         }
@@ -187,14 +193,14 @@ class TempsController extends AppController
         $week = $this->autoCompleteWeek($week);
 
         $arrayRetour =  array();
-        $arrayEmpty = ['0'=>'-'];
+        $arrayEmpty = ['0' => '-'];
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche);
         asort($arrayRetour['projets']);
         asort($arrayRetour['clients']);
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
-        $semaine = strlen($semaine)<=1?'0'.$semaine:$semaine ;
+        $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
 
         $this->set(compact('week'));
         $this->set(compact('semaine'));
@@ -210,7 +216,6 @@ class TempsController extends AppController
         $this->set('activities', array_merge($arrayEmpty, $arrayRetour['activities']));
         $this->set('holidays',   $this->getHolidays($annee));
         $this->set('controller', false);
-
     }
     /**
      * Index method
@@ -240,17 +245,17 @@ class TempsController extends AppController
         // $user = $usersTable->get($idUserAuth);
 
         $arrayTemps = $this->Temps->find()
-                ->select()
-                ->where(['Temps.idu =' => $idUserJp])
-                ->andWhere(['date >=' => $lundi])
-                ->andWhere(['date <' => $dimanche])
-                ->andWhere(['deleted =' => false])
-                ->andWhere(['Projet.idu =' => $idUserAuth])
-                ->contain(['Projet' => ['Client']])
-                ->all();
+            ->select()
+            ->where(['Temps.idu =' => $idUserJp])
+            ->andWhere(['date >=' => $lundi])
+            ->andWhere(['date <' => $dimanche])
+            ->andWhere(['deleted =' => false])
+            ->andWhere(['Projet.idu =' => $idUserAuth])
+            ->contain(['Projet' => ['Client']])
+            ->all();
         $buff = array();
         foreach ($arrayTemps as $temps) {
-            $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
+            $buff[$temps->projet->client->nom_client . '.' . $temps->projet->nom_projet . '.' . $temps->n_ligne][] = $temps;
         }
         $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $idUserJp);
         $week = $retour[0];
@@ -258,7 +263,7 @@ class TempsController extends AppController
 
         $validat = false;
         $exportableTable = TableRegistry::get('Exportable');
-        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
+        $isLocked = $exportableTable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
         if (!is_null($isLocked)) {
             $validat = true;
         }
@@ -285,23 +290,25 @@ class TempsController extends AppController
                     //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                     //     $verif = false;
                     // }
-                    if ($arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
-                     || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0) {
+                    if (
+                        $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
+                        || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
+                    ) {
                         continue;
                     }
                     // $arrayIdentifierLine[] = $identifierLine;
                     foreach ($arrayDay as $dataDay) {
-                        $idc =explode('.',$arrayData['client'][$line])[1];
-                        $arrayIdp = explode('.',$arrayData['projet'][$line]);
+                        $idc = explode('.', $arrayData['client'][$line])[1];
+                        $arrayIdp = explode('.', $arrayData['projet'][$line]);
                         $idp = $arrayIdp[2];
-                        $arrayIdprof = explode( '.', $arrayData['profil'][$line]);
+                        $arrayIdprof = explode('.', $arrayData['profil'][$line]);
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
                         //generate day
                         $day = null;
                         if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
                             $day->idu = $idUserJp;
-                        }else{
+                        } else {
                             $day = $this->Temps->get($dataDay['id']);
                         }
                         $day->time = $dataDay['time'];
@@ -322,18 +329,18 @@ class TempsController extends AppController
                         //     $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
                         //     $verif = false;
                         // }
-                        if ($idc==$arrayIdp[1] && $idp==$arrayIdprof[0] && $idp==$arrayIda[0]) {
+                        if ($idc == $arrayIdp[1] && $idp == $arrayIdprof[0] && $idp == $arrayIda[0]) {
                             //For deletion
                             if ($day->idt) {
                                 $arrayIdCurrent[] = $dataDay['id'];
                             }
 
-                            $day->date = clone $dayTime ;
+                            $day->date = clone $dayTime;
                             $day->n_ligne = $line;
                             $day->time = $dataDay['time'];
                             $day->validat = 1;
                             if ($day->idp != $idp) {
-                                $projet  = $projetTable->find('all', ['fields'=>['idm', 'prix']])->where(['idp ='=>$idp])->first();
+                                $projet  = $projetTable->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $idp])->first();
                                 $day->idm = $projet->idm;
                                 $day->prix = $projet->prix;
                             }
@@ -354,10 +361,12 @@ class TempsController extends AppController
                 $query = $this->Temps->query()
                     ->update()->set(['deleted' => true])
                     ->innerJoinWith('Projet.Participant')
-                    ->where(['idu =' => $idUserJp,
-                     'date >=' => $lundi,
-                     'date <' => $dimanche])
-                     ->andWhere(['Participant.idu =' => $idUserAuth]);
+                    ->where([
+                        'idu =' => $idUserJp,
+                        'date >=' => $lundi,
+                        'date <' => $dimanche
+                    ])
+                    ->andWhere(['Participant.idu =' => $idUserAuth]);
                 if (!empty($arrayIdCurrent)) {
                     $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                 }
@@ -376,7 +385,7 @@ class TempsController extends AppController
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
                 return $this->redirect(['action' => 'index_jp', $semaine, $annee]);
-            }else{
+            } else {
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
         }
@@ -384,14 +393,14 @@ class TempsController extends AppController
         $week = $this->autoCompleteWeek($week);
 
         $arrayRetour =  array();
-        $arrayEmpty = ['0'=>'-'];
+        $arrayEmpty = ['0' => '-'];
         $arrayRetour = $this->getProjects($user->idu, $lundi, $dimanche, $idUserAuth);
         asort($arrayRetour['projets']);
         asort($arrayRetour['clients']);
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
-        $semaine = strlen($semaine)<=1?'0'.$semaine:$semaine ;
+        $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
 
         $this->set(compact('week'));
         $this->set(compact('semaine'));
@@ -407,7 +416,6 @@ class TempsController extends AppController
         $this->set('activities', array_merge($arrayEmpty, $arrayRetour['activities']));
         $this->set('holidays',   $this->getHolidays($annee));
         $this->set('controller', false);
-
     }
     /**
      * Index method
@@ -416,16 +424,19 @@ class TempsController extends AppController
      */
     public function indexAdmin($semaine = null, $annee = null)
     {
+
         $current = (int)date('W');
+
         if ($semaine === null) {
             $semaine = $current;
         }
         if ($annee === null) {
             $annee = date('Y');
         }
+
         $lundi = new Date('now');
         $lundi->setTime(00, 00, 00);
-        $lundi->setISOdate($annee, $semaine);
+        $lundi->setISOdate((int)$annee, $semaine);
         $dimanche = clone $lundi;
         $dimanche->modify('+7 days');
 
@@ -434,20 +445,20 @@ class TempsController extends AppController
         $user = $this->Users->get($idUserAuth);
 
         $users = $this->Users->find('all')->toArray();
-        $arrayRetour = array('users' => ['0'=>'-'], 'projets' => ['0'=>'-'], 'clients' => ['0'=>'-'], 'profiles' => ['0'=>'-'], 'activities' => ['0'=>'-']);
+        $arrayRetour = array('users' => ['0' => '-'], 'projets' => ['0' => '-'], 'clients' => ['0' => '-'], 'profiles' => ['0' => '-'], 'activities' => ['0' => '-']);
         foreach ($users as $key => $userAll) {
             $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
             $arrayTemps = array();
             $arrayTemps = $this->Temps->find('all')
-                    ->where(['Temps.idu =' => $userAll->idu])
-                    ->andWhere(['validat =' => 1])
-                    ->andWhere(['deleted =' => false])
-                    ->andWhere(['date >=' => $lundi])
-                    ->andWhere(['date <' => $dimanche])
-                    ->contain(['Projet' => ['Client']])->all();
+                ->where(['Temps.idu =' => $userAll->idu])
+                ->andWhere(['validat =' => 1])
+                ->andWhere(['deleted =' => false])
+                ->andWhere(['date >=' => $lundi])
+                ->andWhere(['date <' => $dimanche])
+                ->contain(['Projet' => ['Client']])->all();
             $buff = array();
             foreach ($arrayTemps as $temps) {
-                $buff[$temps->projet->client->nom_client.'.'.$temps->projet->nom_projet.'.'.$temps->n_ligne][] = $temps;
+                $buff[$temps->projet->client->nom_client . '.' . $temps->projet->nom_projet . '.' . $temps->n_ligne][] = $temps;
             }
             $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
             $week[$userAll->idu] = $retour[0];
@@ -455,7 +466,7 @@ class TempsController extends AppController
 
         $validat = false;
         $this->loadModel('Exportable');
-        $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee ])->first();
+        $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
         if (!is_null($isLocked)) {
             $validat = true;
         }
@@ -473,11 +484,13 @@ class TempsController extends AppController
             $arrayIdentifierLine = array();
             // // DEBUG:
             // debug($arrayData);
-            $arrayDays = ['Lu'=> 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
+            $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
-                    if ($idUser === 0) {continue;}
+                    if ($idUser === 0) {
+                        continue;
+                    }
                     foreach ($arrayLine as $line => $arrayDay) {
                         // $dayTime = clone $lundi;
                         // $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
@@ -487,26 +500,28 @@ class TempsController extends AppController
                         //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
                         //     $verif = false;
                         // }
-                        if ($arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0
-                         || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
-                         || $arrayData['activities'][$idUser][$line] == 0) {
+                        if (
+                            $arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0
+                            || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
+                            || $arrayData['activities'][$idUser][$line] == 0
+                        ) {
                             continue;
                         }
                         // $arrayIdentifierLine[] = $identifierLine;
                         foreach ($arrayDay as $daySemaine => $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
-                            $arrayIdc = explode('.',$arrayData['client'][$idUser][$line]);
-                            $arrayIdp = explode('.',$arrayData['projet'][$idUser][$line]);
-                            $arrayIdprof = explode( '.', $arrayData['profil'][$idUser][$line]);
+                            $arrayIdc = explode('.', $arrayData['client'][$idUser][$line]);
+                            $arrayIdp = explode('.', $arrayData['projet'][$idUser][$line]);
+                            $arrayIdprof = explode('.', $arrayData['profil'][$idUser][$line]);
                             $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
                             //Generate Day
                             $day = null;
                             if (empty($dataDay['id'])) {
                                 $day = $this->Temps->newEntity();
                                 $day->validat = 1;
-                            }else{
+                            } else {
                                 // A optimiser si besoin
-                                $day = $this->Temps->get($dataDay['id'], [ 'contain' => [] ]);
+                                $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
                                 // FIN optimisation
                             }
                             $day->time = $dataDay['time'];
@@ -523,8 +538,10 @@ class TempsController extends AppController
                                 // $dayTime->modify('+1 days');
                                 continue;
                             }
-                            if ($idu==$arrayIdc[0] && $idu==$arrayIdp[0]
-                            && $arrayIdc[1]==$arrayIdp[1] && $arrayIdp[2]==$arrayIdprof[0] && $arrayIdp[2]==$arrayIda[0]) {
+                            if (
+                                $idu == $arrayIdc[0] && $idu == $arrayIdp[0]
+                                && $arrayIdc[1] == $arrayIdp[1] && $arrayIdp[2] == $arrayIdprof[0] && $arrayIdp[2] == $arrayIda[0]
+                            ) {
                                 //For deletion
                                 if ($day->idt) {
                                     $arrayIdCurrent[] = $dataDay['id'];
@@ -533,21 +550,21 @@ class TempsController extends AppController
                                 $day->deleted = false;
 
                                 // détermination de la date en fonction du jour de la semaine
-                                $dayTime = clone $lundi ;
-                                $dayTime->modify('+'.$arrayDays[$daySemaine].' days');
-                                $day->date = clone $dayTime ;
+                                $dayTime = clone $lundi;
+                                $dayTime->modify('+' . $arrayDays[$daySemaine] . ' days');
+                                $day->date = clone $dayTime;
 
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
-                                    $projet  = $projetTable->find('all', ['fields'=>['idm', 'prix']])->where(['idp ='=>$arrayIdp[2]])->first();
+                                    $projet  = $projetTable->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $arrayIdp[2]])->first();
                                     $day->idm = $projet->idm;
                                     $day->prix = $projet->prix;
                                 }
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
                                 $day->ida = $arrayIda[1];
-                                $day->detail = trim( $arrayData['detail'][$idUser][$line] );
+                                $day->detail = trim($arrayData['detail'][$idUser][$line]);
                                 $entities[] = $day;
 
                                 // $dayTime->modify('+1 days');
@@ -560,43 +577,47 @@ class TempsController extends AppController
             // debug($entities);
 
             // exit;
-             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
+            // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 if (!$validat) { // Si pas de blocage alors on modifie les temps
-                //Deletion
+                    //Deletion
                     $query = $this->Temps->query()
                         ->update()->set(['deleted' => true])
-                        ->where(['validat =' => 1,
-                         'modify = ' => false,
-                         'date >=' => $lundi,
-                         'date <' => $dimanche]);
+                        ->where([
+                            'validat =' => 1,
+                            'modify = ' => false,
+                            'date >=' => $lundi,
+                            'date <' => $dimanche
+                        ]);
                     if (!empty($arrayIdCurrent)) {
                         $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
                     }
                     $query->execute();
-                //Save
+                    //Save
                     if (!empty($entities)) {
                         foreach ($entities as $day) {
                             try {
                                 $this->Temps->saveOrFail($day);
                             } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
-                                $oldDay = $this->Temps->find('all')->where([ 'idu =' => $day->idu,
+                                $oldDay = $this->Temps->find('all')->where([
+                                    'idu =' => $day->idu,
                                     'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
-                                    'ida =' => $day->ida, 'date =' => $day->date])->first();
+                                    'ida =' => $day->ida, 'date =' => $day->date
+                                ])->first();
 
                                 if (!is_null($oldDay)) {
                                     $oldDay->time = $day->time;
                                     $oldDay->n_ligne = $day->n_ligne;
                                     $oldDay->validat = $day->validat;
                                     $verif = $verif && $this->Temps->save($oldDay);
-                                }else{
+                                } else {
                                     $verif = false;
                                 }
                             }
                         }
                     }
-                 // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
-                }else{
+                    // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
+                } else {
                     $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
                     return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
                 }
@@ -606,7 +627,7 @@ class TempsController extends AppController
             if (array_key_exists('check_lock', $arrayData) || !$validat) {
                 if ($arrayData['validat'] === "0" && $validat) {
                     $this->Exportable->delete($isLocked);
-                }elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
+                } elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
                     $locked = $this->Exportable->newEntity();
                     $locked->n_sem = $semaine;
                     $locked->annee = $annee;
@@ -618,12 +639,12 @@ class TempsController extends AppController
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
 
                 return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
-            }else{
+            } else {
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
             }
         }
 
-        $arrayBuff=array();
+        $arrayBuff = array();
         foreach ($week as $idu => $weekUser) {
             $week[$idu] = $this->autoCompleteWeek($weekUser, true);
 
@@ -631,7 +652,7 @@ class TempsController extends AppController
             $arrayRetour['projets']   = array_merge($arrayRetour['projets'], $arrayBuff['projets']);
             $arrayRetour['clients']   = array_merge($arrayRetour['clients'], $arrayBuff['clients']);
             $arrayRetour['profiles']  = array_merge($arrayRetour['profiles'], $arrayBuff['profiles']);
-            $arrayRetour['activities']= array_merge($arrayRetour['activities'], $arrayBuff['activities']);
+            $arrayRetour['activities'] = array_merge($arrayRetour['activities'], $arrayBuff['activities']);
         }
         asort($arrayRetour['users']);
         asort($arrayRetour['projets']);
@@ -639,7 +660,7 @@ class TempsController extends AppController
         asort($arrayRetour['activities']);
         $fullNameUserAuth = $user->fullname;
 
-        $semaine = strlen($semaine)<=1?'0'.$semaine:$semaine ;
+        $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
 
         // $this->set(compact('temps'));
         $this->set(compact('week'));
@@ -670,12 +691,12 @@ class TempsController extends AppController
                 $key = $arrKey[2];
             }
             foreach ($arrayDays as $day) {
-                $week[$key]['idc'] = $idu.'.'.$day->projet->idc;
-                $week[$key]['idp'] = $idu.'.'.$day->projet->idc.'.'.$day->idp;
-                $week[$key]['id_profil'] = $day->idp.'.'.$day->id_profil;
-                $week[$key]['ida'] = $day->idp.'.'.$day->ida;
+                $week[$key]['idc'] = $idu . '.' . $day->projet->idc;
+                $week[$key]['idp'] = $idu . '.' . $day->projet->idc . '.' . $day->idp;
+                $week[$key]['id_profil'] = $day->idp . '.' . $day->id_profil;
+                $week[$key]['ida'] = $day->idp . '.' . $day->ida;
                 if (!$validat) {
-                    $validat=$day->validat;
+                    $validat = $day->validat;
                 }
                 $week[$key][$this->getDay($day->date, $lundi)] = $day;
                 $week[$key]['detail'] = $day->detail;
@@ -685,14 +706,15 @@ class TempsController extends AppController
         return [$week, $validat];
     }
 
-    private function autoCompleteWeek($week, $admin = false) {
+    private function autoCompleteWeek($week, $admin = false)
+    {
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         $entities = array();
         foreach ($week as $key => $arrayDays) {
             foreach ($modelWeek as $idDay) {
-                if (!array_key_exists($idDay, $week[$key]) ) {
+                if (!array_key_exists($idDay, $week[$key])) {
                     $week[$key][$idDay] = $this->Temps->newEntity();
-                }elseif($admin){
+                } elseif ($admin) {
                     $day = $week[$key][$idDay];
                     $day->modify = false;
                     $entities[] = $day;
@@ -705,7 +727,8 @@ class TempsController extends AppController
         return $week;
     }
 
-    private function getDay($date, $lundi) {
+    private function getDay($date, $lundi)
+    {
         $date = new Date($date);
         $mardi = clone $lundi;
         $mardi->modify('+1 days');
@@ -719,55 +742,74 @@ class TempsController extends AppController
         $samedi->modify('+5 days');
         $dimanche = clone $lundi;
         $dimanche->modify('+6 days');
-        if ($date >=  $lundi
-        && $date <  $mardi) {
+        if (
+            $date >=  $lundi
+            && $date <  $mardi
+        ) {
             return 'Lu';
-        }elseif($date >=  $mardi
-        && $date <  $mercredi) {
+        } elseif (
+            $date >=  $mardi
+            && $date <  $mercredi
+        ) {
             return 'Ma';
-        }elseif($date >=  $mercredi
-        && $date <  $jeudi) {
+        } elseif (
+            $date >=  $mercredi
+            && $date <  $jeudi
+        ) {
             return 'Me';
-        }elseif($date >=  $jeudi
-        && $date <  $vendredi) {
+        } elseif (
+            $date >=  $jeudi
+            && $date <  $vendredi
+        ) {
             return 'Je';
-        }elseif($date >=  $vendredi
-        && $date <  $samedi) {
+        } elseif (
+            $date >=  $vendredi
+            && $date <  $samedi
+        ) {
             return 'Ve';
-        }elseif($date >=  $samedi
-        && $date <  $dimanche) {
+        } elseif (
+            $date >=  $samedi
+            && $date <  $dimanche
+        ) {
             return 'Sa';
-        }else {
+        } else {
             return 'Di';
         }
     }
 
-    private static function getHolidays($year = null){
-        if ($year === null){
-                $year = intval(strftime('%Y'));
+    private static function getHolidays($year = null)
+    {
+
+        if ($year === null) {
+            $year = intval(strftime('%Y'));
+            // debug($year);
         }
+
+        // passage de l'année en Int : Mathis Alleaume -> 27/07/2020
+        $year = (int)$year;
+        // debug($year);
 
         $easterDate = easter_date($year);
         $easterDay = date('j', $easterDate) + 1;
         $easterMonth = date('n', $easterDate);
 
         $holidays = array(
-                // Jours fériés fixes
-                date('d-m-Y',mktime(0, 0, 0, 1, 1, $year)),// 1er janvier
-                date('d-m-Y',mktime(0, 0, 0, 5, 1, $year)),// Fete du travail
-                date('d-m-Y',mktime(0, 0, 0, 5, 8, $year)),// Victoire des allies
-                date('d-m-Y',mktime(0, 0, 0, 7, 14, $year)),// Fete nationale
-                date('d-m-Y',mktime(0, 0, 0, 8, 15, $year)),// Assomption
-                date('d-m-Y',mktime(0, 0, 0, 11, 1, $year)),// Toussaint
-                date('d-m-Y',mktime(0, 0, 0, 11, 11, $year)),// Armistice
-                date('d-m-Y',mktime(0, 0, 0, 12, 25, $year)),// Noel
+            // Jours fériés fixes
+            date('d-m-Y', mktime(0, 0, 0, 1, 1, $year)), // 1er janvier
+            date('d-m-Y', mktime(0, 0, 0, 5, 1, $year)), // Fete du travail
+            date('d-m-Y', mktime(0, 0, 0, 5, 8, $year)), // Victoire des allies
+            date('d-m-Y', mktime(0, 0, 0, 7, 14, $year)), // Fete nationale
+            date('d-m-Y', mktime(0, 0, 0, 8, 15, $year)), // Assomption
+            date('d-m-Y', mktime(0, 0, 0, 11, 1, $year)), // Toussaint
+            date('d-m-Y', mktime(0, 0, 0, 11, 11, $year)), // Armistice
+            date('d-m-Y', mktime(0, 0, 0, 12, 25, $year)), // Noel
 
-                // Jour fériés qui dependent de paques
-                date('d-m-Y',mktime(2, 0, 0, $easterMonth, $easterDay, $year)),// Pâques
-                // date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay + 1, $year)),// Lundi de paques
-                // date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay + 39, $year)),// Ascension
-                date('d-m-Y',mktime(2, 0, 0, $easterMonth, $easterDay + 38, $year)),// Ascension
-                // mktime(0, 0, 0, $easterMonth, $easterDay + 50, $year), // Pentecote => journée de solidarité (facturé en x1)
+            // Jour fériés qui dependent de paques
+            date('d-m-Y', mktime(2, 0, 0, $easterMonth, $easterDay, $year)), // Pâques
+            // date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay + 1, $year)),// Lundi de paques
+            // date('d-m-Y',mktime(0, 0, 0, $easterMonth, $easterDay + 39, $year)),// Ascension
+            date('d-m-Y', mktime(2, 0, 0, $easterMonth, $easterDay + 38, $year)), // Ascension
+            // mktime(0, 0, 0, $easterMonth, $easterDay + 50, $year), // Pentecote => journée de solidarité (facturé en x1)
         );
         sort($holidays);
         return $holidays;
@@ -779,16 +821,16 @@ class TempsController extends AppController
         $this->loadModel('Participant');
         $this->loadModel('Activities');
         $arrayProjects = array();
-        $arrayRetour = array('projets'=>[], 'clients'=>[], 'profiles'=>[], 'activities'=>[]);
+        $arrayRetour = array('projets' => [], 'clients' => [], 'profiles' => [], 'activities' => []);
 
         $particpations = $this->Participant->find('all')
             ->where(['Participant.idu =' => $idu])
-            ->andWhere(['date_debut <' => $dimanche->year.$dimanche->i18nFormat('-MM-dd')])
-            ->andWhere(['date_fin >=' => $lundi->year.$lundi->i18nFormat('-MM-dd')]);
+            ->andWhere(['date_debut <' => $dimanche->year . $dimanche->i18nFormat('-MM-dd')])
+            ->andWhere(['date_fin >=' => $lundi->year . $lundi->i18nFormat('-MM-dd')]);
         if ($idcp > 0) {
             $particpations->andWhere(['Projet.idu =' => $idcp]);
         }
-        $particpations->contain(['Projet' => ['Client', 'Matrice'=>['LignMat'=>['Profil']] ] ])->all();
+        $particpations->contain(['Projet' => ['Client', 'Matrice' => ['LignMat' => ['Profil']]]])->all();
         foreach ($particpations as $participant) {
             $projet = $participant->projet;
             $arrayProjects[$idu . '.' . $projet->idc . '.' . $projet->idp] = $projet;
@@ -812,39 +854,44 @@ class TempsController extends AppController
         return $arrayRetour;
     }
 
-    public function getProjectName($id){
+    public function getProjectName($id)
+    {
         $this->loadModel('Projet');
         $idp = explode('.', $id)[2];
         $project = $this->Projet->get($idp);
         return $this->response->withStringBody($project->nom_projet);
     }
 
-    public function getClientName($id){
+    public function getClientName($id)
+    {
         $this->loadModel('Client');
         $idc = explode('.', $id)[1];
         $client = $this->Client->get($idc);
         return $this->response->withStringBody($client->nom_client);
     }
 
-    public function getProfilName($id){
+    public function getProfilName($id)
+    {
         $this->loadModel('Profil');
         $idprof = explode('.', $id)[1];
         $profil = $this->Profil->get($idprof);
         return $this->response->withStringBody($profil->nom_profil);
     }
 
-    public function getActivitieName($id){
+    public function getActivitieName($id)
+    {
         $this->loadModel('Activitie');
         $ida = explode('.', $id)[1];
         $act = $this->Activitie->get($ida);
         return $this->response->withStringBody($act->nom_activit);
     }
 
-    private function clearDtb(){
+    private function clearDtb()
+    {
         $currentYear = new Date('Now');
         $currentYear->modify('-2 years');
         $query = $this->Temps->find('all')
-            ->where(['date <=' => $currentYear->year.'-01-01']);
+            ->where(['date <=' => $currentYear->year . '-01-01']);
         $listDeletion = $query->toArray();
         if (!empty($listDeletion)) {
             foreach ($listDeletion as $entity) {
@@ -853,7 +900,8 @@ class TempsController extends AppController
         }
     }
 
-    public function getTimes(\Cake\I18n\Time $date_debut, \Cake\I18n\Time $date_fin, $data_client = null, $data_user = null ){
+    public function getTimes(\Cake\I18n\Time $date_debut, \Cake\I18n\Time $date_fin, $data_client = null, $data_user = null)
+    {
 
         $times = array();
         $data = array();
@@ -864,8 +912,8 @@ class TempsController extends AppController
         $semaineFin = (int)date('W', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
         $anneeFin =   (int)date('Y', strtotime($date_fin->i18nFormat('dd-MM-YYYY')));
         $arraNSem = array($anneeDebut => array());
-        $y=$anneeDebut;
-        for ($i=$semaineDebut; ($i <= $semaineFin && $y <= $anneeFin) ; $i++) {
+        $y = $anneeDebut;
+        for ($i = $semaineDebut; ($i <= $semaineFin && $y <= $anneeFin); $i++) {
             if ($i > 52) {
                 $i = 1;
                 $y++;
@@ -884,7 +932,7 @@ class TempsController extends AppController
         $periodes = $query->toArray();
 
         $andWhere = array();
-        $times=array();
+        $times = array();
         $queryError = false;
         if (!empty($periodes)) {
             foreach ($periodes as $periode) {
@@ -894,29 +942,30 @@ class TempsController extends AppController
                 $dimanche = clone $lundi;
                 $dimanche->modify('+7 days');
 
-                $andWhere[] = [ 'date >=' => $lundi,
-                                'date <' => $dimanche,
-                            ];
+                $andWhere[] = [
+                    'date >=' => $lundi,
+                    'date <' => $dimanche,
+                ];
             }
             $query = null;
             $query = $this->Temps->find('all')
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0, 'deleted =' => false])
                 ->andwhere(['OR' => $andWhere]);
-            if ( $data_client != null) {
+            if ($data_client != null) {
                 $ProjetTable = TableRegistry::get('Projet');
-                $arrayIdProjet = $ProjetTable->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
+                $arrayIdProjet = $ProjetTable->find('list', ['fields' => ['idc', 'idp']])->where(['idc =' => $data_client])->toArray();
                 if (!empty($arrayIdProjet)) {
                     $query->andWhere(['idp IN' => $arrayIdProjet]);
-                }else{
+                } else {
                     $queryError = true;
                 }
             }
-            if ($data_user != null ){
+            if ($data_user != null) {
                 $query->andWhere(['idu =' => $data_user]);
             }
 
             if ($queryError) {
-                $times=array();
+                $times = array();
                 return $times;
             }
             $times = $query->toArray();
@@ -924,7 +973,8 @@ class TempsController extends AppController
         return $times;
     }
 
-    public function export(){
+    public function export()
+    {
         $idUserAuth = $this->Auth->user('idu');
         $export = new ExportForm();
         $clientTable = TableRegistry::get('Client');
@@ -946,64 +996,65 @@ class TempsController extends AppController
             $this->clearDtb();
             $arrayData = $this->request->getData();
             $isValid = $export->validate($arrayData);
-            if ($isValid){
+            if ($isValid) {
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
                 $times = $this->getTimes($arrayData['date_debut'], $arrayData['date_fin'], $arrayData['client'], $arrayData['user']);
-                if ( empty($times) ) {
+                if (empty($times)) {
                     $this->Flash->error("Aucune saisie valide trouvé pour la période demandé.");
-                }else{
-                    $arrayMonthKey = [1=>'Janvier', 2=>'Février', 3=>'Mars', 4=>'Avril', 5=>'Mai', 6=>'Juin',
-                        7=>'Juillet', 8=>'Août', 9=>'Septembre', 10=>'Octobre', 11=>'Novembre', 12=>'Décembre'];
+                } else {
+                    $arrayMonthKey = [
+                        1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin',
+                        7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novembre', 12 => 'Décembre'
+                    ];
 
                     $period = array();
-                    $arrayMonth=array();
-                    $arrayMonthUO=array();
-                    $arrayMonthCA=array();
+                    $arrayMonth = array();
+                    $arrayMonthUO = array();
+                    $arrayMonthCA = array();
                     if ($arrayData['fitnet']) {
                         $title = 'export_fitnet';
                         $start = $arrayData['date_debut'];
                         $end = $arrayData['date_fin'];
                         while ($start <= $end) {
-                            $period[$start->year.$start->month.$start->day] = '';
-                            $arrayMonth[] = 'JH '.$start->i18nFormat('dd-MM-YYYY');
-                            $arrayMonthUO[] = 'UO '.$start->i18nFormat('dd-MM-YYYY');
-                            $arrayMonthCA[] = 'CA '.$start->i18nFormat('dd-MM-YYYY');
+                            $period[$start->year . $start->month . $start->day] = '';
+                            $arrayMonth[] = 'JH ' . $start->i18nFormat('dd-MM-YYYY');
+                            $arrayMonthUO[] = 'UO ' . $start->i18nFormat('dd-MM-YYYY');
+                            $arrayMonthCA[] = 'CA ' . $start->i18nFormat('dd-MM-YYYY');
                             $start->modify('+1 days');
                         }
-                    }else{
+                    } else {
                         $title = 'export';
                         $ddebut = $arrayData['date_debut'];
                         $dfin = $arrayData['date_fin'];
-                        for ($i=$ddebut->year; $i <= $dfin->year; $i++) {
-                            $controlYear = $i === $dfin->year?false:true;
-                            $yb = $i === $ddebut->year?$ddebut->month:$yb = 1;
-                            for ($y=$yb; $y <= $dfin->month || ($i <= $dfin->year && $y <= 12 && $controlYear); $y++) {
-                                $period[$i.$y] = '';
-                                $arrayMonth[] = 'JH '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
-                                $arrayMonthUO[] = 'UO '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
-                                $arrayMonthCA[] = 'CA '.$this->convertToIso($arrayMonthKey[$y]).' '.$i;
+                        for ($i = $ddebut->year; $i <= $dfin->year; $i++) {
+                            $controlYear = $i === $dfin->year ? false : true;
+                            $yb = $i === $ddebut->year ? $ddebut->month : $yb = 1;
+                            for ($y = $yb; $y <= $dfin->month || ($i <= $dfin->year && $y <= 12 && $controlYear); $y++) {
+                                $period[$i . $y] = '';
+                                $arrayMonth[] = 'JH ' . $this->convertToIso($arrayMonthKey[$y]) . ' ' . $i;
+                                $arrayMonthUO[] = 'UO ' . $this->convertToIso($arrayMonthKey[$y]) . ' ' . $i;
+                                $arrayMonthCA[] = 'CA ' . $this->convertToIso($arrayMonthKey[$y]) . ' ' . $i;
                             }
                         }
                     }
                     $data = $this->getDataFromTimes($times, $users, $clients, $arrayData['fitnet'], $period, $agenceClient, $userOrigine);
-            		$this->response->download($title.'.csv');
+                    $this->response->download($title . '.csv');
                     $arrayMonthBuffer = array_merge($arrayMonth, $arrayMonthUO);
-                    if ( !$arrayData['fitnet'] ) {
+                    if (!$arrayData['fitnet']) {
                         $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
                     }
                     $headerFix = ['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails'), 'Agence', 'Facturable', 'Origine'];
                     $_header = array_merge($headerFix, $arrayMonthBuffer);
-            		$_serialize = 'data';
+                    $_serialize = 'data';
                     $_delimiter = ';';
-               		$this->set(compact('data', '_serialize', '_delimiter', '_header'));
-            		$this->viewBuilder()->className('CsvView.Csv');
-            		return;
+                    $this->set(compact('data', '_serialize', '_delimiter', '_header'));
+                    $this->viewBuilder()->className('CsvView.Csv');
+                    return;
                 }
-            }else{
+            } else {
                 $this->Flash->error("Une erreur est survenu. Merci de vérifier la saisie ou de retenter ultérieurement");
             }
-
         }
         asort($clients);
         asort($users);
@@ -1021,7 +1072,7 @@ class TempsController extends AppController
             $holidays = $this->getHolidays($year);
         }
         // contrôle jour férié : return 2;
-        if (in_array($day->i18nFormat('dd-MM-yyyy') ,$holidays)) {
+        if (in_array($day->i18nFormat('dd-MM-yyyy'), $holidays)) {
             return 2;
         }
         //dimanche 2, samedi 1.5 default 1
@@ -1038,12 +1089,12 @@ class TempsController extends AppController
         }
     }
 
-    private function getDataFromTimes($times=array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient, $userOrigine)
+    private function getDataFromTimes($times = array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient, $userOrigine)
     {
         $this->loadModel('Users');
         $idUserAuth = $this->Auth->user('idu');
         $projetTable = TableRegistry::get('Projet');
-        $arrayprojects = $projetTable->find('all', ['fields'=>['idp','idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
+        $arrayprojects = $projetTable->find('all', ['fields' => ['idp', 'idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
         foreach ($arrayprojects as $proj) {
             $projects[$proj->idp] = $proj->projname;
@@ -1051,9 +1102,9 @@ class TempsController extends AppController
             $projectClients[$proj->idp] = $proj->idc;
         }
         $profilTable = TableRegistry::get('Profil');
-        $profils = $profilTable->find('list', ['fields'=>['id_profil', 'nom_profil']])->toArray();
+        $profils = $profilTable->find('list', ['fields' => ['id_profil', 'nom_profil']])->toArray();
         $activitTable = TableRegistry::get('Activitie');
-        $activits = $activitTable->find('list', ['fields'=>['ida', 'nom_activit']])->toArray();
+        $activits = $activitTable->find('list', ['fields' => ['ida', 'nom_activit']])->toArray();
 
         // $clientTable = TableRegistry::get('Client');
         $matriceTable = TableRegistry::get('Matrice');
@@ -1080,7 +1131,7 @@ class TempsController extends AppController
             $keyOrigine = $userOrigine[$time->idu];
             $keyProfil = $profils[$time->id_profil];
             $keyActivit = $activits[$time->ida];
-            $nLine = $this->convertToIso($time->detail) == ""?$time->n_ligne:$time->n_ligne.'.'.$this->convertToIso($time->detail);
+            $nLine = $this->convertToIso($time->detail) == "" ? $time->n_ligne : $time->n_ligne . '.' . $this->convertToIso($time->detail);
             if (!array_key_exists($keyClient, $data)) {
                 $data[$keyClient] = array();
                 $data[$keyClient]['-1'] = $keyAgence;
@@ -1104,23 +1155,23 @@ class TempsController extends AppController
             }
             $dateTime = $time->date;
             if ($isFitnet) {
-                $keyDate = $dateTime->year.'-'.$dateTime->month.'-'.$dateTime->day;
-            }else{
-                $keyDate = $dateTime->year.'-'.$dateTime->month;
+                $keyDate = $dateTime->year . '-' . $dateTime->month . '-' . $dateTime->day;
+            } else {
+                $keyDate = $dateTime->year . '-' . $dateTime->month;
             }
             if (!array_key_exists($keyDate, $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine])) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate] = array('JH'=>0, 'UO'=>0, 'CA'=>0);
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate] = array('JH' => 0, 'UO' => 0, 'CA' => 0);
             }
             $nbDays = intval($time->time);
-            $timeUO = round(($time->time-$nbDays) * 8, 2) * $arrayMatrice[$time->idm][$keyProfil]['h'];
-            $timeUO +=  $nbDays * $arrayMatrice[$time->idm][$keyProfil]['j'] ;
+            $timeUO = round(($time->time - $nbDays) * 8, 2) * $arrayMatrice[$time->idm][$keyProfil]['h'];
+            $timeUO +=  $nbDays * $arrayMatrice[$time->idm][$keyProfil]['j'];
 
-            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH']+=$time->time;
+            $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['JH'] += $time->time;
             //majoration si samedi : *1.5 dimanche : *2 jour férié : *2
             $timeUO *= $this->getIncreaseDay($dateTime);
-            if ($this->Users->get($idUserAuth)->role >= Configure::read('role.cp') ) {
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO']+=$timeUO;
-                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA']+=$timeUO*$time->prix;
+            if ($this->Users->get($idUserAuth)->role >= Configure::read('role.cp')) {
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['UO'] += $timeUO;
+                $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate]['CA'] += $timeUO * $time->prix;
             }
 
             ksort($data[$keyClient]);
@@ -1128,39 +1179,40 @@ class TempsController extends AppController
             ksort($data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit]);
         }
         ksort($data);
-        $dataLine=array();
+        $dataLine = array();
         $bufferAgence = '';
         $bufferFact = '';
         $bufferOrigine = '';
         foreach ($data as $client => $arrProj) {
             foreach ($arrProj as $projet => $arrUser) {
                 if (!is_array($arrUser)) {
-                    $bufferAgence=$this->convertToIso($arrUser);
+                    $bufferAgence = $this->convertToIso($arrUser);
                     continue;
                 }
                 foreach ($arrUser as $user => $arrProfil) {
                     if (!is_array($arrProfil)) {
-                        $bufferFact=$this->convertToIso($arrProfil);
+                        $bufferFact = $this->convertToIso($arrProfil);
                         continue;
                     }
                     foreach ($arrProfil as $profil => $arrActiv) {
                         if (!is_array($arrActiv)) {
-                            $bufferOrigine=$this->convertToIso($arrActiv);
+                            $bufferOrigine = $this->convertToIso($arrActiv);
                             continue;
                         }
                         foreach ($arrActiv as $activit => $arrLine) {
                             foreach ($arrLine as $line => $arrDate) {
-                                $KLine = explode('.',$line);
+                                $KLine = explode('.', $line);
                                 $zdetail = "";
                                 if (count($KLine) > 1) {
                                     array_shift($KLine);
                                     $zdetail = implode('.', $KLine);
                                     $zdetail = trim($zdetail);
                                 }
-                                $buffer = ['client'=>$this->convertToIso($client), 'projet'=>$this->convertToIso($projet),
-                                    'user'=>$this->convertToIso($user), 'profil'=>$this->convertToIso($profil),
-                                    'activit'=>$this->convertToIso($activit), 'detail'=>$zdetail, 'agence'=>$bufferAgence,
-                                    'facturable'=>$bufferFact, 'origine' => $bufferOrigine
+                                $buffer = [
+                                    'client' => $this->convertToIso($client), 'projet' => $this->convertToIso($projet),
+                                    'user' => $this->convertToIso($user), 'profil' => $this->convertToIso($profil),
+                                    'activit' => $this->convertToIso($activit), 'detail' => $zdetail, 'agence' => $bufferAgence,
+                                    'facturable' => $bufferFact, 'origine' => $bufferOrigine
                                 ];
                                 $timebuffer = array();
                                 $timebufferMonth = $period;
@@ -1168,14 +1220,14 @@ class TempsController extends AppController
                                 $CabufferMonth = $period;
                                 foreach ($arrDate as $date => $arrTime) {
                                     foreach ($arrTime as $type => $time) {
-                                        $yearKey = explode('-',$date)[0];
-                                        $monthKey = explode('-',$date)[1];
+                                        $yearKey = explode('-', $date)[0];
+                                        $monthKey = explode('-', $date)[1];
                                         $keyTime = '';
                                         if ($isFitnet) {
-                                            $dayKey = explode('-',$date)[2];
-                                            $keyTime = $yearKey.$monthKey.$dayKey;
-                                        }else{
-                                            $keyTime = $yearKey.$monthKey;
+                                            $dayKey = explode('-', $date)[2];
+                                            $keyTime = $yearKey . $monthKey . $dayKey;
+                                        } else {
+                                            $keyTime = $yearKey . $monthKey;
                                         }
                                         switch ($type) {
                                             case 'UO':
@@ -1190,7 +1242,7 @@ class TempsController extends AppController
                                         }
                                     }
                                 }
-                                if ($this->Users->get($idUserAuth)->role >= Configure::read('role.cp') ) {
+                                if ($this->Users->get($idUserAuth)->role >= Configure::read('role.cp')) {
                                     $timebufferMonth = array_merge($timebufferMonth, $UobufferMonth);
                                     if (!$isFitnet) {
                                         $timebufferMonth = array_merge($timebufferMonth, $CabufferMonth);
@@ -1205,20 +1257,23 @@ class TempsController extends AppController
         }
         return $dataLine;
     }
-    private function convertToIso($string = ''){
+    private function convertToIso($string = '')
+    {
         return mb_convert_encoding($string, "ISO-8859-1");
     }
-    private function convertToUtf($string = ''){
+    private function convertToUtf($string = '')
+    {
         return iconv("ISO-8859-1", "UTF-8", $string);
     }
 
-    public function import(){
+    public function import()
+    {
 
         $import = new ImportForm();
 
-        $arrayProjetRefused=array();
-        $arrayClientRefused=array();
-        $arrayUserRefused=array();
+        $arrayProjetRefused = array();
+        $arrayClientRefused = array();
+        $arrayUserRefused = array();
 
         if ($this->request->is(['post'])) {
             $file = $this->request->data['fileimport'];
@@ -1237,23 +1292,23 @@ class TempsController extends AppController
                 $header = array();
 
                 $users = $this->Users->find('all')->toArray();
-                $projets = $this->Projet->find('all', ['contain'=>'Matrice'])->toArray();
+                $projets = $this->Projet->find('all', ['contain' => 'Matrice'])->toArray();
                 $clients = $this->Client->find('all')->toArray();
                 $profils = $this->Profil->find('all')->toArray();
                 $activities = $this->Activitie->find('all')->toArray();
 
-                $arrayProjetRefused=array();
-                $arrayClientRefused=array();
-                $arrayUserRefused=array();
-                $arrayProfilRefused=array();
-                $arrayActivitieRefused=array();
+                $arrayProjetRefused = array();
+                $arrayClientRefused = array();
+                $arrayUserRefused = array();
+                $arrayProfilRefused = array();
+                $arrayActivitieRefused = array();
 
                 $nline = 0;
 
-                foreach($lines as $n => $line){
+                foreach ($lines as $n => $line) {
                     $arrayLine = explode(';', $line);
                     // convert into UTF8 the fields that contain string
-                    for ($t=0; $t < 5 ; $t++) {
+                    for ($t = 0; $t < 5; $t++) {
                         $arrayLine[$t] = $this->convertToUtf($arrayLine[$t]);
                     }
                     // if key == 0 this is the header that contain the string date
@@ -1263,84 +1318,84 @@ class TempsController extends AppController
                     }
 
                     //User
-                    $fullname = explode(' ',$arrayLine[3]);
+                    $fullname = explode(' ', $arrayLine[3]);
                     if (count($fullname) < 2) {
                         $arrayUserRefused[$arrayLine[3]] = $fullname;
                         continue;
-                    }elseif (count($fullname) > 2) {
-                        $name = $fullname[count($fullname)-1];
-                        unset($fullname[count($fullname)-1]);
+                    } elseif (count($fullname) > 2) {
+                        $name = $fullname[count($fullname) - 1];
+                        unset($fullname[count($fullname) - 1]);
                         $forname = implode(' ', $fullname);
-                    }else{
+                    } else {
                         $name = $fullname[1];
                         $forname = $fullname[0];
                     }
-                    $user = array_filter($users, function($o) use ($name, $forname){
+                    $user = array_filter($users, function ($o) use ($name, $forname) {
                         return $o->nom == $name && $o->prenom == $forname;
                     });
                     if (empty($user)) {
                         $arrayUserRefused[$arrayLine[3]] = $fullname;
                         continue;
-                    }else{
+                    } else {
                         $user = array_shift($user);
                     }
 
                     $clientName = $arrayLine[0];
-                    $client = array_filter($clients, function($o) use ($clientName){
+                    $client = array_filter($clients, function ($o) use ($clientName) {
                         return $o->nom_client == $clientName;
                     });
                     if (empty($client)) {
                         $arrayClientRefused[$clientName] = $clientName;
                         continue;
-                    }else{
+                    } else {
                         $client = array_shift($client);
                     }
 
                     $idc = $client->idc;
                     $projectName = $arrayLine[1];
-                    $projet = array_filter($projets, function($o) use ($projectName, $idc){
+                    $projet = array_filter($projets, function ($o) use ($projectName, $idc) {
                         return $o->nom_projet == $projectName && $o->idc == $idc;
                     });
                     if (empty($projet)) {
                         $arrayProjetRefused[$projectName] = ['projet' => $projectName, 'client' => $clientName];
                         continue;
-                    }else{
+                    } else {
                         $projet = array_shift($projet);
                     }
 
                     $profilName = $arrayLine[4];
-                    $profil = array_filter($profils, function($o) use ($profilName){
+                    $profil = array_filter($profils, function ($o) use ($profilName) {
                         return $o->nom_profil == $profilName;
                     });
                     if (empty($profil)) {
                         $arrayProfilRefused[$profilName] = $profilName;
                         continue;
-                    }else{
+                    } else {
                         $profil = array_shift($profil);
                     }
 
                     $activitName = $arrayLine[2];
-                    $activit = array_filter($activities, function($o) use ($activitName){
+                    $activit = array_filter($activities, function ($o) use ($activitName) {
                         return $o->nom_activit == $activitName;
                     });
                     if (empty($activit)) {
                         $arrayActivitieRefused[$activitName] = $activitName;
                         continue;
-                    }else{
+                    } else {
                         $activit = array_shift($activit);
                     }
 
                     // check each date if ther is a time to save
-                    for ($i = 5; $i < count($arrayLine) ; $i++) {
+                    for ($i = 5; $i < count($arrayLine); $i++) {
                         // check if value exist
-                        if ( empty($arrayLine[$i]) ) {
+                        if (empty($arrayLine[$i])) {
                             continue;
                         }
                         $day = null;
 
                         $day = $this->Temps->newEntity();
                         $dateArray = explode('/', $header[$i]);
-                        $day->date = new Date($dateArray[0].'-'.$dateArray[1].'-'.$dateArray[2]);
+                        $day->date = new Date($dateArray[0] . '-' . $dateArray[1] . '-' . $dateArray[2]);
                         $day->time = str_replace(',', '.', $arrayLine[$i]);
 
                         //User
@@ -1361,14 +1416,14 @@ class TempsController extends AppController
                     $nline++;
                 }
             }
-            if (empty($arrayUserRefused) && empty($arrayClientRefused) && empty($arrayProjetRefused) && empty($arrayProfilRefused) && empty($arrayActivitieRefused) ) {
+            if (empty($arrayUserRefused) && empty($arrayClientRefused) && empty($arrayProjetRefused) && empty($arrayProfilRefused) && empty($arrayActivitieRefused)) {
                 $result = $this->Temps->saveMany($days);
                 if (!$result) {
                     $this->Flash->error(__('Une erreur est survenue à la sauvegarde, contactez un administrateur avant tout autre manipulation.'));
-                }else{
+                } else {
                     $this->Flash->success(__('Import terminé avec succés.'));
                 }
-            }else{
+            } else {
                 $this->Flash->error(__('Une erreur a été détectée dans les données.'));
             }
         }
@@ -1382,8 +1437,49 @@ class TempsController extends AppController
         $this->set('controller', false);
     }
 
-    public function getOldData(){
-        return "tts";
+    public function getOldData()
+    {
+
+        // $this->autoRender = false; // Pas de rendu
+        // debug($this->request);
+        if ($this->request->is(['POST'])) {
+
+            $semaine = $this->request->data["semaine"];
+            // debug($semaine);
+            $annee = $this->request->data["annee"];
+            // debug($annee);
+        }
+
+        $current = (int)date('W');
+        if ($semaine === null) {
+            $semaine = (int)$current;
+        }
+        if ($annee === null) {
+            $annee = date('Y');
+        }
+
+
+        $lundi = new Date('now');
+        $lundi->setTime(00, 00, 00);
+        $lundi->setISOdate($annee, $semaine);
+        $dimanche = clone $lundi;
+        $dimanche->modify('+7 days');
+
+        $arrayTemps = $this->Temps->find('all')
+            ->andWhere(['validat =' => 1])
+            ->andWhere(['deleted =' => false])
+            ->andWhere(['date >=' => $lundi])
+            ->andWhere(['date <' => $dimanche])
+            ->contain(['Projet' => ['Client']])->all();
+
+        $json_found = json_encode(["temps" => $arrayTemps, "state" => "success"]);
+
+        // type de réponse : objet json
+        $this->response->type('json');
+        // contenue de la réponse
+        $this->response->body($json_found);
+
+        return $this->response;
     }
 
     public function isAuthorized($user)
@@ -1399,15 +1495,15 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['indexJp']) && $user['role'] >= Configure::read('role.cp') ) {
+        if (in_array($action, ['indexJp']) && $user['role'] >= Configure::read('role.cp')) {
             return true;
         }
 
-        if (in_array($action, ['indexAdmin', 'import']) && $user['role'] >= Configure::read('role.admin') ) {
+        if (in_array($action, ['indexAdmin', 'import', 'getOldData']) && $user['role'] >= Configure::read('role.admin')) {
             return true;
         }
 
-        if (in_array($action, ['index', 'getProjectName', 'getClientName', 'getProfilName', 'getActivitieName']) ) {
+        if (in_array($action, ['index', 'getProjectName', 'getClientName', 'getProfilName', 'getActivitieName'])) {
             return true;
         }
 
