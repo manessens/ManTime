@@ -50,20 +50,28 @@ $("form").on("submit", function (e) {
         e.preventDefault();
     }
 
-    //Gestion des données du formdata
+    // Gestion des données du formdata
     e.preventDefault();
-    // debugger;
+    // Ancien formdata (envoyé pas le form)
     var oldFormData = new FormData($("form")[0]);
+    // Initiation du nouveau formData contenat uniquement les modifs
     var newFormData = new FormData();
+    // regex pour verification des lignes modifiées => cehck si la ligne est un marqueur de modif
     var reg = /day\[[0-9]+\]\[[0-9]+\]\[[A-z][a-z]\]\[mod]/gm;
+    // Compteur pour récuperer les 2 lignes apres le marqueur
     var cpt = 0;
-    cptModif = 0;
+    // Compreur pour vérifier si modifications
+    var cptModif = 0;
+    // Dernère valeur de marqueur
     var lastpair = "";
 
     for (var pair of oldFormData.entries()) {
+        // test si Ligne de temps ou non
         if (pair[0].startsWith("day") != true) {
+            // Toute ligne ne contenant pas day est acceptée
             newFormData.append(pair[0], pair[1]);
         } else {
+            // Test regex
             if ((m = reg.exec(pair[0])) !== null) {
                 if (m.index === reg.lastIndex) {
                     reg.lastIndex++;
@@ -209,19 +217,22 @@ function modifyUser(that) {
             var inputCurrentText = $(tdSelectLast)
                 .children()
                 .find('input[type="text"]');
-            // var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
             var inputCurrentHiddenTemp = $(tdSelectLast).children()[1];
-            if (inputCurrentHiddenTemp == undefined){
-                inputCurrentHiddenTemp = $(tdSelectLast).children().children()[1];
+            if (inputCurrentHiddenTemp == undefined) {
+                inputCurrentHiddenTemp = $(tdSelectLast)
+                    .children()
+                    .children()[1];
             }
-                if (first == false && add == false) {
-                    // debugger;
-                    var inputCurrentHiddenMod = $(tdSelectLast).children().children()[0];
-                    if (inputCurrentHiddenMod.className == "numericer") {
-                        inputCurrentHiddenMod = $(tdSelectLast).children()[0];
-                    }
-                    inputCurrentHiddenMod.value = 1;
+            if (first == false && add == false) {
+                // Ajout de marqueur sur toute la ligne en cas de modif User
+                var inputCurrentHiddenMod = $(tdSelectLast)
+                    .children()
+                    .children()[0];
+                if (inputCurrentHiddenMod.className == "numericer") {
+                    inputCurrentHiddenMod = $(tdSelectLast).children()[0];
                 }
+                inputCurrentHiddenMod.value = 1;
+            }
             if (inputCurrentHiddenTemp.type === "hidden") {
                 var inputCurrentHidden = inputCurrentHiddenTemp;
                 $(inputCurrentHidden).attr(
@@ -246,7 +257,6 @@ $(".client").change(function () {
 });
 
 function modifyClient(that) {
-    // debugger;
     var val = $(that).val();
     if (val != 0) {
         var idu = val.split(".")[0];
@@ -638,7 +648,6 @@ function addLine(that) {
 
             //création de marqueur lors de l'ajout de ligne
             if (first == false && add == false) {
-                // debugger;
                 var tr = $(that).parent().parent();
                 var tdSelectLast = $(tr).find("td.cel_detail");
                 arrayDays.forEach(function (idDay) {
@@ -704,7 +713,6 @@ function updateTotal() {
 //création de marqueur lors de la modification des temps
 $(".numericer").on("input", function (that) {
     if (first == false && add == false) {
-        // debugger;
         var tr = $(that).parent().parent();
         var inputCurrentHiddenMod =
             that.target.parentElement.parentElement.children[0];
