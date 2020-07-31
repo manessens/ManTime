@@ -94,10 +94,10 @@ class ExportFitnetController extends AppController
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
                 $arrayData['etat'] = Configure::read('vsa.wait');
-                if ( count($arrayData['client']) > 0) {
+                if ( $arrayData['client'] != null || count($arrayData['client']) > 0) {
                     $arrayData['idc'] = implode(",", $arrayData['client']);
                 }
-                if ( count($arrayData['user']) > 0) {
+                if ( $arrayData['user'] != null || count($arrayData['user']) > 0) {
                     $arrayData['idu'] = implode(",", $arrayData['user']);
                 }
 
@@ -351,7 +351,7 @@ class ExportFitnetController extends AppController
             if ($data_user != null and count($data_user) > 0 ){
             // $query->andWhere(['Temps.idu =' => $data_user]);
                 foreach ($data_user as $userId) {
-                    $queryUser[] = ['idu =' => $userId];
+                    $queryUser[] = ['Temps.idu =' => $userId];
                 }
                 $query->andWhere(['OR' => $queryUser ]);
             }
