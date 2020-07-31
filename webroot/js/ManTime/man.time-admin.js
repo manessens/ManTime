@@ -5,10 +5,12 @@ $(function () {
     alertVerouillage = false;
     updateTotal();
     first = false;
+    add = false;
 });
 var arrayDays = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
 var alertVerouillage;
 var first = true;
+var premierPassage = true;
 
 function init() {
     $("select").each(function () {
@@ -20,7 +22,6 @@ function init() {
 }
 
 $("form").on("submit", function (e) {
-    debugger;
     if ($("#validat").prop("checked")) {
         var modal = new ModalWindow({
             Title: "Validation semaine",
@@ -47,6 +48,69 @@ $("form").on("submit", function (e) {
     }
     if (alertVerouillage) {
         e.preventDefault();
+    }
+
+    //Gestion des données du formdata
+    e.preventDefault();
+    // debugger;
+    var oldFormData = new FormData($("form")[0]);
+    var newFormData = new FormData();
+    var reg = /day\[[0-9]+\]\[[0-9]+\]\[[A-z][a-z]\]\[mod]/gm;
+    var cpt = 0;
+    cptModif = 0;
+    var lastpair = "";
+
+    for (var pair of oldFormData.entries()) {
+        if (pair[0].startsWith("day") != true) {
+            newFormData.append(pair[0], pair[1]);
+        } else {
+            if ((m = reg.exec(pair[0])) !== null) {
+                if (m.index === reg.lastIndex) {
+                    reg.lastIndex++;
+                }
+
+                lastpair = pair[1];
+                switch (lastpair) {
+                    case "1":
+                        if (lastpair == "1" && cpt < 3) {
+                            cpt++;
+                        }
+                        break;
+                    case "0":
+                        if (cpt == 3) {
+                            cpt = 0;
+                        }
+                        break;
+                }
+            } else {
+                if (lastpair == "1")
+                    switch (cpt) {
+                        case 1:
+                            newFormData.append(pair[0], pair[1]);
+                            cpt++;
+                            break;
+                        case 2:
+                            newFormData.append(pair[0], pair[1]);
+                            cpt++;
+                            cptModif++;
+                            break;
+                        case 3:
+                            newFormData.append(pair[0], pair[1]);
+                            cpt = 1;
+                            break;
+                    }
+            }
+        }
+    }
+    if (cptModif > 0) {
+        for (var newPair of newFormData.entries()) {
+            console.log(newPair[0], newPair[1]);
+        }
+        var request = new XMLHttpRequest();
+        request.open("POST", "/ManTime/webroot/index.php/temps/index-admin");
+        request.send(newFormData);
+    } else {
+        console.log("pas de modif");
     }
 });
 
@@ -146,7 +210,18 @@ function modifyUser(that) {
                 .children()
                 .find('input[type="text"]');
             // var inputCurrentHidden = $(tdSelectLast).children().find('input[type="hidden"]');
-            var inputCurrentHiddenTemp = $(tdSelectLast).children()[0];
+            var inputCurrentHiddenTemp = $(tdSelectLast).children()[1];
+            if (inputCurrentHiddenTemp == undefined){
+                inputCurrentHiddenTemp = $(tdSelectLast).children().children()[1];
+            }
+                if (first == false && add == false) {
+                    // debugger;
+                    var inputCurrentHiddenMod = $(tdSelectLast).children().children()[0];
+                    if (inputCurrentHiddenMod.className == "numericer") {
+                        inputCurrentHiddenMod = $(tdSelectLast).children()[0];
+                    }
+                    inputCurrentHiddenMod.value = 1;
+                }
             if (inputCurrentHiddenTemp.type === "hidden") {
                 var inputCurrentHidden = inputCurrentHiddenTemp;
                 $(inputCurrentHidden).attr(
@@ -171,6 +246,7 @@ $(".client").change(function () {
 });
 
 function modifyClient(that) {
+    // debugger;
     var val = $(that).val();
     if (val != 0) {
         var idu = val.split(".")[0];
@@ -210,6 +286,24 @@ function modifyClient(that) {
             $(select).val(optionProjects[idu + "." + idc][0]);
         }
     }
+
+    //création de marqueur lors de la modification du client
+    if (first == false && add == false) {
+        // debugger;
+        var tr = $(that).parent().parent();
+        var tdSelectLast = $(tr).find("td.cel_detail");
+        arrayDays.forEach(function (idDay) {
+            tdSelectLast = $(tdSelectLast).next();
+            var inputCurrentHiddenMod = $(tdSelectLast)
+                .children()
+                .children()[0];
+            if (inputCurrentHiddenMod.className == "numericer") {
+                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
+            }
+            inputCurrentHiddenMod.value = 1;
+        });
+    }
+
     $(select).change();
 }
 
@@ -282,6 +376,68 @@ function modifyProject(that) {
             $(select2).val(optionProfils[idp][0]);
         }
     }
+
+    //création de marqueur lors de la modification du projet
+    if (first == false && add == false) {
+        var tr = $(that).parent().parent();
+        var tdSelectLast = $(tr).find("td.cel_detail");
+        arrayDays.forEach(function (idDay) {
+            tdSelectLast = $(tdSelectLast).next();
+            var inputCurrentHiddenMod = $(tdSelectLast)
+                .children()
+                .children()[0];
+            if (inputCurrentHiddenMod.className == "numericer") {
+                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
+            }
+            inputCurrentHiddenMod.value = 1;
+        });
+    }
+}
+
+$(".profil").change(function () {
+    modifyProfil(this);
+});
+
+//création de marqueur lors de la modification du profil
+function modifyProfil(that) {
+    if (first == false && add == false) {
+        // debugger;
+        var tr = $(that).parent().parent();
+        var tdSelectLast = $(tr).find("td.cel_detail");
+        arrayDays.forEach(function (idDay) {
+            tdSelectLast = $(tdSelectLast).next();
+            var inputCurrentHiddenMod = $(tdSelectLast)
+                .children()
+                .children()[0];
+            if (inputCurrentHiddenMod.className == "numericer") {
+                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
+            }
+            inputCurrentHiddenMod.value = 1;
+        });
+    }
+}
+
+$(".activit").change(function () {
+    modifyActivite(this);
+});
+
+//création de marqueur lors de la modification de l'activité
+function modifyActivite(that) {
+    if (first == false && add == false) {
+        // debugger;
+        var tr = $(that).parent().parent();
+        var tdSelectLast = $(tr).find("td.cel_detail");
+        arrayDays.forEach(function (idDay) {
+            tdSelectLast = $(tdSelectLast).next();
+            var inputCurrentHiddenMod = $(tdSelectLast)
+                .children()
+                .children()[0];
+            if (inputCurrentHiddenMod.className == "numericer") {
+                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
+            }
+            inputCurrentHiddenMod.value = 1;
+        });
+    }
 }
 
 $(".remove").click(function () {
@@ -315,6 +471,7 @@ $("#add").click(function () {
 });
 
 function addLine(that) {
+    add = true;
     var id = 0;
     idUser = optionUsers[0];
     var tr = $("<tr>", {
@@ -416,6 +573,10 @@ function addLine(that) {
     }
     tdProfil.append(selectProfil);
     tr.append(tdProfil);
+
+    selectProfil.change(function () {
+        modifyProfil(this);
+    });
     // Activité
     var tdActivit = $("<td>", {
         class: "cel_activit",
@@ -434,6 +595,9 @@ function addLine(that) {
     }
     tdActivit.append(selectActivit);
     tr.append(tdActivit);
+    selectActivit.change(function () {
+        modifyActivite(this);
+    });
     //Detail
     var tdDetail = $("<td>", {
         class: "cel_detail",
@@ -454,6 +618,11 @@ function addLine(that) {
     arrayDays.forEach(function (idDay) {
         var tdDay = $("<td>", { scope: "col" });
         var divDay = $("<div>", { class: "input text" });
+        var hiddenDayMod = $("<input>", {
+            name: "day[" + idUser + "][" + id + "][" + idDay + "][mod]",
+            type: "hidden",
+            value: 0,
+        });
         var hiddenDay = $("<input>", {
             name: "day[" + idUser + "][" + id + "][" + idDay + "][id]",
             type: "hidden",
@@ -466,7 +635,22 @@ function addLine(that) {
         inputDay.on("input", function () {
             numericer(this);
             updateTotal();
+
+            //création de marqueur lors de l'ajout de ligne
+            if (first == false && add == false) {
+                // debugger;
+                var tr = $(that).parent().parent();
+                var tdSelectLast = $(tr).find("td.cel_detail");
+                arrayDays.forEach(function (idDay) {
+                    tdSelectLast = $(tdSelectLast).next();
+                    var inputCurrentHiddenMod = $(tdSelectLast)
+                        .children()
+                        .children()[0];
+                    inputCurrentHiddenMod.value = 1;
+                });
+            }
         });
+        divDay.append(hiddenDayMod);
         divDay.append(hiddenDay);
         divDay.append(inputDay);
         tdDay.append(divDay);
@@ -476,6 +660,7 @@ function addLine(that) {
     tr.insertBefore("#total");
 
     selectUser.change();
+    add = false;
 }
 
 $(".numericer").on("input", function () {
@@ -516,55 +701,13 @@ function updateTotal() {
 
 // Gestions Update Diff - Mathis ALLEAUME
 
-$("#test").click(function (event) {
-    event.preventDefault();
-    getPreviousData();
+//création de marqueur lors de la modification des temps
+$(".numericer").on("input", function (that) {
+    if (first == false && add == false) {
+        // debugger;
+        var tr = $(that).parent().parent();
+        var inputCurrentHiddenMod =
+            that.target.parentElement.parentElement.children[0];
+        inputCurrentHiddenMod.value = 1;
+    }
 });
-
-function updateDiff() {
-    var week = getsemaine();
-
-    // recupération des anciennes donnée  dans la table de temps
-    var previousData = getPreviousData(week);
-
-    // récupération des données du formes (dont modifiées)
-    var newData = getNewData();
-
-    //comparaison des données
-    var diffs = compareData(previousData, newData);
-
-    // envoie des diffs en base
-}
-
-function getPreviousData(week) {
-    
-    // console.log(week);
-    var oldTemps = [];
-    $.ajax({
-        type: "POST",
-        url: "/ManTime/webroot/index.php/temps/getOldData/",
-        data: week,
-        success: function (result) {
-            // debugger;
-            for (var i = 0; i < result.temps.length; i++) {
-                oldTemps.push(result.temps[i]);
-            }
-            console.log(oldTemps);
-        },
-    });
-    
-    return oldTemps;
-}
-
-function getNewData() {
-    
-}
-
-function compareData() {}
-
-function getsemaine() {
-    var inputValue = $("#select-week")[0].value;
-    var semaine = inputValue.split("-")[1].substr(1);
-    var annee = inputValue.split("-")[0];
-    return { semaine: semaine, annee: annee };
-}

@@ -168,7 +168,7 @@ class TempsController extends AppController
                             'date <' => $dimanche
                         ]);
                     if (!empty($arrayIdCurrent)) {
-                        $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
+                        $query->andWhere(['idt  IN' => $arrayIdCurrent]);
                     }
                     $query->execute();
                     //Save
@@ -501,8 +501,7 @@ class TempsController extends AppController
                         //     $verif = false;
                         // }
                         if (
-                            $arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0
-                            || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
+                            $arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
                             || $arrayData['activities'][$idUser][$line] == 0
                         ) {
                             continue;
@@ -1437,50 +1436,6 @@ class TempsController extends AppController
         $this->set('controller', false);
     }
 
-    public function getOldData()
-    {
-
-        // $this->autoRender = false; // Pas de rendu
-        // debug($this->request);
-        if ($this->request->is(['POST'])) {
-
-            $semaine = $this->request->data["semaine"];
-            // debug($semaine);
-            $annee = $this->request->data["annee"];
-            // debug($annee);
-        }
-
-        $current = (int)date('W');
-        if ($semaine === null) {
-            $semaine = (int)$current;
-        }
-        if ($annee === null) {
-            $annee = date('Y');
-        }
-
-
-        $lundi = new Date('now');
-        $lundi->setTime(00, 00, 00);
-        $lundi->setISOdate($annee, $semaine);
-        $dimanche = clone $lundi;
-        $dimanche->modify('+7 days');
-
-        $arrayTemps = $this->Temps->find('all')
-            ->andWhere(['validat =' => 1])
-            ->andWhere(['deleted =' => false])
-            ->andWhere(['date >=' => $lundi])
-            ->andWhere(['date <' => $dimanche])
-            ->contain(['Projet' => ['Client']])->all();
-
-        $json_found = json_encode(["temps" => $arrayTemps, "state" => "success"]);
-
-        // type de réponse : objet json
-        $this->response->type('json');
-        // contenue de la réponse
-        $this->response->body($json_found);
-
-        return $this->response;
-    }
 
     public function isAuthorized($user)
     {
@@ -1499,7 +1454,7 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['indexAdmin', 'import', 'getOldData']) && $user['role'] >= Configure::read('role.admin')) {
+        if (in_array($action, ['indexAdmin', 'import']) && $user['role'] >= Configure::read('role.admin')) {
             return true;
         }
 
