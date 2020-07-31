@@ -899,8 +899,8 @@ class TempsController extends AppController
         }
     }
 
-    public function getTimes(\Cake\I18n\Time $date_debut, \Cake\I18n\Time $date_fin, $data_client = null, $data_user = null)
-    {
+
+    public function getTimes(\Cake\I18n\Time $date_debut, \Cake\I18n\Time $date_fin, $data_client = [], $data_user = [] ){
 
         $times = array();
         $data = array();
@@ -950,19 +950,34 @@ class TempsController extends AppController
             $query = $this->Temps->find('all')
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0, 'deleted =' => false])
                 ->andwhere(['OR' => $andWhere]);
-            if ($data_client != null) {
-                $ProjetTable = TableRegistry::get('Projet');
-                $arrayIdProjet = $ProjetTable->find('list', ['fields' => ['idc', 'idp']])->where(['idc =' => $data_client])->toArray();
+
+
+            if ( $data_client != null && count($data_client) > 0) {
+                $this->loadModel('Projet');
+                $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
+                foreach ($data_client as $client) {
+                    $queryIdProjet->orWhere(['idc =' => $client]);
+                };
+                $arrayIdProjet = $queryIdProjet->toArray();
+
                 if (!empty($arrayIdProjet)) {
                     $query->andWhere(['idp IN' => $arrayIdProjet]);
                 } else {
                     $queryError = true;
                 }
             }
-            if ($data_user != null) {
-                $query->andWhere(['idu =' => $data_user]);
-            }
 
+            if (is_array($data_user)) {
+                if (count($data_user) > 0 ){
+                    foreach ($data_user as $userId) {
+                        $queryUser[] = ['idu =' => $userId];
+                    }
+                    $query->andWhere(['OR' => $queryUser ]);
+                }
+            }elseif($data_user != null){
+                $queryUser[] = ['idu =' => $data_user];
+                $query->andWhere(['OR' => $queryUser ]);
+            }
             if ($queryError) {
                 $times = array();
                 return $times;
@@ -976,16 +991,16 @@ class TempsController extends AppController
     {
         $idUserAuth = $this->Auth->user('idu');
         $export = new ExportForm();
-        $clientTable = TableRegistry::get('Client');
-        $arrayClient = $clientTable->find('all')->contain(['Agence'])->toArray();
+        $this->loadModel('Client');
+        $arrayClient = $this->Client->find('all')->contain(['Agence'])->toArray();
         $clients = array();
         $agenceClient = array();
         foreach ($arrayClient as $client) {
             $clients[$client->idc] = ucfirst($client->nom_client);
             $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
         }
-        $userTable = TableRegistry::get('Users');
-        $arrayUser = $userTable->find('all')->contain(['Origine'])->toArray();
+        $this->loadModel('Users');
+        $arrayUser = $this->Users->find('all')->contain(['Origine'])->toArray();
         $users = array();
         foreach ($arrayUser as $user) {
             $users[$user->idu] = $user->fullname;
