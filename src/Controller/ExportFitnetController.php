@@ -94,10 +94,10 @@ class ExportFitnetController extends AppController
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
                 $arrayData['etat'] = Configure::read('vsa.wait');
-                if ( $arrayData['client'] != null || count($arrayData['client']) > 0) {
+                if ( $arrayData['client'] != null && count($arrayData['client']) > 0) {
                     $arrayData['idc'] = implode(",", $arrayData['client']);
                 }
-                if ( $arrayData['user'] != null || count($arrayData['user']) > 0) {
+                if ( $arrayData['user'] != null && count($arrayData['user']) > 0) {
                     $arrayData['idu'] = implode(",", $arrayData['user']);
                 }
 
