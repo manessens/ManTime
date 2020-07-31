@@ -38,13 +38,32 @@ class ExportFitnetController extends AppController
 
     public function index(){
         $this->paginate =[
-            'contain'   => ['Client', 'Users'],
             'sortWhitelist' => [
                 'ExportFitnet.id_fit','ExportFitnet.date_debut','ExportFitnet.date_fin','Client.nom_client', 'Users.prenom','ExportFitnet.etat'
             ],
             'order'     => ['ExportFitnet.etat'=>'asc', 'ExportFitnet.id_fit'=>'desc']
         ];
-        $this->set('exports', $this->paginate($this->ExportFitnet));
+        $exports = $this->paginate($this->ExportFitnet);
+        $this->loadModel("Client");
+        $this->loadModel("Users");
+        foreach ($exports as $export) {
+            //Clients
+            $export->clients = [];
+            foreach (explode(',', $export->idc) as $idCLient) {
+                if ($idCLient != null) {
+                    $export->clients[] = $this->Client->get($idCLient)->nom_client;
+                }
+            }
+            // Users
+            $export->users = [];
+            foreach (explode(',', $export->idu) as $idUser) {
+                if ($idUser != null) {
+                    $export->users[] = $this->Users->get($idUser)->fullname;
+                }
+            }
+
+        }
+        $this->set('exports');
         $this->set(compact('exports'));
     }
 
@@ -75,8 +94,12 @@ class ExportFitnetController extends AppController
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
                 $arrayData['etat'] = Configure::read('vsa.wait');
-                $arrayData['idc'] = $arrayData['client'];
-                $arrayData['idu'] = $arrayData['user'];
+                if ( $arrayData['client'] != null && count($arrayData['client']) > 0) {
+                    $arrayData['idc'] = implode(",", $arrayData['client']);
+                }
+                if ( $arrayData['user'] != null && count($arrayData['user']) > 0) {
+                    $arrayData['idu'] = implode(",", $arrayData['user']);
+                }
 
                 $export = $this->ExportFitnet->newEntity();
                 $export = $this->ExportFitnet->patchEntity($export, $arrayData);
@@ -250,8 +273,8 @@ class ExportFitnetController extends AppController
 
         $date_debut = Time::parse($export->date_debut);
         $date_fin = Time::parse($export->date_fin);
-        $data_client = $export->idc;
-        $data_user =  $export->idu;
+        $data_client = explode(",", $export->idc);
+        $data_user =  explode(',',$export->idu);
 
         $times = array();
         $data = array();
@@ -311,17 +334,26 @@ class ExportFitnetController extends AppController
                  ] )
                 ->andwhere(['OR' => $andWhere]);
 
-            if ( $data_client != null) {
+            if ( $data_client != null and count($data_client) > 0 ) {
                 $this->loadModel('Projet');
-                $arrayIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
+                // $arrayIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
+                $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
+                foreach ($data_client as $client) {
+                    $queryIdProjet->orWhere(['idc =' => $client]);
+                };
+                $arrayIdProjet = $queryIdProjet->toArray();
                 if (!empty($arrayIdProjet)) {
                     $query->andWhere(['Projet.idp IN' => $arrayIdProjet]);
                 }else{
                     $queryError = true;
                 }
             }
-            if ($data_user != null ){
-                $query->andWhere(['Temps.idu =' => $data_user]);
+            if ($data_user != null and count($data_user) > 0 ){
+            // $query->andWhere(['Temps.idu =' => $data_user]);
+                foreach ($data_user as $userId) {
+                    $queryUser[] = ['Temps.idu =' => $userId];
+                }
+                $query->andWhere(['OR' => $queryUser ]);
             }
 
             if ($queryError) {
@@ -473,7 +505,9 @@ class ExportFitnetController extends AppController
                 }else{
                     $count++;
                     $timesheets = $this->exportTime($time, $tmpTimeSum, $assignements);
-                    $tmpTimeSum = $timesheets["modify"];
+                    if (is_array($timesheets['modify'])) {
+                        $tmpTimeSum = $timesheets["modify"];
+                    }
                     if (is_array($timesheets['time'])) {
                         $timeSheets[] = $timesheets['time'];
                         $delTimes[] = $timesheets['delete'];
@@ -567,6 +601,9 @@ class ExportFitnetController extends AppController
     }
 
     public function findAssignements($assignements, $projet, $userEmail, $keyClient, $keyProfil, $dateTime){
+        if ( count(explode('|', $projet->id_fit)) < 2 ){
+            return;
+        }
         $orderCode = explode('|', $projet->id_fit)[1];
         $key = $keyClient . $orderCode . $keyProfil . $userEmail;
 
@@ -590,7 +627,7 @@ class ExportFitnetController extends AppController
                 || $assignement->prestation != $keyProfil
                 || $assignement->colLogin != $userEmail
                 || $start > $dateTime
-                || $end <  $dateTime ) {
+                || $end <=  $dateTime ) {
                 continue;
             }
             $this->arrayAssignMemory[$key] = $assignement->tabTitle;
@@ -610,17 +647,15 @@ class ExportFitnetController extends AppController
         $keyClient = $time->projet->client->id_fit;
         $keyProject = $time->projet->id_fit;
 
-        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
-        // str_replace('_', '.', $time->projet->nom_projet);
-
-        // Date
-        $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
-
         // Contrôle Projet
         if ($keyProject == null) {
             $this->insertLog(['--','Le projet '.$time->projet->nom_projet."n'est pas lié à une affaire fitnet : pas d'export"]);
             $noError = false;
         }
+
+        // Date
+        $assignementDate = $time->date->i18nFormat('yyyy-MM-dd');
+
         // Contrôle Client
         if ($keyClient == null) {
             $this->insertLog(['--', 'Client non lié : '. $time->projet->client->nom_client] );
@@ -664,12 +699,11 @@ class ExportFitnetController extends AppController
             return $noError;
         }
 
+        // Assignement (Tab title)
+        $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
+
         // total temps travaillé
-        // DEBUG:
-        debug($tmpTimeSum);
         $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
-        // DEBUG:
-        debug($amount);
 
         $keysproject = explode('|', $keyProject);
 
