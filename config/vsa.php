@@ -2,7 +2,7 @@
 return [
     'vsa' => [
         'token'=>'',
-        'base'=>'https://synvance-pp.vsactivity.com/api/',
+        'base'=>'https://synvance.vsactivity.com/api/',
         'wait'=>'Attente',
         'end'=>'Terminé',
         'run'=>'Lancé',

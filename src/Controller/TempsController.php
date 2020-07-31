@@ -949,6 +949,8 @@ class TempsController extends AppController
             $query = $this->Temps->find('all')
                 ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'validat =' => 1, 'modify =' => 0, 'deleted =' => false])
                 ->andwhere(['OR' => $andWhere]);
+
+
             if ( $data_client != null && count($data_client) > 0) {
                 $this->loadModel('Projet');
                 $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
