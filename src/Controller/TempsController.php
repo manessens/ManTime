@@ -482,7 +482,7 @@ class TempsController extends AppController
             $arrayIdentifierLine = array();
             // // DEBUG:
             debug($arrayData);
-            exit;
+            // exit;
             $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
