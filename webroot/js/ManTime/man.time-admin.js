@@ -46,32 +46,34 @@ $("form").on("submit", function (e) {
         });
         modal.Show();
     }
-    if (alertVerouillage) {
-        e.preventDefault();
-    }
 
-    // Gestion des données du formdata
+    //// EVOL : sauvegarde des modification \\\\
+    // if (alertVerouillage) {
+    //     e.preventDefault();
+    // }
+    // plus d'envoie standard du formulaire
     e.preventDefault();
+
     // Ancien formdata (envoyé pas le form)
     var oldFormData = new FormData($("form")[0]);
-    // Initiation du nouveau formData contenat uniquement les modifs
+    // Initialisation du nouveau formData
     var newFormData = new FormData();
-    // regex pour verification des lignes modifiées => cehck si la ligne est un marqueur de modif
-    var reg = /day\[[0-9]+\]\[[0-9]+\]\[[A-z][a-z]\]\[mod]/gm;
-    // Compteur pour récuperer les 2 lignes apres le marqueur
-    var cpt = 0;
-    // Compreur pour vérifier si modifications
-    var cptModif = 0;
-    // Dernère valeur de marqueur
-    var lastpair = "";
 
+    // regex pour verification des lignes modifiées => check si la ligne est un marqueur de modif
+    var reg = /day\[[0-9]+\]\[[0-9]+\]\[[A-z][a-z]\]\[mod]/gm;
+
+    var cpt = 0; // Compteur pour récuperer les 2 lignes apres le marqueur
+    var cptModif = 0; // Compreur pour vérifier si modifications
+    var lastpair = ""; // Dernère valeur de marqueur
+
+    // Analyse du form data et valorisation du newFormData
     for (var pair of oldFormData.entries()) {
         // test si Ligne de temps ou non
         if (pair[0].startsWith("day") != true) {
             // Toute ligne ne contenant pas day est acceptée
             newFormData.append(pair[0], pair[1]);
         } else {
-            // Test regex
+            // Test parité
             if ((m = reg.exec(pair[0])) !== null) {
                 if (m.index === reg.lastIndex) {
                     reg.lastIndex++;
@@ -110,16 +112,23 @@ $("form").on("submit", function (e) {
             }
         }
     }
+    // Si modif on envoie la requête avec le nouveau formdata
     if (cptModif > 0) {
-        for (var newPair of newFormData.entries()) {
-            console.log(newPair[0], newPair[1]);
-        }
+        // for (var newPair of newFormData.entries()) {
+        //     console.log(newPair[0], newPair[1]);
+        // }
         var request = new XMLHttpRequest();
-        request.open("POST", "/ManTime/webroot/index.php/temps/index-admin");
+        request.open("POST", "/Temps/index-admin");
+
+        request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            console.log("Requête finie, traitement ici.");
+        }
+
         request.send(newFormData);
-    } else {
-        console.log("pas de modif");
-    }
+    // } else {
+    //     console.log("pas de modif");
+    // }
 });
 
 $("#validat").click(function () {
