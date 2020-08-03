@@ -179,15 +179,19 @@ function sendOnlyChange(form){
     }
     // Si modif on envoie la requête avec le nouveau formdata
     if (cptModif > 0) {
-        for (var newPair of newFormData.entries()) {
-            console.log(newPair[0], newPair[1]);
-        }
+        // for (var newPair of newFormData.entries()) {
+        //     console.log(newPair[0], newPair[1]);
+        // }
+        $('#btn_enregistrer').hide();
+        $('#loader').show();
         var request = new XMLHttpRequest();
         request.open("POST", "/Temps/index-admin");
 
         request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 console.log("Requête finie, traitement ici.");
+                $('#loader').hide();
+                $('#btn_enregistrer').show();
                 document.location.reload(true);
             }
         }
@@ -300,7 +304,7 @@ function modifyUser(that) {
                     inputCurrentHiddenMod = $(tdSelectLast).children()[0];
                 }
                 inputCurrentHiddenMod.value = 1;
-                $(inputCurrentHidden).attr(
+                $(inputCurrentHiddenMod).attr(
                     "name",
                     "day[" + idu + "][" + idLine + "][" + idDay + "][mod]"
                 );
