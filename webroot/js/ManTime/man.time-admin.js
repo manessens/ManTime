@@ -1,6 +1,5 @@
 $(function () {
-    var unice = true;
-    init();
+    // init();
     $(".users").change();
     alert = false;
     alertVerouillage = false;
@@ -15,7 +14,7 @@ var first = true;
 var unice = true;
 var premierPassage = true;
 
-function init() {
+// function init() {
 
     $("select").each(function () {
         var selected = $(this).val();
@@ -64,7 +63,7 @@ function init() {
     });
 
 
-}
+// }
 
     $("#validat").click(function () {
         alertVerouillage = $("#validat").prop("checked");
