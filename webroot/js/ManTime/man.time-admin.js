@@ -483,6 +483,7 @@ function delLine(that) {
     var tr = $(that).parent().parent();
     marqueMod(that);
     $(tr).hide();
+    updateTotal();
     // $(that).parent().parent().remove();
 }
 
