@@ -647,12 +647,13 @@ function addLine(that) {
             id: "day-" + idUser + "-" + id + "-" + idDay,
             name: "day[" + idUser + "][" + id + "][" + idDay + "][time]",
             type: "text",
+            class:"numericer",
         });
         inputDay.on("input", function () {
             numericer(this);
             updateTotal();
         });
-        
+
         divDay.append(inputDay);
         tdDay.append(hiddenDayMod);
         tdDay.append(hiddenDay);
