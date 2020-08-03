@@ -272,6 +272,7 @@
         }
         ?>
         <button class="right btn btn-warning" id="btn_enregistrer">Enregistrer</button>
+        <div class="right loader btn" style="display:none;" id="loader"> </div>
     </div>
     <?= $this->Form->end() ?>
 
@@ -286,5 +287,6 @@ echo $this->Html->css('ManTime/man.top.css');
 if (!$validat) {
     echo $this->Html->script('ManTime/man.modal.js');
     echo $this->Html->script('ManTime/man.time-admin.js');
+    echo $this->Html->css('ManTime/man.loader.css');
 }
 ?>

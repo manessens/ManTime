@@ -188,6 +188,7 @@ function sendOnlyChange(form){
         request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 console.log("Requête finie, traitement ici.");
+                document.location.reload(true);
             }
         }
 
