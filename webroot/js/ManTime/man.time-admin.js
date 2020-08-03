@@ -19,41 +19,52 @@ function init() {
             .children("option [value='" + selected + "']")
             .attr("selected", "selected");
     });
+
+    $("form").on("submit", function (e) {
+        if ($("#validat").prop("checked")) {
+            var modal = new ModalWindow({
+                Title: "Validation semaine",
+                Message:
+                    "Vous avez coché la validation pour export, les consultants ne pourront plus modifier leur temps. Êtes-vous sûr de vouloir continuer ?",
+                Buttons: [
+                    ["btn-danger admin", "Non", "false"],
+                    ["btn-primary admin", "Oui", "true"],
+                ],
+                CallBack: function (result, event, formData, ExtraData, rootDiv) {
+                    if (result === "true") {
+                        alertVerouillage = false;
+                    } else {
+                        $("#validat").prop("checked", false);
+                        alertVerouillage = true;
+                    }
+                    $("form").submit();
+                    alertVerouillage = $("#validat").prop("checked");
+                },
+                Center: true,
+                AllowClickAway: false,
+            });
+            modal.Show();
+        }
+
+        //// EVOL : sauvegarde des modification \\\\
+        // if (alertVerouillage) {
+        //     e.preventDefault();
+        // }
+        // plus d'envoie standard du formulaire
+        e.preventDefault();
+        sendOnlyChange();
+    });
+
+    $("#validat").click(function () {
+        alertVerouillage = $("#validat").prop("checked");
+    });
+
+    $(".users").change(function () {
+        modifyUser(this);
+    });
 }
 
-$("form").on("submit", function (e) {
-    if ($("#validat").prop("checked")) {
-        var modal = new ModalWindow({
-            Title: "Validation semaine",
-            Message:
-                "Vous avez coché la validation pour export, les consultants ne pourront plus modifier leur temps. Êtes-vous sûr de vouloir continuer ?",
-            Buttons: [
-                ["btn-danger admin", "Non", "false"],
-                ["btn-primary admin", "Oui", "true"],
-            ],
-            CallBack: function (result, event, formData, ExtraData, rootDiv) {
-                if (result === "true") {
-                    alertVerouillage = false;
-                } else {
-                    $("#validat").prop("checked", false);
-                    alertVerouillage = true;
-                }
-                $("form").submit();
-                alertVerouillage = $("#validat").prop("checked");
-            },
-            Center: true,
-            AllowClickAway: false,
-        });
-        modal.Show();
-    }
-
-    //// EVOL : sauvegarde des modification \\\\
-    // if (alertVerouillage) {
-    //     e.preventDefault();
-    // }
-    // plus d'envoie standard du formulaire
-    e.preventDefault();
-
+function sendOnlyChange(){
     // Ancien formdata (envoyé pas le form)
     var oldFormData = new FormData($("form")[0]);
     // Initialisation du nouveau formData
@@ -93,7 +104,7 @@ $("form").on("submit", function (e) {
                         break;
                 }
             } else {
-                if (lastpair == "1")
+                if (lastpair == "1"){
                     switch (cpt) {
                         case 1:
                             newFormData.append(pair[0], pair[1]);
@@ -109,6 +120,7 @@ $("form").on("submit", function (e) {
                             cpt = 1;
                             break;
                     }
+                }
             }
         }
     }
@@ -121,23 +133,16 @@ $("form").on("submit", function (e) {
         request.open("POST", "/Temps/index-admin");
 
         request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            console.log("Requête finie, traitement ici.");
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                console.log("Requête finie, traitement ici.");
+            }
         }
 
         request.send(newFormData);
-    // } else {
-    //     console.log("pas de modif");
+    } else {
+        console.log("pas de modif");
     }
-});
-
-$("#validat").click(function () {
-    alertVerouillage = $("#validat").prop("checked");
-});
-
-$(".users").change(function () {
-    modifyUser(this);
-});
+}
 
 function modifyUser(that) {
     var val = $(that).val();
