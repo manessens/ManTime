@@ -117,6 +117,9 @@ function chkActivitie(){
 }
 
 function sendOnlyChange(form){
+    $('#btn_enregistrer').hide();
+    $('#loader').show();
+
     // Ancien formdata (envoyé pas le form)
     var oldFormData = new FormData(form);
     // Initialisation du nouveau formData
@@ -184,8 +187,6 @@ function sendOnlyChange(form){
         // for (var newPair of newFormData.entries()) {
         //     console.log(newPair[0], newPair[1]);
         // }
-        $('#btn_enregistrer').hide();
-        $('#loader').show();
         var request = new XMLHttpRequest();
         request.open("POST", form.action);
 
@@ -201,6 +202,8 @@ function sendOnlyChange(form){
         request.send(newFormData);
     } else {
         // console.log("pas de modif");
+        $('#loader').hide();
+        $('#btn_enregistrer').show();
     }
 }
 
