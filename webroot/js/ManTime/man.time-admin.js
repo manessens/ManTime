@@ -52,7 +52,7 @@ function init() {
         // }
         // plus d'envoie standard du formulaire
         e.preventDefault();
-        sendOnlyChange();
+        sendOnlyChange(this);
     });
 
     $("#validat").click(function () {
@@ -64,9 +64,9 @@ function init() {
     });
 }
 
-function sendOnlyChange(){
+function sendOnlyChange(form){
     // Ancien formdata (envoyé pas le form)
-    var oldFormData = new FormData($("form")[0]);
+    var oldFormData = new FormData(form);
     // Initialisation du nouveau formData
     var newFormData = new FormData();
 
