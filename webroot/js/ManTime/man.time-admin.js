@@ -23,6 +23,7 @@ function init() {
     });
 
     $("form").on("submit", function (e) {
+        var that = this;
         // plus d'envoie standard du formulaire
         e.preventDefault();
         e.stopPropagation();
@@ -44,6 +45,7 @@ function init() {
                 CallBack: function (result, event, formData, ExtraData, rootDiv) {
                     if (result === "true") {
                         alertVerouillage = false;
+                        sendOnlyChange(that);
                     } else {
                         $("#validat").prop("checked", false);
                         alertVerouillage = true;
@@ -59,7 +61,7 @@ function init() {
 
         //// EVOL : sauvegarde des modification \\\\
         if (!alertVerouillage) {
-            sendOnlyChange(this);
+            sendOnlyChange(that);
         }
         unice = false;
     });
