@@ -102,10 +102,12 @@ function init() {
 
     $(".numericer").on("input", function () {
         numericer(this);
-    });
-    $(".numericer").change(function () {
         updateTotal();
     });
+    // $(".numericer").change(function () {
+    //     numericer(this);
+    //     updateTotal();
+    // });
 
 }
 
@@ -691,7 +693,16 @@ function numericer(that) {
     if (arrayString !== null) {
         $(that).val(arrayString.join(""));
     }
+
+    //création de marqueur lors de la modification des temps
+    if (first == false && add == false) {
+        var tr = $(that).parent().parent();
+        var inputCurrentHiddenMod =
+            that.target.parentElement.parentElement.children[0];
+        inputCurrentHiddenMod.value = 1;
+    }
 }
+
 function updateTotal() {
     var nb = 8;
     arrayDays.forEach(function (idDay) {
@@ -714,15 +725,3 @@ function updateTotal() {
         nb += 1;
     });
 }
-
-// Gestions Update Diff - Mathis ALLEAUME
-
-//création de marqueur lors de la modification des temps
-$(".numericer").on("input", function (that) {
-    if (first == false && add == false) {
-        var tr = $(that).parent().parent();
-        var inputCurrentHiddenMod =
-            that.target.parentElement.parentElement.children[0];
-        inputCurrentHiddenMod.value = 1;
-    }
-});
