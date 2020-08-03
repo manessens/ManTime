@@ -649,8 +649,14 @@ class TempsController extends AppController
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
                 // return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+                $string = "success";
             } else {
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
+                $string = "error";
+            }
+            // on ne génère pas la page si on viens d'un appel JS : cas ou "check_lock" n'existe pas
+            if (!array_key_exists('check_lock', $arrayData)) {
+                return $this->response->withStringBody($string);
             }
         }
 
