@@ -59,9 +59,39 @@ function init() {
         alertVerouillage = $("#validat").prop("checked");
     });
 
+    $(".remove").click(function () {
+        delLine(this);
+        $.ajax({
+            type: "GET",
+            url: "/users/cksession/",
+        }).done(function (data) {
+            if (!data) {
+                //fail (success : no effectt)
+                document.location.replace("/users/login");
+            }
+        });
+    });
+
     $(".users").change(function () {
         modifyUser(this);
     });
+
+    $(".client").change(function () {
+        modifyClient(this);
+    });
+
+    $(".project").change(function () {
+        modifyProject(this);
+    });
+
+    $(".profil").change(function () {
+        modifyProfil(this);
+    });
+
+    $(".activit").change(function () {
+        modifyActivite(this);
+    });
+
 }
 
 function sendOnlyChange(form){
@@ -246,6 +276,10 @@ function modifyUser(that) {
                     inputCurrentHiddenMod = $(tdSelectLast).children()[0];
                 }
                 inputCurrentHiddenMod.value = 1;
+                $(inputCurrentHidden).attr(
+                    "name",
+                    "day[" + idu + "][" + idLine + "][" + idDay + "][mod]"
+                );
             }
             if (inputCurrentHiddenTemp.type === "hidden") {
                 var inputCurrentHidden = inputCurrentHiddenTemp;
@@ -265,10 +299,6 @@ function modifyUser(that) {
         });
     }
 }
-
-$(".client").change(function () {
-    modifyClient(this);
-});
 
 function modifyClient(that) {
     var val = $(that).val();
@@ -312,28 +342,10 @@ function modifyClient(that) {
     }
 
     //création de marqueur lors de la modification du client
-    if (first == false && add == false) {
-        // debugger;
-        var tr = $(that).parent().parent();
-        var tdSelectLast = $(tr).find("td.cel_detail");
-        arrayDays.forEach(function (idDay) {
-            tdSelectLast = $(tdSelectLast).next();
-            var inputCurrentHiddenMod = $(tdSelectLast)
-                .children()
-                .children()[0];
-            if (inputCurrentHiddenMod.className == "numericer") {
-                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
-            }
-            inputCurrentHiddenMod.value = 1;
-        });
-    }
+    marqueMod(that);
 
     $(select).change();
 }
-
-$(".project").change(function () {
-    modifyProject(this);
-});
 
 function modifyProject(that) {
     var val = $(that).val();
@@ -402,7 +414,14 @@ function modifyProject(that) {
     }
 
     //création de marqueur lors de la modification du projet
+    marqueMod(that);
+
+}
+
+function marqueMod(that, delet = false){
+    //création de marqueur lors de la modification du client
     if (first == false && add == false) {
+        // debugger;
         var tr = $(that).parent().parent();
         var tdSelectLast = $(tr).find("td.cel_detail");
         arrayDays.forEach(function (idDay) {
@@ -411,74 +430,30 @@ function modifyProject(that) {
                 .children()
                 .children()[0];
             if (inputCurrentHiddenMod.className == "numericer") {
+                inputCurrentHiddenMod.val(0);
                 inputCurrentHiddenMod = $(tdSelectLast).children()[0];
             }
             inputCurrentHiddenMod.value = 1;
         });
     }
 }
-
-$(".profil").change(function () {
-    modifyProfil(this);
-});
 
 //création de marqueur lors de la modification du profil
 function modifyProfil(that) {
-    if (first == false && add == false) {
-        // debugger;
-        var tr = $(that).parent().parent();
-        var tdSelectLast = $(tr).find("td.cel_detail");
-        arrayDays.forEach(function (idDay) {
-            tdSelectLast = $(tdSelectLast).next();
-            var inputCurrentHiddenMod = $(tdSelectLast)
-                .children()
-                .children()[0];
-            if (inputCurrentHiddenMod.className == "numericer") {
-                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
-            }
-            inputCurrentHiddenMod.value = 1;
-        });
-    }
+    marqueMod(that);
 }
 
-$(".activit").change(function () {
-    modifyActivite(this);
-});
 
 //création de marqueur lors de la modification de l'activité
 function modifyActivite(that) {
-    if (first == false && add == false) {
-        // debugger;
-        var tr = $(that).parent().parent();
-        var tdSelectLast = $(tr).find("td.cel_detail");
-        arrayDays.forEach(function (idDay) {
-            tdSelectLast = $(tdSelectLast).next();
-            var inputCurrentHiddenMod = $(tdSelectLast)
-                .children()
-                .children()[0];
-            if (inputCurrentHiddenMod.className == "numericer") {
-                inputCurrentHiddenMod = $(tdSelectLast).children()[0];
-            }
-            inputCurrentHiddenMod.value = 1;
-        });
-    }
+    marqueMod(that);
 }
 
-$(".remove").click(function () {
-    delLine(this);
-    $.ajax({
-        type: "GET",
-        url: "/users/cksession/",
-    }).done(function (data) {
-        if (!data) {
-            //fail (success : no effectt)
-            document.location.replace("/users/login");
-        }
-    });
-});
-
 function delLine(that) {
-    $(that).parent().parent().remove();
+    var tr = $(that).parent().parent();
+    marqueMod(that);
+    $(tr).hide();
+    // $(that).parent().parent().remove();
 }
 
 $("#add").click(function () {
