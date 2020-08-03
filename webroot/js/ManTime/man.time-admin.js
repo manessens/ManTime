@@ -52,6 +52,8 @@ function init() {
         // }
         // plus d'envoie standard du formulaire
         e.preventDefault();
+        e.stopPropagation();
+        
         sendOnlyChange(this);
     });
 
