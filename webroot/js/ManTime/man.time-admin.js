@@ -665,9 +665,9 @@ function addLine(that) {
                 });
             }
         });
-        divDay.append(hiddenDayMod);
-        divDay.append(hiddenDay);
         divDay.append(inputDay);
+        tdDay.append(hiddenDayMod);
+        tdDay.append(hiddenDay); 
         tdDay.append(divDay);
         tr.append(tdDay);
     });
