@@ -15,6 +15,11 @@ var unice = true;
 var premierPassage = true;
 
 function init() {
+
+            if (!unice) {
+                unice = true;
+                return;
+            }
     $("select").each(function () {
         var selected = $(this).val();
         $(this)
@@ -28,10 +33,6 @@ function init() {
         e.preventDefault();
         e.stopPropagation();
 
-        if (!unice) {
-            unice = true;
-            return;
-        }
 
         if ($("#validat").prop("checked")) {
             var modal = new ModalWindow({
@@ -63,7 +64,6 @@ function init() {
         if (!alertVerouillage) {
             sendOnlyChange(that);
         }
-        unice = false;
     });
 
     $("#validat").click(function () {
@@ -108,6 +108,8 @@ function init() {
     //     numericer(this);
     //     updateTotal();
     // });
+    
+    // unice = false;
 
 }
 
