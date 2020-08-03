@@ -187,7 +187,7 @@ function sendOnlyChange(form){
         $('#btn_enregistrer').hide();
         $('#loader').show();
         var request = new XMLHttpRequest();
-        request.open("POST", "/Temps/index-admin");
+        request.open("POST", form.attr('action'));
 
         request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
