@@ -131,8 +131,11 @@ function sendOnlyChange(form){
         if (pair[0].startsWith("day") != true) {
             // Toute ligne ne contenant pas day est acceptée
             newFormData.append(pair[0], pair[1]);
+            if (pair[0].startsWith("validat") == true && pair[1] == "1") {
+                cptModif++;
+            }
         } else {
-            // Test parité
+            // Test ligne modifiée ?
             if ((m = reg.exec(pair[0])) !== null) {
                 if (m.index === reg.lastIndex) {
                     reg.lastIndex++;
