@@ -11,8 +11,6 @@ use App\Form\ExportForm;
 use App\Form\ImportForm;
 use Cake\Filesystem\File;
 use Cake\Core\Configure;
-use Cake\Http\Client\Request;
-use Symfony\Component\Debug\Debug;
 
 /**
  * Temps Controller
@@ -483,7 +481,8 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             // // DEBUG:
-            // debug($arrayData);
+            debug($arrayData);
+            exit;
             $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
                 $projetTable = TableRegistry::get('Projet');
