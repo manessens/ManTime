@@ -621,9 +621,9 @@ class TempsController extends AppController
                     }
                 }
             // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
-            } else {
-                $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
-                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+            // } else {
+            //     $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
+            //     return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
             }
 
             // Mise à jour du blocage si on viens de la page locked ou si il n'y a pas de clef de blocage existant
