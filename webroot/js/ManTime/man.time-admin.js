@@ -8,6 +8,7 @@ $(function () {
     first = false;
     add = false;
 });
+
 var arrayDays = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
 var alertVerouillage;
 var first = true;
@@ -16,10 +17,6 @@ var premierPassage = true;
 
 function init() {
 
-            if (!unice) {
-                unice = true;
-                return;
-            }
     $("select").each(function () {
         var selected = $(this).val();
         $(this)
@@ -66,6 +63,9 @@ function init() {
         }
     });
 
+
+}
+
     $("#validat").click(function () {
         alertVerouillage = $("#validat").prop("checked");
     });
@@ -104,14 +104,6 @@ function init() {
         numericer(this);
         updateTotal();
     });
-    // $(".numericer").change(function () {
-    //     numericer(this);
-    //     updateTotal();
-    // });
-    
-    // unice = false;
-
-}
 
 function chkActivitie(){
     $.ajax({
