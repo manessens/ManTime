@@ -430,7 +430,7 @@ function marqueMod(that, delet = false){
                 .children()
                 .children()[0];
             if (inputCurrentHiddenMod.className == "numericer") {
-                inputCurrentHiddenMod.val(0);
+                inputCurrentHiddenMod.value = "";
                 inputCurrentHiddenMod = $(tdSelectLast).children()[0];
             }
             inputCurrentHiddenMod.value = 1;
