@@ -651,23 +651,11 @@ function addLine(that) {
         inputDay.on("input", function () {
             numericer(this);
             updateTotal();
-
-            //création de marqueur lors de l'ajout de ligne
-            if (first == false && add == false) {
-                var tr = $(that).parent().parent();
-                var tdSelectLast = $(tr).find("td.cel_detail");
-                arrayDays.forEach(function (idDay) {
-                    tdSelectLast = $(tdSelectLast).next();
-                    var inputCurrentHiddenMod = $(tdSelectLast)
-                        .children()
-                        .children()[0];
-                    inputCurrentHiddenMod.value = 1;
-                });
-            }
         });
+        
         divDay.append(inputDay);
         tdDay.append(hiddenDayMod);
-        tdDay.append(hiddenDay); 
+        tdDay.append(hiddenDay);
         tdDay.append(divDay);
         tr.append(tdDay);
     });
