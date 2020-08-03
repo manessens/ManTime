@@ -49,7 +49,7 @@ function init() {
                         alertVerouillage = true;
                     }
                     // $("form").submit();
-                    // alertVerouillage = $("#validat").prop("checked");
+                    alertVerouillage = $("#validat").prop("checked");
                 },
                 Center: true,
                 AllowClickAway: false,
