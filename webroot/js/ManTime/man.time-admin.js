@@ -1,4 +1,5 @@
 $(function () {
+    var unice = true;
     init();
     $(".users").change();
     alert = false;
@@ -10,6 +11,7 @@ $(function () {
 var arrayDays = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
 var alertVerouillage;
 var first = true;
+var unice = true;
 var premierPassage = true;
 
 function init() {
@@ -24,7 +26,12 @@ function init() {
         // plus d'envoie standard du formulaire
         e.preventDefault();
         e.stopPropagation();
-        
+
+        if (!unice) {
+            unice = true;
+            return;
+        }
+
         if ($("#validat").prop("checked")) {
             var modal = new ModalWindow({
                 Title: "Validation semaine",
@@ -56,6 +63,8 @@ function init() {
         // }
 
         sendOnlyChange(this);
+
+        unice = false;
     });
 
     $("#validat").click(function () {
@@ -64,15 +73,12 @@ function init() {
 
     $(".remove").click(function () {
         delLine(this);
-        $.ajax({
-            type: "GET",
-            url: "/users/cksession/",
-        }).done(function (data) {
-            if (!data) {
-                //fail (success : no effectt)
-                document.location.replace("/users/login");
-            }
-        });
+        chkActivitie();
+    });
+
+    $("#add").click(function () {
+        addLine(this);
+        chkActivitie();
     });
 
     $(".users").change(function () {
@@ -95,6 +101,18 @@ function init() {
         modifyActivite(this);
     });
 
+}
+
+function chkActivitie(){
+    $.ajax({
+        type: "GET",
+        url: "/users/cksession/",
+    }).done(function (data) {
+        if (!data) {
+            //fail (success : no effectt)
+            document.location.replace("/users/login");
+        }
+    });
 }
 
 function sendOnlyChange(form){
@@ -458,19 +476,6 @@ function delLine(that) {
     $(tr).hide();
     // $(that).parent().parent().remove();
 }
-
-$("#add").click(function () {
-    addLine(this);
-    $.ajax({
-        type: "GET",
-        url: "/users/cksession/",
-    }).done(function (data) {
-        if (!data) {
-            //fail (success : no effectt)
-            document.location.replace("/users/login");
-        }
-    });
-});
 
 function addLine(that) {
     add = true;
