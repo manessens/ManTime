@@ -476,16 +476,16 @@ class TempsController extends AppController
                 $this->Flash->error(__('Longueur maximal de requête atteinte ! Veuillez consulter un responsable avant de continuer.'));
                 return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
             }
-            $arrayIdCurrent = array();
+            $arrayIdDelete = array();
             $entities = array();
             $verif = true;
             $arrayIdentifierLine = array();
             // // DEBUG:
-            debug($arrayData);
+            // debug($arrayData);
             // exit;
             $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
-                $projetTable = TableRegistry::get('Projet');
+                $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     if ($idUser === 0) {
                         continue;
@@ -500,7 +500,10 @@ class TempsController extends AppController
                         //     $verif = false;
                         // }
                         if (
-                            $arrayData['users'][$idUser][$line] == 0 || $arrayData['client'][$idUser][$line] == 0 || $arrayData['projet'][$idUser][$line] == 0 || $arrayData['profil'][$idUser][$line] == 0
+                            $arrayData['users'][$idUser][$line] == 0
+                            || $arrayData['client'][$idUser][$line] == 0
+                            || $arrayData['projet'][$idUser][$line] == 0
+                            || $arrayData['profil'][$idUser][$line] == 0
                             || $arrayData['activities'][$idUser][$line] == 0
                         ) {
                             continue;
@@ -514,14 +517,25 @@ class TempsController extends AppController
                             $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
                             //Generate Day
                             $day = null;
+                            // Si ID null : création
                             if (empty($dataDay['id'])) {
-                                $day = $this->Temps->newEntity();
-                                $day->validat = 1;
+                                // Si temps invalide : pas de création
+                                if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
+                                    continue;
+                                }else{
+                                    $day = $this->Temps->newEntity();
+                                    $day->validat = 1;
+                                }
                             } else {
-                                // A optimiser si besoin
-                                $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
-                                // FIN optimisation
+                                // Si modification avec temps invalide : suppression
+                                if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
+                                    $arrayIdDelete[] = $dataDay['id'];
+                                    continue;
+                                }else{
+                                    $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
+                                }
                             }
+
                             $day->time = $dataDay['time'];
                             // add to $week to keep the data in case of error and redirect in the same page
                             $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];
@@ -532,18 +546,10 @@ class TempsController extends AppController
                             $week[$idUser][$line]['nline'] = $line;
                             $week[$idUser][$line]['detail'] = $arrayData['detail'][$idUser][$line];
 
-                            if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
-                                // $dayTime->modify('+1 days');
-                                continue;
-                            }
                             if (
                                 $idu == $arrayIdc[0] && $idu == $arrayIdp[0]
                                 && $arrayIdc[1] == $arrayIdp[1] && $arrayIdp[2] == $arrayIdprof[0] && $arrayIdp[2] == $arrayIda[0]
                             ) {
-                                //For deletion
-                                if ($day->idt) {
-                                    $arrayIdCurrent[] = $dataDay['id'];
-                                }
                                 $day->idu = $idUser;
                                 $day->deleted = false;
 
@@ -555,7 +561,7 @@ class TempsController extends AppController
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
                                 if ($day->idp != $arrayIdp[2]) {
-                                    $projet  = $projetTable->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $arrayIdp[2]])->first();
+                                    $projet  = $this->Projet->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $arrayIdp[2]])->first();
                                     $day->idm = $projet->idm;
                                     $day->prix = $projet->prix;
                                 }
@@ -564,20 +570,19 @@ class TempsController extends AppController
                                 $day->ida = $arrayIda[1];
                                 $day->detail = trim($arrayData['detail'][$idUser][$line]);
                                 $entities[] = $day;
-
-                                // $dayTime->modify('+1 days');
                             }
                         }
                     }
                 }
             }
             // // DEBUG:
-            // debug($entities);
+            debug($arrayIdDelete);
+            debug($entities);
+            exit;
 
-            // exit;
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
-                if (!$validat) { // Si pas de blocage alors on modifie les temps
+                if (!empty($arrayIdDelete)) { // Si il y a des temps à supprimer
                     //Deletion
                     $query = $this->Temps->query()
                         ->update()->set(['deleted' => true])
@@ -587,9 +592,7 @@ class TempsController extends AppController
                             'date >=' => $lundi,
                             'date <' => $dimanche
                         ]);
-                    if (!empty($arrayIdCurrent)) {
-                        $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
-                    }
+                    $query->andWhere(['idt IN' => $arrayIdDelete]);
                     $query->execute();
                     //Save
                     if (!empty($entities)) {
