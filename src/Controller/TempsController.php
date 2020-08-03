@@ -620,14 +620,6 @@ class TempsController extends AppController
                         }
                     }
                 }
-
-                if ($verif) {
-                    $this->Flash->success(__('La semaine à été sauvegardée.'));
-                    return $this->response->withStringBody("success");
-                } else {
-                    $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
-                    return $this->response->withStringBody("error");
-                }
             // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
             // } else {
             //     $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
