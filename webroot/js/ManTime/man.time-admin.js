@@ -21,6 +21,10 @@ function init() {
     });
 
     $("form").on("submit", function (e) {
+        // plus d'envoie standard du formulaire
+        e.preventDefault();
+        e.stopPropagation();
+        
         if ($("#validat").prop("checked")) {
             var modal = new ModalWindow({
                 Title: "Validation semaine",
@@ -50,10 +54,7 @@ function init() {
         // if (alertVerouillage) {
         //     e.preventDefault();
         // }
-        // plus d'envoie standard du formulaire
-        e.preventDefault();
-        e.stopPropagation();
-        
+
         sendOnlyChange(this);
     });
 
