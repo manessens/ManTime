@@ -100,6 +100,13 @@ function init() {
         modifyActivite(this);
     });
 
+    $(".numericer").on("input", function () {
+        numericer(this);
+    });
+    $(".numericer").change(function () {
+        updateTotal();
+    });
+
 }
 
 function chkActivitie(){
@@ -189,7 +196,7 @@ function sendOnlyChange(form){
 
         request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                console.log("Requête finie, traitement ici.");
+                // console.log("Requête finie, traitement ici.");
                 $('#loader').hide();
                 $('#btn_enregistrer').show();
                 document.location.reload(true);
@@ -198,7 +205,7 @@ function sendOnlyChange(form){
 
         request.send(newFormData);
     } else {
-        console.log("pas de modif");
+        // console.log("pas de modif");
     }
 }
 
@@ -676,10 +683,6 @@ function addLine(that) {
     add = false;
 }
 
-$(".numericer").on("input", function () {
-    numericer(this);
-    updateTotal();
-});
 
 function numericer(that) {
     var regex = /^([0-9])+([.])?([0-9]+)?/g;
