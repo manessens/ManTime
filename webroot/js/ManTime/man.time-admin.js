@@ -128,7 +128,7 @@ $("form").on("submit", function (e) {
         request.send(newFormData);
     // } else {
     //     console.log("pas de modif");
-    // }
+    }
 });
 
 $("#validat").click(function () {
