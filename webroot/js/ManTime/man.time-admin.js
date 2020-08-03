@@ -174,9 +174,9 @@ function sendOnlyChange(form){
     }
     // Si modif on envoie la requête avec le nouveau formdata
     if (cptModif > 0) {
-        // for (var newPair of newFormData.entries()) {
-        //     console.log(newPair[0], newPair[1]);
-        // }
+        for (var newPair of newFormData.entries()) {
+            console.log(newPair[0], newPair[1]);
+        }
         var request = new XMLHttpRequest();
         request.open("POST", "/Temps/index-admin");
 
