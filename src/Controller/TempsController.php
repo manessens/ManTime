@@ -481,7 +481,7 @@ class TempsController extends AppController
             $verif = true;
             $arrayIdentifierLine = array();
             // // DEBUG:
-            debug($arrayData);
+            // debug($arrayData);
             // exit;
             $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
             if (array_key_exists('day', $arrayData)) {
@@ -576,11 +576,11 @@ class TempsController extends AppController
                 }
             }
             // // // DEBUG:
-            debug($arrayIdDelete);
-            debug($entities);
-
-            debug($arrayData['validat']);
-            exit;
+            // debug($arrayIdDelete);
+            // debug($entities);
+            //
+            // debug($arrayData['validat']);
+            // exit;
 
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
@@ -596,34 +596,34 @@ class TempsController extends AppController
                         ]);
                     $query->andWhere(['idt IN' => $arrayIdDelete]);
                     $query->execute();
-                    //Save
-                    if (!empty($entities)) {
-                        foreach ($entities as $day) {
-                            try {
-                                $this->Temps->saveOrFail($day);
-                            } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
-                                $oldDay = $this->Temps->find('all')->where([
-                                    'idu =' => $day->idu,
-                                    'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
-                                    'ida =' => $day->ida, 'date =' => $day->date
-                                ])->first();
+                }
+                //Save
+                if (!empty($entities)) {
+                    foreach ($entities as $day) {
+                        try {
+                            $this->Temps->saveOrFail($day);
+                        } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
+                            $oldDay = $this->Temps->find('all')->where([
+                                'idu =' => $day->idu,
+                                'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
+                                'ida =' => $day->ida, 'date =' => $day->date
+                            ])->first();
 
-                                if (!is_null($oldDay)) {
-                                    $oldDay->time = $day->time;
-                                    $oldDay->n_ligne = $day->n_ligne;
-                                    $oldDay->validat = $day->validat;
-                                    $verif = $verif && $this->Temps->save($oldDay);
-                                } else {
-                                    $verif = false;
-                                }
+                            if (!is_null($oldDay)) {
+                                $oldDay->time = $day->time;
+                                $oldDay->n_ligne = $day->n_ligne;
+                                $oldDay->validat = $day->validat;
+                                $verif = $verif && $this->Temps->save($oldDay);
+                            } else {
+                                $verif = false;
                             }
                         }
                     }
-                    // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
-                } else {
-                    $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
-                    return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
                 }
+            // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
+            } else {
+                $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
+                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
             }
 
             // Mise à jour du blocage si on viens de la page locked ou si il n'y a pas de clef de blocage existant
@@ -640,7 +640,6 @@ class TempsController extends AppController
 
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
-
                 return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
             } else {
                 $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
