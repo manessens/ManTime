@@ -690,8 +690,7 @@ function numericer(that) {
     //création de marqueur lors de la modification des temps
     if (first == false && add == false) {
         var tr = $(that).parent().parent();
-        var inputCurrentHiddenMod =
-            that.target.parentElement.parentElement.children[0];
+        var inputCurrentHiddenMod = $(that).parent().parent().children()[0];
         inputCurrentHiddenMod.value = 1;
     }
 }
