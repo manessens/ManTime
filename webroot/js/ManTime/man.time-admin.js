@@ -48,8 +48,8 @@ function init() {
                         $("#validat").prop("checked", false);
                         alertVerouillage = true;
                     }
-                    $("form").submit();
-                    alertVerouillage = $("#validat").prop("checked");
+                    // $("form").submit();
+                    // alertVerouillage = $("#validat").prop("checked");
                 },
                 Center: true,
                 AllowClickAway: false,
@@ -58,12 +58,9 @@ function init() {
         }
 
         //// EVOL : sauvegarde des modification \\\\
-        // if (alertVerouillage) {
-        //     e.preventDefault();
-        // }
-
-        sendOnlyChange(this);
-
+        if (!alertVerouillage) {
+            sendOnlyChange(this);
+        }
         unice = false;
     });
 
