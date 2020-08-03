@@ -578,6 +578,8 @@ class TempsController extends AppController
             // // DEBUG:
             debug($arrayIdDelete);
             debug($entities);
+
+            debug($arrayData['validat']);
             exit;
 
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
