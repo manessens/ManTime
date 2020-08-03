@@ -466,6 +466,7 @@ function marqueMod(that, delet = false){
             inputCurrentHiddenMod.value = 1;
         });
     }
+    updateTotal();
 }
 
 //création de marqueur lors de la modification du profil
@@ -483,7 +484,6 @@ function delLine(that) {
     var tr = $(that).parent().parent();
     marqueMod(that);
     $(tr).hide();
-    updateTotal();
     // $(that).parent().parent().remove();
 }
 
