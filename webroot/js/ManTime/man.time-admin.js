@@ -484,7 +484,7 @@ function modifyActivite(that) {
 
 function delLine(that) {
     var tr = $(that).parent().parent();
-    marqueMod(that);
+    marqueMod(that, true);
     $(tr).hide();
     // $(that).parent().parent().remove();
 }
