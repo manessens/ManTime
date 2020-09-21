@@ -714,6 +714,12 @@ class ExportFitnetController extends AppController
             "deliveryCode" => $keyProfil,
             "date" => $assignementDate
         ];
+
+        $hourInDay = 8;
+        if ($time->user->modal) {
+            $hourInDay = 7.4;
+        }
+
         $timesheet = [
             "userId" => $employeeID,
             "tiersCode" => $keyClient,
@@ -723,7 +729,7 @@ class ExportFitnetController extends AppController
             "date" => $assignementDate,
             "moment" => "J",
             "quantityDay" => $amount,
-            "quantityHour" => ($amount * 8),
+            "quantityHour" => round($amount * $hourInDay, 2),
             "comment" => "" //$time->detail
         ];
 
