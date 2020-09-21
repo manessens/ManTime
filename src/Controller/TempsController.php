@@ -110,12 +110,12 @@ class TempsController extends AppController
                         //generate day
                         $day = null;
                         // DEBUG:
-                        debug($arrayDay['id']);
-                        if (empty($arrayDay['id'])) {
+                        debug($dataDay['id']);
+                        if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
                             $day->idu = $user->idu;
                         } else {
-                            $day = $this->Temps->get($arrayDay['id']);
+                            $day = $this->Temps->get($dataDay['id']);
                         }
                         $day->time = $dataDay['time'];
                         $day->modify = true;
