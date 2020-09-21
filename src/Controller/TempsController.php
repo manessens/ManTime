@@ -159,7 +159,7 @@ class TempsController extends AppController
                             $dayTime->modify('+1 days');
                             // DEBUG:
                             debug($day);
-                            debug($dayTime);
+                            debug($arrayIdCurrent);
                         }
                     }
                 }
