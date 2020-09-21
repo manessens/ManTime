@@ -25,6 +25,7 @@
             echo $this->Form->select('role', $role, ['value' => $user->role]);
 
             // echo $this->Form->control('mdp');
+            echo $this->Form->control('modal', ['type' => 'checkbox', 'label' => ['text' => 'Modalité 1']]);
             echo $this->Form->control('actif', ['type' => 'checkbox', 'label'=>['class'=>'checkboxU'] ]);
             echo $this->Form->control('prem_connect', ['type' => 'checkbox', 'class'=>'reset', 'label'=>['text'=>'Réinitialisation mot de passe', 'class'=>'checkboxU'] ]);
         ?>

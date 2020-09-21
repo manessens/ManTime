@@ -15,7 +15,7 @@ use Cake\ORM\Entity;
  * @property string $mdp
  * @property int $ido
  * @property int $actif
- * @property int $admin
+ * @property int $modal
  * @property int $role
  * @property int $prem_connect
  *
@@ -43,7 +43,7 @@ class User extends Entity
         'ido' => true,
         'origine' => true,
         'prem_connect' => true,
-        'admin' => true,
+        'modal' => true,
         'role' => true
     ];
 

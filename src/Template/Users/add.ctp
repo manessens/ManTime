@@ -25,7 +25,7 @@
             echo $this->Form->label('role','Rôle');
             echo $this->Form->select('role', $role, ['value' => $user->role]);
             // echo $this->Form->control('role',  ['type' => 'checkbox', 'label' => ['text'=>'Chef de projet', 'class' => 'text-primary']]);
-            // echo $this->Form->control('admin', ['type' => 'checkbox', 'label' => ['class' => 'text-danger']]);
+            echo $this->Form->control('modal', ['type' => 'checkbox', 'label' => ['text' => 'Modalité 1']]);
             echo $this->Form->control('actif', ['type' => 'checkbox']);
 
             echo $this->Form->control('id_fit', ['readonly','class'=> 'idf', "type" => 'text', 'label' => ['text'=>'Id VSA']]);

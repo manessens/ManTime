@@ -108,8 +108,8 @@ class UsersTable extends Table
             ->allowEmpty('prem_connect');
 
         $validator
-            ->integer('admin')
-            ->allowEmpty('admin');
+            ->integer('modal')
+            ->allowEmpty('modal');
 
         $validator
             ->integer('role')
