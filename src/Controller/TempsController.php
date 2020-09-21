@@ -117,8 +117,6 @@ class TempsController extends AppController
                         } else {
                             $day = $this->Temps->get($dataDay['id']);
                         }
-                        // DEBUG:
-                        debug($day);
                         $day->time = $dataDay['time'];
                         $day->modify = true;
                         // add to $week to keep the data in case of error and redirect in the same page
@@ -159,6 +157,9 @@ class TempsController extends AppController
                             $entities[] = $day;
 
                             $dayTime->modify('+1 days');
+                            // DEBUG:
+                            debug($day);
+                            debug($dayTime);
                         }
                     }
                 }
