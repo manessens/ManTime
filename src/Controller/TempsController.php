@@ -80,10 +80,6 @@ class TempsController extends AppController
                 return $this->redirect(['action' => 'index', $semaine, $annee]);
             }
             if (array_key_exists('day', $arrayData)) {
-
-            // DEBUG:
-            debug($arrayData);
-
                 $verif = true;
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
@@ -109,14 +105,15 @@ class TempsController extends AppController
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
                         //generate day
                         $day = null;
-                        // DEBUG:
-                        debug($dataDay['id']);
+                        //check if day already exist or new ?
                         if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
                             $day->idu = $user->idu;
                         } else {
+                            // if exist : get data from dtb to make an update
                             $day = $this->Temps->get($dataDay['id']);
                         }
+
                         $day->time = $dataDay['time'];
                         $day->modify = true;
                         // add to $week to keep the data in case of error and redirect in the same page
@@ -127,14 +124,17 @@ class TempsController extends AppController
                         $week[$line][$this->getDay($day->date, $lundi)] = $day;
                         $week[$line]['detail'] = $arrayData['detail'][$line];
 
+                        //If time is not good => skip (deletion)
                         if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
                             $dayTime->modify('+1 days');
                             continue;
                         }
+                        // Check if you try to overcharg a day
                         if ($dataDay['time'] > 1 && $verif) {
                             $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
                             $verif = false;
                         }
+                        //Check if link are good between Client and Projects
                         if ($idc == $arrayIdp[1] && $idp == $arrayIdprof[0] && $idp == $arrayIda[0]) {
                             //For deletion
                             if ($day->idt) {
@@ -157,9 +157,6 @@ class TempsController extends AppController
                             $entities[] = $day;
 
                             $dayTime->modify('+1 days');
-                            // DEBUG:
-                            debug($day);
-                            debug($arrayIdCurrent);
                         }
                     }
                 }
@@ -175,7 +172,7 @@ class TempsController extends AppController
                             'date <' => $dimanche
                         ]);
                     if (!empty($arrayIdCurrent)) {
-                        $query->andWhere(['idt  IN' => $arrayIdCurrent]);
+                        $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                     }
                     $query->execute();
                     //Save
@@ -189,9 +186,6 @@ class TempsController extends AppController
                     return $this->redirect(['action' => 'index', $semaine, $annee]);
                 }
             }
-
-            // DEBUG:
-            exit;
 
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
@@ -379,7 +373,7 @@ class TempsController extends AppController
                     ])
                     ->andWhere(['Participant.idu =' => $idUserAuth]);
                 if (!empty($arrayIdCurrent)) {
-                    $query->andWhere(['idt  NOT IN' => $arrayIdCurrent]);
+                    $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                 }
                 $query->execute();
                 //Save
