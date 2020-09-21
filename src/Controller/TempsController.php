@@ -79,10 +79,11 @@ class TempsController extends AppController
                 $this->Flash->error(__('La semaine à été vérouillé par un admin, veuillez contacter un responsable pour une modification de saisie'));
                 return $this->redirect(['action' => 'index', $semaine, $annee]);
             }
+            if (array_key_exists('day', $arrayData)) {
+
             // DEBUG:
             debug($arrayData);
-            exit;
-            if (array_key_exists('day', $arrayData)) {
+
                 $verif = true;
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
@@ -94,8 +95,8 @@ class TempsController extends AppController
                     //     $verif = false;
                     // }
                     if (
-                        $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
-                        || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
+                        $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0
+                        || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
                     ) {
                         continue;
                     }
@@ -108,6 +109,8 @@ class TempsController extends AppController
                         $arrayIda = explode('.', $arrayData['activities'][$line]);
                         //generate day
                         $day = null;
+                        // DEBUG:
+                        debug($arrayData['id']);
                         if (empty($dataDay['id'])) {
                             $day = $this->Temps->newEntity();
                             $day->idu = $user->idu;
@@ -183,6 +186,10 @@ class TempsController extends AppController
                     return $this->redirect(['action' => 'index', $semaine, $annee]);
                 }
             }
+
+            // DEBUG:
+            exit;
+
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
                 return $this->redirect(['action' => 'index', $semaine, $annee]);
