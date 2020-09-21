@@ -79,6 +79,9 @@ class TempsController extends AppController
                 $this->Flash->error(__('La semaine à été vérouillé par un admin, veuillez contacter un responsable pour une modification de saisie'));
                 return $this->redirect(['action' => 'index', $semaine, $annee]);
             }
+            // DEBUG:
+            debug($arrayData);
+            exit;
             if (array_key_exists('day', $arrayData)) {
                 $verif = true;
                 $projetTable = TableRegistry::get('Projet');
