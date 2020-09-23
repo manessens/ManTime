@@ -450,11 +450,11 @@ class TempsController extends AppController
         }
         foreach ($projects as $key => $value){
             $arrayTemp = explode('.', $key);
-            if (array_key_exists($arrayTemp[0] + '.' + $arrayTemp[1], $optionProjects) ){
-                $optionProjects[$arrayTemp[0] + '.' + $arrayTemp[1]][] = $key;
+            if (array_key_exists($arrayTemp[0] . '.' . $arrayTemp[1], $optionProjects) ){
+                $optionProjects[$arrayTemp[0] . '.' . $arrayTemp[1]][] = $key;
             } else {
-                $optionProjects[$arrayTemp[0] + '.' + $arrayTemp[1]] = [];
-                $optionProjects[$arrayTemp[0] + '.' + $arrayTemp[1]][] = $key;
+                $optionProjects[$arrayTemp[0] . '.' . $arrayTemp[1]] = [];
+                $optionProjects[$arrayTemp[0] . '.' . $arrayTemp[1]][] = $key;
             }
             $valueProjects[$key] = $value;
         }
