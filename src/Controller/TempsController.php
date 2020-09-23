@@ -479,16 +479,16 @@ class TempsController extends AppController
             $valueActivits[$key] = $value;
         }
         $retun =[
-            '$optionUsers' = $optionUsers,
-            '$valueUsers' = $valueUsers,
-            '$optionClients' = $optionClients,
-            '$valueClients' = $valueClients,
-            '$optionProjects' = $optionProjects,
-            '$valueProjects' = $valueProjects,
-            '$optionProfils' = $optionProfils,
-            '$valueProfils' = $valueProfils,
-            '$optionActivits' = $optionActivits,
-            '$valueActivits' = $valueActivits
+            '$optionUsers' => $optionUsers,
+            '$valueUsers' => $valueUsers,
+            '$optionClients' => $optionClients,
+            '$valueClients' => $valueClients,
+            '$optionProjects' => $optionProjects,
+            '$valueProjects' => $valueProjects,
+            '$optionProfils' => $optionProfils,
+            '$valueProfils' => $valueProfils,
+            '$optionActivits' => $optionActivits,
+            '$valueActivits' => $valueActivits
         ];
 
         return $retun;
