@@ -195,7 +195,7 @@ function sendOnlyChange(form){
                 // console.log("Requête finie, traitement ici.");
                 $('#loader').hide();
                 $('#btn_enregistrer').show();
-                document.location.reload(true);
+                // document.location.reload(true);
             }
         }
 
@@ -470,8 +470,8 @@ function marqueMod(that, delet = false){
             }
             inputCurrentHiddenMod.value = 1;
         });
+        updateTotal();
     }
-    updateTotal();
 }
 
 //création de marqueur lors de la modification du profil
