@@ -422,6 +422,77 @@ class TempsController extends AppController
         $this->set('holidays',   $this->getHolidays($annee));
         $this->set('controller', false);
     }
+
+    private function build_array($users = [], $clients = [], $projects = [], $profiles = [], $activities = [] ){
+        $optionUsers = [];
+        $valueUsers = [];
+        $optionClients = [];
+        $valueClients = [];
+        $optionProjects = [];
+        $valueProjects = [];
+        $optionProfils = [];
+        $valueProfils = [];
+        $optionActivits = [];
+        $valueActivits = [];
+        foreach ($users as $key => $value){
+                $optionUsers[] = $key;
+                $valueUsers[$key] = $value;
+        }
+        foreach ($clients as $key => $value){
+            $arrayTemp = explode('.', $key);
+            if (array_key_exists ($arrayTemp[0], $optionClients) {
+                $optionClients[$arrayTemp[0]][] = $key;
+            } else {
+                $optionClients[$arrayTemp[0]] = [];
+                $optionClients[$arrayTemp[0]][] = $key;
+            }
+            $valueClients[$key] = $value;
+        }
+        foreach ($projects as $key => $value){
+            $arrayTemp = explode('.', $key);
+            if (array_key_exists($arrayTemp[0] + '.' + $arrayTemp[1], $optionProjects) ){
+                $optionProjects[$arrayTemp[0] + '.' + $arrayTemp[1]][] = $key;
+            } else {
+                $optionProjects[$arrayTemp[0] + '.' + $arrayTemp[1]] = [];
+                $optionProjects[$arrayTemp[0] + '.' + $arrayTemp[1]][] = $key;
+            }
+            $valueProjects[$key] = $value;
+        }
+        foreach ($profiles as $key => $value){
+            $arrayTemp = explode('.', $key);
+            if (array_key_exists($arrayTemp[0], $optionProfils)) {
+                $optionProfils[$arrayTemp[0]][] = $key;
+            } else {
+                $optionProfils[$arrayTemp[0]] = [];
+                $optionProfils[$arrayTemp[0]][] = $key;
+            }
+            $valueProfils[$key] = $value;
+        }
+        foreach ($activities as $key => $value){
+            $arrayTemp = explode('.', $key);
+            if (array_key_exists($arrayTemp[0], $optionActivits)) {
+                $optionActivits[$arrayTemp[0]][] = $key;
+            } else {
+                $optionActivits[$arrayTemp[0]] = [];
+                $optionActivits[$arrayTemp[0]][] = $key;
+            }
+            $valueActivits[$key] = $value;
+        }
+        $retun =[
+            '$optionUsers' = $optionUsers,
+            '$valueUsers' = $valueUsers,
+            '$optionClients' = $optionClients,
+            '$valueClients' = $valueClients,
+            '$optionProjects' = $optionProjects,
+            '$valueProjects' = $valueProjects,
+            '$optionProfils' = $optionProfils,
+            '$valueProfils' = $valueProfils,
+            '$optionActivits' = $optionActivits,
+            '$valueActivits' = $valueActivits
+        ];
+
+        return $retun;
+    }
     /**
      * Index method
      *
@@ -679,7 +750,9 @@ class TempsController extends AppController
 
         $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
 
+        $arrays = $this->build_array($arrayRetour['users'], $arrayRetour['clients'], $arrayRetour['projets'], $arrayRetour['profiles'], $arrayRetour['activities']);
         // $this->set(compact('temps'));
+        $this->set(compact('arrays'));
         $this->set(compact('week'));
         $this->set(compact('semaine'));
         $this->set(compact('annee'));

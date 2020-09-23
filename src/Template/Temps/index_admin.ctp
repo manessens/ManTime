@@ -18,52 +18,18 @@
     var valueProfils = [];
     var valueActivits = [];
 
-    $(function() {
-        <?php foreach ($users as $key => $value) : ?>
-            optionUsers.push('<?php echo addslashes($key); ?>');
-            valueUsers['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
-        <?php endforeach; ?>
-        <?php foreach ($clients as $key => $value) : ?>
-            var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
-            if (optionClients.hasOwnProperty(arrayTemp[0])) {
-                optionClients[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
-            } else {
-                optionClients[arrayTemp[0]] = [];
-                optionClients[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
-            }
-            valueClients['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
-        <?php endforeach; ?>
-        <?php foreach ($projects as $key => $value) : ?>
-            var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
-            if (optionProjects.hasOwnProperty(arrayTemp[0] + '.' + arrayTemp[1])) {
-                optionProjects[arrayTemp[0] + '.' + arrayTemp[1]].push('<?php echo addslashes($key); ?>');
-            } else {
-                optionProjects[arrayTemp[0] + '.' + arrayTemp[1]] = [];
-                optionProjects[arrayTemp[0] + '.' + arrayTemp[1]].push('<?php echo addslashes($key); ?>');
-            }
-            valueProjects['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
-        <?php endforeach; ?>
-        <?php foreach ($profiles as $key => $value) : ?>
-            var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
-            if (optionProfils.hasOwnProperty(arrayTemp[0])) {
-                optionProfils[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
-            } else {
-                optionProfils[arrayTemp[0]] = [];
-                optionProfils[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
-            }
-            valueProfils['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
-        <?php endforeach; ?>
-        <?php foreach ($activities as $key => $value) : ?>
-            var arrayTemp = '<?php echo addslashes($key); ?>'.split('.');
-            if (optionActivits.hasOwnProperty(arrayTemp[0])) {
-                optionActivits[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
-            } else {
-                optionActivits[arrayTemp[0]] = [];
-                optionActivits[arrayTemp[0]].push('<?php echo addslashes($key); ?>');
-            }
-            valueActivits['<?php echo addslashes($key); ?>'] = '<?php echo addslashes($value); ?>';
-        <?php endforeach; ?>
-    });
+    <?php
+        echo 'optionUsers = ' . json_encode($arrays['$optionUsers']);
+        echo 'optionClients = ' . json_encode($arrays['$optionClients']);
+        echo 'optionProjects = ' . json_encode($arrays['$optionProjects']);
+        echo 'optionProfils = ' . json_encode($arrays['$optionProfils']);
+        echo 'optionActivits = ' . json_encode($arrays['$optionActivits']);
+        echo 'valueUsers = ' . json_encode($arrays['$valueUsers']);
+        echo 'valueClients = ' . json_encode($arrays['$valueClients']);
+        echo 'valueProjects = ' . json_encode($arrays['$valueProjects']);
+        echo 'valueProfils = ' . json_encode($arrays['$valueProfils']);
+        echo 'valueActivits = ' . json_encode($arrays['$valueActivits']);
+    ?>
 </script>
 
 <div class="col-xs-12 content">
