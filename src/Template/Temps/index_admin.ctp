@@ -17,19 +17,20 @@
     var valueProjects = [];
     var valueProfils = [];
     var valueActivits = [];
-
-    <?php
-        echo 'optionUsers = ' . json_encode($arrays['$optionUsers']);
-        echo 'optionClients = ' . json_encode($arrays['$optionClients']);
-        echo 'optionProjects = ' . json_encode($arrays['$optionProjects']);
-        echo 'optionProfils = ' . json_encode($arrays['$optionProfils']);
-        echo 'optionActivits = ' . json_encode($arrays['$optionActivits']);
-        echo 'valueUsers = ' . json_encode($arrays['$valueUsers']);
-        echo 'valueClients = ' . json_encode($arrays['$valueClients']);
-        echo 'valueProjects = ' . json_encode($arrays['$valueProjects']);
-        echo 'valueProfils = ' . json_encode($arrays['$valueProfils']);
-        echo 'valueActivits = ' . json_encode($arrays['$valueActivits']);
-    ?>
+    $(function() {
+        <?php
+            echo 'optionUsers = ' . json_encode($arrays['$optionUsers']) . ';';
+            echo 'optionClients = ' . json_encode($arrays['$optionClients']) . ';';
+            echo 'optionProjects = ' . json_encode($arrays['$optionProjects']) . ';';
+            echo 'optionProfils = ' . json_encode($arrays['$optionProfils']) . ';';
+            echo 'optionActivits = ' . json_encode($arrays['$optionActivits']) . ';';
+            echo 'valueUsers = ' . json_encode($arrays['$valueUsers']) . ';';
+            echo 'valueClients = ' . json_encode($arrays['$valueClients']) . ';';
+            echo 'valueProjects = ' . json_encode($arrays['$valueProjects']) . ';';
+            echo 'valueProfils = ' . json_encode($arrays['$valueProfils']) . ';';
+            echo 'valueActivits = ' . json_encode($arrays['$valueActivits']) . ';';
+        ?>
+    });
 </script>
 
 <div class="col-xs-12 content">
