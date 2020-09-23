@@ -440,7 +440,7 @@ class TempsController extends AppController
         }
         foreach ($clients as $key => $value){
             $arrayTemp = explode('.', $key);
-            if (array_key_exists ($arrayTemp[0], $optionClients) {
+            if (array_key_exists ($arrayTemp[0], $optionClients) ) {
                 $optionClients[$arrayTemp[0]][] = $key;
             } else {
                 $optionClients[$arrayTemp[0]] = [];
@@ -460,7 +460,7 @@ class TempsController extends AppController
         }
         foreach ($profiles as $key => $value){
             $arrayTemp = explode('.', $key);
-            if (array_key_exists($arrayTemp[0], $optionProfils)) {
+            if (array_key_exists($arrayTemp[0], $optionProfils) ) {
                 $optionProfils[$arrayTemp[0]][] = $key;
             } else {
                 $optionProfils[$arrayTemp[0]] = [];
@@ -470,7 +470,7 @@ class TempsController extends AppController
         }
         foreach ($activities as $key => $value){
             $arrayTemp = explode('.', $key);
-            if (array_key_exists($arrayTemp[0], $optionActivits)) {
+            if (array_key_exists($arrayTemp[0], $optionActivits) ) {
                 $optionActivits[$arrayTemp[0]][] = $key;
             } else {
                 $optionActivits[$arrayTemp[0]] = [];
