@@ -1206,9 +1206,10 @@ class TempsController extends AppController
         $this->loadModel('Users');
         $idUserAuth = $this->Auth->user('idu');
         $this->loadModel('Projet');
-        $arrayprojects = $this->Projet->find('all', ['fields' => ['idp', 'idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
+        $arrayprojects = $this->Projet->find('all', ['fields' => ['idp', 'idc', 'nom_projet', 'type', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
         foreach ($arrayprojects as $proj) {
+            $projectsType[$proj->projname] = $ProjetControl->getTypeArray()[$proj->type];
             $projects[$proj->idp] = $proj->projname;
             $projectFact[$proj->idp] = $proj->facturable->nom_fact;
             $projectClients[$proj->idp] = $proj->idc;
@@ -1322,7 +1323,7 @@ class TempsController extends AppController
                                 }
                                 $buffer = [
                                     'client' => $this->convertToIso($client), 'projet' => $this->convertToIso($projet),
-                                    'type' => $this->convertToIso($ProjetControl->getTypeArray()[$projet->type]),
+                                    'type' => $this->convertToIso($projectsType[$projet]),
                                     'user' => $this->convertToIso($user), 'profil' => $this->convertToIso($profil),
                                     'activit' => $this->convertToIso($activit), 'detail' => $zdetail, 'agence' => $bufferAgence,
                                     'facturable' => $bufferFact, 'origine' => $bufferOrigine
