@@ -174,7 +174,7 @@ class ProjetController extends AppController
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
     }
 
-    private function getTypeArray(){
+    public function getTypeArray(){
         $arrayTypes =[
             'TMA',
             'Projets',
