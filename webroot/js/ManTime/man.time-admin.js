@@ -724,7 +724,14 @@ function addSuccess() {
         class: "message success alert-success",
         onclick: "this.classList.add('hidden')",
     });
-    divAlert.innerHTML("La semaine à été sauvegardée.").
+    divAlert.text("La semaine à été sauvegardée.").
     divAlert.insertAfter("#topofpage");
-// <div class="message success alert-success" onclick="this.classList.add('hidden')">La semaine à été sauvegardée.</div>
+}
+function addError() {
+    var divAlert = $("<div>", {
+        class: "message danger alert-danger",
+        onclick: "this.classList.add('hidden')",
+    });
+    divAlert.text("Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.").
+    divAlert.insertAfter("#topofpage");
 }
