@@ -195,6 +195,8 @@ function sendOnlyChange(form){
                 if (request.responseText) {
                     console.log(request.responseText);
                     addSuccess();
+                }else{
+                    addError();
                 }
                 // console.log("Requête finie, traitement ici.");
                 $('#loader').hide();
@@ -724,7 +726,7 @@ function addSuccess() {
         class: "message success alert-success",
         onclick: "this.classList.add('hidden')",
     });
-    divAlert.text("La semaine à été sauvegardée.").
+    divAlert.text("La semaine à été sauvegardée.");
     divAlert.insertAfter("#topofpage");
 }
 function addError() {
@@ -732,6 +734,6 @@ function addError() {
         class: "message error alert-danger",
         onclick: "this.classList.add('hidden')",
     });
-    divAlert.text("Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.").
+    divAlert.text("Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.");
     divAlert.insertAfter("#topofpage");
 }
