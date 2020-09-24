@@ -729,7 +729,7 @@ function addSuccess() {
 }
 function addError() {
     var divAlert = $("<div>", {
-        class: "message danger alert-danger",
+        class: "message error alert-danger",
         onclick: "this.classList.add('hidden')",
     });
     divAlert.text("Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.").
