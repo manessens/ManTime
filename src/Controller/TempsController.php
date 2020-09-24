@@ -11,6 +11,7 @@ use App\Form\ExportForm;
 use App\Form\ImportForm;
 use Cake\Filesystem\File;
 use Cake\Core\Configure;
+use App\Controller\ProjetController;
 
 /**
  * Temps Controller
@@ -1153,7 +1154,7 @@ class TempsController extends AppController
                     if (!$arrayData['fitnet']) {
                         $arrayMonthBuffer = array_merge($arrayMonthBuffer, $arrayMonthCA);
                     }
-                    $headerFix = ['Client', 'Projet', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails'), 'Agence', 'Facturable', 'Origine'];
+                    $headerFix = ['Client', 'Projet', 'Type', 'Consultant', 'Profil', $this->convertToIso('Activités'), $this->convertToIso('Détails'), 'Agence', 'Facturable', 'Origine'];
                     $_header = array_merge($headerFix, $arrayMonthBuffer);
                     $_serialize = 'data';
                     $_delimiter = ';';
@@ -1200,20 +1201,22 @@ class TempsController extends AppController
 
     private function getDataFromTimes($times = array(), $users = array(), $clients = array(), $isFitnet = false, $period, $agenceClient, $userOrigine)
     {
+
+        $ProjetControl = new ProjetController();
         $this->loadModel('Users');
         $idUserAuth = $this->Auth->user('idu');
-        $projetTable = TableRegistry::get('Projet');
-        $arrayprojects = $projetTable->find('all', ['fields' => ['idp', 'idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
+        $this->loadModel('Projet');
+        $arrayprojects = $this->Projet->find('all', ['fields' => ['idp', 'idc', 'nom_projet', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
         foreach ($arrayprojects as $proj) {
             $projects[$proj->idp] = $proj->projname;
             $projectFact[$proj->idp] = $proj->facturable->nom_fact;
             $projectClients[$proj->idp] = $proj->idc;
         }
-        $profilTable = TableRegistry::get('Profil');
-        $profils = $profilTable->find('list', ['fields' => ['id_profil', 'nom_profil']])->toArray();
-        $activitTable = TableRegistry::get('Activitie');
-        $activits = $activitTable->find('list', ['fields' => ['ida', 'nom_activit']])->toArray();
+        $this->loadModel('Profil');
+        $profils = $this->Profil->find('list', ['fields' => ['id_profil', 'nom_profil']])->toArray();
+        $this->loadModel('Activitie');
+        $activits = $this->Activitie->find('list', ['fields' => ['ida', 'nom_activit']])->toArray();
 
         // $clientTable = TableRegistry::get('Client');
         $matriceTable = TableRegistry::get('Matrice');
@@ -1319,6 +1322,7 @@ class TempsController extends AppController
                                 }
                                 $buffer = [
                                     'client' => $this->convertToIso($client), 'projet' => $this->convertToIso($projet),
+                                    'type' => $this->convertToIso($ProjetControl->getTypeArray()[$projet->type])
                                     'user' => $this->convertToIso($user), 'profil' => $this->convertToIso($profil),
                                     'activit' => $this->convertToIso($activit), 'detail' => $zdetail, 'agence' => $bufferAgence,
                                     'facturable' => $bufferFact, 'origine' => $bufferOrigine
