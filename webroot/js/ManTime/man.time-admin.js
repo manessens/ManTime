@@ -722,7 +722,11 @@ function updateTotal() {
 }
 
 function addSuccess() {
+    if ($('#info-message').length) {
+        $('#info-message').remove();
+    }
     var divAlert = $("<div>", {
+        id:'info-message',
         class: "message success alert-success",
         onclick: "this.classList.add('hidden')",
     });
@@ -730,7 +734,11 @@ function addSuccess() {
     divAlert.insertAfter("#topofpage");
 }
 function addError() {
+    if ($('#info-message').length) {
+        $('#info-message').remove();
+    }
     var divAlert = $("<div>", {
+        id:'info-message',
         class: "message error alert-danger",
         onclick: "this.classList.add('hidden')",
     });
