@@ -195,7 +195,7 @@ function sendOnlyChange(form){
                 // console.log("Requête finie, traitement ici.");
                 $('#loader').hide();
                 $('#btn_enregistrer').show();
-                if ( ($('#validat').is(':checked') && !validat) || (!$('#validat').is(':checked') && validat) ) {
+                if ( $('#validat').is(':checked') ) {
                     document.location.reload(true);
                 }
             }

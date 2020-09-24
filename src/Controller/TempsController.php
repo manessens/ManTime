@@ -735,6 +735,9 @@ class TempsController extends AppController
                 // $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
                 $string = "error";
             }
+            // DEBUG:
+            debug(array_key_exists('check_lock', $arrayData));
+            exit;
             // on ne génère pas la page si on viens d'un appel JS
             if( $this->request->is('ajax') ) {
                 $this->autoRender = false; // Pas de rendu
