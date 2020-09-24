@@ -1209,6 +1209,8 @@ class TempsController extends AppController
         $arrayprojects = $this->Projet->find('all', ['fields' => ['idp', 'idc', 'nom_projet', 'type', 'Facturable.nom_fact', 'idf']])->contain(['Facturable'])->toArray();
         $projects = $projectClients = array();
         foreach ($arrayprojects as $proj) {
+            debug($ProjetControl->getTypeArray());
+            debug($proj->type);
             $projectsType[$proj->projname] = $ProjetControl->getTypeArray()[$proj->type];
             $projects[$proj->idp] = $proj->projname;
             $projectFact[$proj->idp] = $proj->facturable->nom_fact;
