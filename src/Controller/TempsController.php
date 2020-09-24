@@ -736,10 +736,6 @@ class TempsController extends AppController
                 $string = "error";
             }
             // on ne génère pas la page si on viens d'un appel JS
-            // DEBUG:
-            debug($this->request->is('ajax'));
-            debug($string);
-            exit;
             if( $this->request->is('ajax') ) {
                 $this->autoRender = false; // Pas de rendu
                 return $this->response->withStringBody($string);
