@@ -724,7 +724,7 @@ function addSuccess() {
         class: "message success alert-success",
         onclick: "this.classList.add('hidden')",
     });
-    divAlert.append("La semaine à été sauvegardée.").
+    divAlert.innerHTML("La semaine à été sauvegardée.").
     divAlert.insertAfter("#topofpage");
 // <div class="message success alert-success" onclick="this.classList.add('hidden')">La semaine à été sauvegardée.</div>
 }
