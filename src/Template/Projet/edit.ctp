@@ -60,6 +60,12 @@
          ?>
          <div class="input text required">
          <?php
+             echo $this->Form->label('type', 'Type');
+             echo $this->Form->select('type', $types);
+         ?>
+         </div>
+         <div class="input text required">
+         <?php
              echo $this->Form->label('idu', 'CP référent');
              echo $this->Form->select('idu', $referentOption, ['value'=>$projet->idu]);
          ?>

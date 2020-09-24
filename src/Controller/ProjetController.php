@@ -57,6 +57,7 @@ class ProjetController extends AppController
      */
     public function add()
     {
+        $types = $this->getTypeArray();
         $clientOption = $this->getClientOption();
         $factOption = $this->getFactOption();
         $participantsOption = $this->getUserOption();
@@ -115,6 +116,7 @@ class ProjetController extends AppController
      */
     public function edit($id = null)
     {
+        $types = $this->getTypeArray();
         $clientOption = $this->getClientOption();
         $factOption = $this->getFactOption();
         $participantsOption = $this->getUserOption();
@@ -160,6 +162,7 @@ class ProjetController extends AppController
         asort($participantsOption);
         asort($activitiesOption);
         asort($matricesOption);
+        $this->set(compact('types'));
         $this->set(compact('projet'));
         $this->set(compact('clientOption'));
         $this->set(compact('factOption'));
@@ -169,6 +172,18 @@ class ProjetController extends AppController
         $this->set('myParticipants', $this->getMyParticipantsOption($projet->idp));
         $this->set('activities', $activitiesOption);
         $this->set('myActivities', $this->getMyActivitiesOption($projet->idp));
+    }
+
+    private function getTypeArray(){
+        $arrayTypes =[
+            'TMA',
+            'Projets',
+            'Formations',
+            'Conseil',
+            'Innovation',
+            'Interne'
+        ];
+        return $arrayTypes;
     }
 
     private function updateActivities( $projet, $activities = array())

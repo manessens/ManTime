@@ -45,6 +45,12 @@
                 echo $this->Form->select('idm', $matricesOption, ['value'=>10]);
             ?>
         </div>
+        <div class="input text required">
+        <?php
+            echo $this->Form->label('type', 'Type');
+            echo $this->Form->select('type', $types);
+        ?>
+        </div>
         <?php
             echo $this->Form->control('prix');
         ?>

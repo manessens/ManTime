@@ -127,6 +127,11 @@ class ProjetTable extends Table
             ->requirePresence('prix', 'create')
             ->notEmpty('prix');
 
+        $validator
+            ->decimal('type')
+            ->requirePresence('type', 'create')
+            ->notEmpty('type');
+
         $validator->add('date_fin', [
             'supToDebut' => [
                 'rule' => function ($value, $context) {
