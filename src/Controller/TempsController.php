@@ -727,16 +727,17 @@ class TempsController extends AppController
 
             if ($verif) {
                 // $this->Flash->success(__('La semaine à été sauvegardée.'));
-                if (array_key_exists('check_lock', $arrayData)) {
-                    return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
-                }
+                // if (array_key_exists('check_lock', $arrayData)) {
+                //     return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+                // }
                 $string = "success";
             } else {
-                $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
+                // $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
                 $string = "error";
             }
             // on ne génère pas la page si on viens d'un appel JS
-            if (!array_key_exists('check_lock', $arrayData)) {
+            if( $this->request->is('ajax') ) {
+                $this->autoRender = false; // Pas de rendu
                 return $this->response->withStringBody($string);
             }
         }
