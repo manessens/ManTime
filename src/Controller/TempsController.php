@@ -1322,7 +1322,7 @@ class TempsController extends AppController
                                 }
                                 $buffer = [
                                     'client' => $this->convertToIso($client), 'projet' => $this->convertToIso($projet),
-                                    'type' => $this->convertToIso($ProjetControl->getTypeArray()[$projet->type])
+                                    'type' => $this->convertToIso($ProjetControl->getTypeArray()[$projet->type]),
                                     'user' => $this->convertToIso($user), 'profil' => $this->convertToIso($profil),
                                     'activit' => $this->convertToIso($activit), 'detail' => $zdetail, 'agence' => $bufferAgence,
                                     'facturable' => $bufferFact, 'origine' => $bufferOrigine
