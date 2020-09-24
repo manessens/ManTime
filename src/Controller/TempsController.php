@@ -725,8 +725,7 @@ class TempsController extends AppController
                 }
             }
 
-            if ( array_key_exists('check_lock', $arrayData) 
-            || ( !array_key_exists('check_lock', $arrayData) && ($arrayData['validat'] === "" || $arrayData['validat'] === "1") )) {
+            if ( array_key_exists('check_lock', $arrayData) ) {
                 if ($verif) {
                     $this->Flash->success(__('La semaine à été sauvegardée.'));
                 }else{

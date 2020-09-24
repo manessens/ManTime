@@ -192,6 +192,10 @@ function sendOnlyChange(form){
 
         request.onreadystatechange = function() { //Appelle une fonction au changement d'état.
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                if (request.responseText) {
+                    console.log(request.responseText);
+                    addSuccess();
+                }
                 // console.log("Requête finie, traitement ici.");
                 $('#loader').hide();
                 $('#btn_enregistrer').show();
@@ -713,4 +717,14 @@ function updateTotal() {
         $(identifier).text(Math.round(totalLu * 100) / 100);
         nb += 1;
     });
+}
+
+function addSuccess() {
+    var divAlert = $("<div>", {
+        class: "message success alert-success",
+        onclick: "this.classList.add('hidden')",
+    });
+    divAlert.append("La semaine à été sauvegardée.").
+    divAlert.insertAfter("#topofpage");
+// <div class="message success alert-success" onclick="this.classList.add('hidden')">La semaine à été sauvegardée.</div>
 }
