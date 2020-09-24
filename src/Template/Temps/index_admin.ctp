@@ -17,6 +17,8 @@
     var valueProjects = [];
     var valueProfils = [];
     var valueActivits = [];
+
+    var validat = false;
     $(function() {
         <?php
             echo 'optionUsers = ' . json_encode($arrays['$optionUsers']) . ';';
@@ -29,6 +31,8 @@
             echo 'valueProjects = ' . json_encode($arrays['$valueProjects']) . ';';
             echo 'valueProfils = ' . json_encode($arrays['$valueProfils']) . ';';
             echo 'valueActivits = ' . json_encode($arrays['$valueActivits']) . ';';
+
+            echo 'validat = ' . json_encode($validat) . ';';
         ?>
     });
 </script>
