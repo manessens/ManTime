@@ -372,7 +372,7 @@ class TempsController extends AppController
                         'date >=' => $lundi,
                         'date <' => $dimanche
                     ])
-                    ->andWhere(['Participant.idu =' => $idUserAuth]);
+                    ->andWhere(['Participant.idu =' => $idUserJp]);
                 if (!empty($arrayIdCurrent)) {
                     $query->andWhere(['idt NOT IN' => $arrayIdCurrent]);
                 }
