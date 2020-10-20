@@ -468,7 +468,7 @@ function marqueMod(that, delet = false, input = false){
     if (first == false && add == false) {
         // debugger;
         if (input){
-            var tr = $(that).parent();
+            var tr = $(that).parent().parent().parent();
         }else{
             var tr = $(that).parent().parent();
         }
