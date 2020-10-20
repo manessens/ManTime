@@ -172,7 +172,7 @@
                                 <?php echo $line['detail']; ?>
                             <?php else : ?>
                                 <?php
-                                echo $this->form->control("detail.$kUser.$k", ['label' => false, 'value' => $line['detail']]);
+                                echo $this->form->control("detail.$kUser.$k", ['label' => false, 'value' => $line['detail'], 'class' => 'comment']);
                                 ?>
                             <?php endif; ?>
                         </td>

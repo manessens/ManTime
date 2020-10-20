@@ -99,6 +99,10 @@ var premierPassage = true;
         modifyActivite(this);
     });
 
+    $(".comment").change(function () {
+        modifyComment(this);
+    });
+
     $(".numericer").on("input", function () {
         numericer(this);
         updateTotal();
@@ -492,6 +496,10 @@ function modifyProfil(that) {
 function modifyActivite(that) {
     marqueMod(that);
 }
+//création de marqueur lors de la modification du commentaire
+function modifyComment(that) {
+    marqueMod(that);
+}
 
 function delLine(that) {
     var tr = $(that).parent().parent();
@@ -638,12 +646,16 @@ function addLine(that) {
     });
     var inputDetail = $("<input>", {
         type: "text",
+        class: "comment",
         name: "detail[" + idUser + "][" + id + "]",
         id: "detail-" + idUser + "-" + id,
     });
     divDetail.append(inputDetail);
     tdDetail.append(divDetail);
     tr.append(tdDetail);
+    inputDetail.change(function () {
+        modifyComment(this);
+    });
     // Days
     arrayDays.forEach(function (idDay) {
         var tdDay = $("<td>", { scope: "col" });
