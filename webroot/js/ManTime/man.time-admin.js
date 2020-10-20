@@ -463,11 +463,15 @@ function modifyProject(that) {
 
 }
 
-function marqueMod(that, delet = false){
+function marqueMod(that, delet = false, input = false){
     //création de marqueur lors de la modification du client
     if (first == false && add == false) {
         // debugger;
-        var tr = $(that).parent().parent();
+        if (input){
+            var tr = $(that).parent();
+        }else{
+            var tr = $(that).parent().parent();
+        }
         var tdSelectLast = $(tr).find("td.cel_detail");
         arrayDays.forEach(function (idDay) {
             tdSelectLast = $(tdSelectLast).next();
@@ -498,7 +502,7 @@ function modifyActivite(that) {
 }
 //création de marqueur lors de la modification du commentaire
 function modifyComment(that) {
-    marqueMod(that);
+    marqueMod(that, false, true);
 }
 
 function delLine(that) {
