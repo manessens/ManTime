@@ -336,6 +336,7 @@ class ExportFitnetController extends AppController
 
             if ( $data_client != null and count($data_client) > 0 ) {
                 $this->loadModel('Projet');
+                // $arrayIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']])->where(['idc =' => $data_client])->toArray();
                 $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
                 foreach ($data_client as $client) {
                     $queryIdProjet->orWhere(['idc =' => $client]);
@@ -347,17 +348,13 @@ class ExportFitnetController extends AppController
                     $queryError = true;
                 }
             }
-            if (is_array($data_user)) {
-                if (count($data_user) > 0 ){
-                    foreach ($data_user as $userId) {
-                        $queryUser[] = ['Temps.idu =' => $userId];
-                    }
-                    $query->andWhere(['OR' => $queryUser ]);
+            if ($data_user != null and count($data_user) > 0 ){
+                foreach ($data_user as $userId) {
+                    $queryUser[] = ['Temps.idu =' => $userId];
                 }
-            }elseif($data_user != null){
-                $queryUser[] = ['Temps.idu =' => $data_user];
                 $query->andWhere(['OR' => $queryUser ]);
             }
+
             if ($queryError) {
                 $times=array();
                 return $times;
