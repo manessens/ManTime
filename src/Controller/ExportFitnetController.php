@@ -543,8 +543,7 @@ class ExportFitnetController extends AppController
             if (is_array($result)) {
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
-                    $msgError = $msgError.
-                    '| DATA :'.
+                    $msgError = $msgError.' | DATA :';
                     foreach ($result['data'] as $key => $message) {
                         // preg_match ( '/[0-9]+/' , $key , $matches );
                         // if (is_array($matches)) {
