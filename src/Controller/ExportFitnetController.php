@@ -585,7 +585,7 @@ class ExportFitnetController extends AppController
                             //     ' |Valeur: '.$time['quantityDay'];
                                 $count--;
                                 $export = $this->inError($export, $msgError);
-                            }
+                            // }
                         // }
                     }
                 }
