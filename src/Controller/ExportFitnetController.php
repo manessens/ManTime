@@ -542,36 +542,17 @@ class ExportFitnetController extends AppController
             // Création du message d'erreur si nécessaire"
             if (is_array($result)) {
                 if (array_key_exists('error', $result)) {
+                    $msgError = $result['message'];
+                    $msgError = $msgError.
+                    '| DATA :'.
                     foreach ($result['data'] as $key => $message) {
-                        preg_match ( '/[0-9]+/' , $key , $matches );
+                        // preg_match ( '/[0-9]+/' , $key , $matches );
                         // if (is_array($matches)) {
 
                             //// DEBUG:
-                            // $time = $timeSheets[$matches[0]-1];
-                            if (is_array($message)) {
-                                foreach ($message as $k => $v) {
-                                    $msgError = $v.
-                                    ' : |$key: '.$key;
-
-                                    if (is_array($matches)) {
-                                        foreach ($matches as $keyy => $val) {
-                                            $msgError = $msgError.' |$matches['.$keyy.']: '.$val;
-                                        }
-                                    }else{
-                                        $msgError = $msgError.' |$matches: nomatch';
-                                    }
-                                }
-                            }else{
-                                $msgError = $message.
-                                ' : |$key: '.$key;
-                                if (is_array($matches)) {
-                                    foreach ($matches as $keyy => $val) {
-                                        $msgError = $msgError.' |$matches['.$keyy.']: '.$val;
-                                    }
-                                }else{
-                                    $msgError = $msgError.' |$matches: nomatch';
-                                }
-                            }
+                            $msgError = $msgError.
+                            '-- key :'.$key.
+                            '-- string :'.$message;
                             //// FINDEBUG
 
                             // foreach ($message[0] as $k => $v) {
