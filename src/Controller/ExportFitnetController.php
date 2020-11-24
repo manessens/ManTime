@@ -567,9 +567,9 @@ class ExportFitnetController extends AppController
                                 // $export = $this->inError($export, $msgError);
                             // }
                         // }
-                        $count--;
-                        $export = $this->inError($export, $msgError);
                     }
+                    $count--;
+                    $export = $this->inError($export, $msgError);
                 }
             }
         }
