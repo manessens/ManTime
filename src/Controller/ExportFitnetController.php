@@ -554,7 +554,7 @@ class ExportFitnetController extends AppController
                                     ' : |$key: '.$key;
 
                                     if (is_array($matches)) {
-                                        foreach ($variable as $keyy => $val) {
+                                        foreach ($matches as $keyy => $val) {
                                             $msgError = $msgError.' |$matches['.$keyy.']: '.$val;
                                         }
                                     }else{
@@ -565,7 +565,7 @@ class ExportFitnetController extends AppController
                                 $msgError = $message.
                                 ' : |$key: '.$key;
                                 if (is_array($matches)) {
-                                    foreach ($variable as $keyy => $val) {
+                                    foreach ($matches as $keyy => $val) {
                                         $msgError = $msgError.' |$matches['.$keyy.']: '.$val;
                                     }
                                 }else{
