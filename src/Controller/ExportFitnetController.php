@@ -357,6 +357,8 @@ class ExportFitnetController extends AppController
                 }
                 $query->andWhere(['OR' => $queryUser ]);
             }
+            // DEBUG:
+            return debug($query);
 
             if ($queryError) {
                 $times=array();
