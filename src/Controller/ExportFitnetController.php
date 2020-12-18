@@ -294,6 +294,9 @@ class ExportFitnetController extends AppController
             }
             $arraNSem[$y][] = $i;
         }
+        if (empty($arraNSem)) {
+            return "Erreur récupération numéro semaine";
+        }
         $query = null;
         $this->loadModel('Exportable');
         $query = $this->Exportable->find('all');
@@ -461,9 +464,13 @@ class ExportFitnetController extends AppController
         // Récupération des temps
         $times = $this->getTimesFromExport($export);
         $count = $ignored = 0;
-        if (empty($times)) {
+        if (empty($times) || !is_array($times)) {
             // notif export : erreur si 0 temps - FIN de traitement
-            $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
+            if (!is_array($times)) {
+                $export=$this->inError($export, $times);
+            }else{
+                $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
+            }
             $this->ExportFitnet->save($export);
         }else{
             //traitement des Temps pour fusion des lignes
