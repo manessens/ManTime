@@ -354,7 +354,7 @@ class ExportFitnetController extends AppController
                 }
             }
             if ($data_user != null and count($data_user) > 0 ){
-                if ($data_client[0] != "") {
+                if ($data_user[0] != "") {
                     foreach ($data_user as $userId) {
                         $queryUser[] = ['Temps.idu =' => $userId];
                     }
