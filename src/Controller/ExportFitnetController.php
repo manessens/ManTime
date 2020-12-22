@@ -555,7 +555,7 @@ class ExportFitnetController extends AppController
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
                     foreach ($timeSheets as $tbug) {
-                        $msgError = $msgError."|".$tbug;
+                        $msgError = $msgError.'|'.debug($tbug);
                     }
                     // $msgError = $result['message'];
                     // $msgError = $msgError.' | DATA :';
