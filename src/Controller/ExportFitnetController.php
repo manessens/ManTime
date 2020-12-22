@@ -553,6 +553,7 @@ class ExportFitnetController extends AppController
             // Création du message d'erreur si nécessaire"
             if (is_array($result)) {
                 if (array_key_exists('error', $result)) {
+                    $msgError = $result['message'];
                     foreach ($timeSheets as $tbug) {
                         $msgError = $msgError."|".$tbug;
                     }
