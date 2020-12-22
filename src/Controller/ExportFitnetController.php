@@ -525,7 +525,7 @@ class ExportFitnetController extends AppController
                     }
                 }
             }
-            // DEBUG: 
+            // DEBUG:
             exit;
             // SUPPRESSION
             // $url = '/v1/activity/timesheet';
@@ -635,6 +635,11 @@ class ExportFitnetController extends AppController
             return $this->arrayAssignMemory[$key];
         }
 
+        debug( $keyClient );
+        debug( $orderCode );
+        debug( $keyProfil );
+        debug( $userEmail );
+        debug( $dateTime );
         foreach ($assignements as $assignement) {
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
@@ -646,6 +651,8 @@ class ExportFitnetController extends AppController
             }
 
             // recherche de l'assignement
+            // debug( $start );
+            // debug( $end );
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
                 || $assignement->prestation != $keyProfil
@@ -665,8 +672,6 @@ class ExportFitnetController extends AppController
         if (empty($time)) {
             return false;
         }
-        // DEBUG:
-        debug($time);
 
         // Gen key for time
         $keyProfil = Configure::read('vsa.profil.'.$time->id_profil);
