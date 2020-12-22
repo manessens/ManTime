@@ -525,7 +525,8 @@ class ExportFitnetController extends AppController
                     }
                 }
             }
-
+            // DEBUG: 
+            exit;
             // SUPPRESSION
             // $url = '/v1/activity/timesheet';
             // $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
@@ -664,6 +665,8 @@ class ExportFitnetController extends AppController
         if (empty($time)) {
             return false;
         }
+        // DEBUG:
+        debug($time);
 
         // Gen key for time
         $keyProfil = Configure::read('vsa.profil.'.$time->id_profil);
@@ -756,6 +759,8 @@ class ExportFitnetController extends AppController
             "quantityHour" => round($qHour, 2),
             "comment" => "" //$time->detail
         ];
+        // DEBUG:
+        debug($timesheet);
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
