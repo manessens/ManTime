@@ -525,8 +525,6 @@ class ExportFitnetController extends AppController
                     }
                 }
             }
-            // DEBUG:
-            exit;
             // SUPPRESSION
             // $url = '/v1/activity/timesheet';
             // $resultd = $this->setVsaLink($url, "DELETE", $delTimes);
@@ -635,11 +633,6 @@ class ExportFitnetController extends AppController
             return $this->arrayAssignMemory[$key];
         }
 
-        debug( $keyClient );
-        debug( $orderCode );
-        debug( $keyProfil );
-        debug( $userEmail );
-        debug( $dateTime );
         foreach ($assignements as $assignement) {
             $start = new Time($assignement->startDate);
             $end = new Time($assignement->endDate);
@@ -651,8 +644,6 @@ class ExportFitnetController extends AppController
             }
 
             // recherche de l'assignement
-            // debug( $start );
-            // debug( $end );
             if ($assignement->tiersCode != $keyClient
                 || $assignement->orderCode != $orderCode
                 || $assignement->prestation != $keyProfil
@@ -764,8 +755,6 @@ class ExportFitnetController extends AppController
             "quantityHour" => round($qHour, 2),
             "comment" => "" //$time->detail
         ];
-        // DEBUG:
-        debug($timesheet);
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
