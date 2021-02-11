@@ -225,11 +225,11 @@
         </tbody>
     </table>
     <div class='right col-xs-5'>
-        <div class='left'>
+        <!-- <div class='left'>
             <?php
-            echo $this->Form->control('validat', ['type' => 'checkbox', 'value' => !$validat, 'label' => "Valider la semaine (autorise l'export)"]);
+            // echo $this->Form->control('validat', ['type' => 'checkbox', 'value' => !$validat, 'label' => "Valider la semaine (autorise l'export)"]);
             ?>
-        </div>
+        </div> -->
         <div class='right col-xs-1'>
             <a href="#topofpage"><button id="bottom" type="button" class="btn btn-info">&uarr;</button></a>
         </div>

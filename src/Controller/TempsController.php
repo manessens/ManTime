@@ -23,6 +23,14 @@ use App\Controller\ProjetController;
 class TempsController extends AppController
 {
 
+    var $arrayDays;
+
+    public function initialize()
+    {
+        parent::initialize();
+        $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
+    }
+
     /**
      * Index method
      *
@@ -94,9 +102,7 @@ class TempsController extends AppController
                     if (
                         $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0
                         || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
-                    ) {
-                        continue;
-                    }
+                    ) { continue; }
                     // $arrayIdentifierLine[] = $identifierLine;
                     foreach ($arrayDay as $dataDay) {
                         $idc = explode('.', $arrayData['client'][$line])[1];
@@ -299,9 +305,7 @@ class TempsController extends AppController
                     if (
                         $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
                         || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
-                    ) {
-                        continue;
-                    }
+                    ) { continue; }
                     // $arrayIdentifierLine[] = $identifierLine;
                     foreach ($arrayDay as $dataDay) {
                         $idc = explode('.', $arrayData['client'][$line])[1];
@@ -561,43 +565,28 @@ class TempsController extends AppController
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
             $arrayData = $this->request->getData();
-            if (!array_key_exists('validat', $arrayData)) {
-                $this->Flash->error(__('Longueur maximal de requête atteinte ! Veuillez consulter un responsable avant de continuer.'));
-                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
-            }
+
             $arrayIdDelete = array();
             $entities = array();
-            $verif = true;
             $arrayIdentifierLine = array();
-            // // DEBUG:
-            // debug($arrayData);
-            // exit;
-            $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
-            if (array_key_exists('day', $arrayData)) {
+
+            $verif = true;
+
+            if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
-                    if ($idUser === 0) {
-                        continue;
-                    }
+                    // control user is connected
+                    if ($idUser === 0) { continue; }
+                    // for each row in the array
                     foreach ($arrayLine as $line => $arrayDay) {
-                        // $dayTime = clone $lundi;
-                        // $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
-                        //     $arrayData['projet'][$idUser][$line] . $arrayData['profil'][$idUser][$line] .
-                        //     $arrayData['activities'][$idUser][$line] . $arrayData['detail'][$idUser][$line] ;
-                        // if (in_array($identifierLine, $arrayIdentifierLine)) {
-                        //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
-                        //     $verif = false;
-                        // }
-                        if (
-                            $arrayData['users'][$idUser][$line] == 0
-                            || $arrayData['client'][$idUser][$line] == 0
-                            || $arrayData['projet'][$idUser][$line] == 0
-                            || $arrayData['profil'][$idUser][$line] == 0
-                            || $arrayData['activities'][$idUser][$line] == 0
-                        ) {
-                            continue;
-                        }
-                        // $arrayIdentifierLine[] = $identifierLine;
+                        //Control on value : not null
+                        if ( $arrayData['users'][$idUser][$line] == 0
+                          || $arrayData['client'][$idUser][$line] == 0
+                          || $arrayData['projet'][$idUser][$line] == 0
+                          || $arrayData['profil'][$idUser][$line] == 0
+                          || $arrayData['activities'][$idUser][$line] == 0
+                        ) { continue; }
+                        // for each Day of the week in a row
                         foreach ($arrayDay as $daySemaine => $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
                             $arrayIdc = explode('.', $arrayData['client'][$idUser][$line]);
@@ -664,12 +653,6 @@ class TempsController extends AppController
                     }
                 }
             }
-            // // // DEBUG:
-            // debug($arrayIdDelete);
-            // debug($entities);
-            //
-            // debug($arrayData['validat']);
-            // exit;
 
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
@@ -709,22 +692,6 @@ class TempsController extends AppController
                         }
                     }
                 }
-            // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
-            // } else {
-            //     $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
-            //     return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
-            }
-
-            // Mise à jour du blocage si on viens de la page locked ou si il n'y a pas de clef de blocage existant
-            if (array_key_exists('check_lock', $arrayData) || !$validat) {
-                if ($arrayData['validat'] === "0" && $validat) {
-                    $this->Exportable->delete($isLocked);
-                } elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
-                    $locked = $this->Exportable->newEntity();
-                    $locked->n_sem = $semaine;
-                    $locked->annee = $annee;
-                    $this->Exportable->save($locked);
-                }
             }
 
             if ( array_key_exists('check_lock', $arrayData) ) {
@@ -733,7 +700,7 @@ class TempsController extends AppController
                 }else{
                     $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
                 }
-                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+                return $this->redirect(['action' => 'index-cp', $semaine, $annee]);
             }else {
                 // on ne génère pas la page si on viens d'un appel JS
                 $this->autoRender = false; // Pas de rendu
@@ -843,10 +810,7 @@ class TempsController extends AppController
             $entities = array();
             $verif = true;
             $arrayIdentifierLine = array();
-            // // DEBUG:
-            // debug($arrayData);
-            // exit;
-            $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
+
             if (array_key_exists('day', $arrayData)) {
                 $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
@@ -1058,12 +1022,12 @@ class TempsController extends AppController
         $week = array();
         $validat = false;
         ksort($buff);
-        foreach ($buff as $key => $arrayDays) {
+        foreach ($buff as $key => $arrayDayz) {
             $arrKey = explode('.', $key);
             if (count($arrKey) > 2) {
                 $key = $arrKey[2];
             }
-            foreach ($arrayDays as $day) {
+            foreach ($arrayDayz as $day) {
                 $week[$key]['idc'] = $idu . '.' . $day->projet->idc;
                 $week[$key]['idp'] = $idu . '.' . $day->projet->idc . '.' . $day->idp;
                 $week[$key]['id_profil'] = $day->idp . '.' . $day->id_profil;
@@ -1083,7 +1047,7 @@ class TempsController extends AppController
     {
         $modelWeek = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
         $entities = array();
-        foreach ($week as $key => $arrayDays) {
+        foreach ($week as $key => $arrayDayz) {
             foreach ($modelWeek as $idDay) {
                 if (!array_key_exists($idDay, $week[$key])) {
                     $week[$key][$idDay] = $this->Temps->newEntity();
@@ -1286,7 +1250,8 @@ class TempsController extends AppController
         $arraNSem = array($anneeDebut => array());
         $y = $anneeDebut;
         for ($i = $semaineDebut; ($i <= $semaineFin && $y <= $anneeFin); $i++) {
-            if ($i > 52) {
+            $lastWeek = (int)date('W', strtotime('31-12-'.$y));
+            if ($i > $lastWeek) {
                 $i = 1;
                 $y++;
             }
