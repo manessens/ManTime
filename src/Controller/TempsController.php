@@ -576,6 +576,8 @@ class TempsController extends AppController
                           || $arrayData['profil'][$idUser][$line] == 0
                           || $arrayData['activities'][$idUser][$line] == 0
                         ) { continue; }
+                        // DEBUG:
+                        debug("test ok");
                         // for each Day of the week in a row
                         foreach ($arrayDay as $daySemaine => $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
@@ -603,6 +605,8 @@ class TempsController extends AppController
                                     $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
                                 }
                             }
+                            // DEBUG:
+                            debug("test 2 et 3 ok");
 
                             $day->time = $dataDay['time'];
                             // add to $week to keep the data in case of error and redirect in the same page
