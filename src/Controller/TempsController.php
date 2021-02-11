@@ -28,7 +28,7 @@ class TempsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->$arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
+        $this->arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
     }
 
     /**
@@ -621,7 +621,7 @@ class TempsController extends AppController
 
                                 // détermination de la date en fonction du jour de la semaine
                                 $dayTime = clone $lundi;
-                                $dayTime->modify('+' . $this->$arrayDays[$daySemaine] . ' days');
+                                $dayTime->modify('+' . $this->arrayDays[$daySemaine] . ' days');
                                 $day->date = clone $dayTime;
 
                                 $day->n_ligne = $line;
@@ -872,7 +872,7 @@ class TempsController extends AppController
 
                                 // détermination de la date en fonction du jour de la semaine
                                 $dayTime = clone $lundi;
-                                $dayTime->modify('+' . $this->$arrayDays[$daySemaine] . ' days');
+                                $dayTime->modify('+' . $this->arrayDays[$daySemaine] . ' days');
                                 $day->date = clone $dayTime;
 
                                 $day->n_ligne = $line;
