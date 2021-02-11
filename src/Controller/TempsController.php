@@ -543,11 +543,9 @@ class TempsController extends AppController
         $validat = false;
         $this->loadModel('Exportable');
         $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
-        // DEBUG:
         if (!is_null($isLocked)) {
             $validat = true;
         }
-        debug($validat);
 
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -562,6 +560,10 @@ class TempsController extends AppController
                 $verif = false;
             }
 
+            // DEBUG:
+            debug($arrayData);
+            debug(array_key_exists('day', $arrayData));
+            debug($validat);
             if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
