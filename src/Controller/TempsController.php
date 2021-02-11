@@ -543,9 +543,12 @@ class TempsController extends AppController
         $validat = false;
         $this->loadModel('Exportable');
         $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
+        // DEBUG:
+        debug($isLocked);
         if (!is_null($isLocked)) {
             $validat = true;
         }
+        exit;
 
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
