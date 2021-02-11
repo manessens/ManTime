@@ -239,7 +239,9 @@
             echo $this->Form->hidden('check_lock', ['value' => 1]);
         }
         ?>
-        <button class="right btn btn-warning" id="btn_enregistrer">Enregistrer</button>
+        <?php if (!$validat) : ?>
+            <button class="right btn btn-warning" id="btn_enregistrer">Enregistrer</button>
+        <?php endif; ?>
         <div class="right loader btn" style="display:none;" id="loader"> </div>
     </div>
     <?= $this->Form->end() ?>
