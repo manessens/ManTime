@@ -562,6 +562,8 @@ class TempsController extends AppController
                 $verif = false;
             }
 
+            // DEBUG:
+            debug($arrayData);
             if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
