@@ -20,7 +20,7 @@
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
             'block',
-            ['title' => 'Validation CP', 'content'=>'Gestions des temps pour Chefs de Projets', 'img'=>'002-check.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.cp')]),
+            ['title' => 'Validation CP', 'content'=>'Gestions des temps pour Chefs de Projets', 'img'=>'009-business.png', 'user'=>$user, 'auth'=>\Cake\Core\Configure::read('role.cp')]),
             ['controller' => 'Temps', 'action' => 'index-cp'],
             ['escape' => false]); ?>
         <?= $this->Html->link($this->element(
