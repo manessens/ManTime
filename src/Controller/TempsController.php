@@ -544,15 +544,13 @@ class TempsController extends AppController
         $this->loadModel('Exportable');
         $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
         // DEBUG:
-        debug($isLocked);
         if (!is_null($isLocked)) {
             $validat = true;
         }
+        debug($validat);
 
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
-        // DEBUG:
-        exit;
             $arrayData = $this->request->getData();
 
             $arrayIdDelete = array();
@@ -563,6 +561,9 @@ class TempsController extends AppController
             if ( $validat = true) {
                 $verif = false;
             }
+            debug($verif);
+            // DEBUG:
+            exit;
 
             if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
