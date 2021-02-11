@@ -77,7 +77,7 @@
                 <div class="weeker_admin right">
                     <div class="right">
                         <?php if ($semaine-1 < 1 ): ?>
-                            <?php $lastWeek = (int)date('W', strtotime('31-12-'.$annee-1)); ?>
+                            <?php $lastWeek = (int)date('W', strtotime( '31-12-'.($annee-1) )); ?>
                             <?= $this->Html->link(__('<'), ['action' => 'index', $lastWeek, $annee-1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
                             <?= $this->Html->link(__('<'), ['action' => 'index', $semaine-1, $annee], ['class' => 'btn btn-danger']) ?>
