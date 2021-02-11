@@ -564,7 +564,7 @@ class TempsController extends AppController
 
             // DEBUG:
             debug($validat);
-            if (array_key_exists('day', $arrayData) && $validat = false) {
+            if (array_key_exists('day', $arrayData) && $validat == false) {
                 $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     // control user is connected
