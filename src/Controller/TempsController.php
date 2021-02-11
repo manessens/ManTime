@@ -288,22 +288,11 @@ class TempsController extends AppController
             $entities = array();
             $arrayIdentifierLine = array();
             $verif = false;
-            // vérif lock by admin
-            // if (!is_null($isLocked)) {
-            //     $this->Flash->error(__('La semaine à été vérouillé par un admin, veuillez contacter un responsable pour une modification de saisie'));
-            //     return $this->redirect(['action' => 'index', $semaine, $annee]);
-            // }
             if (array_key_exists('day', $arrayData)) {
                 $verif = true;
                 $projetTable = TableRegistry::get('Projet');
                 foreach ($arrayData['day'] as $line => $arrayDay) {
                     $dayTime = clone $lundi;
-                    // $identifierLine = (string) $arrayData['client'][$line] . $arrayData['projet'][$line] .
-                    //         $arrayData['profil'][$line] . $arrayData['activities'][$line] . $arrayData['detail'][$line] ;
-                    // if (in_array($identifierLine, $arrayIdentifierLine)) {
-                    //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
-                    //     $verif = false;
-                    // }
                     if (
                         $arrayData['client'][$line] == 0 || $arrayData['projet'][$line] == 0 || $arrayData['projet'][$line] == 0
                         || $arrayData['profil'][$line] == 0 || $arrayData['profil'][$line] == 0 || $arrayData['activities'][$line] == 0
@@ -337,10 +326,6 @@ class TempsController extends AppController
                             $dayTime->modify('+1 days');
                             continue;
                         }
-                        // if ($dataDay['time'] > 1 && $verif) {
-                        //     $this->Flash->error(__('La saisie journalière ne peux dépasser une journée pleine sur un même projet avec les mêmes rôles'));
-                        //     $verif = false;
-                        // }
                         if ($idc == $arrayIdp[1] && $idp == $arrayIdprof[0] && $idp == $arrayIda[0]) {
                             //For deletion
                             if ($day->idt) {
@@ -389,10 +374,6 @@ class TempsController extends AppController
                         $verif = $verif && $this->Temps->save($day);
                     }
                 }
-                // }else{
-                //     $this->Flash->error(__("La semaine a déjà été soumise, les modifications n'ont pus être sauvegardées."));
-                //     return $this->redirect(['action' => 'index_jp', $semaine, $annee]);
-                // }
             }
             if ($verif) {
                 $this->Flash->success(__('La semaine à été sauvegardée.'));
@@ -413,10 +394,12 @@ class TempsController extends AppController
         $fullNameUserAuth = $user->fullname;
 
         $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
+        $lastWeek = (int)date('W', strtotime('31-12-'.$annee));
 
         $this->set(compact('week'));
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
+        $this->set(compact('lastWeek'));
         $this->set(compact('current'));
         $this->set(compact('lundi'));
         $this->set(compact('dimanche'));
@@ -727,6 +710,7 @@ class TempsController extends AppController
         $fullNameUserAuth = $user->fullname;
 
         $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
+        $lastWeek = (int)date('W', strtotime('31-12-'.$annee));
 
         $arrays = $this->build_array($arrayRetour['users'], $arrayRetour['clients'], $arrayRetour['projets'], $arrayRetour['profiles'], $arrayRetour['activities']);
         // $this->set(compact('temps'));
@@ -734,6 +718,7 @@ class TempsController extends AppController
         $this->set(compact('week'));
         $this->set(compact('semaine'));
         $this->set(compact('annee'));
+        $this->set(compact('lastWeek'));
         $this->set(compact('current'));
         $this->set(compact('lundi'));
         $this->set(compact('dimanche'));
@@ -904,12 +889,6 @@ class TempsController extends AppController
                     }
                 }
             }
-            // // // DEBUG:
-            // debug($arrayIdDelete);
-            // debug($entities);
-            //
-            // debug($arrayData['validat']);
-            // exit;
 
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
@@ -998,12 +977,14 @@ class TempsController extends AppController
         $fullNameUserAuth = $user->fullname;
 
         $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
+        $lastWeek = (int)date('W', strtotime('31-12-'.$annee));
 
         $arrays = $this->build_array($arrayRetour['users'], $arrayRetour['clients'], $arrayRetour['projets'], $arrayRetour['profiles'], $arrayRetour['activities']);
         // $this->set(compact('temps'));
         $this->set(compact('arrays'));
         $this->set(compact('week'));
         $this->set(compact('semaine'));
+        $this->set(compact('lastWeek'));
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('lundi'));
