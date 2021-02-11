@@ -556,6 +556,9 @@ class TempsController extends AppController
             $arrayIdentifierLine = array();
 
             $verif = true;
+            if ( $validat = true) {
+                $verif = false;
+            }
 
             if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
