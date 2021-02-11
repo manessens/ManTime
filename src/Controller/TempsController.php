@@ -546,8 +546,6 @@ class TempsController extends AppController
         if (!is_null($isLocked)) {
             $validat = true;
         }
-                    // DEBUG:
-                    debug($validat);
 
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -562,14 +560,10 @@ class TempsController extends AppController
                 $verif = false;
             }
 
-            // DEBUG:
-            debug($validat);
             if (array_key_exists('day', $arrayData) && $validat == false) {
                 $this->loadModel('Projet');
                 foreach ($arrayData['day'] as $idUser => $arrayLine) {
                     // control user is connected
-                    // DEBUG:
-                    debug($idUser);
                     if ($idUser === 0) { continue; }
                     // for each row in the array
                     foreach ($arrayLine as $line => $arrayDay) {
@@ -580,8 +574,6 @@ class TempsController extends AppController
                           || $arrayData['profil'][$idUser][$line] == 0
                           || $arrayData['activities'][$idUser][$line] == 0
                         ) { continue; }
-                        // DEBUG:
-                        debug("test ok");
                         // for each Day of the week in a row
                         foreach ($arrayDay as $daySemaine => $dataDay) {
                             $idu = $arrayData['users'][$idUser][$line];
@@ -609,8 +601,6 @@ class TempsController extends AppController
                                     $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
                                 }
                             }
-                            // DEBUG:
-                            debug("test 2 et 3 ok");
 
                             $day->time = $dataDay['time'];
                             // add to $week to keep the data in case of error and redirect in the same page
@@ -652,9 +642,6 @@ class TempsController extends AppController
                 }
             }
 
-            debug($entities);
-            // DEBUG:
-            exit;
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 if (!empty($arrayIdDelete)) { // Si il y a des temps à supprimer
@@ -1118,12 +1105,10 @@ class TempsController extends AppController
 
         if ($year === null) {
             $year = intval(strftime('%Y'));
-            // debug($year);
         }
 
         // passage de l'année en Int : Mathis Alleaume -> 27/07/2020
         $year = (int)$year;
-        // debug($year);
 
         $easterDate = easter_date($year);
         $easterDay = date('j', $easterDate) + 1;
