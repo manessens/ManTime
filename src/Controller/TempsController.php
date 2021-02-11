@@ -546,6 +546,8 @@ class TempsController extends AppController
         if (!is_null($isLocked)) {
             $validat = true;
         }
+                    // DEBUG:
+                    debug($validat);
 
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -561,8 +563,6 @@ class TempsController extends AppController
             }
 
             // DEBUG:
-            debug($arrayData);
-            debug(array_key_exists('day', $arrayData));
             debug($validat);
             if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
