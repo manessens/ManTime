@@ -548,10 +548,11 @@ class TempsController extends AppController
         if (!is_null($isLocked)) {
             $validat = true;
         }
-        exit;
 
         //test si tratement de donnée
         if ($this->request->is(['patch', 'post', 'put'])) {
+        // DEBUG:
+        exit;
             $arrayData = $this->request->getData();
 
             $arrayIdDelete = array();
