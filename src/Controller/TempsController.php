@@ -213,9 +213,11 @@ class TempsController extends AppController
         $fullNameUserAuth = $user->fullname;
 
         $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
+        $lastWeek = (int)date('W', strtotime('31-12-'.$annee));
 
         $this->set(compact('week'));
         $this->set(compact('semaine'));
+        $this->set(compact('lastWeek'));
         $this->set(compact('annee'));
         $this->set(compact('current'));
         $this->set(compact('lundi'));

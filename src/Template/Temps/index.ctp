@@ -77,7 +77,7 @@
                 <div class="weeker_admin right">
                     <div class="right">
                         <?php if ($semaine-1 < 1 ): ?>
-                            <?= $this->Html->link(__('<'), ['action' => 'index', 52, $annee-1], ['class' => 'btn btn-danger']) ?>
+                            <?= $this->Html->link(__('<'), ['action' => 'index', $lastWeek, $annee-1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
                             <?= $this->Html->link(__('<'), ['action' => 'index', $semaine-1, $annee], ['class' => 'btn btn-danger']) ?>
                         <?php endif; ?>
@@ -85,7 +85,7 @@
                             $dimanche->modify('-1 day');
                             echo("Semaine du ".$lundi->i18nFormat('dd/MM').' au '.$dimanche->i18nFormat('dd/MM'));
                         ?>
-                        <?php if ($semaine+1 > 52 ): ?>
+                        <?php if ($semaine+1 > $lastWeek ): ?>
                             <?= $this->Html->link(__('>'), ['action' => 'index', 1, $annee+1], ['class' => 'btn btn-danger']) ?>
                         <?php else: ?>
                             <?= $this->Html->link(__('>'), ['action' => 'index', $semaine+1, $annee], ['class' => 'btn btn-danger']) ?>
