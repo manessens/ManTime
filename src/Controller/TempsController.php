@@ -561,9 +561,6 @@ class TempsController extends AppController
             if ( $validat = true) {
                 $verif = false;
             }
-            debug($verif);
-            // DEBUG:
-            exit;
 
             if (array_key_exists('day', $arrayData) && $validat = false) {
                 $this->loadModel('Projet');
@@ -647,6 +644,9 @@ class TempsController extends AppController
                 }
             }
 
+            debug($entities);
+            // DEBUG:
+            exit;
             // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
             if ($verif && !array_key_exists('check_lock', $arrayData)) {
                 if (!empty($arrayIdDelete)) { // Si il y a des temps à supprimer
