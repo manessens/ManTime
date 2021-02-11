@@ -558,7 +558,7 @@ class TempsController extends AppController
             $arrayIdentifierLine = array();
 
             $verif = true;
-            if ( $validat = true) {
+            if ( $validat == true) {
                 $verif = false;
             }
 
