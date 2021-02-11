@@ -508,6 +508,281 @@ class TempsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+    public function indexCp($semaine = null, $annee = null)
+    {
+
+        $current = (int)date('W');
+
+        if ($semaine === null) {
+            $semaine = $current;
+        }
+        if ($annee === null) {
+            $annee = date('Y');
+        }
+
+        $lundi = new Date('now');
+        $lundi->setTime(00, 00, 00);
+        $lundi->setISOdate((int)$annee, $semaine);
+        $dimanche = clone $lundi;
+        $dimanche->modify('+7 days');
+
+        $this->loadModel('Users');
+        $idUserAuth = $this->Auth->user('idu');
+        $user = $this->Users->get($idUserAuth);
+
+        $users = $this->Users->find('all')->toArray();
+        $arrayRetour = array('users' => ['0' => '-'], 'projets' => ['0' => '-'], 'clients' => ['0' => '-'], 'profiles' => ['0' => '-'], 'activities' => ['0' => '-']);
+        foreach ($users as $key => $userAll) {
+            $arrayRetour['users'][$userAll->idu] = $userAll->fullname;
+            $arrayTemps = array();
+            $arrayTemps = $this->Temps->find('all')
+                ->where(['Temps.idu =' => $userAll->idu])
+                ->andWhere(['validat =' => 1])
+                ->andWhere(['deleted =' => false])
+                ->andWhere(['date >=' => $lundi])
+                ->andWhere(['date <' => $dimanche])
+                ->andWhere(['Projet.idu =' => $idUserAuth])
+                ->contain(['Projet' => ['Client']])->all();
+            $buff = array();
+            foreach ($arrayTemps as $temps) {
+                $buff[$temps->projet->client->nom_client . '.' . $temps->projet->nom_projet . '.' . $temps->n_ligne][] = $temps;
+            }
+            $retour = $this->getDaysInWeek($buff, $lundi, $dimanche, $userAll->idu);
+            $week[$userAll->idu] = $retour[0];
+        }
+
+        $validat = false;
+        $this->loadModel('Exportable');
+        $isLocked = $this->Exportable->find('all')->where(['n_sem =' => $semaine, 'annee =' => $annee])->first();
+        if (!is_null($isLocked)) {
+            $validat = true;
+        }
+
+        //test si tratement de donnée
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $arrayData = $this->request->getData();
+            if (!array_key_exists('validat', $arrayData)) {
+                $this->Flash->error(__('Longueur maximal de requête atteinte ! Veuillez consulter un responsable avant de continuer.'));
+                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+            }
+            $arrayIdDelete = array();
+            $entities = array();
+            $verif = true;
+            $arrayIdentifierLine = array();
+            // // DEBUG:
+            // debug($arrayData);
+            // exit;
+            $arrayDays = ['Lu' => 0, 'Ma' => 1, 'Me' => 2, 'Je' => 3, 'Ve' => 4, 'Sa' => 5, 'Di' => 6];
+            if (array_key_exists('day', $arrayData)) {
+                $this->loadModel('Projet');
+                foreach ($arrayData['day'] as $idUser => $arrayLine) {
+                    if ($idUser === 0) {
+                        continue;
+                    }
+                    foreach ($arrayLine as $line => $arrayDay) {
+                        // $dayTime = clone $lundi;
+                        // $identifierLine = $arrayData['users'][$idUser][$line] . $arrayData['client'][$idUser][$line] .
+                        //     $arrayData['projet'][$idUser][$line] . $arrayData['profil'][$idUser][$line] .
+                        //     $arrayData['activities'][$idUser][$line] . $arrayData['detail'][$idUser][$line] ;
+                        // if (in_array($identifierLine, $arrayIdentifierLine)) {
+                        //     $this->Flash->error(__('Duplication de ligne, veuilez contrôler votre saisie avant de réessayer.'));
+                        //     $verif = false;
+                        // }
+                        if (
+                            $arrayData['users'][$idUser][$line] == 0
+                            || $arrayData['client'][$idUser][$line] == 0
+                            || $arrayData['projet'][$idUser][$line] == 0
+                            || $arrayData['profil'][$idUser][$line] == 0
+                            || $arrayData['activities'][$idUser][$line] == 0
+                        ) {
+                            continue;
+                        }
+                        // $arrayIdentifierLine[] = $identifierLine;
+                        foreach ($arrayDay as $daySemaine => $dataDay) {
+                            $idu = $arrayData['users'][$idUser][$line];
+                            $arrayIdc = explode('.', $arrayData['client'][$idUser][$line]);
+                            $arrayIdp = explode('.', $arrayData['projet'][$idUser][$line]);
+                            $arrayIdprof = explode('.', $arrayData['profil'][$idUser][$line]);
+                            $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
+                            //Generate Day
+                            $day = null;
+                            // Si ID null : création
+                            if (empty($dataDay['id'])) {
+                                // Si temps invalide : pas de création
+                                if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
+                                    continue;
+                                }else{
+                                    $day = $this->Temps->newEntity();
+                                    $day->validat = 1;
+                                }
+                            } else {
+                                // Si modification avec temps invalide : suppression
+                                if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
+                                    $arrayIdDelete[] = $dataDay['id'];
+                                    continue;
+                                }else{
+                                    $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
+                                }
+                            }
+
+                            $day->time = $dataDay['time'];
+                            // add to $week to keep the data in case of error and redirect in the same page
+                            $week[$idUser][$line]['idc'] = $arrayData['client'][$idUser][$line];
+                            $week[$idUser][$line]['idp'] = $arrayData['projet'][$idUser][$line];
+                            $week[$idUser][$line]['id_profil'] = $arrayData['profil'][$idUser][$line];
+                            $week[$idUser][$line]['ida'] = $arrayData['activities'][$idUser][$line];
+                            $week[$idUser][$line][$this->getDay($day->date, $lundi)] = $day;
+                            $week[$idUser][$line]['nline'] = $line;
+                            $week[$idUser][$line]['detail'] = $arrayData['detail'][$idUser][$line];
+
+                            if (
+                                $idu == $arrayIdc[0] && $idu == $arrayIdp[0]
+                                && $arrayIdc[1] == $arrayIdp[1] && $arrayIdp[2] == $arrayIdprof[0] && $arrayIdp[2] == $arrayIda[0]
+                            ) {
+                                $day->idu = $idUser;
+                                $day->deleted = false;
+
+                                // détermination de la date en fonction du jour de la semaine
+                                $dayTime = clone $lundi;
+                                $dayTime->modify('+' . $arrayDays[$daySemaine] . ' days');
+                                $day->date = clone $dayTime;
+
+                                $day->n_ligne = $line;
+                                $day->validat = 1;
+                                if ($day->idp != $arrayIdp[2]) {
+                                    $projet  = $this->Projet->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $arrayIdp[2]])->first();
+                                    $day->idm = $projet->idm;
+                                    $day->prix = $projet->prix;
+                                }
+                                $day->idp = $arrayIdp[2];
+                                $day->id_profil = $arrayIdprof[1];
+                                $day->ida = $arrayIda[1];
+                                $day->detail = trim($arrayData['detail'][$idUser][$line]);
+                                $entities[] = $day;
+                            }
+                        }
+                    }
+                }
+            }
+            // // // DEBUG:
+            // debug($arrayIdDelete);
+            // debug($entities);
+            //
+            // debug($arrayData['validat']);
+            // exit;
+
+            // si pas d'erreur et la requete ne provient pas de la page locked et pas de blocage alors on modifie les temps
+            if ($verif && !array_key_exists('check_lock', $arrayData)) {
+                if (!empty($arrayIdDelete)) { // Si il y a des temps à supprimer
+                    //Deletion
+                    $query = $this->Temps->query()
+                        ->update()->set(['deleted' => true])
+                        ->where([
+                            'validat =' => 1,
+                            'modify = ' => false,
+                            'date >=' => $lundi,
+                            'date <' => $dimanche
+                        ]);
+                    $query->andWhere(['idt IN' => $arrayIdDelete]);
+                    $query->execute();
+                }
+                //Save
+                if (!empty($entities)) {
+                    foreach ($entities as $day) {
+                        try {
+                            $this->Temps->saveOrFail($day);
+                        } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
+                            $oldDay = $this->Temps->find('all')->where([
+                                'idu =' => $day->idu,
+                                'idp =' => $day->idp, 'id_profil =' => $day->id_profil,
+                                'ida =' => $day->ida, 'date =' => $day->date
+                            ])->first();
+
+                            if (!is_null($oldDay)) {
+                                $oldDay->time = $day->time;
+                                $oldDay->n_ligne = $day->n_ligne;
+                                $oldDay->validat = $day->validat;
+                                $verif = $verif && $this->Temps->save($oldDay);
+                            } else {
+                                $verif = false;
+                            }
+                        }
+                    }
+                }
+            // si pas d'erreur et la requete ne provient pas de la page locked MAIS qu'il y a blocage alors anormal :
+            // } else {
+            //     $this->Flash->error(__('Les données ont été verrouillées par un autre utilisateur, aucune modification enregistrée.'));
+            //     return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+            }
+
+            // Mise à jour du blocage si on viens de la page locked ou si il n'y a pas de clef de blocage existant
+            if (array_key_exists('check_lock', $arrayData) || !$validat) {
+                if ($arrayData['validat'] === "0" && $validat) {
+                    $this->Exportable->delete($isLocked);
+                } elseif (($arrayData['validat'] === "" || $arrayData['validat'] === "1") && !$validat) {
+                    $locked = $this->Exportable->newEntity();
+                    $locked->n_sem = $semaine;
+                    $locked->annee = $annee;
+                    $this->Exportable->save($locked);
+                }
+            }
+
+            if ( array_key_exists('check_lock', $arrayData) ) {
+                if ($verif) {
+                    $this->Flash->success(__('La semaine à été sauvegardée.'));
+                }else{
+                    $this->Flash->error(__('Une erreur est survenue, veuilez contrôler votre saisie avant de réessayer.'));
+                }
+                return $this->redirect(['action' => 'index-admin', $semaine, $annee]);
+            }else {
+                // on ne génère pas la page si on viens d'un appel JS
+                $this->autoRender = false; // Pas de rendu
+                return $this->response->withStringBody($verif);
+            }
+        }
+
+        $arrayBuff = array();
+        foreach ($week as $idu => $weekUser) {
+            $week[$idu] = $this->autoCompleteWeek($weekUser, true);
+
+            $arrayBuff = $this->getProjects($idu, $lundi, $dimanche);
+            $arrayRetour['projets']   = array_merge($arrayRetour['projets'], $arrayBuff['projets']);
+            $arrayRetour['clients']   = array_merge($arrayRetour['clients'], $arrayBuff['clients']);
+            $arrayRetour['profiles']  = array_merge($arrayRetour['profiles'], $arrayBuff['profiles']);
+            $arrayRetour['activities'] = array_merge($arrayRetour['activities'], $arrayBuff['activities']);
+        }
+        asort($arrayRetour['users']);
+        asort($arrayRetour['projets']);
+        asort($arrayRetour['clients']);
+        asort($arrayRetour['activities']);
+        $fullNameUserAuth = $user->fullname;
+
+        $semaine = strlen($semaine) <= 1 ? '0' . $semaine : $semaine;
+
+        $arrays = $this->build_array($arrayRetour['users'], $arrayRetour['clients'], $arrayRetour['projets'], $arrayRetour['profiles'], $arrayRetour['activities']);
+        // $this->set(compact('temps'));
+        $this->set(compact('arrays'));
+        $this->set(compact('week'));
+        $this->set(compact('semaine'));
+        $this->set(compact('annee'));
+        $this->set(compact('current'));
+        $this->set(compact('lundi'));
+        $this->set(compact('dimanche'));
+        $this->set(compact('fullNameUserAuth'));
+        $this->set(compact('validat'));
+        $this->set('users',      $arrayRetour['users']);
+        $this->set('projects',   $arrayRetour['projets']);
+        $this->set('clients',    $arrayRetour['clients']);
+        $this->set('profiles',   $arrayRetour['profiles']);
+        $this->set('activities', $arrayRetour['activities']);
+        $this->set('holidays',   $this->getHolidays($annee));
+        $this->set('controller', false);
+    }
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|void
+     */
     public function indexAdmin($semaine = null, $annee = null)
     {
 
@@ -1565,7 +1840,7 @@ class TempsController extends AppController
             return true;
         }
 
-        if (in_array($action, ['indexJp']) && $user['role'] >= Configure::read('role.cp')) {
+        if (in_array($action, ['indexJp', 'indexCp']) && $user['role'] >= Configure::read('role.cp')) {
             return true;
         }
 
