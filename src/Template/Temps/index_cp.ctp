@@ -42,7 +42,7 @@
 
     <?= $this->Form->create() ?>
     <div class="block col-xs-12">
-        <div class="left badge back-danger"><?= h($fullNameUserAuth) ?></div>
+        <div class="left badge back-primary"><?= h($fullNameUserAuth) ?></div>
         <div class="controler right">
             <div><input type="week" data-target="index-cp" name="select-week" id="select-week" min="2018-W01" value="<?php echo $annee ?>-W<?php echo $semaine ?>"></div>
             <div class="left">
