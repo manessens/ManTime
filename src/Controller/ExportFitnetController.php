@@ -756,6 +756,16 @@ class ExportFitnetController extends AppController
             "comment" => "" //$time->detail
         ];
 
+        // DEBUG:
+        $line = "UID : " .$employeeID.
+                "| tCode : " .$keyClient.
+                "| oCode : ".$keysproject[1].
+                "| title : " .$tabProject.
+                "| dCode : " .$keyProfil.
+                "| date : " .$assignementDate.
+                "| quant : " .$amount;
+        $this->insertLog($line, true);
+
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
         return ['delete'=>$delTime, 'time'=>$timesheet, 'modify'=>$tmpTimeSum];
