@@ -757,7 +757,6 @@ class ExportFitnetController extends AppController
         ];
 
         // DEBUG:
-        $line = ['##', ' INFO #'.$export->id_fit, $cause];
         $cause = "UID : " .$employeeID.
                 "| tCode : " .$keyClient.
                 "| oCode : ".$keysproject[1].
@@ -765,7 +764,7 @@ class ExportFitnetController extends AppController
                 "| dCode : " .$keyProfil.
                 "| date : " .$assignementDate.
                 "| quant : " .$amount;
-                $line = ['##', ' INFO -- ', $cause];
+        $line = ['##', ' INFO -- ', $cause];
         $this->insertLog($line, true);
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
