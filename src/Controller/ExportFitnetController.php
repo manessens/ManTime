@@ -559,7 +559,17 @@ class ExportFitnetController extends AppController
                         $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
                         if (is_array($result['data'])) {
                             foreach ($result['data'] as $errorData) {
-                                $msgError = $msgError .' | '. $errorData;
+                                if (is_array($errorData)) {
+                                    foreach ($errorData as $arrayData) {
+                                        if (is_array($arrayData)) {
+                                            $msgError = $msgError .' | data trop array';
+                                        }else{
+                                            $msgError = $msgError .' | '. $arrayData;
+                                        }
+                                    }
+                                }else{
+                                    $msgError = $msgError .' | '. $errorData;
+                                }
                             }
                         }
                     }
