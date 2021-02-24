@@ -519,7 +519,7 @@ class ExportFitnetController extends AppController
                         $tmpTimeSum = $timesheets["modify"];
                     }
                     if (is_array($timesheets['time'])) {
-                        $timesheets[] = $timesheets['time'];
+                        $timeSheets[] = $timesheets['time'];
                         $delTimes[] = $timesheets['delete'];
                         $names[$time->user->id_fit] = $time->user->fullname;
                     }
@@ -548,18 +548,16 @@ class ExportFitnetController extends AppController
             // }
             //ENREGISTREMENT
             $url = '/v1/activity/timesheet';
-            $result = $this->setVsaLink($url, "POST", $timesheets);
+            $result = $this->setVsaLink($url, "POST", $timeSheets);
             // Création du message d'erreur si nécessaire"
             if (is_array($result)) {
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
-                    foreach ($timesheets as $tbug) {
-
-                        $msgError = $msgError."||".$tbug["date"]."||";
-                        foreach ($result['data'] as $dataError) {
-                            $msgError = $msgError." | ".$dataError;
+                    foreach ($timeSheets as $tbug) {
+                        $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
+                        foreach ($result['data'] as $errorData) {
+                            $msgError = $msgError .' | '. $errorData
                         }
-                        // $msgError = $msgError."||".$tbug["date"]."||".$tbug["tabTitle"];
                     }
                     // $msgError = $msgError.' | DATA :';
                     // foreach ($result['data'] as $key => $message) {
@@ -760,6 +758,8 @@ class ExportFitnetController extends AppController
             "quantityHour" => round($qHour, 2),
             "comment" => "" //$time->detail
         ];
+
+        $this->insertLog($line, true);
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
