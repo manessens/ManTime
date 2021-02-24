@@ -508,8 +508,6 @@ class ExportFitnetController extends AppController
 
             //traitement des Temp
             foreach ($times as $time) {
-                $line = ['--', ' TIME :: '.$time->idt.' | '.$time->user->fullname.' | Date : '.$time->date];
-                $this->insertLog($line);
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
                     $this->insertLog($line);
@@ -557,21 +555,6 @@ class ExportFitnetController extends AppController
                     $msgError = $result['message'];
                     foreach ($timeSheets as $tbug) {
                         $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
-                        if (is_array($result['data'])) {
-                            foreach ($result['data'] as $errorData) {
-                                if (is_array($errorData)) {
-                                    foreach ($errorData as $arrayData) {
-                                        if (is_array($arrayData)) {
-                                            $msgError = $msgError .' | data trop array';
-                                        }else{
-                                            $msgError = $msgError .' | '. $arrayData;
-                                        }
-                                    }
-                                }else{
-                                    $msgError = $msgError .' | '. $errorData;
-                                }
-                            }
-                        }
                     }
                     // $msgError = $msgError.' | DATA :';
                     // foreach ($result['data'] as $key => $message) {
@@ -720,6 +703,9 @@ class ExportFitnetController extends AppController
         // }
 
         // Contrôle traité par cumul des temps (multiligne sur même assignement)
+        // DEBUG:
+        $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." infos cumul."]);
+
         if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
             $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." a été traité par cumul."]);
             return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
