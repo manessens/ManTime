@@ -519,7 +519,7 @@ class ExportFitnetController extends AppController
                         $tmpTimeSum = $timesheets["modify"];
                     }
                     if (is_array($timesheets['time'])) {
-                        $timeSheets[] = $timesheets['time'];
+                        $timesheets[] = $timesheets['time'];
                         $delTimes[] = $timesheets['delete'];
                         $names[$time->user->id_fit] = $time->user->fullname;
                     }
@@ -548,13 +548,28 @@ class ExportFitnetController extends AppController
             // }
             //ENREGISTREMENT
             $url = '/v1/activity/timesheet';
-            $result = $this->setVsaLink($url, "POST", $timeSheets);
+            $result = $this->setVsaLink($url, "POST", $timesheets);
             // Création du message d'erreur si nécessaire"
             if (is_array($result)) {
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
-                    foreach ($timeSheets as $tbug) {
-                        $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
+                    foreach ($timesheets as $tbug) {
+                        // DEBUG:
+                        $cause = "UID : " .$tbug['userId'].
+                                "| tCode : " .$tbug['tiersCode'].
+                                "| oCode : ".$tbug['orderCode'].
+                                "| title : " .$tbug['tabTitle'].
+                                "| dCode : " .$tbug['deliveryCode'].
+                                "| date : " .$tbug['date'].
+                                "| quant : " .$tbug['quantityDay'];
+                        $line = ['##', ' INFO -- ', $cause];
+                        $this->insertLog($line, true);
+
+                        $msgError = $msgError."||".$tbug["date"]."||"
+                        foreach ($result['data'] as $dataError) {
+                            $msgError .= " | ".$dataError;
+                        }
+                        // $msgError = $msgError."||".$tbug["date"]."||".$tbug["tabTitle"];
                     }
                     // $msgError = $msgError.' | DATA :';
                     // foreach ($result['data'] as $key => $message) {
