@@ -554,20 +554,10 @@ class ExportFitnetController extends AppController
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
                     foreach ($timesheets as $tbug) {
-                        // DEBUG:
-                        $cause = "UID : " .$tbug['userId'].
-                                "| tCode : " .$tbug['tiersCode'].
-                                "| oCode : ".$tbug['orderCode'].
-                                "| title : " .$tbug['tabTitle'].
-                                "| dCode : " .$tbug['deliveryCode'].
-                                "| date : " .$tbug['date'].
-                                "| quant : " .$tbug['quantityDay'];
-                        $line = ['##', ' INFO -- ', $cause];
-                        $this->insertLog($line, true);
 
                         $msgError = $msgError."||".$tbug["date"]."||";
                         foreach ($result['data'] as $dataError) {
-                            $msgError .= " | ".$dataError;
+                            $msgError = $msgError." | ".$dataError;
                         }
                         // $msgError = $msgError."||".$tbug["date"]."||".$tbug["tabTitle"];
                     }
@@ -770,17 +760,6 @@ class ExportFitnetController extends AppController
             "quantityHour" => round($qHour, 2),
             "comment" => "" //$time->detail
         ];
-
-        // DEBUG:
-        $cause = "UID : " .$employeeID.
-                "| tCode : " .$keyClient.
-                "| oCode : ".$keysproject[1].
-                "| title : " .$tabProject.
-                "| dCode : " .$keyProfil.
-                "| date : " .$assignementDate.
-                "| quant : " .$amount;
-        $line = ['##', ' INFO -- ', $cause];
-        $this->insertLog($line, true);
 
         $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"] = true;
 
