@@ -556,7 +556,7 @@ class ExportFitnetController extends AppController
                     foreach ($timeSheets as $tbug) {
                         $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
                         foreach ($result['data'] as $errorData) {
-                            $msgError = $msgError .' | '. $errorData
+                            $msgError = $msgError .' | '. $errorData;
                         }
                     }
                     // $msgError = $msgError.' | DATA :';
