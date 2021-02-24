@@ -565,7 +565,7 @@ class ExportFitnetController extends AppController
                         $line = ['##', ' INFO -- ', $cause];
                         $this->insertLog($line, true);
 
-                        $msgError = $msgError."||".$tbug["date"]."||"
+                        $msgError = $msgError."||".$tbug["date"]."||";
                         foreach ($result['data'] as $dataError) {
                             $msgError .= " | ".$dataError;
                         }
