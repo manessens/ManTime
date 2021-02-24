@@ -508,6 +508,8 @@ class ExportFitnetController extends AppController
 
             //traitement des Temp
             foreach ($times as $time) {
+                $line = ['--', ' TIME :: '.$time->idt.' | '.$time->user->fullname.' | Date : '.$time->date];
+                $this->insertLog($line);
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
                     $this->insertLog($line);
@@ -555,8 +557,10 @@ class ExportFitnetController extends AppController
                     $msgError = $result['message'];
                     foreach ($timeSheets as $tbug) {
                         $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
-                        foreach ($result['data'] as $errorData) {
-                            $msgError = $msgError .' | '. $errorData;
+                        if (is_array($result['data'])) {
+                            foreach ($result['data'] as $errorData) {
+                                $msgError = $msgError .' | '. $errorData;
+                            }
                         }
                     }
                     // $msgError = $msgError.' | DATA :';
