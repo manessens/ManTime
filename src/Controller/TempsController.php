@@ -847,7 +847,6 @@ class TempsController extends AppController
                                                  'date =' => $dayTime])->first();
                                     // DEBUG:
                                     debug($queryDay);
-                                    exit;
 
                                     $day = $this->Temps->newEntity();
                                     $day->validat = 1;
