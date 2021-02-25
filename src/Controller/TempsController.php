@@ -583,12 +583,22 @@ class TempsController extends AppController
                             $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
                             //Generate Day
                             $day = null;
+                            // détermination de la date en fonction du jour de la semaine
+                            $dayTime = clone $lundi;
+                            $dayTime->modify('+' . $this->arrayDays[$daySemaine] . ' days');
                             // Si ID null : création
                             if (empty($dataDay['id'])) {
                                 // Si temps invalide : pas de création
                                 if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
                                     continue;
                                 }else{
+                                    $queryDay = $this->Temps->find('first')
+                                        ->where('idu =' => $idu )
+                                        ->andwhere('idp =' => $arrayIdp[2])
+                                        ->andwhere('date =' => $dayTime);
+                                    // DEBUG:
+                                    debug($queryDay);
+                                    exit;
                                     $day = $this->Temps->newEntity();
                                     $day->validat = 1;
                                 }
@@ -619,9 +629,6 @@ class TempsController extends AppController
                                 $day->idu = $idUser;
                                 $day->deleted = false;
 
-                                // détermination de la date en fonction du jour de la semaine
-                                $dayTime = clone $lundi;
-                                $dayTime->modify('+' . $this->arrayDays[$daySemaine] . ' days');
                                 $day->date = clone $dayTime;
 
                                 $day->n_ligne = $line;

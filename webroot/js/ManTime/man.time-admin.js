@@ -13,7 +13,6 @@ var alertVerouillage;
 var first = true;
 var unice = true;
 var premierPassage = true;
-var countNew = 0;
 
 // function init() {
 
@@ -466,7 +465,6 @@ function modifyProject(that) {
 
 function marqueMod(that, delet = false, input = false){
     //création de marqueur lors de la modification du client
-    var firstDay = true;
     if (first == false && add == false) {
         // debugger;
         if (input){
@@ -487,11 +485,6 @@ function marqueMod(that, delet = false, input = false){
                 inputCurrentHiddenMod = $(tdSelectLast).children()[0];
             }
             inputCurrentHiddenMod.value = 1;
-            if ($(tdSelectLast).children()[1].value == "" && delet && firstDay) {
-                countNew--;
-                firstDay = false;
-                console.log(countNew);
-            }
         });
         updateTotal();
     }
@@ -702,8 +695,6 @@ function addLine(that) {
 
     selectUser.change();
     add = false;
-    countNew++;
-    console.log(countNew);
 }
 
 
