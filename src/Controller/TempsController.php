@@ -846,6 +846,7 @@ class TempsController extends AppController
                                                  'idp =' => $arrayIdp[2],
                                                  'date =' => $dayTime])->first();
                                     // DEBUG:
+                                    debug($dayTime);
                                     debug($queryDay);
 
                                     $day = $this->Temps->newEntity();
