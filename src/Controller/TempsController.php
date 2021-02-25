@@ -604,13 +604,14 @@ class TempsController extends AppController
                                     $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
                                 }
                             }
-                                $queryDay = $this->Temps->find('first')
-                                    ->where(['idu =' => $idu] )
-                                    ->andwhere(['idp =' => $arrayIdp[2]])
-                                    ->andwhere(['date =' => $dayTime]);
+                            
+                                $queryDay = $this->Temps->find('all')
+                                    ->where(['idu =' => $idu,
+                                             'idp =' => $arrayIdp[2],
+                                             'date =' => $dayTime])->first();
                                 // DEBUG:
                                 $this->autoRender = false; // Pas de rendu
-                                return $this->response->withStringBody($queryDay);
+                                return $this->response->withStringBody("prout");
                                 exit;
 
                             $day->time = $dataDay['time'];
