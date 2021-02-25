@@ -604,15 +604,6 @@ class TempsController extends AppController
                                     $day = $this->Temps->get($dataDay['id'], ['contain' => []]);
                                 }
                             }
-                            
-                                $queryDay = $this->Temps->find('all')
-                                    ->where(['idu =' => $idu,
-                                             'idp =' => $arrayIdp[2],
-                                             'date =' => $dayTime])->first();
-                                // DEBUG:
-                                $this->autoRender = false; // Pas de rendu
-                                return $this->response->withStringBody("prout");
-                                exit;
 
                             $day->time = $dataDay['time'];
                             // add to $week to keep the data in case of error and redirect in the same page
@@ -849,6 +840,15 @@ class TempsController extends AppController
                                 if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
                                     continue;
                                 }else{
+
+                                    $queryDay = $this->Temps->find('all')
+                                        ->where(['idu =' => $idu,
+                                                 'idp =' => $arrayIdp[2],
+                                                 'date =' => $dayTime])->first();
+                                    // DEBUG:
+                                    debug($queryDay);
+                                    exit;
+
                                     $day = $this->Temps->newEntity();
                                     $day->validat = 1;
                                 }
