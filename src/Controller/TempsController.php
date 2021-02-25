@@ -583,13 +583,27 @@ class TempsController extends AppController
                             $arrayIda = explode('.', $arrayData['activities'][$idUser][$line]);
                             //Generate Day
                             $day = null;
+
+                            // détermination de la date en fonction du jour de la semaine
+                            $dayTime = clone $lundi;
+                            $dayTime->modify('+' . $this->arrayDays[$daySemaine] . ' days');
                             // Si ID null : création
                             if (empty($dataDay['id'])) {
                                 // Si temps invalide : pas de création
                                 if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
                                     continue;
                                 }else{
-                                    $day = $this->Temps->newEntity();
+                                    $queryDay = $this->Temps->find('all')
+                                        ->where(['idu =' => $idUser,
+                                                 'idp =' => $arrayIdp[2],
+                                                 'ida =' => $arrayIda[1],
+                                                 'id_profil =' => $arrayIdprof[1],
+                                                 'date =' => $dayTime])->first();
+                                    if ($queryDay == null) {
+                                        $day = $this->Temps->newEntity();
+                                    }else{
+                                        $day = $queryDay;
+                                    }
                                     $day->validat = 1;
                                 }
                             } else {
@@ -619,9 +633,6 @@ class TempsController extends AppController
                                 $day->idu = $idUser;
                                 $day->deleted = false;
 
-                                // détermination de la date en fonction du jour de la semaine
-                                $dayTime = clone $lundi;
-                                $dayTime->modify('+' . $this->arrayDays[$daySemaine] . ' days');
                                 $day->date = clone $dayTime;
 
                                 $day->n_ligne = $line;
