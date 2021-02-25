@@ -600,7 +600,7 @@ class TempsController extends AppController
                                         ->andWhere(['Temps.date =' => $dayTime])
                                         ->andWhere(['Temps.idp =' => $arrayIdp[2]])
                                         ->andWhere(['Temps.id_profil =' => $arrayIdprof[1]])
-                                        ->andWhere(['Temps.ida =' => $arrayIda[1]])
+                                        ->andWhere(['Temps.ida =' => $arrayIda[1]]);
                                     $day = $queryFinder->first();
                                     if ($day == null) {
                                         $day = $this->Temps->newEntity();
