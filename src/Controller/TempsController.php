@@ -844,18 +844,17 @@ class TempsController extends AppController
                                 if (empty($dataDay['time']) || $dataDay['time'] <= 0) {
                                     continue;
                                 }else{
-
                                     $queryDay = $this->Temps->find('all')
                                         ->where(['idu =' => $idUser,
                                                  'idp =' => $arrayIdp[2],
                                                  'ida =' => $arrayIda[1],
                                                  'id_profil =' => $arrayIdprof[1],
                                                  'date =' => $dayTime])->first();
-                                    // DEBUG:
-                                    debug($dayTime);
-                                    debug($queryDay);
-
-                                    $day = $this->Temps->newEntity();
+                                    if ($queryDay == null) {
+                                        $day = $this->Temps->newEntity();
+                                    }else{
+                                        $day = $queryDay;
+                                    }
                                     $day->validat = 1;
                                 }
                             } else {
