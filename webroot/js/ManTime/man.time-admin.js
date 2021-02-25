@@ -486,8 +486,8 @@ function marqueMod(that, delet = false, input = false){
                 inputCurrentHiddenMod = $(tdSelectLast).children()[0];
             }
             if ($(tdSelectLast).children()[1].val() == "" && delet) {
-                count--;
-                console.log(count);
+                countNew--;
+                console.log(countNew);
             }
             inputCurrentHiddenMod.value = 1;
         });
@@ -701,7 +701,7 @@ function addLine(that) {
     selectUser.change();
     add = false;
     countNew++;
-    console.log(count);
+    console.log(countNew);
 }
 
 
