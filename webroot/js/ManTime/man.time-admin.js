@@ -485,7 +485,7 @@ function marqueMod(that, delet = false, input = false){
                 }
                 inputCurrentHiddenMod = $(tdSelectLast).children()[0];
             }
-            if ($(tdSelectLast).children()[1].val() == "" && delet) {
+            if ($(tdSelectLast).children()[1].value == "" && delet) {
                 countNew--;
                 console.log(countNew);
             }
