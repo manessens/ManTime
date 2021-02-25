@@ -499,7 +499,7 @@ class ExportFitnetController extends AppController
                 }
                 if (!array_key_exists($keyProfil, $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false];
-                    $this->insertLog(['--','Le temps #'.$time->idt." |idu : ".$keyUser.' |Date : '.$keyDate.' |cli : '.$keyClient."|proj.".$keyProject."|prof : ".$keyProfil]);
+                    $this->insertLog(['--','Le temps #'.$tempTime->idt." |idu : ".$keyUser.' |Date : '.$keyDate.' |cli : '.$keyClient."|proj.".$keyProject."|prof : ".$keyProfil]);
                 }
                 $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
             }
