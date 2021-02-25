@@ -602,6 +602,12 @@ class TempsController extends AppController
                                         ->andWhere(['Temps.id_profil =' => $arrayIdprof[1]])
                                         ->andWhere(['Temps.ida =' => $arrayIda[1]]);
                                     $day = $queryFinder->first();
+                                    debug($idu);
+                                    debug($dayTime);
+                                    debug($arrayIdp[2]);
+                                    debug($arrayIdprof[1]);
+                                    debug($arrayIda[1]);
+                                    exit;
                                     if ($day == null) {
                                         $day = $this->Temps->newEntity();
                                     }
