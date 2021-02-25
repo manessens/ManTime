@@ -593,9 +593,9 @@ class TempsController extends AppController
                                     continue;
                                 }else{
                                     $queryDay = $this->Temps->find('first')
-                                        ->where('idu =' => $idu )
-                                        ->andwhere('idp =' => $arrayIdp[2])
-                                        ->andwhere('date =' => $dayTime);
+                                        ->where(['idu =' => $idu] )
+                                        ->andwhere(['idp =' => $arrayIdp[2]])
+                                        ->andwhere(['date =' => $dayTime]);
                                     // DEBUG:
                                     debug($queryDay);
                                     exit;
