@@ -597,7 +597,7 @@ class TempsController extends AppController
                                         ->andwhere(['idp =' => $arrayIdp[2]])
                                         ->andwhere(['date =' => $dayTime]);
                                     // DEBUG:
-                                    debug($queryDay);
+                                    return $this->response->withStringBody($queryDay);
                                     exit;
                                     $day = $this->Temps->newEntity();
                                     $day->validat = 1;
