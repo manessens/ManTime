@@ -13,6 +13,7 @@ var alertVerouillage;
 var first = true;
 var unice = true;
 var premierPassage = true;
+var countNew = 0;
 
 // function init() {
 
@@ -484,6 +485,10 @@ function marqueMod(that, delet = false, input = false){
                 }
                 inputCurrentHiddenMod = $(tdSelectLast).children()[0];
             }
+            if ($(tdSelectLast).children()[1].val() == "" && delet) {
+                count--;
+                console.log(count);
+            }
             inputCurrentHiddenMod.value = 1;
         });
         updateTotal();
@@ -695,6 +700,8 @@ function addLine(that) {
 
     selectUser.change();
     add = false;
+    countNew++;
+    console.log(count);
 }
 
 
