@@ -497,10 +497,8 @@ class ExportFitnetController extends AppController
                 if (!array_key_exists($keyProject, $tmpTimeSum[$keyUser][$keyDate][$keyClient])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject] = array();
                 }
-                $this->insertLog(['--','Le Tp #'.$tempTime->idt." |idu : ".$keyUser.' |Date : '.$keyDate.' |cli : '.$keyClient."|proj.".$keyProject."|prof : ".$keyProfil]);
                 if (!array_key_exists($keyProfil, $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject])) {
                     $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil] = ["time"=> 0, "used"=>false];
-                    $this->insertLog(['--','Ti #'.$tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["used"]]);
                 }
                 $tmpTimeSum[$keyUser][$keyDate][$keyClient][$keyProject][$keyProfil]["time"] += $tempTime->time;
             }
@@ -705,9 +703,6 @@ class ExportFitnetController extends AppController
         // }
 
         // Contrôle traité par cumul des temps (multiligne sur même assignement)
-        // DEBUG:
-        $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." infos cumul.".$tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]]);
-
         if ($tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["used"]) {
             $this->insertLog(['--','Le temps #'.$time->idt." |Consultant : #".$time->user->fullname.' |Projet : '.$time->projet->nom_projet.' |Date : '.$time->date." a été traité par cumul."]);
             return true; // car n'est pas une erreur et on return maintenant pour éviter le contrôle de l'assignement
