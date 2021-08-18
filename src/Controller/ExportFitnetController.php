@@ -557,30 +557,14 @@ class ExportFitnetController extends AppController
                         $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
                     }
                     // $msgError = $msgError.' | DATA :';
-                    // foreach ($result['data'] as $key => $message) {
-                    //     // preg_match ( '/[0-9]+/' , $key , $matches );
-                    //     // if (is_array($matches)) {
-                    //
-                    //         //// DEBUG:
-                    //         $msgError = $msgError.
-                    //         '-- key :'.$key.
-                    //         '-- string :'.$message;
-                    //         //// FINDEBUG
-                    //
-                    //         // foreach ($message[0] as $k => $v) {
-                    //         //     $msgError = $v.
-                    //         //     ' : |Consultant: '.$names[$time['userId']].
-                    //         //     ' |Client: '.$time['tiersCode'].
-                    //         //     ' |Affaire: '.$time['orderCode'].
-                    //         //     ' |TabTitle: '.$time['tabTitle'].
-                    //         //     ' |Profil: '.$time['deliveryCode'].
-                    //         //     ' |Date: '.$time['date'].
-                    //         //     ' |Valeur: '.$time['quantityDay'];
-                    //             // $count--;
-                    //             // $export = $this->inError($export, $msgError);
-                    //         // }
-                    //     // }
-                    // }
+                    if (is_array($result['data'])) {
+                        foreach ($result['data'] as $key => $message) {
+                            //// DEBUG:
+                            $msgError = $msgError.'||'.
+                            '-- key :'.$key.
+                            '-- string :'.$message;
+                        }
+                    }
                     $count--;
                     $export = $this->inError($export, $msgError);
                 }
