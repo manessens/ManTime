@@ -563,10 +563,12 @@ class ExportFitnetController extends AppController
                             $msgError = $msgError.'||'.
                             '-- key :'.$key;
                             if (is_array($message)) {
-                                $msgError = $msgError.'-- message :';
-                                foreach ($message as $ki => $mesg) {
-                                    $msgError = $msgError.
-                                    '-'.$ki.' : '.$mesg;
+                                if (is_array($message[0])) {
+                                    $msgError = $msgError.'-- message :';
+                                    foreach ($message[0] as $ki => $mesg) {
+                                        $msgError = $msgError.
+                                        '-'.$ki.' : '.$mesg;
+                                    }
                                 }
                             }else{
                                 '-- message :'.$message;
