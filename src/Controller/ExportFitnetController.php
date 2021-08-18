@@ -554,17 +554,17 @@ class ExportFitnetController extends AppController
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
                     foreach ($timeSheets as $tbug) {
-                        $msgError = $msgError."||".$tbug["date"]."-".$tbug["tabTitle"];
+                        $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
                     }
                     // $msgError = $msgError.' | DATA :';
-                    if (is_array($result['data'])) {
-                        foreach ($result['data'] as $key => $message) {
-                            //// DEBUG:
-                            $msgError = $msgError.'||'.
-                            '-- key :'.$key.
-                            '-- string :'.$message;
-                        }
-                    }
+                    // if (is_array($result['data'])) {
+                    //     foreach ($result['data'] as $key => $message) {
+                    //         //// DEBUG:
+                    //         $msgError = $msgError.'||'.
+                    //         '-- key :'.$key.
+                    //         '-- string :'.$message;
+                    //     }
+                    // }
                     $count--;
                     $export = $this->inError($export, $msgError);
                 }
