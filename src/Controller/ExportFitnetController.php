@@ -36,7 +36,7 @@ class ExportFitnetController extends AppController
         $this->error_log = array();
         $this->arrayAssignMemory = array();
         $this->delimiteur = ';';
-        $count = $ignored = 0;
+        $this->count = $this->ignored = 0;
     }
 
     public function index(){
@@ -470,7 +470,7 @@ class ExportFitnetController extends AppController
 
         // Récupération des temps
         $times = $this->getTimesFromExport($export);
-        $count = $ignored = 0;
+        $this->count = $this->ignored = 0;
         if (empty($times) || !is_array($times)) {
             // notif export : erreur si 0 temps - FIN de traitement
             if (!is_array($times)) {
@@ -515,9 +515,9 @@ class ExportFitnetController extends AppController
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
                     $this->insertLog($line);
-                    $ignored++; //car n'est pas une erreur
+                    $this->ignored++; //car n'est pas une erreur
                 }else{
-                    $count++;
+                    $this->count++;
                     $timesheets = $this->exportTime($time, $tmpTimeSum, $assignements, $export);
                     if (is_array($timesheets['modify'])) {
                         $tmpTimeSum = $timesheets["modify"];
@@ -578,7 +578,7 @@ class ExportFitnetController extends AppController
                                 }else{
                                     '-- message :'.$message;
                                 }
-                                $count--;
+                                $this->count--;
                             }
                         }
                         $export = $this->inError($export, $msgError);
@@ -586,7 +586,7 @@ class ExportFitnetController extends AppController
                 }
             }
         }
-        $export=$this->endProcess($export, $count, count($times), $ignored);
+        $export=$this->endProcess($export, $this->count, count($times), $this->ignored);
 
     }
 
@@ -726,7 +726,7 @@ class ExportFitnetController extends AppController
         if ( empty($tabProject) ) {
             $msgError = "tabTitle undefined : ".$time->date." - ".$keyClient." - ".$time->projet->id_fit." - ".$time->user->email." - ".$keyProfil;
             $this->inError($export, $msgError);
-            $count--;
+            $this->count--;
             return false;
         }
 
@@ -766,9 +766,9 @@ class ExportFitnetController extends AppController
         return ['delete'=>$delTime, 'time'=>$timesheet, 'modify'=>$tmpTimeSum];
     }
 
-    private function endProcess($export, $count, $total, $ignored = 0){
-        if ($count != $total) {
-            $cause = 'nombre de saisie échoué : '.($total-($count+$ignored) );
+    private function endProcess($export, $this->count, $total, $this->ignored = 0){
+        if ($this->count != $total) {
+            $cause = 'nombre de saisie échoué : '.($total-($this->count+$this->ignored) );
             $line = ['##', ' EXPORT -- ID #'.$export->id_fit, $cause];
             $this->insertLog($line,true,true);
         }
@@ -779,8 +779,8 @@ class ExportFitnetController extends AppController
         }
 
         $this->insertLog(['--', ' Total de temps traité : '.$total]);
-        $this->insertLog(['--', ' Total de temps exporté avec succés : '.$count]);
-        $this->insertLog(['--', ' Total de temps ignorées : '.$ignored]);
+        $this->insertLog(['--', ' Total de temps exporté avec succés : '.$this->count]);
+        $this->insertLog(['--', ' Total de temps ignorées : '.$this->ignored]);
 
         $line = ['<<', ' Fin du traitement EXPORT VSA pour la demande d\'export #'.$export->id_fit];
         $this->insertLog($line);
