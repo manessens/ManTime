@@ -26,6 +26,8 @@ class ExportFitnetController extends AppController
     var $error_log;
     var $arrayAssignMemory;
     var $delimiteur;
+    var $count;
+    var $ignored;
 
     public function initialize()
     {
@@ -34,6 +36,7 @@ class ExportFitnetController extends AppController
         $this->error_log = array();
         $this->arrayAssignMemory = array();
         $this->delimiteur = ';';
+        $count = $ignored = 0;
     }
 
     public function index(){
@@ -507,6 +510,7 @@ class ExportFitnetController extends AppController
             $assignements = $this->getAssignements();
 
             //traitement des Temp
+            $exportTimeSheets = [].
             foreach ($times as $time) {
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
@@ -547,14 +551,14 @@ class ExportFitnetController extends AppController
             //     }
             // }
             //ENREGISTREMENT
-            if (is_array($timeSheets))  {
+            if (count($exportTimeSheets) > 0)  {
                 $url = '/v1/activity/timesheet';
-                $result = $this->setVsaLink($url, "POST", $timeSheets);
+                $result = $this->setVsaLink($url, "POST", $exportTimeSheets);
                 // Création du message d'erreur si nécessaire"
                 if (is_array($result)) {
                     if (array_key_exists('error', $result)) {
                         $msgError = $result['message'];
-                        foreach ($timeSheets as $tbug) {
+                        foreach ($exportTimeSheets as $tbug) {
                             $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
                         }
                         // $msgError = $msgError.' | DATA :';
@@ -592,8 +596,8 @@ class ExportFitnetController extends AppController
     //     $dataCo = $this->Cookie->read('Authvsa');
     //     Configure::write('vsa.token', $dataCo['token']);
     //
-    //     $timeSheets=[];
-    //     $timeSheets[] = [
+    //     $exportTimeSheets=[];
+    //     $exportTimeSheets[] = [
     //         "userId" => 1645,
     //         "tiersCode" => "C-BIOLINE_BY_INVIVO",
     //         "orderCode" => "PAR.AAL.201907.C.0165",
@@ -607,7 +611,7 @@ class ExportFitnetController extends AppController
     //     ];
     //
     //     $url = '/v1/activity/timesheet';
-    //     $result = $this->setVsaLink($url, "POST", $timeSheets);
+    //     $result = $this->setVsaLink($url, "POST", $exportTimeSheets);
     //
     //     Configure::write('vsa.token', "");
     //
