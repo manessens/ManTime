@@ -724,7 +724,7 @@ class ExportFitnetController extends AppController
         // Assignement (Tab title)
         $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
         if ( empty($tabProject) ) {
-            $msgError = "tabTitle undefined : ".$time->date." - ".$keyClient." - "$time->projet->id_fit." - ".$time->user->email." - ".$keyProfil;
+            $msgError = "tabTitle undefined : ".$time->date." - ".$keyClient." - ".$time->projet->id_fit." - ".$time->user->email." - ".$keyProfil;
             $this->inError($export, $msgError);
             $count--;
             return false;
