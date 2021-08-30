@@ -586,7 +586,7 @@ class ExportFitnetController extends AppController
                 }
             }
         }
-        $export=$this->endProcess($export, $this->count, count($times), $this->ignored);
+        $export=$this->endProcess($export, count($times) );
 
     }
 
@@ -766,7 +766,7 @@ class ExportFitnetController extends AppController
         return ['delete'=>$delTime, 'time'=>$timesheet, 'modify'=>$tmpTimeSum];
     }
 
-    private function endProcess($export, $this->count, $total, $this->ignored = 0){
+    private function endProcess($export, $total){
         if ($this->count != $total) {
             $cause = 'nombre de saisie échoué : '.($total-($this->count+$this->ignored) );
             $line = ['##', ' EXPORT -- ID #'.$export->id_fit, $cause];
