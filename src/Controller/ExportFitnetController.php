@@ -514,7 +514,7 @@ class ExportFitnetController extends AppController
                     $ignored++; //car n'est pas une erreur
                 }else{
                     $count++;
-                    $timesheets = $this->exportTime($time, $tmpTimeSum, $assignements);
+                    $timesheets = $this->exportTime($time, $tmpTimeSum, $assignements, $export);
                     if (is_array($timesheets['modify'])) {
                         $tmpTimeSum = $timesheets["modify"];
                     }
@@ -573,9 +573,9 @@ class ExportFitnetController extends AppController
                             }else{
                                 '-- message :'.$message;
                             }
+                            $count--;
                         }
                     }
-                    $count--;
                     $export = $this->inError($export, $msgError);
                 }
             }
@@ -652,7 +652,7 @@ class ExportFitnetController extends AppController
         }
     }
 
-    private function exportTime($time, $tmpTimeSum, $assignements = []){
+    private function exportTime($time, $tmpTimeSum, $assignements = [], $export){
         $noError = true;
         if (empty($time)) {
             return false;
