@@ -510,7 +510,7 @@ class ExportFitnetController extends AppController
             $assignements = $this->getAssignements();
 
             //traitement des Temp
-            $exportTimeSheets = [].
+            $exportTimeSheets = [];
             foreach ($times as $time) {
                 if ($time->projet->facturable->id_fit == 0) {
                     $line = ['--', ' Export des activités de type '.$time->projet->facturable->nom_fact.' ignorées : temps #'.$time->idt.' - '.$time->user->fullname.' |Date : '.$time->date];
