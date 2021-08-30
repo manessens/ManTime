@@ -553,30 +553,32 @@ class ExportFitnetController extends AppController
             if (is_array($result)) {
                 if (array_key_exists('error', $result)) {
                     $msgError = $result['message'];
-                    foreach ($timeSheets as $tbug) {
-                        $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
-                    }
-                    // $msgError = $msgError.' | DATA :';
-                    if (is_array($result['data'])) {
-                        foreach ($result['data'] as $key => $message) {
-                            //// DEBUG:
-                            $msgError = $msgError.'||'.
-                            '-- key :'.$key;
-                            if (is_array($message)) {
-                                if (is_array($message[0])) {
-                                    $msgError = $msgError.'-- message :';
-                                    foreach ($message[0] as $ki => $mesg) {
-                                        $msgError = $msgError.
-                                        '-'.$ki.' : '.$mesg;
-                                    }
-                                }
-                            }else{
-                                '-- message :'.$message;
-                            }
-                            $count--;
+                    if (is_array($timeSheets)) {
+                        foreach ($timeSheets as $tbug) {
+                            $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
                         }
+                        // $msgError = $msgError.' | DATA :';
+                        if (is_array($result['data'])) {
+                            foreach ($result['data'] as $key => $message) {
+                                //// DEBUG:
+                                $msgError = $msgError.'||'.
+                                '-- key :'.$key;
+                                if (is_array($message)) {
+                                    if (is_array($message[0])) {
+                                        $msgError = $msgError.'-- message :';
+                                        foreach ($message[0] as $ki => $mesg) {
+                                            $msgError = $msgError.
+                                            '-'.$ki.' : '.$mesg;
+                                        }
+                                    }
+                                }else{
+                                    '-- message :'.$message;
+                                }
+                                $count--;
+                            }
+                        }
+                        $export = $this->inError($export, $msgError);
                     }
-                    $export = $this->inError($export, $msgError);
                 }
             }
         }
