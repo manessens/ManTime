@@ -722,6 +722,7 @@ class ExportFitnetController extends AppController
         if ( empty($tabProject) ) {
             $msgError = "tabTitle undefined : ".$time->date." - ".$time->projet->id_fit." - ".$time->user->email." - ".$keyClient;
             $this->inError($export, $msgError);
+            $count--;
             return false;
         }
 
