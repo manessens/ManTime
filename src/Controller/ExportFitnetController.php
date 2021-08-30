@@ -717,12 +717,16 @@ class ExportFitnetController extends AppController
 
         // Assignement (Tab title)
         $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
+        if ( $tabProject = "" ) {
+            $msgError = "tabTitle undefined : "$time->date." - ".$time->projet->id_fit." - ".$time->user->email." - ".$keyClient;
+            $this->inError($export, $msgError);
+            return false;
+        }
 
         // total temps travaillé
         $amount = $tmpTimeSum[$employeeID][$assignementDate][$keyClient][$keyProject][$keyProfil]["time"];
 
         $keysproject = explode('|', $keyProject);
-
 
         $delTime = [
             "userId" => $employeeID,
