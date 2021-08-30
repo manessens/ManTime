@@ -6,14 +6,14 @@
         <div class="panel-body">
             <table class="info">
                 <thead>
-                    <tr><td>Heure</td><td>Valeur</td></tr>
+                    <tr><td>ID VSA</td><td>Valeur</td></tr>
                 </thead>
                 <tbody>
-                    <tr><td><?= \Cake\Core\Configure::read('profil.1') ?></td><td> Technique ABAP</td></tr>
-                    <tr><td><?= \Cake\Core\Configure::read('profil.2') ?></td><td> Technique ABAP expert</td></tr>
-                    <tr><td><?= \Cake\Core\Configure::read('profil.3') ?></td><td> Fonctionnel confirmé</td></tr>
-                    <tr><td><?= \Cake\Core\Configure::read('profil.4') ?></td><td> Fonctionnel / BI / BC</td></tr>
-                    <tr><td><?= \Cake\Core\Configure::read('profil.5') ?></td><td> Expert / CP / Référent</td></tr>
+                    <tr><td><?= \Cake\Core\Configure::read('vsa.profil.1') ?></td><td> Technique ABAP</td></tr>
+                    <tr><td><?= \Cake\Core\Configure::read('vsa.profil.2') ?></td><td> Technique ABAP expert</td></tr>
+                    <tr><td><?= \Cake\Core\Configure::read('vsa.profil.3') ?></td><td> Fonctionnel confirmé</td></tr>
+                    <tr><td><?= \Cake\Core\Configure::read('vsa.profil.4') ?></td><td> Fonctionnel / BI / BC</td></tr>
+                    <tr><td><?= \Cake\Core\Configure::read('vsa.profil.5') ?></td><td> Expert / CP / Référent</td></tr>
                 </tbody>
             </table>
         </div>
