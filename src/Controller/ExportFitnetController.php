@@ -547,13 +547,13 @@ class ExportFitnetController extends AppController
             //     }
             // }
             //ENREGISTREMENT
-            $url = '/v1/activity/timesheet';
-            $result = $this->setVsaLink($url, "POST", $timeSheets);
-            // Création du message d'erreur si nécessaire"
-            if (is_array($result)) {
-                if (array_key_exists('error', $result)) {
-                    $msgError = $result['message'];
-                    if (is_array($timeSheets)) {
+            if (is_array($timeSheets))  {
+                $url = '/v1/activity/timesheet';
+                $result = $this->setVsaLink($url, "POST", $timeSheets);
+                // Création du message d'erreur si nécessaire"
+                if (is_array($result)) {
+                    if (array_key_exists('error', $result)) {
+                        $msgError = $result['message'];
                         foreach ($timeSheets as $tbug) {
                             $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
                         }
@@ -720,7 +720,7 @@ class ExportFitnetController extends AppController
         // Assignement (Tab title)
         $tabProject = $this->findAssignements($assignements, $time->projet, $time->user->email, $keyClient, $keyProfil, $time->date);
         if ( empty($tabProject) ) {
-            $msgError = "tabTitle undefined : ".$time->date." - ".$time->projet->id_fit." - ".$time->user->email." - ".$keyClient;
+            $msgError = "tabTitle undefined : ".$time->date." - ".$keyClient." - "$time->projet->id_fit." - ".$time->user->email." - ".$keyProfil;
             $this->inError($export, $msgError);
             $count--;
             return false;
