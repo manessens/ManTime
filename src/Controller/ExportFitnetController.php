@@ -584,6 +584,8 @@ class ExportFitnetController extends AppController
                         $export = $this->inError($export, $msgError);
                     }
                 }
+            }else{
+                $export=$this->inError($export, 'Aucun temps trouvé sur la sélection');
             }
         }
         $export=$this->endProcess($export, count($times) );
