@@ -523,7 +523,7 @@ class ExportFitnetController extends AppController
                         $tmpTimeSum = $timesheets["modify"];
                     }
                     if (is_array($timesheets['time'])) {
-                        $timeSheets[] = $timesheets['time'];
+                        $exportTimeSheets[] = $timesheets['time'];
                         $delTimes[] = $timesheets['delete'];
                         $names[$time->user->id_fit] = $time->user->fullname;
                     }
