@@ -570,9 +570,9 @@ class ExportFitnetController extends AppController
                                 if (array_key_exists('key', $message) && array_key_exists('value', $message)) {
                                     // new version error message
                                     $msgError = $msgError.'||'.
-                                    '-- key :'.$message['key'];
+                                    '--key: '.$message['key'];
 
-                                    $msgError = $msgError.'-- message :';
+                                    $msgError = $msgError.' --message: ';
                                     $msgError = $msgError.$message['value'];
                                 }elseif (is_array($message)) {
                                     // old version of error message
