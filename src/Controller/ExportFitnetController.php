@@ -571,7 +571,8 @@ class ExportFitnetController extends AppController
                                     // new version error message
                                     $msgError = $msgError.'||'.
                                     // '--key: '.$message['key'];
-                                    $keyArray = $message['key']-1;
+                                    preg_match('/[0-9]+/', $message['key'], $matches);
+                                    $keyArray = $matches[0] - 1;
                                     '--key: '.$exportTimeSheets[$keyArray]["date"].
                                          '||'.$exportTimeSheets[$keyArray]["tabTitle"].
                                          '||'.$exportTimeSheets[$keyArray]["tiersCode"];
