@@ -564,7 +564,7 @@ class ExportFitnetController extends AppController
                             // $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
                         // }
 
-                        
+
                         if (is_array($result['data'])) {
                             foreach ($result['data'] as $key => $message) {
                                 if (array_key_exists('key', $result) && array_key_exists('message', $result)) {
@@ -574,7 +574,7 @@ class ExportFitnetController extends AppController
 
                                     $msgError = $msgError.'-- message :';
                                     $msgError = $msgError.$message['value'];
-                                elseif (is_array($message)) {
+                                }elseif (is_array($message)) {
                                     // old version of error message
                                     if (is_array($message[0])) {
                                         $msgError = $msgError.'||'.
