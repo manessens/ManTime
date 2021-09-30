@@ -572,14 +572,22 @@ class ExportFitnetController extends AppController
                                 if (array_key_exists('key', $message) && array_key_exists('value', $message)) {
                                     // new version error message
 
-                                    preg_match('/[0-9]+/', $message['key'], $matches);
-                                    $keyArray = $matches[0] - 1;
+                                    if (preg_match('/[0-9]+/', $message['key'], $matches)) {
+                                        if ($matches[0] > 0) {
+                                            $keyArray = $matches[0] - 1;
+                                        }else{
+                                            $keyArray = $matches[0];
+                                        }
+                                        $msgError = $msgError.'||'.
+                                        // '--key: '.$message['key'];
+                                        '--key: '.$exportTimeSheets[$keyArray]["date"].
+                                             '||'.$exportTimeSheets[$keyArray]["tabTitle"].
+                                             '||'.$exportTimeSheets[$keyArray]["tiersCode"];
+                                    }else{
+                                        $msgError = $msgError.'||'.
+                                        '--key: '.$message['key'];
+                                    };
 
-                                    $msgError = $msgError.'||'.
-                                    // '--key: '.$message['key'];
-                                    '--key: '.$exportTimeSheets[$keyArray]["date"].
-                                         '||'.$exportTimeSheets[$keyArray]["tabTitle"].
-                                         '||'.$exportTimeSheets[$keyArray]["tiersCode"];
 
                                     $msgError = $msgError.' --message: ';
                                     $msgError = $msgError.$message['value'];
