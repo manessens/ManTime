@@ -587,10 +587,12 @@ class ExportFitnetController extends AppController
                                     }
                                 }else{
                                     // just in case
-                                    '-- message :'.$message;
+                                    $msgError = $msgError.'--message: '.$message;
                                 }
                                 $this->count--;
                             }
+                        }else{
+                            $msgError = $msgError.' Erreur inconnu ';
                         }
                         $export = $this->inError($export, $msgError);
                     }
