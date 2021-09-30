@@ -557,7 +557,8 @@ class ExportFitnetController extends AppController
                 // Création du message d'erreur si nécessaire"
                 if (is_array($result)) {
                     if (array_key_exists('error', $result) && $result['error'] == true) {
-                        $msgError = $result['message'];
+                        $resultErrorMesg = $result['message'];
+                        $msgError = $resultErrorMesg;
 
                         // to debug :
                         // foreach ($exportTimeSheets as $tbug) {
@@ -567,11 +568,13 @@ class ExportFitnetController extends AppController
 
                         if (is_array($result['data'])) {
                             foreach ($result['data'] as $key => $message) {
+                                $msgError = $resultErrorMesg;
                                 if (array_key_exists('key', $message) && array_key_exists('value', $message)) {
                                     // new version error message
+
                                     preg_match('/[0-9]+/', $message['key'], $matches);
                                     $keyArray = $matches[0] - 1;
-                                    
+
                                     $msgError = $msgError.'||'.
                                     // '--key: '.$message['key'];
                                     '--key: '.$exportTimeSheets[$keyArray]["date"].
@@ -580,6 +583,7 @@ class ExportFitnetController extends AppController
 
                                     $msgError = $msgError.' --message: ';
                                     $msgError = $msgError.$message['value'];
+
                                 }elseif (is_array($message)) {
                                     // old version of error message
                                     if (is_array($message[0])) {
@@ -595,12 +599,13 @@ class ExportFitnetController extends AppController
                                     // just in case
                                     $msgError = $msgError.'--message: '.$message;
                                 }
+                                $export = $this->inError($export, $msgError);
                                 $this->count--;
                             }
                         }else{
                             $msgError = $msgError.' Erreur inconnu ';
+                            $export = $this->inError($export, $msgError);
                         }
-                        $export = $this->inError($export, $msgError);
                     }
                 }
             }else{
