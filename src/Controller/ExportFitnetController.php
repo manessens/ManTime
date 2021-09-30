@@ -558,17 +558,27 @@ class ExportFitnetController extends AppController
                 if (is_array($result)) {
                     if (array_key_exists('error', $result)) {
                         $msgError = $result['message'];
-                        foreach ($exportTimeSheets as $tbug) {
-                            $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
-                        }
-                        // $msgError = $msgError.' | DATA :';
+
+                        // to debug :
+                        // foreach ($exportTimeSheets as $tbug) {
+                            // $msgError = $msgError."|| date : ".$tbug["date"]."- tab : ".$tbug["tabTitle"];
+                        // }
+
+                        
                         if (is_array($result['data'])) {
                             foreach ($result['data'] as $key => $message) {
-                                //// DEBUG:
-                                $msgError = $msgError.'||'.
-                                '-- key :'.$key;
-                                if (is_array($message)) {
+                                if (array_key_exists('key', $result) && array_key_exists('message', $result)) {
+                                    // new version error message
+                                    $msgError = $msgError.'||'.
+                                    '-- key :'.$message['key'];
+
+                                    $msgError = $msgError.'-- message :';
+                                    $msgError = $msgError.$message['value'];
+                                elseif (is_array($message)) {
+                                    // old version of error message
                                     if (is_array($message[0])) {
+                                        $msgError = $msgError.'||'.
+                                        '-- key :'.$key;
                                         $msgError = $msgError.'-- message :';
                                         foreach ($message[0] as $ki => $mesg) {
                                             $msgError = $msgError.
@@ -576,6 +586,7 @@ class ExportFitnetController extends AppController
                                         }
                                     }
                                 }else{
+                                    // just in case
                                     '-- message :'.$message;
                                 }
                                 $this->count--;
