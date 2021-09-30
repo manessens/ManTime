@@ -556,7 +556,7 @@ class ExportFitnetController extends AppController
                 $result = $this->setVsaLink($url, "POST", $exportTimeSheets);
                 // Création du message d'erreur si nécessaire"
                 if (is_array($result)) {
-                    if (array_key_exists('error', $result)) {
+                    if (array_key_exists('error', $result) && $result['error'] == true) {
                         $msgError = $result['message'];
 
                         // to debug :
