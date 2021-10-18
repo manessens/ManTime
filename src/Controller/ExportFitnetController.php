@@ -786,7 +786,7 @@ class ExportFitnetController extends AppController
     }
 
     private function endProcess($export, $total){
-        if ($this->count != $total) {
+        if (($this->count+$this->ignored) != $total) {
             $cause = 'nombre de saisie échoué : '.($total-($this->count+$this->ignored) );
             $line = ['##', ' EXPORT -- ID #'.$export->id_fit, $cause];
             $this->insertLog($line,true,true);
