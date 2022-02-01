@@ -113,55 +113,55 @@
                     <td scope="col" class="actions">
                         <button type="button" class="btn btn-danger remove">-</button>
                     </td>
-                    <td><?= h('SAP-Cons.junior fonc.') ?> <?php echo $this->Form->hidden('lign_mat.0.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.0.heur', ['label' => false]); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.0.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.0.id_profil', ['value' => 11]); ?></td>
+                    <td><?= h('SAP-Cons.junior fonc.') ?> <?php echo $this->Form->hidden('lign_mat.5.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.5.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.5.jour', ['label' => false]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.5.id_profil', ['value' => 11]); ?></td>
                 </tr>
                 <tr>
                     <td scope="col" class="actions">
                         <button type="button" class="btn btn-danger remove">-</button>
                     </td>
-                    <td><?= h('SAP-Cons.sénior fonc.') ?> <?php echo $this->Form->hidden('lign_mat.1.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.1.heur', ['label' => false]); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.1.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.1.id_profil', ['value' => 12, 'label' => false]); ?></td>
+                    <td><?= h('SAP-Cons.sénior fonc.') ?> <?php echo $this->Form->hidden('lign_mat.6.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.6.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.6.jour', ['label' => false]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.6.id_profil', ['value' => 12, 'label' => false]); ?></td>
                 </tr>
                 <tr>
                     <td scope="col" class="actions">
                         <button type="button" class="btn btn-danger remove">-</button>
                     </td>
-                    <td><?= h('SAP-Cons.confirmé tech.') ?> <?php echo $this->Form->hidden('lign_mat.2.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.2.heur', ['label' => false]); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.2.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.2.id_profil', ['value' => 13]); ?></td>
+                    <td><?= h('SAP-Cons.confirmé tech.') ?> <?php echo $this->Form->hidden('lign_mat.7.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.7.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.7.jour', ['label' => false]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.7.id_profil', ['value' => 13]); ?></td>
                 </tr>
                 <tr>
                     <td scope="col" class="actions">
                         <button type="button" class="btn btn-danger remove">-</button>
                     </td>
-                    <td><?= h('SAP-Cons.junior tech.') ?> <?php echo $this->Form->hidden('lign_mat.3.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.3.heur', ['label' => false]); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.3.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.3.id_profil', ['value' => 14]); ?></td>
+                    <td><?= h('SAP-Cons.junior tech.') ?> <?php echo $this->Form->hidden('lign_mat.8.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.8.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.8.jour', ['label' => false]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.8.id_profil', ['value' => 14]); ?></td>
                 </tr>
                 <tr>
                     <td scope="col" class="actions">
                         <button type="button" class="btn btn-danger remove">-</button>
                     </td>
-                    <td><?= h('SAP-Cons.sénior tech.') ?> <?php echo $this->Form->hidden('lign_mat.4.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.4.heur', ['label' => false]); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.4.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.4.id_profil', ['value' => 15]); ?></td>
+                    <td><?= h('SAP-Cons.sénior tech.') ?> <?php echo $this->Form->hidden('lign_mat.9.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.9.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.9.jour', ['label' => false]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.9.id_profil', ['value' => 15]); ?></td>
                 </tr>
                 <tr>
                     <td scope="col" class="actions">
                         <button type="button" class="btn btn-danger remove">-</button>
                     </td>
-                    <td><?= h('SAP-Manager Expert Archi CDP') ?> <?php echo $this->Form->hidden('lign_mat.4.id_ligne'); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.4.heur', ['label' => false]); ?></td>
-                    <td><?php echo $this->Form->control('lign_mat.4.jour', ['label' => false]); ?></td>
-                    <td class="hidden"><?php echo $this->Form->control('lign_mat.4.id_profil', ['value' => 16]); ?></td>
+                    <td><?= h('SAP-Manager Expert Archi CDP') ?> <?php echo $this->Form->hidden('lign_mat.10.id_ligne'); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.10.heur', ['label' => false]); ?></td>
+                    <td><?php echo $this->Form->control('lign_mat.10.jour', ['label' => false]); ?></td>
+                    <td class="hidden"><?php echo $this->Form->control('lign_mat.10.id_profil', ['value' => 16]); ?></td>
                 </tr>
             </tbody>
         </table>
