@@ -17,7 +17,7 @@ composer.lock
 
 ######################
 /config/fitnet.php
-config/fitnet.php
+/config/vsa.php
 
 # OS generated files #
 ######################
@@ -31,6 +31,7 @@ ehthumbs.db
 Thumbs.db
 nohup.out
 config/fitnet.php
+config/vsa.php
 /nohup.out
 /src/Application.php
 webroot/.htaccess
