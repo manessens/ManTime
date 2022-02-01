@@ -12,7 +12,7 @@ return [
         'logdir_end'=>'vsa_log/final',
         'logname'=>'Log_export_vsa_',
         'logname_end'=>'Log_final_export_vsa_',
-        'abs_path'=>'/var/www/html/preprod/ManTime/tmp/',
+        'abs_path'=>'/var/www/html/ManTime/tmp/',
         'deliveryCode'=>'CDSTMA',
         'entity'=>'157',
         'profil'=>[
