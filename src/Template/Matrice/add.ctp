@@ -163,7 +163,6 @@
                     <td><?php echo $this->Form->control('lign_mat.4.jour', ['label' => false]); ?></td>
                     <td class="hidden"><?php echo $this->Form->control('lign_mat.4.id_profil', ['value' => 16]); ?></td>
                 </tr>
-                
             </tbody>
         </table>
     </fieldset>
