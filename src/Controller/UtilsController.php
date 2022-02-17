@@ -133,8 +133,7 @@ class UtilsController extends AppController
                 $date_fin = $arrayData['date_fin'];
                 $this->loadModel('Temps');
                 $query = $this->Temps->find('all')
-                    ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'deleted =' => false])
-                    ->andwhere(['OR' => $andWhere]);
+                    ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'deleted =' => false]);
 
 
                 if ( $data_client != null && count($data_client) > 0) {
