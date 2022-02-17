@@ -124,15 +124,61 @@ class UtilsController extends AppController
             if ($isValid) {
                 $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
                 $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
-
                 // get time
                 $data=[];
+                $buffer=[];
+                $query = null;
+
+                $date_debut = $arrayData['date_debut'];
+                $date_fin = $arrayData['date_fin'];
+                $query = $this->Temps->find('all')
+                    ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'deleted =' => false])
+                    ->andwhere(['OR' => $andWhere]);
 
 
+                if ( $data_client != null && count($data_client) > 0) {
+                    $this->loadModel('Projet');
+                    $queryIdProjet = $this->Projet->find('list',['fields' =>['idc','idp']]);
+                    foreach ($data_client as $client) {
+                        $queryIdProjet->orWhere(['idc =' => $client]);
+                    };
+                    $arrayIdProjet = $queryIdProjet->toArray();
+                    if (!empty($arrayIdProjet)) {
+                        $query->andWhere(['idp IN' => $arrayIdProjet]);
+                    } else {
+                        $queryError = true;
+                    }
+                }
+                if (is_array($data_user)) {
+                    if (count($data_user) > 0 ){
+                        foreach ($data_user as $userId) {
+                            $queryUser[] = ['idu =' => $userId];
+                        }
+                        $query->andWhere(['OR' => $queryUser ]);
+                    }
+                }elseif($data_user != null){
+                    $queryUser[] = ['idu =' => $data_user];
+                    $query->andWhere(['OR' => $queryUser ]);
+                }
+                if ($queryError) {
+                    $times = array();
+                }else{
+                    $times = $query->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil', 'Matrice']->toArray();
+                }
 
+                foreach ($times as $time) {
+                    $buffer = [
+                        'client' => $this->convertToIso($time->Client->nom_client),
+                        'projet' => $this->convertToIso($time->Projet->nom_projet),
+                        'matrice' => $this->convertToIso($time->Matrice->nom_matrice),
+                        'profil' => $this->convertToIso($time->Profil->nom_profil),
+                        'user' => $this->convertToIso($time->Client->Agence->nom_agence),
+                        'facturable' => $this->convertToIso($time->Client->Facturable->nom_fact)
+                    ];
+                    $data[] = $buffer;
+                }
 
-
-                $headerFix = ['Client', 'Projet', 'Type', 'Matrice', 'Profil', 'Consultant', $this->convertToIso('Activités'), 'Agence', 'Facturable', 'Origine'];
+                $headerFix = ['Client', 'Projet', 'Matrice', 'Profil', 'Consultant', 'Agence', 'Facturable'];
                 $_header = $headerFix;
                 $_serialize = 'data';
                 $_delimiter = ';';
