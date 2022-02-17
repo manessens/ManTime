@@ -177,12 +177,13 @@ class UtilsController extends AppController
                         'profil' => $this->convertToIso($time->profil->nom_profil),
                         'user' => $this->convertToIso($time->projet->client->agence->nom_agence),
                         'detail' => $this->convertToIso($time->detail),
+                        'date' => $this->convertToIso($time->date),
                         'valeur' => $this->convertToIso($time->time)
                     ];
                     $data[] = $buffer;
                 }
 
-                $headerFix = ['Client', 'Projet', 'Matrice', 'Profil', 'Consultant', 'Agence'];
+                $headerFix = ['Client', 'Projet', 'Matrice', 'Profil', 'Consultant', 'Agence', 'Detail', 'Date' 'Conso'];
                 $_header = $headerFix;
                 $_serialize = 'data';
                 $_delimiter = ';';
