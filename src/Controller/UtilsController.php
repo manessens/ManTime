@@ -169,7 +169,7 @@ class UtilsController extends AppController
                     $times = $query->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil', 'Matrice'])->toArray();
                 }
                 foreach ($times as $time) {
-                    dump($time);
+                    // dump($time);
                     $buffer = [
                         'client' => $this->convertToIso($time->projet->client->nom_client),
                         'projet' => $this->convertToIso($time->projet->nom_projet),
