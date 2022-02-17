@@ -163,7 +163,7 @@ class UtilsController extends AppController
                 if ($queryError) {
                     $times = array();
                 }else{
-                    $times = $query->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil', 'Matrice']->toArray();
+                    $times = $query->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil', 'Matrice'])->toArray();
                 }
 
                 foreach ($times as $time) {
