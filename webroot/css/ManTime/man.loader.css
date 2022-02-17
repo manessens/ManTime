@@ -23,3 +23,7 @@
 h5.modal-title{
     float: left !important;
 }
+
+.btn-topper {
+    margin-top: 1em !important;
+}
