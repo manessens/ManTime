@@ -171,12 +171,12 @@ class UtilsController extends AppController
                 foreach ($times as $time) {
                     dump($time);
                     $buffer = [
-                        'client' => $this->convertToIso($time->Projet->Client->nom_client),
-                        'projet' => $this->convertToIso($time->Projet->nom_projet),
-                        'matrice' => $this->convertToIso($time->Matrice->nom_matrice),
-                        'profil' => $this->convertToIso($time->Profil->nom_profil),
-                        'user' => $this->convertToIso($time->Projet->Client->Agence->nom_agence),
-                        'facturable' => $this->convertToIso($time->Projet->Client->Facturable->nom_fact)
+                        'client' => $this->convertToIso($time->projet->client->nom_client),
+                        'projet' => $this->convertToIso($time->projet->nom_projet),
+                        'matrice' => $this->convertToIso($time->matrice->nom_matrice),
+                        'profil' => $this->convertToIso($time->profil->nom_profil),
+                        'user' => $this->convertToIso($time->projet->client->agence->nom_agence),
+                        'facturable' => $this->convertToIso($time->Projet->client->facturable->nom_fact)
                     ];
                     $data[] = $buffer;
                 }
