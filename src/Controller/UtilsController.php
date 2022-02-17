@@ -128,13 +128,16 @@ class UtilsController extends AppController
                 $data=[];
                 $buffer=[];
                 $query = null;
+                $queryError = false;
 
                 $date_debut = $arrayData['date_debut'];
                 $date_fin = $arrayData['date_fin'];
+                $data_client = $arrayData['client'];
+                $data_user = $arrayData['user'];
+
                 $this->loadModel('Temps');
                 $query = $this->Temps->find('all')
                     ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'deleted =' => false]);
-
 
                 if ( $data_client != null && count($data_client) > 0) {
                     $this->loadModel('Projet');
