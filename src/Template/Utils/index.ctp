@@ -13,6 +13,7 @@
           <!-- <a href="/utils/authfit" class="list-group-item"><?= __('Authentificateur pour fitnet') ?></a> -->
           <!-- <a href="#" class="list-group-item">Third item</a> -->
           <a href="/utils/authvsa" class="list-group-item"><?= __('Authentificateur pour VSA') ?></a>
+          <a href="/utils/exportrow" class="list-group-item"><?= __('Export temps brut') ?></a>
         </div>
     </div>
 </div>

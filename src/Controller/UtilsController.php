@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use App\Form\AuthfitForm;
 use Cake\I18n\Date;
+use App\Form\ExportForm;
 
 class UtilsController extends AppController
 {
@@ -93,6 +94,58 @@ class UtilsController extends AppController
         $this->set('controller', false);
     }
 
+    public function exportrow(){
+        $idUserAuth = $this->Auth->user('idu');
+        $export = new ExportForm();
+        $this->loadModel('Client');
+        $arrayClient = $this->Client->find('all')->contain(['Agence'])->toArray();
+        $clients = array();
+        $agenceClient = array();
+        foreach ($arrayClient as $client) {
+            $clients[$client->idc] = ucfirst($client->nom_client);
+            $agenceClient[$client->idc] = ucfirst($client->agence->nom_agence);
+        }
+        $this->loadModel('Users');
+        $arrayUser = $this->Users->find('all')->contain(['Origine'])->toArray();
+        $users = array();
+        foreach ($arrayUser as $user) {
+            $users[$user->idu] = $user->fullname;
+            $userOrigine[$user->idu] = $user->origine->nom_origine;
+        }
+        if ($this->request->is(['post'])) {
+            $arrayData = $this->request->getData();
+            $isValid = $export->validate($arrayData);
+            if ($isValid) {
+                $arrayData['date_debut'] = Time::parse($arrayData['date_debut']);
+                $arrayData['date_fin'] = Time::parse($arrayData['date_fin']);
+
+                // get time
+                $data=[];
+
+
+
+
+
+                $headerFix = ['Client', 'Projet', 'Type', 'Matrice', 'Profil', 'Consultant', $this->convertToIso('Activités'), 'Agence', 'Facturable', 'Origine'];
+                $_header = $headerFix;
+                $_serialize = 'data';
+                $_delimiter = ';';
+                $this->set(compact('data', '_serialize', '_delimiter', '_header'));
+                $this->viewBuilder()->className('CsvView.Csv');
+                return;
+
+            } else {
+                $this->Flash->error("Une erreur est survenu. Merci de vérifier la saisie ou de retenter ultérieurement");
+            }
+        }
+        asort($clients);
+        asort($users);
+        $this->set(compact('export'));
+        $this->set(compact('clients'));
+        $this->set(compact('users'));
+        $this->set('controller', false);
+    }
+
     public function authvsa()
     {
         $form = new AuthfitForm();
@@ -173,7 +226,7 @@ class UtilsController extends AppController
             return false;
         }
 
-        if (in_array($action, ['index', 'sendtime', 'authvsa', 'setUnactivUser', 'setActivUser']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
+        if (in_array($action, ['index', 'sendtime', 'authvsa', 'setUnactivUser', 'setActivUser', 'exportrow']) && $user['role'] >= \Cake\Core\Configure::read('role.admin') ) {
             return true;
         }
 
