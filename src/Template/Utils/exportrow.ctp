@@ -61,7 +61,7 @@
             <?php endif; ?>
             </div>
 
-            <?= $this->Form->button(__('Export local'), ['class'=>'left btn btn-info']) ?>
+            <?= $this->Form->button(__('Export local'), ['class'=>'right btn btn-info btn-topper']) ?>
 
         </fieldset>
         <?= $this->Form->end() ?>
