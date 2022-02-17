@@ -183,7 +183,7 @@ class UtilsController extends AppController
                     $data[] = $buffer;
                 }
 
-                $headerFix = ['Client', 'Projet', 'Matrice', 'Profil', 'Consultant', 'Agence', 'Detail', 'Date' 'Conso'];
+                $headerFix = ['Client', 'Projet', 'Matrice', 'Profil', 'Consultant', 'Agence', 'Detail', 'Date', 'Conso'];
                 $_header = $headerFix;
                 $_serialize = 'data';
                 $_delimiter = ';';
