@@ -1,6 +1,6 @@
 $(function() {
     xhr = null;
-    init();
+    initializa();
     if (/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
         initWeeker();
     }
@@ -20,7 +20,7 @@ function initWeeker(){
     });
 }
 
-function init(){
+function initializa(){
 
     $('.btn-loader').on('click',function(e){
         var that = this;

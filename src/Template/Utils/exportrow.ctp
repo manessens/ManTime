@@ -13,7 +13,7 @@
     <div class="col-xs-10">
         <?= $this->Form->create($export, ['url'=> ['controller' => 'Utils', 'action' => 'exportrow']]) ?>
         <fieldset>
-            <legend><?= __('Export') ?><span id="import_export" data-target="import" class="right btn btn-default">&#8633;</span></legend>
+            <legend><?= __('Export') ?></legend>
 
             <?php
                 echo $this->Form->control('date_debut', ['type' => 'text', 'label' => 'Date de début', 'class'=>'datepicker']);
@@ -69,7 +69,7 @@
 </div>
 
 <?php
-    echo $this->Html->script('ManTime/man.export.js');
     echo $this->Html->css('ManTime/man.loader.css');
+    echo $this->Html->script('ManTime/man.export.js');
     echo $this->Html->script('ManTime/man.utils.js');
 ?>
