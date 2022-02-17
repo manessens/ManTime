@@ -27,6 +27,11 @@ class UtilsController extends AppController
         $this->set('controller', false);
     }
 
+    private function convertToIso($string = '')
+    {
+        return mb_convert_encoding($string, "ISO-8859-1");
+    }
+
     public function sendtime()
     {
         $semaine = null;
