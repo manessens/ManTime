@@ -175,7 +175,7 @@ class UtilsController extends AppController
                         'projet' => $this->convertToIso($time->projet->nom_projet),
                         'matrice' => $this->convertToIso($time->matrice->nom_matrice),
                         'profil' => $this->convertToIso($time->profil->nom_profil),
-                        'user' => $this->convertToIso($time->use->fullname),
+                        'user' => $this->convertToIso($time->user->fullname),
                         'agence' => $this->convertToIso($time->projet->client->agence->nom_agence),
                         'detail' => $this->convertToIso($time->detail),
                         'date' => $this->convertToIso($time->date),
