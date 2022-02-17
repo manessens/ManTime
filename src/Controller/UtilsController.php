@@ -168,16 +168,16 @@ class UtilsController extends AppController
                 }else{
                     $times = $query->contain(['Projet'=>['Client'=>'Agence', 'Facturable'], 'Users'=>['Origine'], 'Profil', 'Matrice'])->toArray();
                 }
-                var_dump($times);
                 foreach ($times as $time) {
-                    $buffer = [
-                        'client' => $this->convertToIso($time->Client->nom_client),
-                        'projet' => $this->convertToIso($time->Projet->nom_projet),
-                        'matrice' => $this->convertToIso($time->Matrice->nom_matrice),
-                        'profil' => $this->convertToIso($time->Profil->nom_profil),
-                        'user' => $this->convertToIso($time->Client->Agence->nom_agence),
-                        'facturable' => $this->convertToIso($time->Client->Facturable->nom_fact)
-                    ];
+                    dump($time);
+                    // $buffer = [
+                    //     'client' => $this->convertToIso($time->Client->nom_client),
+                    //     'projet' => $this->convertToIso($time->Projet->nom_projet),
+                    //     'matrice' => $this->convertToIso($time->Matrice->nom_matrice),
+                    //     'profil' => $this->convertToIso($time->Profil->nom_profil),
+                    //     'user' => $this->convertToIso($time->Client->Agence->nom_agence),
+                    //     'facturable' => $this->convertToIso($time->Client->Facturable->nom_fact)
+                    // ];
                     $data[] = $buffer;
                 }
 
