@@ -131,6 +131,7 @@ class UtilsController extends AppController
 
                 $date_debut = $arrayData['date_debut'];
                 $date_fin = $arrayData['date_fin'];
+                $this->loadModel('Temps');
                 $query = $this->Temps->find('all')
                     ->where(['date >=' => $date_debut, 'date <=' => $date_fin, 'deleted =' => false])
                     ->andwhere(['OR' => $andWhere]);
