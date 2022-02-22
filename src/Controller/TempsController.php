@@ -1522,7 +1522,7 @@ class TempsController extends AppController
                 $data[$keyClient][$keyProject][$keyUser][$keyProfil][$keyActivit][$nLine][$keyDate] = array('JH' => 0, 'UO' => 0, 'CA' => 0);
             }
             $nbDays = intval($time->time);
-            if ( !array_key_exists($arrayMatrice[$time->idm], $keyProfil) ) {
+            if ( !array_key_exists( $keyProfil, $arrayMatrice[$time->idm]) ) {
                 dump($time);
                 dump($arrayMatrice[$time->idm]);
                 dump($keyProfil);
