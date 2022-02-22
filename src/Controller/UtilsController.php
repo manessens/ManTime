@@ -155,12 +155,12 @@ class UtilsController extends AppController
                 if (is_array($data_user)) {
                     if (count($data_user) > 0 ){
                         foreach ($data_user as $userId) {
-                            $queryUser[] = ['idu =' => $userId];
+                            $queryUser[] = ['Users.idu =' => $userId];
                         }
                         $query->andWhere(['OR' => $queryUser ]);
                     }
                 }elseif($data_user != null){
-                    $queryUser[] = ['idu =' => $data_user];
+                    $queryUser[] = ['Users.idu =' => $data_user];
                     $query->andWhere(['OR' => $queryUser ]);
                 }
                 if ($queryError) {
