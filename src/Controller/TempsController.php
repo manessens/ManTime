@@ -899,11 +899,11 @@ class TempsController extends AppController
 
                                 $day->n_ligne = $line;
                                 $day->validat = 1;
-                                if ($day->idp != $arrayIdp[2]) {
+                                // if ($day->idp != $arrayIdp[2]) {
                                     $projet  = $this->Projet->find('all', ['fields' => ['idm', 'prix']])->where(['idp =' => $arrayIdp[2]])->first();
                                     $day->idm = $projet->idm;
                                     $day->prix = $projet->prix;
-                                }
+                                // }
                                 $day->idp = $arrayIdp[2];
                                 $day->id_profil = $arrayIdprof[1];
                                 $day->ida = $arrayIda[1];
